@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>我的帳戶</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/upload.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		#preview img{
+			height: 100% !important;
+		}
+		.pwdMessage{
+			color:#e4393c;
+			margin-bottom: 30px;
+			display: none;
+		}
+		.input-position{
+			position: relative;
+		}
+		.input-position .pwdMessage{
+			position: absolute;
+			bottom:-20px;
+			left: 0;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+	<!-- head -->
+	<div class="headerpage"></div>
+	
+	<div class="bzy-title center-80"><span class="language-tc">我的帳戶</span></div>
+	
+	<div class="my-account center-80 my-assets flex">
+		<div class="my-account-left flex">
+			<div class="my-account-left-img">
+				<!--<img src="./images/headicon.png" alt="">-->
+				<div id="drop_area"></div>
+			</div>
+			<div class="my-account-left-des">單擊更換頭像</div>
+		</div>
+		<div class="my-account-right">
+			<div class="my-account-right-top">
+				<div class="my-account-right-tit">我的暱稱</div>
+				<div class="my-account-right-name my-account-name">----</div>
+				<div class="my-account-right-change modify-tc-pc tc-show flex" id="changeName" onclick="changeName()"><span class="language-tc">更換</span></div>
+			</div>
+			<div class="my-account-right-center flex">
+				<div class="my-account-right-center-item">
+					<div class="my-account-right-tit">電子信箱</div>
+					<div class="my-account-right-name my-account-email">----</div>
+					<!--<div class="my-account-right-change modify-tc-pc tc-show flex flex" onclick="changeEmail()">Change</div>-->
+				</div>
+				<div class="my-account-right-center-item">
+					<div class="my-account-right-tit">手机號碼</div>
+					<div class="my-account-right-name my-account-phone">----</div>
+					<!--<div class="my-account-right-change modify-tc-pc tc-show flex flex" onclick="changePhone()">Change</div>-->
+				</div>
+			</div>
+			<div class="my-account-right-bottom">
+				<a class="flex modify-tc-pc tc-show flex" href="javascript:void(0)" onclick="changePwd()"><span class="language-tc">更換密碼</span></a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- foot -->
+	<div class="footerpage2"></div>
+	
+	<!-- modify -->
+	<div class="modify none">
+		<div class="modify-container flex">
+			<div class="modify-form">
+				<div class="modify-tit flex" data-type="name"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
+				<div class="modify-ipt"></div>
+				<div class="modify-btn flex">
+					<button class="add modify-btn-active" type="button"></button>
+					<button class="cancel" type="button" onclick="cancel()">取消</button>
+					<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
+				</div>
+				<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
+			</div>
+		</div>
+	</div>
+	<div class="tips"></div>
+</body>
+<script src="./js/myaccount.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+	var dragImgUpload = new DragImgUpload("#drop_area",{
+		callback:function (files) {
+			//回调函数，可以传递给后台等等
+			var file = files[0];
+			
+			var form = new FormData();
+			form.append("file", file);
+			$.ajax({
+                type: 'POST',
+                url: '/file/upload',
+                data: form,
+                processData: false, 
+                contentType: false,  
+                success: function (res) {
+                   
+                    if(res.code == '0'){
+                    	var head_pic = res.data[0];
+                    	update_info(head_pic);
+                    }
+                }
+            })
+			
+			
+			
+			function update_info(headIcon)
+			{
+				if(headIcon != ''){
+					$.ajax({
+						type:"POST",
+						url:"/user/update",
+						contentType: 'application/json',
+						dataType: 'json',
+						data:JSON.stringify({
+							headIcon:headIcon
+						}),
+						success:function(res){
+							window.location.reload()
+						}
+					})
+				}
+			}
+			
+//			$.ajax({
+//				type:"post",
+//				url:"/file/upload",
+////				contentType: 'multipart/form-data',
+//				dataType: 'json',
+//				success:function(res){
+//					console.log(res)
+//				},
+//				error:function(err){
+//				}
+//			
+//			});
+		}
+	})
+</script>
+
+</html>

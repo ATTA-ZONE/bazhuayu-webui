@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>註冊</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<style>
+		.regType{
+			display: none;
+		}
+		.sign-check a{
+			color: #bcbcbc;
+		}
+		.sign-check input{
+			margin-right: 5px;
+		}
+		#agree{
+			width: 15px;
+			height: 15px;
+			background-color: #323232;
+			border: 1px solid #e9e9e9;
+			border-radius: 2px;
+			color: #323232;
+			text-align: center;
+			line-height: 14px;
+			-webkit-appearance: none;
+			appearance: none;
+			outline: none;
+		}
+		#agree[type="checkbox"]:hover{border: 1px solid #9567FF;}
+		#agree:checked{
+			color: #fff;
+			background-color: #9567FF;
+			border: 1px solid #9567FF;
+		}
+		#agree:after{
+			content:"\2713";
+		}
+	</style>
+	
+<!-- 	<script>
+		$(function(){
+			var xieyi = $("#agree").is(':checked');
+			console.log(xieyi)
+			$("#agree").click(function(){
+				if($("#agree").is(':checked')) {
+					console.log("1");
+				} else {
+				　　console.log("0");
+				}
+			 })
+		})
+	</script> -->
+	
+</head>
+<body>
+	<div class="sign flex">
+		<div class="sign-container flex">
+			<div class="sign-form">
+				<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
+				<div class="sign-tit">註冊</div>
+				<div class="sign-tip">開始收集明星NFT數字藏品。</div>
+				<div class="sign-input">
+					<p><input id="nickname" type="text" placeholder="您的暱稱（向公眾展示）" /></p>
+					<p>
+						<input id="email" type="text" placeholder="電子信箱地址" />
+						<span class="sign-check-tip"></span>
+					</p>
+					<p><input id="pwd" type="password" placeholder="密碼" /></p>
+					<p class="regType"><input id="regType" type="text" name="regType" placeholder="邀請碼"/></p>
+				</div>
+				<div class="sign-btn flex">
+					<p class="sign-btn-register"><button type="button" data-click="0">登記</button></p>
+				<!-- 	<p class="sign-btn-or">OR</p> 
+					<p class="sign-btn-facebook"><button type="button">Continue with Facebook</button></p>
+					<p class="sign-btn-google"><button type="button">Continue with Google</button></p> -->
+				</div>
+				<div class="sign-login sign-check">
+					<input type="checkbox" name="checkbox" id="agree">我已閱讀並同意<a href="agreement.html">《用戶協議》</a>及<a href="privacy.html">《 隱私政策》</a>
+				</div>
+				<div class="sign-login">您有賬戶？<a href="login.html">登 入</a></div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="tips"></div>
+	
+</body>
+<script src="./js/signup.js" type="text/javascript" charset="utf-8"></script>
+</html>

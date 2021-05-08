@@ -1,0 +1,457 @@
+
+.bid{
+	margin-top:80px;
+	justify-content: space-between;
+	margin-bottom:40px;
+}
+.bid-left{
+	width:51%;
+	position:relative;
+}
+.bid-left img{
+	width:100%;
+	position:relative;
+	z-index:3;
+}
+.bid-left video{
+	width:100%;
+	position:relative;
+	z-index:3;
+}
+.bid-left .mohu{
+	position:absolute;
+	left:0;
+	top:0;
+	opacity:0.7;
+	filter:blur(70px);
+	z-index:2;
+}
+.bid-right{
+	width:40%;
+}
+.bid-right-tit{
+	font-family: Aeonik TRIAL;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 40px;
+	line-height: 120%;
+	color:#fff;
+	margin-bottom:40px;
+}
+.bid-right-edition{
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 150%;
+	color: rgba(255, 255, 255, 0.7);
+	margin-bottom:40px;
+}
+.bid-right-des{
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 150%;
+	color:#fff;
+	opacity:0.4;
+	margin-bottom:30px;
+}
+.bid-right-des span{
+	display:block;
+	margin-bottom:20px;
+}
+.bid-right-status{
+	border-top:1px solid rgba(255,255,255,0.15);
+	border-bottom:1px solid rgba(255,255,255,0.15);
+	padding:24px 0;
+	margin-bottom:20px;
+}
+.bid-right-status div{
+	align-items:center;
+	justify-content:space-between;
+}
+.bid-right-status div span{
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 150%;
+	color:#fff;
+}
+.bid-right-status-current{
+	margin-bottom:24px;
+}
+.bid-right-status div span:last-child{
+	font-size:18px;
+	font-weight:bold;
+}
+.bid-right-tip{
+	font-family: Inter;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 150%;
+	color:#fff;
+	padding-bottom:20px;
+}
+.bid-right-btn{
+	justify-content: space-between;
+}
+.bid-right-btn span{
+	width:65%;
+	border: 1px solid #606060;
+	box-sizing: border-box;
+	border-radius: 2px;
+	align-items:center;
+	justify-content:center;
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 22px;
+	color:rgba(255,255,255,0.8);
+	height:48px;
+	padding:0 10px;
+	cursor: pointer;
+}
+.bid-right-btn span input{
+	background:none;
+	width:100%;
+	border:0;
+	height:100%;
+	transition:all 0.3s;
+}
+.bid-right-btn span label{
+	color:rgba(255,255,255,0.6);
+	flex-shrink:0;
+	margin-right:10px;
+}
+.bid-right-btn button{
+	width:30%;
+	height:48px;
+	background: #9567FF;
+	border-radius: 2px;
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 22px;
+	color:#fff;
+	border:0;
+}
+
+.bids-list{
+	min-height:700px;
+	margin-bottom:50px;
+}
+.bids-list-tit{
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 150%;
+	color: rgba(255, 255, 255, 0.9);
+	border-bottom:1px solid rgba(255,255,255,0.15);
+	padding-bottom:15px;
+}
+.bids-list ul li{
+	justify-content:space-between;
+	align-items:center;
+	padding:24px 0;
+	border-bottom:1px solid rgba(255,255,255,0.15);
+	transition:all 0.3s;
+}
+.bids-list-person{
+	align-items:center;
+	width:40%;
+}
+.bids-list-person-head{
+	width:48px;
+	height:48px;
+	overflow:hidden;
+	border-radius:50%;
+}
+.bids-list-person-head img{
+	width:100%;
+	height:100%;
+}
+.bids-list-person-name{
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 22px;
+	color:#fff;
+	word-break: break-all;
+	/* margin-left:20px; */
+}
+
+.bids-list-time{
+	width:20%;
+	/* text-align:center; */
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 150%;
+	color:#fff;
+	opacity:0.4;
+}
+.bids-list-busd{
+	width:15%;
+	text-align:right;
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 22px;
+	color:#fff;
+}
+.bids-list ul li:hover{
+	background:#282828;
+}
+
+.bids-list-pagination{
+	width:222px;
+	margin:auto;
+	height:60px;
+	background:url(../images/pagination2.png) no-repeat;
+	background-size:cover;
+	overflow:hidden;
+	margin-top:50px;
+}
+.bids-list-pagination-prev{
+	width:60px;
+	align-items:center;
+	justify-content:center;
+	cursor: pointer;
+}
+.bids-list-pagination-prev img{
+	width:15.97px;
+}
+.bids-list-pagination-page{
+	width:102px;
+	align-items:center;
+	justify-content:center;
+}
+.bids-list-pagination-page a{
+	font-family: Poppins;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 18px;
+	color: rgba(255, 255, 255, 0.2);
+	transition: all 0.3s;
+	padding:2px 4px;
+}
+.bids-list-pagination-page .active{
+	color: rgba(255, 255, 255,1);
+}
+.bids-list-pagination-page a:hover{
+	color: rgba(255, 255, 255,1);
+}
+.bids-list-pagination-next{
+	width:60px;
+	align-items:center;
+	justify-content:center;
+	cursor: pointer;
+}
+.bids-list-pagination-next img{
+	width:15.97px;
+}
+
+.bid-container{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	background:url(../images/Rectangle323.png) no-repeat;
+	background-size:cover;
+	align-items:center;
+	justify-content:center;
+}
+.bid-payment{
+	width:1313px;
+	background: #323232;
+	border-radius: 4px;
+	padding:64px 0;
+	position:relative;
+}
+.bid-payment-con{
+	width:1090px;
+	margin:auto;
+	justify-content:space-between;
+}
+.bid-payment-left{
+	width:537px;
+}
+.bid-payment-right{
+	width:426px;
+}
+.bid-payment-tit{
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 120%;
+	color:#fff;
+	margin-bottom:16px;
+}
+.bid-payment-edition{
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 150%;
+	color: rgba(255, 255, 255, 0.7);
+	margin-bottom:10px;
+}
+.bid-payment-img{
+	position:relative;
+}
+.bid-payment-img img{
+	width:100%;
+	position:relative;
+	z-index:3;
+}
+.bid-payment-img video{
+	width:100%;
+	position:relative;
+	z-index:3;
+}
+.bid-payment-img .mohu{
+	position:absolute;
+	left:0;
+	top:0;
+	opacity:0.7;
+	filter:blur(70px);
+	z-index:2;
+}
+.bid-payment-close{
+	width:32px;
+	height:32px;
+	position:absolute;
+	top:20px;
+	right:20px;
+}
+.bid-payment-close img{
+	width:100%;
+	transition:all 0.3s;
+}
+.bid-payment-close:hover img{
+	transform:rotate(90deg);
+}
+.bid-payment-right-tit{
+	margin-bottom:32px;
+	padding-bottom:32px;
+	border-bottom:1px solid rgba(255,255,255,0.15);
+	font-family: Aeonik TRIAL;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 48px;
+	line-height: 110%;
+	color:#fff;
+}
+.bid-payment-right-tip{
+	margin-bottom:32px;
+	padding-bottom:32px;
+	border-bottom:1px solid rgba(255,255,255,0.15);
+	font-family: Inter;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 150%;
+	color:#fff;
+}
+.bid-payment-right-info{
+	margin-bottom:32px;
+	padding-bottom:32px;
+	border-bottom:1px solid rgba(255,255,255,0.15);
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 150%;
+	color:#fff;
+}
+.bid-payment-right-info .info-tit{
+	font-size: 18px;
+	opacity:0.7;
+	margin-bottom:32px;
+}
+.bid-payment-right-info .info-busd{
+	font-size: 24px;
+	font-weight: 600;
+}
+.bid-payment-right-info .info-your-busd{
+	font-size: 20px;
+	margin-top:32px;
+}
+.bid-payment-right-address{
+	margin-bottom:16px;
+	padding-bottom:32px;
+	border-bottom:1px solid rgba(255,255,255,0.15);
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	line-height:22px;
+	color:#fff;
+}
+.bid-payment-right-address .address-tit{
+	font-size: 18px;
+	opacity:0.7;
+	margin-bottom:16px;
+}
+.bid-payment-right-address .address-info{
+	font-size: 14px;
+	opacity:0.4;
+}
+.bid-payment-right-address .no-connect-wallet{
+	font-size: 14px;
+}
+.bid-payment-right-address .no-connect-wallet a{
+	color: #FF0000;
+	margin-left:30px;
+}
+.bid-payment-right-address .no-connect-wallet a:hover{
+	text-decoration:underline;
+}
+.bid-payment-right-btn{
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 150%;
+	color: #FFFFFF;
+}
+.bid-payment-right-btn .btn-tip{
+	opacity:0.7;
+	margin-bottom:16px;
+}
+.bid-payment-right-btn button{
+	width:100%;
+	background:#9567FF;
+	border-radius: 2px;
+	border:0;
+	font-weight: 600;
+	font-size: 14px;
+	height:48px;
+}
+.bid-payment-right-btn .grey{
+	background: rgba(255, 255, 255, 0.3);
+	color:#000;
+}
+
+.hsycms-model.auction-model{
+	width:350px;
+	background:#323232;
+}
+.auction-model .hscysm-model-title{
+	color:#fff;
+	font-size:18px;
+	margin-bottom:10px;
+}
+.auction-model .hsycms-model-btn button:last-child{
+	color:#9567FF;
+	padding:20px 12px;
+}

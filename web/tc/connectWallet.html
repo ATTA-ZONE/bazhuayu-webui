@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>連接錢包</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	
+	<!-- connect wallet -->
+	<div class="tc connect">
+		<div class="tc-container flex">
+			<div class="tc-login flex">
+				<div class="tc-close" onclick="tcHide()"><img src="./images/Close.png" ></div>
+				<div class="tc-login-left flex"><img src="./images/Artwork2.png" ></div>
+				<div class="tc-login-right flex">
+					<div class="tc-login-right-form">
+						<div class="form-tit flex"><span class="language-tc">連接錢包</span><img class="none" src="./images/Close.png" onclick="tcHide()"></div>
+						<div class="connect-wallet-des">
+							<p>接錢包提供商或創建一個新的錢包。</p>
+							<a href="https://bazhuayuhelp.zendesk.com/hc/zh-hk/articles/900006920823" target="_blank">如何註冊幣安智能鏈錢包？</a>
+						</div>
+						<div class="connect-wallet-btn flex">
+							<a href="javascript:void(0);" class="flex metamask"><img src="./images/Metamask.png" ><span type="button">Metamask</span></a>
+							<!-- <a href="" class="flex"><img src="./images/WalletConnect.png" ><span type="button">WalletConnect</span></a> -->
+						</div>
+						<div class="connect-wallet-tip">我們沒有您的私鑰，未經您的確認也無法訪問您的資金。</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="tc-mask"></div>
+	
+	<div class="tips"></div>
+	
+</body>
+<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>我的藏品</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<!-- head -->
+	<div class="headerpage"></div>
+	
+	<div class="bzy-title center-80"><span class="language-tc">我的藏品</span></div>
+	
+	<div class="my-assets center-80">
+		<ul>
+			<!-- <li class="flex">
+				<div class="my-assets-left"><img src="./images/zu2.png" ></div>
+				<div class="my-assets-right">
+					<div class="my-assets-right-tit">004_Cryptogod_#03</div>
+					<div class="my-assets-right-creator flex">
+						<div class="my-assets-right-creator-img"><img src="./images/t8.png" ></div>
+						<span>@Vova Zhuruk</span>
+						<div class="my-assets-right-creator-edition">Edition 1 of 10</div>
+					</div>
+					<div class="details-right-des">
+						<div class="details-right-des-top">
+							<p>character: VR-Punk</p>
+							<p>state: oversaturation</p>
+						</div>
+						<div class="details-right-des-bom">Cryptogods is a new collection of my work in which I reflect on the new world in which we live. A world fully embraced by digital reality.</div>
+					</div>
+					<div class="details-right-additional">Additional Infomation +</div>
+					<div class="my-assets-right-price">
+						<p>Purchased Price:</p>
+						<div class="flex"><span>$409.32 HKD</span><span>0.17 ETH</span></div>
+					</div>
+					<div class="my-assets-right-btn flex">
+						<a class="flex claim" href="">Claim to Mint NFT</a>
+						<a class="flex download" href="">Download Original Copy</a>
+					</div>
+				</div>
+			</li> -->
+			
+		</ul>
+		<div class="bzy-e-more none">
+			<div class="flex assets-list-load">
+				<span class="language-tc">加载更多</span>
+				<img src="./images/next.png" >
+				<img class="none" src="./images/xiala2.png" >
+			</div>
+		</div>
+	</div>
+	
+	<!-- nft 钱包已连接-->
+	<div class="hsycms-model-mask" onclick="hsycms.closeAll()" id="mask-model1"></div>
+	<div class="hsycms-model hsycms-model-model ntf" id="model1">
+		<div class="ntf-close" onclick="hsycms.closeAll()"><img src="./images/Close.png" ></div>
+		<div class="hscysm-model-title nth-tit">感謝</div>
+		<div class="hsycms-model-content nth-con">
+			<div class="nth-con-tip">我們已收到您的提取申請，正在鑄造中！</div>
+		</div>
+		<div class="nth-btn"><button type="button" onclick="getNft()">確認</button></div>
+	</div>
+	<!-- ntf 钱包未连接 -->
+	<div class="hsycms-model-mask" onclick="hsycms.closeAll()" id="mask-model2"></div>
+	<div class="hsycms-model hsycms-model-model ntf" id="model2">
+		<div class="ntf-close" onclick="hsycms.closeAll()"><img src="./images/Close.png" ></div>
+		<div class="hscysm-model-title nth-tit">您需要連接錢包</div>
+		<div class="hsycms-model-content nth-con">
+			<div class="nth-con-tip">為了接收您的NFT,您需要先連接錢包。</div>
+			<div class="nth-con-tip" style="color: #9567FF;">如果您不熟悉加密貨幣錢包,請單擊此處</div>
+		</div>
+		<div class="nth-btn"><button type="button" onclick="nftConnect()">立即連接</button></div>
+	</div>
+	<!-- foot -->
+	<div class="footerpage2"></div>
+	
+	<div class="tips"></div>
+	
+</body>
+<script src="./js/myassets.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+</html>

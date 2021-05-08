@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>我的錢包</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap-datetimepicker.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="./js/bootstrap-datetimepicker.fr.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	
+</head>
+<body>
+	<!-- head -->
+	<div class="headerpage"></div>
+	
+	<div class="bzy-title center-80"><span class="language-tc">我的錢包</span></div>
+	
+	<div class="my-wallet center-80 my-assets">
+		<ul class="flex">
+			<li>
+				<div class="my-wallet-tit flex">
+					<img src="./images/Wallet.png" alt="">
+					<span class="language-tc">我的餘額</span>
+				</div>
+				<div class="my-wallet-number usdt-rest">0 BUSD</div>
+				<div class="my-wallet-btn flex">
+					<a class="flex add modify-tc-pc tc-show" href="javascript:void(0);" onclick="addFund()"><span class="language-tc">充值</span></a>
+					<a class="flex withdraw modify-tc-pc tc-show" href="javascript:void(0);" onclick="widthDraw()"><span class="language-tc">提款</span></a>
+				</div>
+			</li>
+			
+			<li>
+				<div class="my-wallet-tit flex">
+					<img src="./images/Card.png" alt="">
+					<span class="language-tc">信用卡</span>
+				</div>
+				<div class="my-wallet-number">---</div>
+				<div class="my-wallet-btn flex">
+					<a class="flex change modify-tc-pc tc-show"href="javascript:void(0);" onclick="changeCard()"><span class="language-tc">更換</span></a>
+					<a class="flex delete modify-tc-pc tc-show"href="javascript:void(0);" onclick="deleteCard()"><span class="language-tc">刪除</span></a>
+				</div>
+			</li>
+			
+			<li>
+				<div class="my-wallet-tit my-wallet-metamask flex">
+					<img src="./images/Metamask.png" alt="">
+					<span>Metamask</span>
+				</div>
+				<div class="my-wallet-number wallet-address">---</div>
+				<div class="my-wallet-btn flex">
+					<a class="flex change "href="javascript:void(0);"><span class="language-tc">更換</span></a>
+					<a class="flex delete modify-tc-pc tc-show"href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">刪除</span></a>
+				</div>
+			</li>
+			
+			<!-- <li>
+				<div class="my-wallet-tit flex">
+					<img src="./images/Plus.png" alt="">
+					<span>Connect Your Wallet</span>
+				</div>
+				<div class="my-wallet-tip">
+					<p>Connect with one of the available wallet providers or create a new wallet.</p>
+					<a href="">What is a Wallet?</a>
+				</div>
+				<div class="my-wallet-connect flex">
+					<a class="flex" href="">
+						<img src="./images/WalletConnect.png" >
+						<span>WalletConnect</span>
+					</a>
+				</div>
+			</li> -->
+		</ul>
+	</div>
+	
+	<!-- foot -->
+	<div class="footerpage2"></div>
+	
+	<!-- modify -->
+	<div class="modify none">
+		<div class="modify-container flex">
+			<div class="modify-form">
+				<div class="modify-tit flex" data-type="add"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
+				<div class="modify-ipt"></div>
+				<div class="modify-btn flex">
+					<button class="add modify-btn-active " type="button"></button>
+					<button class="cancel" type="button" onclick="cancel()">取消</button>
+					<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
+				</div>
+				<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="tips"></div>
+	
+</body>
+<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/mywallet.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+</script>
+</html>
