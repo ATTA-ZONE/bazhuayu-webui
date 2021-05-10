@@ -194,7 +194,7 @@ $(function(){
 				$('.mobile-login').show();
 				// $('.header-right-yidl').hide();
 				// $('.header-right-login').show();
-				html += `<a class="header-right-login flex" href="login.html">登入</a>`;
+				html += `<a class="header-right-login flex" href="login.html">登入/註冊</a>`;
 				
 				// $('.menu-list-con-meail').hide();
 				// $('.mobile-ydl').hide();
