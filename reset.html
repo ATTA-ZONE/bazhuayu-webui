@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>設置密碼</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<style>
+		.sign-input p label{
+			width: 100%;
+			margin-bottom: 15px;
+		    color: #f5f5f5;
+		    font-size: 16px;
+		    font-weight: normal;
+		}
+	</style>
+	
+<!-- 	<script>
+		$(function(){
+			var xieyi = $("#agree").is(':checked');
+			console.log(xieyi)
+			$("#agree").click(function(){
+				if($("#agree").is(':checked')) {
+					console.log("1");
+				} else {
+				　　console.log("0");
+				}
+			 })
+		})
+	</script> -->
+	
+</head>
+<body>
+	<div class="sign flex">
+		<div class="sign-container flex">
+			<div class="sign-form">
+				<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
+				<div class="sign-tit">設置密碼</div>
+				<div class="sign-tip"></div>
+				<div class="sign-input">
+					<p>
+						<label for="pwd">輸入新密碼</label>
+						<input id="pwd" type="password" placeholder="輸入新密碼" />
+					</p>
+					<p>
+						<label for="newPwd">重複新密碼</label>
+						<input id="newPwd" type="password" placeholder="重複新密碼" />
+					</p>
+				</div>
+				<div class="sign-btn flex">
+					<p class="sign-btn-register"><button type="button" data-click="0">確認</button></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="tips"></div>
+	
+</body>
+<!-- <script src="./js/signup.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="./js/reset.js" type="text/javascript" charset="utf-8"></script>
+</html>

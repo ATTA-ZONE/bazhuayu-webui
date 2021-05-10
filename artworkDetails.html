@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>明星藏品詳情</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap-datetimepicker.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		.pre-mask{
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 999;
+		}
+	</style>
+</head>
+<body>
+	<!-- head -->
+	<header class="header center-85 flex header-fixed">
+		<div class="header-left flex">
+			<a class="header-left-logo" href="index.html"><img src="images/Brand.png" ></a>
+			<ul class="nav-header flex">
+				<li><a class="language-tc" href="index.html">首頁</a></li>
+				<li class="current"><a class="language-tc" href="artwork.html">明星藏品</a></li>
+				<!--<li><a>Creator</a></li>-->
+				<li><a class="language-tc" href="auction.html">拍賣</a></li>
+			</ul>
+		</div>
+		<div class="header-right flex">
+			<div class="header-dl flex"></div>
+			<a class="header-right-wallet" href="javascript:void(0);" onclick="connectWallet()">連接錢包</a>
+			<!-- <div class="header-right-lan flex"><a href="/mobile/en/index.html">EN</a><span></span><a href="/mobile/tc/index.html">繁</a></div> -->
+		</div>
+		<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png" ></div>
+		<div class="mobile-menu none" onclick="menuShow()"><img src="./images/menu.png" ></div>
+	</header>
+	
+	<div class="menu-list menu-list1 none">
+		<div class="menu-list-con">
+			<div class="menu-list-con-tit flex">
+				<img class="logo" src="./images/Brand.png" >
+				<img class="menu-close" src="./images/Close.png" onclick="menuHide()" >
+			</div>
+			<!-- <div class="menu-list-con-meail none"></div> -->
+			<ul>
+				<li><a class="language-tc" href="index.html">首頁</a></li>
+				<li><a class="language-tc" href="artwork.html">明星藏品</a></li>
+				<li><a class="language-tc" href="auction.html">拍賣</a></li>
+				<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a></li>
+			</ul>
+			<!-- <div class="menu-list-con-tit-lan flex">
+				<a href="/mobile/en/index.html">EN</a>
+				<span></span>
+				<a href="/mobile/tc/index.html">繁</a>
+			</div> -->
+			<div class="menu-list-con-tit-btn mobile-login"><a class="flex" href="login.html">登入</a></div>
+			<!-- <div class="menu-list-con-tit-btn mobile-logout none" onclick="confirm()"><a class="flex" href="javascript:void(0);">Logout</a></div> -->
+		</div>
+	</div>
+	
+	<div class="menu-list menu-list2 none">
+		<div class="menu-list-con">
+			<div class="menu-list-con-tit flex">
+				<img class="logo" src="./images/Brand.png" >
+				<img class="menu-close" src="./images/Close.png" onclick="headIconHide()" >
+			</div>
+			<div class="menu-list-con-meail"></div>
+			<ul>
+				<li><a class="language-tc" href="myaccount.html">我的帳戶</a></li>
+				<li><a class="language-tc" href="myorders.html">我的訂單</a></li>
+				<li><a class="language-tc" href="myassets.html">我的藏品</a></li>
+				<li><a class="language-tc" href="mywallet.html">我的錢包</a></li>
+			</ul>
+			<div class="menu-list-con-tit-btn mobile-logout" onclick="confirm()"><a class="flex" href="javascript:void(0);"><span class="language-tc">登出</span></a></div>
+		</div>
+	</div>
+	
+	<div class="details center-80 flex">
+		<div class="details-left order-img"><img src=""></div>
+		<div class="details-right">
+			<div class="details-right-tit order-title">----</div>
+			<div class="details-right-price flex"><span class="cur order-price-hdk">HK$0 港元</span><span class="order-price-busd">0 BUSD</span></div>
+			<div class="details-right-btn flex payment-btn-pc" data-status="0">立即購買  -></div>
+			<div class="details-right-time flex"><span>銷售結束於：</span><span class="details-right-time-djs">01 : 05 : 32</span></div>
+			<div class="details-right-creator flex">
+				<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
+				<span>@ATTA</span>
+				<div class="details-right-creator-edition">第1版，共150版</div>
+			</div>
+			<div class="details-right-des order-introduce">
+				<!-- <div class="details-right-des-top">
+					<p>character: VR-Punk</p>
+					<p>state: oversaturation</p>
+				</div>
+				<div class="details-right-des-bom">Cryptogods is a new collection of my work in which I reflect on the new world in which we live. A world fully embraced by digital reality.</div> -->
+			</div>
+			<div class="details-right-additional">
+				<p class="details-right-additional-show" data-status="0">更多信息 <span>+</span></p>
+				<p class="details-right-additional-more none order-content"></p>
+			</div>
+			
+		</div>
+	</div>
+	
+	<!-- payment -->
+	<div class="payment none">
+		<div class="payment-container flex">
+			<div class="payment-page flex">
+				<div class="payment-page-close payment-close-pc"><img src="./images/Close.png" ></div>
+				<div class="payment-page-top none flex">
+					<div class="payment-page-right-tit">支付</div>
+					<div class="payment-close-mobile"><img src="./images/Close.png" ></div>
+				</div>
+				<div class="payment-page-left">
+					<div class="payment-page-left-tit order-title">----</div>
+					<div class="payment-page-left-creator flex">
+						<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
+						<span>@ATTA</span>
+						<div class="details-right-creator-edition">第1版，共150版</div>
+					</div>
+					<div class="payment-page-left-img order-img"><img src="" ></div>
+				</div>
+				
+				<div class="payment-page-right">
+					<div class="payment-page-right-tit">支付</div>
+					<div class="payment-page-left-tit none payment-page-left-tit-mobile order-title">----</div>
+					<div class="payment-page-left-creator none payment-page-left-creator-mobile flex">
+						<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
+						<span>@ATTA</span>
+						<div class="details-right-creator-edition">第1版，共150版</div>
+					</div>
+					 
+					<div class="payment-page-right-order none">
+						<p class="order-number">Order #：<span>----</span></p>
+						<p class="payment-page-right-order-tit">您的付款金額為</p>
+						<p class="payment-page-right-order-je"><span>----</span></p>
+						<p class="payment-page-right-order-by"><span>信用卡支付</span></p>
+						<p class="payment-page-right-order-card none">----</p>
+					</div>
+					
+					<div class="payment-page-right-pay flex"><span class="cur" data-type="0">信用卡</span><span data-type="1">加密貨幣</span></div>
+					<div class="payment-page-right-total">
+						<p>這是待付款，您的付款金額為：</p>
+						<p class="order-price"><span class="order-price-hdk">HK$0 港元</span><span class="order-price-busd none">0 BUSD</span></p>
+					</div>
+					
+					<div class="payment-page-right-select">
+						<p class="flex">
+							<input class="card-number" type="text" placeholder="卡號" />
+							<input class="date" type="text" placeholder="MM/YYYY" id="datetimepicker2" />
+							<input class="cvc" type="text" placeholder="CVC" />
+						</p>
+						<p class="flex"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
+					</div>
+					
+					<div class="payment-page-right-busd none">
+						<div class="payment-page-right-busd-tit">正在使用</div>
+						<div class="payment-page-right-busd-con">
+							<span class="busd-balance">餘額</span>
+							<span class="busd-ye">0 BUSD</span>
+							<span class="busd-tip none">0</span>
+						</div>
+					</div>
+					<div class="payment-page-right-btn">
+						<button type="button">立即付款  -></button>
+						<!-- <p>您的信用卡將立即授權這筆支付。</p> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="pre-mask none"></div>
+	
+	<!-- 播放视频 -->
+	<div class="video-mask none"></div>
+	<div class="video-model none" onclick="closeVideo()">
+		<div class="video-model-container flex">
+			<div>
+				<img onclick="closeVideo()" class="video-close" src="./images/Close.png" >
+				<video autoplay="autoplay" loop="loop" src="" controls="controls"></video>
+			</div>
+		</div>
+	</div>
+	
+	<!-- foot -->
+	<div class="footerpage2"></div>
+	
+	<div class="tips"></div>
+	
+</body>
+<script src="./js/artworkDetail.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$('#datetimepicker2').datetimepicker({
+		format: 'mm/yyyy',
+		minView: 3,
+		autoclose: true,
+		language:'en'
+	});
+</script>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>登入</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<!-- log in -->
+	<div class="tc login">
+		<div class="tc-container flex">
+			<div class="tc-login flex">
+				<div class="tc-close" onclick="tcHide()"><img src="./images/Close.png" ></div>
+				<div class="tc-login-left flex"><img src="./images/Artwork.png" ></div>
+				<div class="tc-login-right flex">
+					<div class="tc-login-right-form">
+						<div class="form-tit flex"><span class="language-tc">登入</span><img class="none" src="./images/Close.png" onclick="tcHide()"></div>
+						<div class="form-ipt">
+							<div class="form-ipt-email flex"><img src="./images/Email.png" ><input id="email" type="text" placeholder="電子信箱地址" /></div>
+							<div class="form-ipt-pwd flex"><img src="./images/Key.png" ><input id="pwd" type="password" placeholder="密碼" /></div>
+						</div>
+						<div class="form-btn flex">
+							<a href="javascript:void(0);" class="form-btn-signin flex"><span type="button">登入</span></a>
+							<!--<a href="" class="form-btn-google flex"><img src="./images/Google.png" ><span type="button">Continue with Google</span></a>
+							<a href="" class="form-btn-facebook flex"><img src="./images/Facebook.png" ><span type="button">Continue with Facebook</span></a>-->
+						</div>
+						<div class="form-tip">
+							<div class="form-tip-forget"><a href="forgotPassword.html" style="color: rgba(255,255,255,0.7);">忘記密碼？</a></div>
+							<div class="form-tip-account flex"><span>還沒有帳號？</span><a href="signup.html">註冊新賬號</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="tc-mask"></div>
+	
+	<div class="tips"></div>
+	
+</body>
+<script src="./js/login.js" type="text/javascript" charset="utf-8"></script>
+</html>
