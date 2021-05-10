@@ -141,10 +141,10 @@ $(function(){
 				}
 				// $('.order-img img').attr('src',res.data.primaryPic);
 				$('.order-title').text(res.data.name);
-				$('.order-price-hdk').text('HK$'+res.data.hkdPrice+' 港元');
-				$('.order-price-busd').text(res.data.price+' BUSD');
+				$('.order-price-hdk').text('HK$ '+moneyFormat(res.data.hkdPrice)+' 港元');
+				$('.order-price-busd').text(moneyFormat(res.data.price)+' BUSD');
 				
-				if(res.data.name=='徐冬冬 牛N.X潮玩 限量版'){
+				if(res.data.name=='徐冬冬 牛N.X潮玩 NFT限量版'){
 					res.data.edition = 200;
 				}
 				
@@ -276,6 +276,8 @@ $(function(){
 					success:function(res){
 						if(res.code==0){
 							orderTakeMobile();
+							$('video').addClass('video-hidden');
+							$('.payment-page-left-img video').removeClass('video-hidden')
 							// $('.payment').addClass('payment-active')
 						}else{
 							tips('未登錄，請登入');
@@ -289,7 +291,8 @@ $(function(){
 		});
 		
 		$('.payment-close-mobile').on('click',function(){
-			$('.payment').removeClass('payment-active')
+			$('.payment').removeClass('payment-active');
+			$('video').removeClass('video-hidden');
 		})
 	};
 	

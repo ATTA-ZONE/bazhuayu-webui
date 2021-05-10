@@ -250,11 +250,11 @@ $('#pay_now').click(function(){
 		var self_address = $('.address-info').text().trim();   // 自己地址
 		
 		//余额
-		contract_sq.methods.balanceOf(self_address).call()
-		.then(function(res){
+		// contract_sq.methods.balanceOf(self_address).call()
+		// .then(function(res){
 			// console.log(res)
 			// console.log(price)
-			if(Number(price) <= Number(res)){
+			// if(Number(price) <= Number(res)){
 				
 				//是否授权
 				contract_sq.methods.allowance(self_address,address).call()
@@ -269,8 +269,8 @@ $('#pay_now').click(function(){
 							//发起者 对tokenId 下注 price
 							contract.methods.bidToken(tokenTypeId,price).send({from:self_address})
 							.then(function(res){
-								console.log(res);
-								
+								// console.log(res);
+								var price = getWeb3().utils.fromWei(res.events.Bid.returnValues.price,'ether');
 								loadingHide();
 								success('競價成功',1800);
 								setTimeout(function(){
@@ -279,7 +279,7 @@ $('#pay_now').click(function(){
 									$('.bid-payment-right-tip').text('您的競標成功。');
 									$('.info-tit').text('訂單號：');
 									$('.info-your-busd').hide();
-									$('.info-busd').text('您的競標價格為 $BUSD '+res.events.Bid.returnValues.price);
+									$('.info-busd').text('您的競標價格為 BUSD '+price);
 									$('.address-tit').text('付費地址：');
 									$('.bid-payment-right-btn button').hide();
 								},1800)
@@ -291,8 +291,8 @@ $('#pay_now').click(function(){
 						loading();
 						contract.methods.bidToken(tokenTypeId,price).send({from:self_address})
 						.then(function(res){
-							console.log(res);
-							
+							// console.log(res);
+							var price = getWeb3().utils.fromWei(res.events.Bid.returnValues.price,'ether');
 							loadingHide();
 							success('競價成功',1800);
 							setTimeout(function(){
@@ -301,7 +301,7 @@ $('#pay_now').click(function(){
 								$('.bid-payment-right-tip').text('您的競標成功。');
 								$('.info-tit').text('訂單號：');
 								$('.info-your-busd').hide();
-								$('.info-busd').text('您的競標價格為 $BUSD '+res.events.Bid.returnValues.price);
+								$('.info-busd').text('您的競標價格為 BUSD '+price);
 								$('.address-tit').text('付費地址：');
 								$('.bid-payment-right-btn button').hide();
 							},1800)
@@ -310,11 +310,11 @@ $('#pay_now').click(function(){
 					
 				});
 				
-			}else{
-				tips('餘額不足');
-			}
+			// }else{
+			// 	tips('餘額不足');
+			// }
 			
-		});
+		// });
 		
 	}
 	

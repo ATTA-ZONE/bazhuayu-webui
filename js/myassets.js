@@ -63,7 +63,7 @@ function getAssetsList(current,pageSize){
 								</div>
 								<div class="my-assets-right-price">
 									<p>購買價格：</p>
-									<div class="flex"><span>HK$`+v.payPriceHkd+` 港元</span><span>`+v.payPriceUsdt+` BUSD</span></div>
+									<div class="flex"><span>HK$ `+moneyFormat(v.payPriceHkd)+` 港元</span><span>`+moneyFormat(v.payPriceUsdt)+` BUSD</span></div>
 									<div class="flex my-assets-right-download"><a class="flex download" target="_blank" href="`+v.attachment+`">下載原始文件副本</a></div>
 								</div>
 								<div class="my-assets-right-btn flex">`;

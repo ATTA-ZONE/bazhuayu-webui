@@ -103,7 +103,9 @@ DragImgUpload.prototype = {
             //设置文件name
             fileInput.name = 'ime-images';
             //允许上传多个文件
-            fileInput.multiple = true;
+            fileInput.multiple = true;
+			//限制文件格式
+			fileInput.accept = 'image/gif,image/jpeg,image/jpg,image/png';
             fileInput.onchange  = this.onChangeUploadFile.bind(this);
             this.fileInput = fileInput;
         }

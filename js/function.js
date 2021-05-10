@@ -126,10 +126,12 @@ function tcHide(){
 // mobile-menu
 function menuShow(){
 	$('.menu-list1').addClass('menu-list-show');
+	$('video').addClass('video-hidden');
 }
 
 function menuHide(){
 	$('.menu-list1').removeClass('menu-list-show');
+	$('video').removeClass('video-hidden');
 }
 
 
@@ -405,6 +407,31 @@ function getCookie(cookieName) {
 
 	return cookieValue;
 }
+
+
+
+function moneyFormat(value) { // 金额 格式化 
+    if (!value && value !== 0) return '-';
+    var intPart = Number(value) | 0; //获取整数部分
+    var intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,'); //将整数部分逢三一断
+ 
+    var floatPart = ".00"; //预定义小数部分
+    var value2Array = value.toString().split(".");
+ 
+    //=2表示数据有小数位
+    if (value2Array.length == 2) {
+        floatPart = value2Array[1].toString(); //拿到小数部分
+ 
+        if (floatPart.length == 1) { //补0,实际上用不着
+            return intPartFormat + "." + floatPart + '0';
+        } else {
+            return intPartFormat + "." + floatPart;
+        }
+    } else {
+        return intPartFormat + floatPart;
+    }
+}
+
 
 // 选择语言
 // function langSelect(obj){

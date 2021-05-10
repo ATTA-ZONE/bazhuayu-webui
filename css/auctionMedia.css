@@ -195,4 +195,7 @@
 	.bids-list-person-name{
 		font-size:14px;
 	}
+	.bids-list{
+		min-height:200px;
+	}
 }
