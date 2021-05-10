@@ -190,14 +190,14 @@ $(function(){
 							
 							if(res.code==0){
 								setTimeout(function(){
-									success('Success',1800);
-									
+									// success('Success',1800);
+									tips('提款申請已收到，請等待');
 									setTimeout(function(){
 										window.location.reload();
-									},1800)
+									},2000);
 								},1000)
 							}else{
-								error('Fail',1800);
+								error('提款失敗',1800);
 							}
 						}
 					})

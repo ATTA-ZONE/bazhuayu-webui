@@ -53,7 +53,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						var geshi = v.primaryPic.substr(v.primaryPic.lastIndexOf('.')+1);
 						// console.log(geshi);
 						
-						if(v.name=='徐冬冬 牛N.X潮玩 限量版'){
+						if(v.name=='徐冬冬 牛N.X潮玩 NFT限量版'){
 							v.edition = 200;
 						}
 						
@@ -77,7 +77,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						
 						if(geshi=='mp4'){
 							
-						  html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="" playsinline="" style="width:100%;" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`
+						  html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
 							
 						}else{
 							
@@ -91,7 +91,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$`+v.hkdPrice+` 港元</span>
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` 港元</span>
 									</div>`;
 							
 							html +=`<div class="bzy-e-list-info-sale flex">
@@ -111,7 +111,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$`+v.hkdPrice+` 港元</span>
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` 港元</span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
 										<span>預售</span>
@@ -133,7 +133,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$`+v.hkdPrice+` 港元</span>
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` 港元</span>
 									</div>`;
 									
 							html +=`
@@ -149,7 +149,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$`+v.hkdPrice+` 港元</span>
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` 港元</span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
 										<span>銷售已結束</span>

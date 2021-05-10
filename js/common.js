@@ -61,9 +61,11 @@ function confirm(){
 
 function headIconShow(){
 	$('.menu-list2').addClass('menu-list-show');
+	$('video').addClass('video-hidden');
 }
 function headIconHide(){
 	$('.menu-list2').removeClass('menu-list-show');
+	$('video').removeClass('video-hidden');
 }
 
 $(function(){
@@ -82,7 +84,7 @@ $(function(){
 			var telegramUrl=res.data.telegramUrl;
 			var qrPath1=res.data.qrPath;
 			var qrPath = JSON.parse(qrPath1)[0];
-			console.log(qrPath)
+			// console.log(qrPath)
 			
 			$(".weiboUrl").attr("href",weiboUrl);
 			$(".twitterUrl").attr("href",twitterUrl);
@@ -223,17 +225,18 @@ $(function(){
 	
 	
 	if(getCookie('isConnect')=='true'){
-
+		// console.log(1)
 		setTimeout(function(){
 			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span>已連接錢包</span>');
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;><span>已連接錢包</span>');
-		},50)
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;><a class="language-tc" href="javascript:void(0);">已連接錢包</a>');
+		},200)
 		
 	}else{
+		// console.log(2)
 		setTimeout(function(){
 			$('.header-right-wallet').html('<span>連接錢包</span>');
-			$('.mobile-connect-wallet').html('<span>連接錢包</span>');
-		},50)
+			$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a>');
+		},200)
 	
 	}
 	

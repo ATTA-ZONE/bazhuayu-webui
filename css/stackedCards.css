@@ -1,11 +1,13 @@
 .stacked-cards {
     position: relative;
+	overflow: hidden; 
 }
 .stacked-cards ul {
     position: relative;
     max-width: 60%;
     margin: 0 auto;
     padding-left: 0;
+	height: auto !important;
 }
 
 .stacked-cards li {

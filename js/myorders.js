@@ -74,7 +74,7 @@ function getOrderList(current,pageSize){
 										</div>
 										<div class="my-orders-status-payment">
 											<div class="payment-tit">付款金額</div>
-											<div class="payment-price"><span>HK$`+v.payPriceHkd+` 港元</span><span>`+v.payPriceUsdt+` BUSD</span></div>
+											<div class="payment-price"><span data-price="`+v.payPriceHkd+`">HK$ `+moneyFormat(v.payPriceHkd)+` 港元</span><span data-price="`+v.payPriceUsdt+`">`+moneyFormat(v.payPriceUsdt)+` BUSD</span></div>
 										</div>
 									</div>
 									<div class="my-orders-btn flex">
@@ -92,7 +92,7 @@ function getOrderList(current,pageSize){
 										
 								html +=	`<div class="my-orders-status-payment">
 											<div class="payment-tit">付款金額</div>
-											<div class="payment-price">`+v.payPriceUsdt+` BUSD</div>
+											<div class="payment-price">`+moneyFormat(v.payPriceUsdt)+` BUSD</div>
 										</div>
 									</div>`;
 							}else{
@@ -102,7 +102,7 @@ function getOrderList(current,pageSize){
 										</div>
 										<div class="my-orders-status-payment">
 											<div class="payment-tit">付款金額</div>
-											<div class="payment-price">$`+v.payPriceHkd+` HKD</div>
+											<div class="payment-price">HK$ `+moneyFormat(v.payPriceHkd)+` 港元</div>
 										</div>
 									</div>`;
 							};
@@ -167,31 +167,31 @@ function payNow(obj){
 	
 	var mobile_width = $(window).width();
 	
-	var img = $(obj).closest('.my-orders-body').find('.my-orders-left img').attr('src');
+	var img = $(obj).closest('.my-orders-body').find('.my-orders-left').html();
 	var name = $(obj).closest('.my-orders-right').find('.my-orders-order-tit').text();
 	var orderNo = $(obj).closest('.my-orders-right').find('.my-orders-order-number').text();
 	var storage = $(obj).closest('li').data('storage');
 	var edition = $(obj).closest('li').data('edition');
-	var payPriceHkd = $(obj).closest('.my-orders-btn').prev('.my-orders-status').find('.payment-price span:first-child').text();
-	var payPriceUsdt = $(obj).closest('.my-orders-btn').prev('.my-orders-status').find('.payment-price span:last-child').text();
+	var payPriceHkd = $(obj).closest('.my-orders-btn').prev('.my-orders-status').find('.payment-price span:first-child').data('price');
+	var payPriceUsdt = $(obj).closest('.my-orders-btn').prev('.my-orders-status').find('.payment-price span:last-child').data('price');
 	
 	$('.order-title').text(name);
-	$('.order-img img').attr('src',img);
+	$('.order-img').html(img);
 	$('.details-right-creator-edition').text('Edition '+edition+' of '+storage);
-	$('.order-price-hdk').text(payPriceHkd);
-	$('.order-price-busd').text(payPriceUsdt.split(' ')[0]+' BUSD');
+	$('.order-price-hdk').text('HK$ '+moneyFormat(payPriceHkd)+' 港元');
+	$('.order-price-busd').text(moneyFormat(payPriceUsdt)+' BUSD');
 	$('.order-number').text(orderNo);
-	$('.payment-page-right-order-je span').text(payPriceUsdt.split(' ')[0]+' BUSD');
+	$('.payment-page-right-order-je span').text(moneyFormat(payPriceUsdt)+' BUSD');
 	
 	$.ajax({
 		url:base_url+'/v2/user/wallet/info',
 		success:function(result){
 			if(result.code==0){
-				$('.busd-ye').text(result.data.usdtRest+' BUSD');
-				if(payPriceUsdt.split(' ')[0] > result.data.usdtRest){
+				$('.busd-ye').text(moneyFormat(result.data.usdtRest)+' BUSD');
+				if(Number(payPriceUsdt) > Number(result.data.usdtRest)){
 					$('.busd-tip').text('餘額不足');
 				}else{
-					$('.busd-tip').text('-'+payPriceUsdt.split(' ')[0]);
+					$('.busd-tip').text('-'+moneyFormat(payPriceUsdt));
 				}
 				$('.busd-tip').show();
 			}
@@ -206,6 +206,8 @@ function payNow(obj){
 			// var status = $(this).data('status');
 			// console.log(status)
 			$('.payment').addClass('payment-active')
+			$('video').addClass('video-hidden');
+			$('.payment-page-left-img video').removeClass('video-hidden');
 			// if(status==0){
 			// 	$.ajax({
 			// 		url:base_url+'/v2/user/account',
@@ -223,7 +225,8 @@ function payNow(obj){
 		});
 		
 		$('.payment-close-mobile').on('click',function(){
-			$('.payment').removeClass('payment-active')
+			$('.payment').removeClass('payment-active');
+			$('video').removeClass('video-hidden');
 		})
 	}else{
 		payment();

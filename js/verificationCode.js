@@ -1,9 +1,27 @@
+	
+var url = window.location.search.split('=')[1];
 
-
+function reSend(){
+	var verifiedToken = url;
+	$.ajax({
+		url:base_url+'/v2/user/email/reg/resend',
+		type: 'POST',
+		contentType: 'application/json',
+		dataType: 'json',
+		data:JSON.stringify({
+			verifiedToken:verifiedToken
+		}),
+		success:function(res){
+			console.log(res)
+			if(res.code==0){
+				success('發送成功',1800);
+			}
+		}
+	})
+}
 
 $(function(){
 	
-	var url = window.location.search.split('=')[1];
 	
 	$('#code').on('input',function(){
 		var emailRegValidateCode = $(this).val().trim();
