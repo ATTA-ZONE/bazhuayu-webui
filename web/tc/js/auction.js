@@ -70,6 +70,33 @@ function baojiaSure(obj){
 	}
 }
 
+
+// 播放视频
+function playVideo(obj,e){
+	e.stopPropagation();
+	$(obj)[0].pause();
+	var src = $(obj).attr('src');
+	$('.video-model video').attr('src',src);
+	$('.video-model video')[0].play();
+	$('.video-mask').fadeIn('fast');
+	$('.video-model').fadeIn('fast');
+}
+
+function closeVideo(){
+	$('.video-mask').hide();
+	$('.video-model').hide();
+	$('.bid-left video:nth-child(1)')[0].play();
+	$('.video-model video')[0].pause();
+}
+
+$('html').click(function(){
+	closeVideo();
+})
+
+$('.video-model video').click(function(e){
+	e.stopPropagation();
+});
+
 	
 $.ajax({
 	url:'/v2/auction/list',
@@ -79,7 +106,7 @@ $.ajax({
 			var data = res.data.pageResult.records[0];
 			var geshi = data.primaryPic.substr(data.primaryPic.lastIndexOf('.')+1);
 			if(geshi=='mp4'){
-				var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+data.primaryPic+`" muted="muted"></video>
+				var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+data.primaryPic+`" onclick="playVideo(this,event)" muted="muted"></video>
 							<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="`+data.primaryPic+`" muted="muted"></video>`;
 							
 				$('.bid-left').html(html);
@@ -224,7 +251,7 @@ if (typeof window.ethereum !== 'undefined'){
 	.then(function(res){
 		// console.log(res);
 		var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid,'ether');
-		$('.bid-right-status-current span:nth-child(2)').text('BUSD '+res.tokenTopBid);
+		$('.bid-right-status-current span:nth-child(2)').text('BUSD '+tokenTopBid);
 		
 		var currentTime = Date.now();    //当前时间  ms
 		var startTime = parseInt(res.startTime) *1000;   //拍卖开始时间  ms
@@ -237,9 +264,9 @@ if (typeof window.ethereum !== 'undefined'){
 		contract.methods.auctionOpenBid(tokenTypeId).call()
 		.then(function(key){
 			// console.log(res)
-			if(minLastPeriod - (tokenLastBidTime + callBackPeriod) < 0 && key){
-				endTime = endTime + callBackPeriod;
-			}
+			// if(minLastPeriod - (tokenLastBidTime + callBackPeriod) < 0 && key){
+			// 	endTime = endTime + callBackPeriod;
+			// }
 			
 			if(currentTime < startTime){    //未开始
 				$('#make_offer').data('sign','3');
@@ -280,65 +307,70 @@ if (typeof window.ethereum !== 'undefined'){
 	});
 	
 	//获取 tokenId 下  竞价 数量
-	contract.methods.getBidsLength(tokenTypeId).call()
-	.then(function(res){
-		// console.log(res);
-		$('.bids-list-tit span').val(res);
+	// contract.methods.getBidsLength(tokenTypeId).call()
+	// .then(function(res){
+	// 	// console.log(res);
+	// 	$('.bids-list-tit span').val(res);
+	// });
+
+	//接口直接获取竞拍
+	
+	// 代替contract.methods.getBids和contract.events.Bid
+	// 返回结果
+ // "result": [
+	// 	{
+	// 		"address": "0x26455c075ead85015cba283731db78d5e80615ff",
+	// 		"topics": [
+	// 				"0xf200b09dd7c67aa57db7b904692130ffededf03e80a5f2105605d50c0c187d69",
+	// 				"0x0000000000000000000000009750edd9b139c61f42000aa3ec4836c424008359",
+	// 				"0x00000000000000000000000000000000000000000000000000000000004c7250"
+	// 		],
+	// 		"data": "0x0000000000000000000000000000000000000000000000a2a15d09519be00000",
+	// 		"blockNumber": "0x6e0794",
+	// 		"timeStamp": "0x60950d38",
+	// 		"gasPrice": "0x14cccf61e",
+	// 		"gasUsed": "0x5a23b",
+	// 		"logIndex": "0x79",
+	// 		"transactionHash": "0x90951e91b9565ccbf241cc0baa2ccd3d207a7b17699b8cedfbd82ffce7ea0c58",
+	// 		"transactionIndex": "0x4c"
+	// }
+	// ]
+	
+	
+	$.ajax({
+		url: 'https://api.bscscan.com/api?module=logs&action=getLogs&address=0x26455c075ead85015cba283731db78d5e80615ff&topic0=0x19421268847f42dd61705778018ddfc43bcdce8517e7a630acb12f122c709481&apikey=9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27',
+		success: function(res){
+			console.log(res);
+			var bidData = res.result;
+			var html = ``;
+			$('.bids-list-tit font').text(bidData.length);
+			$.each(bidData,function(i,v){
+				var unixTimestamp = getWeb3().utils.hexToNumber(v.timeStamp) *1000;
+				unixTimestamp = new Date(unixTimestamp);
+				unixTimestamp = unixTimestamp.toLocaleString();
+				// console.log(unixTimestamp);
+				var price = getWeb3().utils.fromWei(v.data,'ether');
+				var u_add = v.topics[1].split('000000000000000000000000').join('');
+				html += `<li class="flex">
+							<div class="bids-list-person flex">
+								<div class="bids-list-person-name">By `+u_add+`</div>
+							</div>
+							<div class="bids-list-time">`+unixTimestamp+`</div>
+							<div class="bids-list-busd">$BUSD <span>`+price+`</span></div>
+						</li>`;
+				
+			});
+			
+			$('.bids-list ul').html(html);
+			
+		}
 	});
 	
-	//获取 tokenId 下 所有的 竞价以及 竞价者地址 （无时间！）
-	contract.methods.getBids(tokenTypeId).call()
-	.then(function(res){
-		var html = ``;
-		// console.log(res);
-		
-		var arr = [];
-		for(var i = 0; i < res.length; i++){
-			arr.push({
-				bidder:res[i]['bidder'],
-				price:res[i]['price'],
-			});
-		};
-		arr.sort(compare('price'),true);
-		// console.log(arr);
-		
-		for(var i = 0; i < arr.length; i++){
-			var price = getWeb3().utils.fromWei(arr[i]['price'],'ether');
-			html += `<li class="flex">
-						<div class="bids-list-person flex">
-							<div class="bids-list-person-name">By `+arr[i]['bidder']+`</div>
-						</div>
-						<div class="bids-list-time"></div>
-						<div class="bids-list-busd">$BUSD <span>`+price+`</span></div>
-					</li>`;
 
-		};
-		
-		$('.bids-list ul').html(html);
-		
-		contract.events.Bid({
-			filter:{tokenId:tokenTypeId},
-			fromBlock: 0
-		},function(error, e){
-			// console.log(e);
-			$.each($('.bids-list ul li'),function(i,v){
-				var topPrice = $(v).find('.bids-list-busd span').text().trim();
-				// console.log(topPrice);
-				if(e.returnValues.price == topPrice){
-					getEth().getBlock(e.blockNumber)
-						.then(function(res){
-							// console.log(res);
-							var unixTimestamp = new Date(res.timestamp*1000) ;
-							var commonTime = unixTimestamp.toLocaleString();
-							// console.log(commonTime)
-							$(v).find('.bids-list-time').text(commonTime);
-						})
-				}
-			});
-		
-		})
-		
-	});
+
+
+
+
 	
 	//获取users 对于 所有 竞拍 下的 所有 竞价
 	if(user_address!=0){
@@ -372,11 +404,12 @@ if (typeof window.ethereum !== 'undefined'){
 					// $('#make_offer').data('sign','1');
 					
 					if(res[0]['price'] >= currentPrice){   //当前用户为最高价
-					
-						html += `<span>您是當前最高出價者  (BUSD `+res[0]['price']+`)</span>`;
+						var u_price = getWeb3().utils.fromWei(res[0]['price'],'ether');
+						html += `<span>您是當前最高出價者  (BUSD `+u_price+`)</span>`;
 						
 					}else{
-						html += `<span style="color:#CB5252;">您上次競標失敗  (BUSD `+res[0]['price']+`)</span>`;
+						var u_price = getWeb3().utils.fromWei(res[0]['price'],'ether');
+						html += `<span style="color:#CB5252;">您上次競標失敗  (BUSD `+u_price+`)</span>`;
 					}
 					
 				}
