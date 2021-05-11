@@ -9,6 +9,9 @@ url = url.substring(0,url.indexOf('.'));
 // var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
+if (location.host !== 'bazhuayu.io') {
+	base_url = 'http://47.118.74.48:8081';
+}
 var lang = 'TC';
 $.ajax({
 	url:base_url+'/v2/user/lang/select',
