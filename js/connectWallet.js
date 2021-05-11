@@ -428,7 +428,7 @@ $(".metamask").click(function(e){
 	} else {
 	  // 处理用户没安装的情况， 比如显示一个消息
 	  // 告诉他们要安装 MetaMask 来使用我们的应用
-		alert('您未安装MetaMask,请到浏览器插件市场搜索安装');
+		alert('請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。');
 	}
 	
 	

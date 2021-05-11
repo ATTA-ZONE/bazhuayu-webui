@@ -6,8 +6,12 @@ url = url.substring(url.lastIndexOf('/')+1)
 url = url.substring(0,url.indexOf('.'));
 // console.log(url)
 
-var base_url = '';
+// var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
+var base_url = '';
+if (location.host !== 'bazhuayu.io') {
+	base_url = 'http://47.118.74.48:8081';
+}
 var lang = 'TC';
 $.ajax({
 	url:base_url+'/v2/user/lang/select',
@@ -228,7 +232,7 @@ $(function(){
 		// console.log(1)
 		setTimeout(function(){
 			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span>已連接錢包</span>');
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;><a class="language-tc" href="javascript:void(0);">已連接錢包</a>');
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc" href="javascript:void(0);">已連接錢包</a>');
 		},200)
 		
 	}else{

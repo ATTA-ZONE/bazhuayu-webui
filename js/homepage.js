@@ -65,7 +65,7 @@ $(function(){
 			}
 		},
 		error:function(err){
-			console.log(res.message)
+			console.log(err)
 		}
 	})
 		
