@@ -302,8 +302,9 @@ $(function(){
 		$(this).addClass('cur');
 		var text = $(this).data('type');
 		if(text==0){
-			$('.payment-page-right-btn button').removeClass('can');
-			$('.payment-page-right-btn button').text('立即付款');
+			// $('.payment-page-right-btn button').removeClass('can');
+			// $('.payment-page-right-btn button').text('立即付款');
+			$('.payment-page-right-btn').hide();
 			$('.order-price .order-price-hdk').show();
 			$('.order-price .order-price-busd').hide();
 			$('.payment-page-right-select').show();
@@ -312,6 +313,7 @@ $(function(){
 		};
 		
 		if(text==1){
+			$('.payment-page-right-btn').show();
 			$('.payment-page-right-btn button').addClass('can');
 			if($('.busd-tip').text()=='餘額不足'){
 				$('.payment-page-right-btn button').text('充值');
