@@ -133,11 +133,11 @@ $(function(){
 					var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" webkit-playsinline="true" onclick="playVideo(this,event)" muted="muted" ></video>
 								<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" muted="muted"></video>`;
 								
-					$('.order-img').html(html);
+					$('.order-img').append(html);
 				}else{
 					var html = `<img class="bzy-e-list-img" src="`+res.data.primaryPic+`" >
 								<img class="bzy-e-list-img mohu" src="`+res.data.primaryPic+`" >`;
-					$('.order-img').html(html);
+					$('.order-img').append(html);
 				}
 				// $('.order-img img').attr('src',res.data.primaryPic);
 				$('.order-title').text(res.data.name);
