@@ -2386,6 +2386,12 @@ body,html{
 	border:1px solid #9567FF;
 	height:46px;
 }
+.my-wallet-btn .addbtn{
+	color:#CB5252;
+	border:1px solid #CB5252;
+	height:46px;
+	width: 100%;
+}
 .my-wallet-btn .delete{
 	color:#ff0000;
 	border:1px solid #ff0000;
