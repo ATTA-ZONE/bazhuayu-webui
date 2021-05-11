@@ -94,7 +94,7 @@
 	</div>
 	
 	<div class="details center-80 flex">
-		<div class="details-left order-img"><img class="full-screen" src="./images/fullscreen.png"/><img class="voice" src="./images/voice.png"/></div>
+		<div class="details-left order-img"><img class="full-screen" id="fullScreen" src="./images/fullscreen.png"/><img id="voiceControl" class="voice" src="./images/voice.png"/></div>
 		<div class="details-right">
 			<div class="details-right-tit order-title">----</div>
 			<div class="details-right-price flex"><span class="cur order-price-hdk">HK$0 港元</span><span class="order-price-busd">0 BUSD</span></div>
@@ -216,5 +216,24 @@
 		autoclose: true,
 		language:'en'
 	});
+	var screenControl=document.getElementById("fullScreen");
+	var voiceControl=document.getElementById("voiceControl");
+	voiceControl.click=function(){
+		var voiceStatus = document.getElementsByTagName('video')[0].muted
+		document.getElementsByTagName('video')[0].muted = !voiceStatus
+	}
+	screenControl.click=function(){
+		FullScreen()
+	}
+	function FullScreen() {
+    var ele = document.getElementsByTagName('video')[0];
+    if (ele.requestFullscreen) {
+        ele.requestFullscreen();
+    } else if (ele.mozRequestFullScreen) {
+        ele.mozRequestFullScreen();
+    } else if (ele.webkitRequestFullScreen) {
+        ele.webkitRequestFullScreen();
+    }
+}
 </script>
 </html>
