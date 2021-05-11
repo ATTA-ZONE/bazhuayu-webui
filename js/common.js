@@ -1,5 +1,4 @@
 
-
 //
 var url = window.location.pathname;
 url = url.substring(url.lastIndexOf('/')+1)
@@ -22,6 +21,7 @@ $.ajax({
 		// console.log(res);
 	}
 });
+
 
 // $.ajax({
 // 	url:base_url+'/v2/index/index',

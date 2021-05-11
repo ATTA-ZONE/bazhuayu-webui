@@ -292,7 +292,7 @@ if (typeof window.ethereum !== 'undefined') {
 	// console.log(window.ethereum);
 	var walletId = ethereum.selectedAddress, ethWei = 0.01;
 	var netVer = window.ethereum.networkVersion;
-	// var address = '0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee';  //测试
+	// var address = '0x65aF2dcE9694393496EE7568eeE92660116D5ae6';  //测试
 	var address = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';  //正式
 	
 	
