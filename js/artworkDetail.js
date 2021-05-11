@@ -179,6 +179,10 @@ $(function(){
 						var msTime = saleEndTimeMillis - systemTime;
 						var time = formatDuring(msTime);
 						console.log(time);
+						let ycdjs = time.split('d')[0];
+						if (ycdjs > 1825) {
+							$(".details-right-time").hide();
+						}
 						$('.details-right-time span:first-child').text('銷售結束於：');
 						$('.details-right-time-djs').text(time);
 
