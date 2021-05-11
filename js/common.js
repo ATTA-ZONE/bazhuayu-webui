@@ -23,6 +23,10 @@ $.ajax({
 	}
 });
 
+$(document).ready(function(){
+	$('video').bind('contextmenu',function() { return false; });
+});
+
 // $.ajax({
 // 	url:base_url+'/v2/index/index',
 // 	async: false,
