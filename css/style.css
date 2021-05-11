@@ -1113,17 +1113,17 @@ body,html{
 }
 .full-screen {
 	position: absolute !important;
-	bottom: 30px;
-	right: 7px;
-	z-index: 9 !important;
-	width: 12px !important;
+	bottom: 56px;
+    right: 10px;
+    z-index: 9 !important;
+    width: 28px !important;
 }
 .voice {
 	position: absolute !important;
-	bottom: 10px;
-	right: 4px;
-	z-index: 9 !important;
-	width: 15px !important;
+	bottom: 16px;
+    right: 6px;
+    z-index: 9 !important;
+    width: 32px !important;
 }
 .order-img .mohu{
 	position:absolute;

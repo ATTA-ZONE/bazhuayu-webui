@@ -94,7 +94,7 @@
 	</div>
 	
 	<div class="details center-80 flex">
-		<div class="details-left order-img"><img class="full-screen" src="./images/fullscreen.png"/><img class="voice" src="./images/voice.png"/></div>
+		<div class="details-left order-img"><img class="full-screen" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice" src="./images/mute.png"/></div>
 		<div class="details-right">
 			<div class="details-right-tit order-title">----</div>
 			<div class="details-right-price flex"><span class="cur order-price-hdk">HK$0 港元</span><span class="order-price-busd">0 BUSD</span></div>
@@ -216,5 +216,32 @@
 		autoclose: true,
 		language:'en'
 	});
+	
+	function toggleVideo(){
+		var voiceStatus = document.getElementsByTagName('video')[0].muted
+		document.getElementsByTagName('video')[0].muted = !voiceStatus
+		switch (voiceStatus) {
+			case true:
+				document.getElementsByClassName('voice')[0].src = './images/voice.png'
+				break;
+			case false:
+				document.getElementsByClassName('voice')[0].src = './images/mute.png'
+			break;
+		}
+		
+	}
+	function toggleScreen(){
+		FullScreen()
+	}
+	function FullScreen() {
+    var ele = document.getElementsByTagName('video')[0];
+    if (ele.requestFullscreen) {
+        ele.requestFullscreen();
+    } else if (ele.mozRequestFullScreen) {
+        ele.mozRequestFullScreen();
+    } else if (ele.webkitRequestFullScreen) {
+        ele.webkitRequestFullScreen();
+    }
+}
 </script>
 </html>
