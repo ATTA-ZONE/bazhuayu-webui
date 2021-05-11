@@ -23,6 +23,14 @@ $.ajax({
 	}
 });
 
+$(document).ready(function(){
+	var videoMask = '<div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;"><div>';
+	$('video').parent().css({
+		'position': 'relative'
+	})
+	$('video').parent().append(videoMask)
+});
+
 // $.ajax({
 // 	url:base_url+'/v2/index/index',
 // 	async: false,
