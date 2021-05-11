@@ -75,7 +75,7 @@ var walletId = ethereum.selectedAddress;
 var netVer = window.ethereum.networkVersion;
 // var address = '0x6A2E6042DF6FDCdA84A45531C892b644b095E2b4';  //拍卖地址   //测试
 var address = '0x26455c075eAD85015cbA283731db78d5E80615fF';  //拍卖地址   //正式
-// var address_sq = '0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee';  //busd地址  //测试
+// var address_sq = '0x65aF2dcE9694393496EE7568eeE92660116D5ae6';  //busd地址  //测试
 var address_sq = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';  //busd地址  //正式
 
 // 监听账户变更事件
