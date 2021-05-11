@@ -1115,14 +1115,14 @@ body,html{
 	position: absolute !important;
 	bottom: 30px;
 	right: 7px;
-	z-index: 99 !important;
+	z-index: 9 !important;
 	width: 12px !important;
 }
 .voice {
 	position: absolute !important;
 	bottom: 10px;
 	right: 4px;
-	z-index: 99 !important;
+	z-index: 9 !important;
 	width: 15px !important;
 }
 .order-img .mohu{
