@@ -1708,12 +1708,13 @@ body,html{
 }
 .tc-login-left{
 	width:339px;
+	height: 615px;
 	align-items:center;
+	justify-content: center;
+	background: rgb(36, 36, 36);
 }
 .tc-login-left img{
-	width:100%;
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
+	width:124px;
 	flex-shrink:0;
 }
 .tc-login-right{
