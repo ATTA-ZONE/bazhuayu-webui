@@ -220,6 +220,15 @@
 	function toggleVideo(){
 		var voiceStatus = document.getElementsByTagName('video')[0].muted
 		document.getElementsByTagName('video')[0].muted = !voiceStatus
+		switch (voiceStatus) {
+			case true:
+				document.getElementsByClassName('voice')[0].src = './images/voice.png'
+				break;
+			case false:
+				document.getElementsByClassName('voice')[0].src = './images/mute.png'
+			break;
+		}
+		
 	}
 	function toggleScreen(){
 		FullScreen()
