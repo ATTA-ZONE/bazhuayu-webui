@@ -1,7 +1,13 @@
 function mangeWalletCharge(res, accounts) {
 	var web3 = getEth();
 	var contract = new web3.Contract(abi, address);
-	
+	var amount = $('.modify-ipt input').val().trim();
+			if (amount == '') {
+				amount = '0';
+			}
+
+	var num = getWeb3().utils.toWei(amount, 'ether');
+
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		contract.methods.balanceOf(accounts[0]).call() //查询余额
@@ -68,7 +74,6 @@ $(function () {
 			if (amount == '') {
 				amount = '0';
 			}
-			// console.log(amount)
 
 			var num = getWeb3().utils.toWei(amount, 'ether');
 
