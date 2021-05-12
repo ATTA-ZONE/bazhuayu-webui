@@ -168,18 +168,20 @@ $.ajax({
 if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
 	loading();
-	setTimeout(function(){
+	setTimeout(function () {
 		loadingHide();
-	},1800);
+	}, 1800);
 
 	var walletId = ethereum.selectedAddress,
 		ethWei = 0.01;
 	var netVer = window.ethereum.networkVersion;
 	var address = ''
 	if (location.host !== 'bazhuayu.io') {
-		address = '0x6A2E6042DF6FDCdA84A45531C892b644b095E2b4';  //拍卖地址测试
+		address = '0x6A2E6042DF6FDCdA84A45531C892b644b095E2b4'; //拍卖地址测试
+	} else {
+		address = '0x26455c075eAD85015cbA283731db78d5E80615fF'; //拍卖地址正式
 	}
-	address = '0x26455c075eAD85015cbA283731db78d5E80615fF'; //拍卖地址正式
+
 	var user_address = $('.bid-right-tip').data('address');
 
 	// 监听账户变更事件
@@ -194,38 +196,39 @@ if (typeof window.ethereum !== 'undefined') {
 	ethereum.on('networkChanged', function (netVer) {
 
 		if (location.host !== 'bazhuayu.io') {
-			if(netVer!='97'){
+			if (netVer != '97') {
 				window.ethereum.request({
 					method: 'wallet_addEthereumChain',
-					params: [
-						{
-							chainId: '0x61',
-							chainName: 'bsctestnet',
-							nativeCurrency: {
-								name: 'BNB',
-								symbol: 'BNB',
-								decimals: 18
-							},
-							rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-							blockExplorerUrls: ['https://testnet.bscscan.com']
-						}
-					]
-				});	
+					params: [{
+						chainId: '0x61',
+						chainName: 'bsctestnet',
+						nativeCurrency: {
+							name: 'BNB',
+							symbol: 'BNB',
+							decimals: 18
+						},
+						rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
+						blockExplorerUrls: ['https://testnet.bscscan.com']
+					}]
+				});
 			}
 		} else {
-			if(netVer!='56'){
+			if (netVer != '56') {
 				window.ethereum.request({
-					method:'wallet_addEthereumChain',
-					params:[
-						{
-										chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
-										nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
-										rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
-							blockExplorerUrls:['https://bscscan.com/']
-						}
-					]
+					method: 'wallet_addEthereumChain',
+					params: [{
+						chainId: '0x38',
+						chainName: 'Binance Smart Chain Mainnet', //如果是切换测试网 就 填 测试网 的RPC配置
+						nativeCurrency: {
+							name: 'BNB',
+							symbol: 'bnb',
+							decimals: 18
+						},
+						rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
+						blockExplorerUrls: ['https://bscscan.com/']
+					}]
 				})
-				
+
 			}
 		}
 
@@ -319,26 +322,6 @@ if (typeof window.ethereum !== 'undefined') {
 	//接口直接获取竞拍
 
 	// 代替contract.methods.getBids和contract.events.Bid
-	// 返回结果
-	// "result": [
-	// 	{
-	// 		"address": "0x26455c075ead85015cba283731db78d5e80615ff",
-	// 		"topics": [
-	// 				"0xf200b09dd7c67aa57db7b904692130ffededf03e80a5f2105605d50c0c187d69",
-	// 				"0x0000000000000000000000009750edd9b139c61f42000aa3ec4836c424008359",
-	// 				"0x00000000000000000000000000000000000000000000000000000000004c7250"
-	// 		],
-	// 		"data": "0x0000000000000000000000000000000000000000000000a2a15d09519be00000",
-	// 		"blockNumber": "0x6e0794",
-	// 		"timeStamp": "0x60950d38",
-	// 		"gasPrice": "0x14cccf61e",
-	// 		"gasUsed": "0x5a23b",
-	// 		"logIndex": "0x79",
-	// 		"transactionHash": "0x90951e91b9565ccbf241cc0baa2ccd3d207a7b17699b8cedfbd82ffce7ea0c58",
-	// 		"transactionIndex": "0x4c"
-	// }
-	// ]
-
 
 	$.ajax({
 		url: 'https://api.bscscan.com/api?module=logs&action=getLogs&address=0x26455c075ead85015cba283731db78d5e80615ff&topic0=0x19421268847f42dd61705778018ddfc43bcdce8517e7a630acb12f122c709481&apikey=9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27',
@@ -375,64 +358,6 @@ if (typeof window.ethereum !== 'undefined') {
 
 		}
 	});
-
-	//获取 tokenId 下 所有的 竞价以及 竞价者地址 （无时间！）
-	// contract.methods.getBids(tokenTypeId).call()
-	// .then(function(res){
-	// 	var html = ``;
-	// 	// console.log(res);
-
-	// 	var arr = [];
-	// 	for(var i = 0; i < res.length; i++){
-	// 		arr.push({
-	// 			bidder:res[i]['bidder'],
-	// 			price:res[i]['price'],
-	// 		});
-	// 	};
-	// 	arr.sort(compare('price'),true);
-	// 	// console.log(arr);
-
-	// 	for(var i = 0; i < arr.length; i++){
-	// 		var price = getWeb3().utils.fromWei(arr[i]['price'],'ether');
-	// 		html += `<li class="flex">
-	// 					<div class="bids-list-person flex">
-	// 						<div class="bids-list-person-name">By `+arr[i]['bidder']+`</div>
-	// 					</div>
-	// 					<div class="bids-list-time"></div>
-	// 					<div class="bids-list-busd">$BUSD <span>`+price+`</span></div>
-	// 				</li>`;
-
-	// 	};
-
-	// 	$('.bids-list ul').html(html);
-
-	// 	contract.events.Bid({
-	// 		filter:{tokenId:tokenTypeId},
-	// 		fromBlock: 0
-	// 	},function(error, e){
-	// 		// console.log(e);
-	// 		$.each($('.bids-list ul li'),function(i,v){
-	// 			var topPrice = $(v).find('.bids-list-busd span').text().trim();
-	// 			// console.log(topPrice);
-	// 			if(e.returnValues.price == topPrice){
-	// 				getEth().getBlock(e.blockNumber)
-	// 					.then(function(res){
-	// 						// console.log(res);
-	// 						var unixTimestamp = new Date(res.timestamp*1000) ;
-	// 						var commonTime = unixTimestamp.toLocaleString();
-	// 						// console.log(commonTime)
-	// 						$(v).find('.bids-list-time').text(commonTime);
-	// 					})
-	// 			}
-	// 		});
-
-	// 	})
-
-	// });
-
-
-
-
 
 	//获取users 对于 所有 竞拍 下的 所有 竞价
 	if (user_address != 0) {
