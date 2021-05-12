@@ -2,7 +2,7 @@
 	W.isFunction=function(a){return "function"===typeof(a)};
 	W.isArray=Array.isArray;
 	// W.conf={'dev':top.location.origin,'test':'https://test.wah.art','prod':'https://fmg.art',1:'https://fmg.art',56:'https://bsc.fmg.art'};
-	W.conf={'dev':top.location.origin,'test':'http://superguy021.vicp.cc:8866/mobile/tc','prod':'http://superguy021.vicp.cc:8866/mobile/tc',1:'http://superguy021.vicp.cc:8866/mobile/tc',56:'http://superguy021.vicp.cc:8866/mobile/tc'};
+	W.conf={'dev':top.location.origin,'test':'http://superguy021.vicp.cc:8866','prod':'http://superguy021.vicp.cc:8866',1:'http://superguy021.vicp.cc:8866',56:'http://superguy021.vicp.cc:8866'};
 	W.production=document.getElementById('base-min').getAttribute('data-mode');
 	W.debug=true;//(production==='dev');
 	W.BASE_URL=window.conf[production];
@@ -63,17 +63,38 @@
 				var addr=accounts[0].toLocaleLowerCase();
 				localStorage.setItem(this.__wallet__,addr);
 				window.setTimeout(function(){
-					axios.get(['/api/user/loginByWallet/', addr, '?coin=0'].join('')).then(function(data) {
-			    		if(data.message=='OK'&&data.errCode=='OK'){
-							if(top.location.pathname==='/wallet.html'){
-								top.location.href='/'
-							}else{
-								top.location.reload()
+					//绑定钱包
+					$.ajax({
+						url:'/v2/user/wallet/bind',
+						type:'POST',
+						contentType:'application/json',
+						dataType:'json',
+						data:JSON.stringify({
+							address:addr,
+							walletType:'TOKEN POCKET'
+						}),
+						success:function(res){
+							console.log(res);
+							if(res.code==0){
+								// document.cookie="isConnect=true";
+								window.location.href = document.referrer;
 							}
-						}else{
-							alert(data.message)
 						}
-			    	})
+					});
+					// axios.get(['/api/user/loginByWallet/', addr, '?coin=0'].join('')).then(function(data) {
+					// 	if(data.message=='OK'&&data.errCode=='OK'){
+					// 		if(top.location.pathname==='/wallet.html'){
+					// 			top.location.href='/'
+					// 		}else{
+					// 			top.location.reload()
+					// 		}
+					// 	}else{
+					// 		alert(data.message)
+					// 	}
+			  //   	});
+			  
+					
+					
 				},500);
 			},
 			handleChainChanged:function(chainId){
@@ -86,85 +107,92 @@
 					return;
 				}
 				if(production==='prod'){
-				    var url=window.conf[code];
+				    var url = window.conf[code];
 				    if(url == top.location.origin){
-						if(top.location.pathname==='/wallet.html'){
+						// if(top.location.pathname==='/wallet.html'){
+						// 	CHAIN.WALLET.handleAccountsChanged([address])
+						// }else{
+						// 	top.location.reload()
+						// }
+						if(top.location.pathname==='/mobile/tc/connectWallet.html'){
+							// console.log(12)
 							CHAIN.WALLET.handleAccountsChanged([address])
 						}else{
 							top.location.reload()
 						}
 				    }else{
-					    top.location.href=[url,'/jump/',address].join('')
+					    // top.location.href=[url,'/jump/',address].join('')
+					    // top.location.href=[url,'/jump/',address].join('')
 				    }
 				}else{
-					top.location.href=[window.BASE_URL,'/jump/',address].join('')
+					// top.location.href=[window.BASE_URL,'/jump/',address].join('')
 				}
 			},
-			MetaMask:{
-				name:'MetaMask',
-				isConnected:function(){
-					return window.ethereum&&window.ethereum.isConnected()
-				},
-				isUnlocked:function(){
-					return window.ethereum&&window.ethereum.selectedAddress;
-				},
-				provider:function(){
-					return window.ethereum
-				},
-				events:function(){
-					var p=this.provider();
-					p.autoRefreshOnNetworkChange=false;
-					p.on('accountsChanged', CHAIN.WALLET.handleAccountsChanged);
-					p.on('chainChanged', CHAIN.WALLET.handleChainChanged);
-				},
-				accounts:function(){
-					return ethereum.selectedAddress;
-				},
-				connect:function(c){
-					var th=this,eth=this.provider();
-					if (eth) {
-						var CB=function(){
-							if(c){
-								c(eth,addr,eth.networkVersion)
-							}else{
-								CHAIN.WALLET.handleChainChanged(eth.networkVersion)
-							}
-						};
-						eth.enable().then(function(accounts){
-							window.debug&&console.log('ethereum.enable', accounts);
-							var wallet=CHAIN.WALLET.__wallet__,addr=accounts[0].toLocaleLowerCase();
-							localStorage.setItem(wallet,addr),cookie(wallet,th.name,1000,'/','.fmg.art');
-							// 如果在BSC网站上登录的不是BSC网络，需要提示用户切换网络状态
-							if(top.location.host==='bsc.fmg.art'&&eth.networkVersion!='56'){
-								window.ethereum.request({
-									method:'wallet_addEthereumChain',
-									params:[
-										{
-						                    chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
-						                    nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
-						                    rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
-											blockExplorerUrls:['https://bscscan.com/']
-										}
-									]
-								}).then(function(){
-									console.log('request.eth', arguments);
-									CB()
-								}).catch(function(ex){
-									console.log('ethereum.enable', ex);
-									CB()
-								})
-							}else{
-								CB()
-							}
-						}).catch(function(er){
-							console.log(er);
-							alert(er.message);
-						})
-					} else {
-						console.log('Meta mask is not supported.')
-					}
-				}
-			},
+			// MetaMask:{
+			// 	name:'MetaMask',
+			// 	isConnected:function(){
+			// 		return window.ethereum&&window.ethereum.isConnected()
+			// 	},
+			// 	isUnlocked:function(){
+			// 		return window.ethereum&&window.ethereum.selectedAddress;
+			// 	},
+			// 	provider:function(){
+			// 		return window.ethereum
+			// 	},
+			// 	events:function(){
+			// 		var p=this.provider();
+			// 		p.autoRefreshOnNetworkChange=false;
+			// 		p.on('accountsChanged', CHAIN.WALLET.handleAccountsChanged);
+			// 		p.on('chainChanged', CHAIN.WALLET.handleChainChanged);
+			// 	},
+			// 	accounts:function(){
+			// 		return ethereum.selectedAddress;
+			// 	},
+			// 	connect:function(c){
+			// 		var th=this,eth=this.provider();
+			// 		if (eth) {
+			// 			var CB=function(){
+			// 				if(c){
+			// 					c(eth,addr,eth.networkVersion)
+			// 				}else{
+			// 					CHAIN.WALLET.handleChainChanged(eth.networkVersion)
+			// 				}
+			// 			};
+			// 			eth.enable().then(function(accounts){
+			// 				window.debug&&console.log('ethereum.enable', accounts);
+			// 				var wallet=CHAIN.WALLET.__wallet__,addr=accounts[0].toLocaleLowerCase();
+			// 				localStorage.setItem(wallet,addr),cookie(wallet,th.name,1000,'/','.fmg.art');
+			// 				// 如果在BSC网站上登录的不是BSC网络，需要提示用户切换网络状态
+			// 				if(top.location.host==='bsc.fmg.art'&&eth.networkVersion!='56'){
+			// 					window.ethereum.request({
+			// 						method:'wallet_addEthereumChain',
+			// 						params:[
+			// 							{
+			// 			                    chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
+			// 			                    nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
+			// 			                    rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
+			// 								blockExplorerUrls:['https://bscscan.com/']
+			// 							}
+			// 						]
+			// 					}).then(function(){
+			// 						console.log('request.eth', arguments);
+			// 						CB()
+			// 					}).catch(function(ex){
+			// 						console.log('ethereum.enable', ex);
+			// 						CB()
+			// 					})
+			// 				}else{
+			// 					CB()
+			// 				}
+			// 			}).catch(function(er){
+			// 				console.log(er);
+			// 				alert(er.message);
+			// 			})
+			// 		} else {
+			// 			console.log('Meta mask is not supported.')
+			// 		}
+			// 	}
+			// },
 			WalletConnect:{
 				name:'WalletConnect',
 				INFURA_ID:'09a66faa902543c2ad9aa695b0a3a30e',  //这个id免费申请的，infura上随便用
@@ -200,14 +228,14 @@
 					var th=this,provider=th.provider();
 					provider.chainId=null;
 					provider.enable().then(function(accounts){
-						// var wallet=CHAIN.WALLET.__wallet__,addr=accounts[0].toLocaleLowerCase();
-						var wallet=CHAIN.WALLET.__wallet__,addr=accounts[0];
-						// localStorage.setItem(wallet,addr),cookie(wallet,th.name,1000,'/','index.html');
-						// if(c){
-						// 	c(provider,addr,provider.chainId)
-						// }else{
-						// 	CHAIN.WALLET.handleChainChanged(provider.chainId)
-						// }
+						var wallet=CHAIN.WALLET.__wallet__,addr=accounts[0].toLocaleLowerCase();
+						localStorage.setItem(wallet,addr),cookie(wallet,th.name,1000,'/','index.html');
+						if(c){
+							c(provider,addr,provider.chainId)
+						}else{
+							console.log(provider.chainId);
+							CHAIN.WALLET.handleChainChanged(provider.chainId);
+						}
 						console.log(accounts)
 					}).catch(function(er) {
 						console.log(er);
