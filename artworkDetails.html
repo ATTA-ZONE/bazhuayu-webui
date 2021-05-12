@@ -165,7 +165,7 @@
 					<div class="payment-page-right-select">
 						<p class="flex">
 							<input class="card-number" type="text" placeholder="卡號" />
-							<input class="date" type="text" placeholder="MM/YYYY" id="datetimepicker2" />
+							<input class="date" type="text" size=5 maxlength=5 placeholder="MM/YY" id="datetimepicker2" onkeyup="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')" />
 							<input class="cvc" type="text" placeholder="CVC" />
 						</p>
 						<p class="flex"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
@@ -211,12 +211,12 @@
 <script src="./js/artworkDetail.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-	$('#datetimepicker2').datetimepicker({
-		format: 'mm/yyyy',
-		minView: 3,
-		autoclose: true,
-		language:'en'
-	});
+	// $('#datetimepicker2').datetimepicker({
+	// 	format: 'mm/yyyy',
+	// 	minView: 3,
+	// 	autoclose: true,
+	// 	language:'en'
+	// });
 	
 	function toggleVideo(){
 		var voiceStatus = document.getElementsByTagName('video')[0].muted
