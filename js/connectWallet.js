@@ -292,8 +292,8 @@ if (typeof window.ethereum !== 'undefined') {
 	// console.log(window.ethereum);
 	var walletId = ethereum.selectedAddress, ethWei = 0.01;
 	var netVer = window.ethereum.networkVersion;
-	// var address = '0x65aF2dcE9694393496EE7568eeE92660116D5ae6';  //测试
-	var address = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';  //正式
+	var address = '0x65aF2dcE9694393496EE7568eeE92660116D5ae6';  //测试
+	//var address = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';  //正式
 	
 	
 	// 监听账户变更事件
@@ -307,41 +307,40 @@ if (typeof window.ethereum !== 'undefined') {
 	// 监听网络变更事件
 	ethereum.autoRefreshOnNetworkChange = false;
 	ethereum.on('networkChanged', function (netVer) {
-		console.log(['networkChanged', netVer]);
 		
-		// if(netVer[0]!='97'){
-		// 	window.ethereum.request({
-		// 		method: 'wallet_addEthereumChain',
-		// 		params: [
-		// 			{
-		// 				chainId: '0x61',
-		// 				chainName: 'bsctestnet',
-		// 				nativeCurrency: {
-		// 					name: 'BNB',
-		// 					symbol: 'BNB',
-		// 					decimals: 18
-		// 				},
-		// 				rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-		// 				blockExplorerUrls: ['https://testnet.bscscan.com']
-		// 			}
-		// 		]
-		// 	});
-		// }
-		
-		if(netVer[0]!='56'){
+		if(netVer != '97'){
 			window.ethereum.request({
-				method:'wallet_addEthereumChain',
-				params:[
+				method: 'wallet_addEthereumChain',
+				params: [
 					{
-			            chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
-			            nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
-			            rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
-						blockExplorerUrls:['https://bscscan.com/']
+						chainId: '0x61',
+						chainName: 'bsctestnet',
+						nativeCurrency: {
+							name: 'BNB',
+							symbol: 'BNB',
+							decimals: 18
+						},
+						rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
+						blockExplorerUrls: ['https://testnet.bscscan.com']
 					}
 				]
-			})
-			
+			});
 		}
+		
+		// if(netVer[0]!='56'){
+		// 	window.ethereum.request({
+		// 		method:'wallet_addEthereumChain',
+		// 		params:[
+		// 			{
+		// 	            chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
+		// 	            nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
+		// 	            rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
+		// 				blockExplorerUrls:['https://bscscan.com/']
+		// 			}
+		// 		]
+		// 	})
+			
+		// }
 		
 	})
 	
@@ -360,35 +359,41 @@ $(".metamask").click(function(e){
 			if(window.ethereum&&window.ethereum.isConnected()){
 				document.cookie="isConnect=true";
 			};
-			window.ethereum.request({
-				method:'wallet_addEthereumChain',
-				params:[
-					{
-			            chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
-			            nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
-			            rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
-						blockExplorerUrls:['https://bscscan.com/']
-					}
-				]
-			});
-			
-			//测试
-			// window.ethereum.request({
-			// 	method: 'wallet_addEthereumChain',
-			// 	params: [
-			// 		{
-			// 			chainId: '0x61',
-			// 			chainName: 'bsctestnet',
-			// 			nativeCurrency: {
-			// 				name: 'BNB',
-			// 				symbol: 'BNB',
-			// 				decimals: 18
-			// 			},
-			// 			rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-			// 			blockExplorerUrls: ['https://testnet.bscscan.com']
-			// 		}
-			// 	]
-			// });
+			if (location.host !== 'bazhuayu.io') {
+				if(netVer!='97'){
+					window.ethereum.request({
+						method: 'wallet_addEthereumChain',
+						params: [
+							{
+								chainId: '0x61',
+								chainName: 'bsctestnet',
+								nativeCurrency: {
+									name: 'BNB',
+									symbol: 'BNB',
+									decimals: 18
+								},
+								rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
+								blockExplorerUrls: ['https://testnet.bscscan.com']
+							}
+						]
+					});	
+				}
+			} else {
+				if(netVer!='56'){
+					window.ethereum.request({
+						method:'wallet_addEthereumChain',
+						params:[
+							{
+											chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
+											nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
+											rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
+								blockExplorerUrls:['https://bscscan.com/']
+							}
+						]
+					})
+					
+				}
+			}
 			
 			walletId = accounts[0];
 			console.log(['enable', accounts]);

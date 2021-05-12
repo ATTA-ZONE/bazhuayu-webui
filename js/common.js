@@ -9,7 +9,10 @@ url = url.substring(0,url.indexOf('.'));
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
 if (location.host !== 'bazhuayu.io') {
-	base_url = 'http://47.118.74.48:8081';
+	base_url = 'http://localhost:8081';
+	if (location.host == '47.118.74.48:8081') {
+		base_url = 'http://47.118.74.48:8081';
+	}
 }
 var lang = 'TC';
 $.ajax({
@@ -165,15 +168,23 @@ $(function(){
 				html += `<a class="header-right-yidl" href="javascript:void(0);">`;
 				html += `	<div class="header-right-yidl-info flex">`;
 				if(res.data.headIcon==null||res.data.headIcon==''){
-					html += `	<div><img src="./images/Ellipse 93.png" ></div><span class="ellipsis">`+res.data.name+`</span>`;
+					html += `	<div><img src="./images/Ellipse 93.png" ></div>
+								<p>
+									<span class="ellipsis">`+res.data.name+`</span>
+									<span class="my-email">`+res.data.email+`</span>
+								</p>`;
 				}else{
-					html += `	<div><img src="`+base_url+res.data.headIcon+`" ></div><span class="ellipsis">`+res.data.name+`</span>`;
+					html += `	<div><img src="`+base_url+res.data.headIcon+`" ></div>
+								<p>
+									<span class="ellipsis">`+res.data.name+`</span>
+									<span class="my-email">`+res.data.email+`</span>
+								</p>`;
 					$('.mobile-head-icon img').attr('src',res.data.headIcon);
 				};
 				html += `	</div>`;
 				
 				html += `	<div class="header-right-yidl-my none">
-								<span class="my-email">`+res.data.email+`</span>
+								
 								<span onclick="window.location.href = 'myaccount.html'">我的帳戶</span>
 								<span onclick="window.location.href = 'myorders.html'">我的訂單</span>
 								<span onclick="window.location.href = 'myassets.html'">我的藏品</span>

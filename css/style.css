@@ -194,6 +194,14 @@ body,html{
 	border-radius:50%;
 	margin-right:10px;
 }
+.header-right-yidl-info p{
+	display: flex;
+    flex-direction: column;
+}
+.header-right-yidl-info p .my-email{
+	font-size: 10px;
+	color: rgba(255,255,255,0.8);
+}
 .header-right-yidl-info div img{
 	width:100%;
 	height: 100%;
@@ -212,7 +220,7 @@ body,html{
 	color:#9567FF;
 }
 .header-right-yidl-my{
-	width:140%;
+	width:70%;
 	position:absolute;
 	left:-15%;
 	top:70px;
@@ -303,6 +311,8 @@ body,html{
 	font-size: 18px;
 	line-height: 22px;
 	color:#fff;
+	width: 100%;
+	display: inline-block;
 }
 .menu-list-con ul li span{
 	font-family: Inter;
@@ -491,6 +501,7 @@ body,html{
 	width:75%;
 	left:37.5%;
 	box-shadow:none;
+	position: relative;
 }
 .stacked-cards .active{
 	box-shadow:none!important;
@@ -2754,7 +2765,7 @@ body,html{
 	line-height: 22px;
 	color:rgba(255,255,255,0.4);
 }
-.sign-check-tip{
+.sign-check-tip,.sign-check-tip2{
 	position:absolute;
 	display:block;
 	bottom:-20px;
@@ -3039,8 +3050,8 @@ body,html{
 }
 .wx-code{
 	position:absolute;
-	bottom:220px;
-	right: 50px;
+	bottom:150px;
+	right: 0;
 	width: 270px;
 	height: 270px;
 	background: #16142e;
@@ -3207,6 +3218,16 @@ body,html{
 	.banner{
 		display:flex;
 	}
+}
+.swiper-midia-mask {
+	
+	width: fit-content;
+	height: fit-content;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
 }
 .swiper-container {
   width: 100%;
