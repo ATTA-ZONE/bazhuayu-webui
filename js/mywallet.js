@@ -45,7 +45,7 @@ function mangeWalletCharge(res, accounts) {
 	}
 }
 
-function getSImpleInfo() {
+function getSimpleInfo() {
 	$.ajax({
 		url: base_url + '/v2/user/wallet/simpleInfo',
 		success: function (res) {
