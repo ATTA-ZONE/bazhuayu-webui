@@ -80,9 +80,11 @@ $(function(){
 		var nickname = $('#nickname').val().trim();
 		var email = $('#email').val().trim();
 		var pwd = $('#pwd').val().trim();
+		var pwd2 = $('#pwd2').val().trim();
 		checkTip($('.sign-check-tip'),'');
+		checkTip($('.sign-check-tip2'),'');
 		
-		if(nickname!='' && email!='' && pwd!=''){
+		if(nickname!='' && email!='' && pwd!='' && pwd2!=''){
 			$("#agree").click(function(){
 				if($("#agree").is(':checked')) {
 					$('.sign-btn .sign-btn-register button').addClass('register-check');
@@ -107,6 +109,7 @@ $(function(){
 			var email = $('#email').val().trim(); //邮箱格式
 			var name = $('#nickname').val().trim();  //昵称
 			var password = $('#pwd').val().trim();  //密码
+			var password2 = $('#pwd2').val().trim();  //密码
 			var code = $('#regType').val().trim();  //邀請碼
 			var platform = 0;
 			
@@ -138,39 +141,42 @@ $(function(){
 							platform
 						};
 					}
-					
-					$.ajax({//1邀請碼註冊
-						url:base_url+'/v2/user/check/email',
-						type: 'POST',
-						contentType: 'application/json',
-						dataType: 'json',
-						data:JSON.stringify({email:email}),
-						success:function(res){							// console.log(res);
-							// console.log(res.data.code)//邀請碼
-							// var inviteCode = res.data.code;
-							var code = res.data.emailStatus;
-							// console.log(code)
-							if(code==0){
-								loading();
-								emailRegister(data);
-								return;
-							}
-							if(code==1){
-								checkTip($('.sign-check-tip'),'該郵箱已被注册，但未驗證');
+					if (password != password2) {
+						checkTip($('.sign-check-tip2'),'密码请输入一致');
+					}else{
+						$.ajax({//1邀請碼註冊
+							url:base_url+'/v2/user/check/email',
+							type: 'POST',
+							contentType: 'application/json',
+							dataType: 'json',
+							data:JSON.stringify({email:email}),
+							success:function(res){							// console.log(res);
+								// console.log(res.data.code)//邀請碼
+								// var inviteCode = res.data.code;
+								var code = res.data.emailStatus;
+								// console.log(code)
+								if(code==0){
+									loading();
+									emailRegister(data);
+									return;
+								}
+								if(code==1){
+									checkTip($('.sign-check-tip'),'該郵箱已被注册，但未驗證');
+									
+									// tips('該郵箱已被注册，但未驗證');
+									// setTimeout(function(){
+									// 	confirm(res.data.verifiedToken);
+									// },1500);
+									return;
+								}
+								if(code==2){
+									checkTip($('.sign-check-tip'),'該郵箱已被注册，請嘗試換一個郵箱')
+									return;
+								}
 								
-								// tips('該郵箱已被注册，但未驗證');
-								// setTimeout(function(){
-								// 	confirm(res.data.verifiedToken);
-								// },1500);
-								return;
 							}
-							if(code==2){
-								checkTip($('.sign-check-tip'),'該郵箱已被注册，請嘗試換一個郵箱')
-								return;
-							}
-							
-						}
-					});
+						});
+					}
 					
 					
 				}else{
