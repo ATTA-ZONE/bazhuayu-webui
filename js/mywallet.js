@@ -1,4 +1,4 @@
-function mangeWalletCharge(res) {
+function mangeWalletCharge(res, accounts) {
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		contract.methods.balanceOf(accounts[0]).call() //查询余额
@@ -111,7 +111,7 @@ $(function () {
 												blockExplorerUrls: ['https://testnet.bscscan.com']
 											}]
 										}).then(
-											mangeWalletCharge(res)
+											mangeWalletCharge(res, accounts)
 										)
 									} else {
 
@@ -129,7 +129,7 @@ $(function () {
 												blockExplorerUrls: ['https://bscscan.com/']
 											}]
 										}).then(
-											mangeWalletCharge(res)
+											mangeWalletCharge(res, accounts)
 										)
 									}
 								});
