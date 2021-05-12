@@ -106,7 +106,12 @@
 		callback:function (files) {
 			//回调函数，可以传递给后台等等
 			var file = files[0];
-			
+			if (file.type.indexOf('image') == -1) {
+				// tips('上传图片格式不正确，请重新上传');
+				alert("您拖的不是图片！");
+				$('.my-account-left-img img').attr('src',tximg);
+				return;
+			}
 			var form = new FormData();
 			form.append("file", file);
 			$.ajax({
