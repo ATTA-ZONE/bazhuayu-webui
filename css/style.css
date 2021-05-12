@@ -2756,7 +2756,7 @@ body,html{
 	line-height: 22px;
 	color:rgba(255,255,255,0.4);
 }
-.sign-check-tip{
+.sign-check-tip,.sign-check-tip2{
 	position:absolute;
 	display:block;
 	bottom:-20px;
