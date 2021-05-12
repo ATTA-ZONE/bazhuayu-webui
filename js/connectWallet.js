@@ -307,9 +307,8 @@ if (typeof window.ethereum !== 'undefined') {
 	// 监听网络变更事件
 	ethereum.autoRefreshOnNetworkChange = false;
 	ethereum.on('networkChanged', function (netVer) {
-		console.log(netVer,'network');
 		
-		if(netVer[0]!='97'){
+		if(netVer == '97'){
 			window.ethereum.request({
 				method: 'wallet_addEthereumChain',
 				params: [
