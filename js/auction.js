@@ -168,9 +168,9 @@ $.ajax({
 if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
 	loading();
-	// setTimeout(function(){
-	// 	loadingHide();
-	// },1800);
+	setTimeout(function(){
+		loadingHide();
+	},1800);
 
 	var walletId = ethereum.selectedAddress,
 		ethWei = 0.01;
