@@ -3220,13 +3220,14 @@ body,html{
 	}
 }
 .swiper-midia-mask {
-	width: 100%;
-	height: 100%;
-	display: inline-block;
+	
+	width: fit-content;
+	height: fit-content;
+	display: block;
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 11;
+	z-index: 9999;
 }
 .swiper-container {
   width: 100%;
