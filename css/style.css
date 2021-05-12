@@ -501,6 +501,7 @@ body,html{
 	width:75%;
 	left:37.5%;
 	box-shadow:none;
+	position: relative;
 }
 .stacked-cards .active{
 	box-shadow:none!important;
@@ -3217,6 +3218,15 @@ body,html{
 	.banner{
 		display:flex;
 	}
+}
+.swiper-midia-mask {
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 11;
 }
 .swiper-container {
   width: 100%;
