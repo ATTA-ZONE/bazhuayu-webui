@@ -8,15 +8,19 @@ for (var key in parm){
 	});
 }
 
-var id,prev;
+var id,prev,success_status;
 
 $.each(arr,function(i,v){
 	if(v.key[0]=='id'){
 		id = v.key[1];
 	}else if(v.key[0]=='prev'){
 		prev = v.key[1];
+	}else if(v.key[0]=='success'){
+		success_status = v.key[1]
 	}
 })
+
+// console.log(success);
 
 
 // console.log(id);
@@ -90,6 +94,24 @@ function closeVideo(){
 	$('.video-model video')[0].pause();
 }
 
+
+//询问弹窗
+function confirm(){
+	hsycms.confirm('confirm','去我的資產核對',
+		function(res){            
+			hsycms.success('success','確認');
+			setTimeout(function(){
+				window.location.href = 'myassets.html';
+			},1500)
+		},
+		function(res){
+			hsycms.error('error','取消');
+		},
+	)
+};
+
+
+
 $('html').click(function(){
 	closeVideo();
 })
@@ -115,6 +137,16 @@ $(function(){
 		$('.pre-mask').show();
 	}else{
 		$('.pre-mask').hide();
+	}
+	
+	if(success_status==1){
+		success('支付成功',1800);
+		setTimeout(function(){
+			confirm();
+		},1800)
+		
+	}else if(success_status==0){
+		error('支付失敗',1800);
 	}
 	
 	//商品详情业加载
@@ -306,8 +338,9 @@ $(function(){
 		$(this).addClass('cur');
 		var text = $(this).data('type');
 		if(text==0){
-			$('.payment-page-right-btn button').removeClass('can');
-			$('.payment-page-right-btn button').text('立即付款');
+			// $('.payment-page-right-btn button').removeClass('can');
+			// $('.payment-page-right-btn button').text('立即付款');
+			$('.payment-page-right-btn').hide();
 			$('.order-price .order-price-hdk').show();
 			$('.order-price .order-price-busd').hide();
 			$('.payment-page-right-select').show();
@@ -316,6 +349,7 @@ $(function(){
 		};
 		
 		if(text==1){
+			$('.payment-page-right-btn').show();
 			$('.payment-page-right-btn button').addClass('can');
 			if($('.busd-tip').text()=='餘額不足'){
 				$('.payment-page-right-btn button').text('充值');
@@ -385,8 +419,5 @@ $(function(){
 			}
 		}
 	})
-	
-	
-	
 	
 })

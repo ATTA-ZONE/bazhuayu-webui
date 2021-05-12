@@ -1,17 +1,11 @@
 function mangeWalletCharge(res, accounts) {
-	var web3 = getEth();
-	var contract = new web3.Contract(abi, address);
-	var amount = $('.modify-ipt input').val().trim();
-	if (amount == '') {
-		amount = '0';
-	}
-
-	var num = getWeb3().utils.toWei(amount, 'ether');
-
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		contract.methods.balanceOf(accounts[0]).call() //查询余额
 			.then(function (res) {
+				// console.log(res);
+				// console.log(num);
+
 				if (Number(res) >= Number(num)) {
 					setTimeout(function () {
 						contract.methods.transfer(cwallet, num).send({ //转账
@@ -34,7 +28,9 @@ function mangeWalletCharge(res, accounts) {
 							});
 					}, 500)
 				} else {
+
 					tips('餘額不足');
+
 				}
 			});
 
@@ -45,109 +41,191 @@ function mangeWalletCharge(res, accounts) {
 	}
 }
 
-function getSimpleInfo() {
-	$.ajax({
-		url: base_url + '/v2/user/wallet/simpleInfo',
-		success: function (res) {
-			if (res.code == 0) {
-
-				if (res.data.address == null || res.data.address == '') {
-					tips('請連接錢包');
-					setTimeout(function () {
-						window.location.reload();
-					}, 2000);
-				} else { //绑定的地址登录的账户地址一致
-					loading();
-					window.ethereum.enable().then(function (accounts) {
-
-						if (window.ethereum && window.ethereum.isConnected()) {
-							document.cookie = "isConnect=true";
-						}
-
-						setTimeout(function () {
-							loadingHide();
-						}, 1000);
-
-						//测试
-						if (location.host !== 'bazhuayu.io') {
-							window.ethereum.request({
-								method: 'wallet_addEthereumChain',
-								params: [{
-									chainId: '0x61',
-									chainName: 'bsctestnet',
-									nativeCurrency: {
-										name: 'BNB',
-										symbol: 'BNB',
-										decimals: 18
-									},
-									rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-									blockExplorerUrls: ['https://testnet.bscscan.com']
-								}]
-							}).then(
-								mangeWalletCharge(res, accounts)
-							)
-						} else {
-
-							window.ethereum.request({
-								method: 'wallet_addEthereumChain',
-								params: [{
-									chainId: '0x38',
-									chainName: 'Binance Smart Chain Mainnet', //如果是切换测试网 就 填 测试网 的RPC配置
-									nativeCurrency: {
-										name: 'BNB',
-										symbol: 'bnb',
-										decimals: 18
-									},
-									rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
-									blockExplorerUrls: ['https://bscscan.com/']
-								}]
-							}).then(
-								mangeWalletCharge(res, accounts)
-							)
-						}
-					});
-				}
-			}
-		}
-	})
-}
-
 $(function () {
+
+
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
 		success: function (res) {
-			// console.log(res)
+			console.log(res)
 			if (res.code == 0) {
 				$('.usdt-rest').text(res.data.usdtRest + ' BUSD');
-				if (res.data.address == null || res.data.address == '') {
-					$('.wallet-address').text('---')
+				if (res.data.cardNo == null || res.data.cardNo == '') {
+					$('.cardNo').text('---');
 				} else {
-					$('.wallet-address').text(res.data.address)
+					$('.cardNo').text(res.data.cardNo);
+				};
+
+				if (res.data.walletType == "METAMASK") {
+					$('.walletconnect-wallet').hide();
+					$('.metamask-wallet').show();
+					$('.walletconnect-wallet').removeClass('wallet-li');
+					$('.metamask-wallet').addClass('wallet-li');
+					if (res.data.address == null || res.data.address == '') {
+						$('.metamask-wallet .wallet-address').text('---')
+					} else {
+						$('.metamask-wallet .wallet-address').text(res.data.address)
+					}
+				} else {
+					$('.walletconnect-wallet').show();
+					$('.metamask-wallet').hide();
+					$('.walletconnect-wallet').addClass('wallet-li');
+					$('.metamask-wallet').removeClass('wallet-li');
+					if (res.data.address == null || res.data.address == '') {
+						$('.walletconnect-wallet .wallet-address').text('---')
+					} else {
+						$('.walletconnect-wallet .wallet-address').text(res.data.address)
+					}
 				}
+
 			}
 		}
-	})
+	});
+
+
+
+	var web3 = getEth();
+	var contract = new web3.Contract(abi, address);
+	// console.log(contract);
 
 	//发送交易请求
 	$('.modify-btn-active').click(function (e) {
 		var tit = $('.modify-tit').data('type');
 
+
 		if (tit == 'add') {
-			var amount = $('.modify-ipt input').val().trim();
-			if (amount == '') {
-				amount = '0';
-			}
+			var wallet_type = $('.wallet-li').data('wallet');
 
-			if (typeof window.ethereum !== 'undefined') {
+			if (wallet_type == 'wallectconnect') {
 
-				getSimpleInfo()
+				var provider = CHAIN.WALLET.WalletConnect.provider();
+				var address = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
+				// var web3 = getWeb3();
 
-			} else {
+				var contract = new web3.Contract(abi, address);
+				console.log(contract)
 
-				alert('請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。');
+				CHAIN.WALLET.WalletConnect.provider().enable()
+					.then(function (res) {
+						console.log(res);
 
-			}
 
+
+					});
+
+
+				const web3_p = new Web3(provider);
+
+				// Subscribe to accounts change
+				provider.on("accountsChanged", (accounts) => {
+					console.log(accounts);
+				});
+
+				// Subscribe to chainId change
+				provider.on("chainChanged", (chainId) => {
+					console.log(chainId);
+				});
+
+				// Subscribe to session disconnection
+				provider.on("disconnect", (code, reason) => {
+					console.log(code, reason);
+				});
+
+				// contract_provider.methods.balanceOf('0xac1aa8a6c35ff3854b60c2f6bf64de3d8616ef24').call()
+				// .then(function(res){
+				// 	console.log(res)
+				// })
+				const accounts = web3_p.eth.getAccounts();
+				console.log(accounts)
+
+				// console.log(web3Provider)
+
+				var dd = CHAIN.WALLET.WalletConnect.isConnected();
+				console.log(dd);
+
+			} else if (wallet_type == 'metamask') {
+
+				var amount = $('.modify-ipt input').val().trim();
+				if (amount == '') {
+					amount = '0';
+				}
+				// console.log(amount)
+
+				var num = getWeb3().utils.toWei(amount, 'ether');
+
+				if (typeof window.ethereum !== 'undefined') {
+
+					$.ajax({
+						url: base_url + '/v2/user/wallet/simpleInfo',
+						success: function (res) {
+							// console.log(res)
+							if (res.code == 0) {
+
+								if (res.data.address == null || res.data.address == '') {
+									tips('請連接錢包');
+									setTimeout(function () {
+										window.location.reload();
+									}, 2000);
+								} else { //绑定的地址登录的账户地址一致
+									loading();
+									window.ethereum.enable().then(function (accounts) {
+
+
+										if (window.ethereum && window.ethereum.isConnected()) {
+											document.cookie = "isConnect=true";
+										}
+
+										setTimeout(function () {
+											loadingHide();
+										}, 1000);
+										if (location.host !== 'bazhuayu.io') {
+											window.ethereum.request({
+												method: 'wallet_addEthereumChain',
+												params: [{
+													chainId: '0x61',
+													chainName: 'bsctestnet',
+													nativeCurrency: {
+														name: 'BNB',
+														symbol: 'BNB',
+														decimals: 18
+													},
+													rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
+													blockExplorerUrls: ['https://testnet.bscscan.com']
+												}]
+											}).then(function () {
+												mangeWalletCharge(res, accounts)
+											})
+										} else {
+											window.ethereum.request({
+													method: 'wallet_addEthereumChain',
+													params: [{
+														chainId: '0x38',
+														chainName: 'Binance Smart Chain Mainnet', //如果是切换测试网 就 填 测试网 的RPC配置
+														nativeCurrency: {
+															name: 'BNB',
+															symbol: 'bnb',
+															decimals: 18
+														},
+														rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
+														blockExplorerUrls: ['https://bscscan.com/']
+													}]
+												})
+												.then(function () {
+													mangeWalletCharge(res, accounts)
+												});
+										}
+									});
+								}
+							}
+						}
+					})
+
+				} else {
+
+					alert('請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。');
+
+				}
+			};
 
 		} else if (tit == 'dwallet') {
 			$.ajax({
@@ -213,10 +291,10 @@ $(function () {
 
 			}
 
+		} else if (tit == 'card') {
+
+			console.log(1)
 		}
-
-
-
 	});
 
 

@@ -1,4 +1,38 @@
 
+
+var param = window.location.search.substr(1);
+parm = param.split('&');
+var arr = [];
+for (var key in parm){
+	arr.push({
+		key:parm[key].split('=')
+	});
+}
+
+var success_status;
+
+$.each(arr,function(i,v){
+	if(v.key[0]=='success'){
+		success_status = v.key[1]
+	}
+});
+
+//询问弹窗
+function confirm(){
+	hsycms.confirm('confirm','去我的資產核對',
+		function(res){            
+			hsycms.success('success','確認');
+			setTimeout(function(){
+				window.location.href = 'myassets.html';
+			},1500)
+		},
+		function(res){
+			hsycms.error('error','取消');
+		},
+	)
+};
+
+
 //获取时间
 function formatDuring(mss) {
     var days = parseInt(mss / (1000 * 60 * 60 * 24));
@@ -98,7 +132,7 @@ function getOrderList(current,pageSize){
 							}else{
 								html +=	`<div class="my-orders-status-card">
 											<div class="card-tit">信用卡賬號</div>
-											<div class="card-number">----</div>
+											<div class="card-number">`+v.cardNo+`</div>
 										</div>
 										<div class="my-orders-status-payment">
 											<div class="payment-tit">付款金額</div>
@@ -180,7 +214,7 @@ function payNow(obj){
 	$('.details-right-creator-edition').text('Edition '+edition+' of '+storage);
 	$('.order-price-hdk').text('HK$ '+moneyFormat(payPriceHkd)+' 港元');
 	$('.order-price-busd').text(moneyFormat(payPriceUsdt)+' BUSD');
-	$('.order-number').text(orderNo);
+	$('.order-number span').text(orderNo.split(' ')[2]);
 	$('.payment-page-right-order-je span').text(moneyFormat(payPriceUsdt)+' BUSD');
 	
 	$.ajax({
@@ -249,6 +283,17 @@ function payNow(obj){
 
 $(function(){
 	
+	if(success_status==1){
+		success('支付成功',1800);
+		setTimeout(function(){
+			confirm();
+		},1800)
+		
+	}else if(success_status==0){
+		error('支付失敗',1800);
+	}
+	
+	
 	var current = 1;
 	getOrderList(current,9);
 	
@@ -273,8 +318,10 @@ $(function(){
 					text[1] = 59;
 					if(text[0]<0){
 						clearInterval(t);
+						return;
 					}
 				}
+				
 				$(v).find('.my-orders-btn-time span').text(text[0]+' : '+(text[1]<10?'0'+text[1]:text[1]));
 			},1000)
 			
@@ -290,8 +337,9 @@ $(function(){
 		$(this).addClass('cur');
 		var text = $(this).data('type');
 		if(text==0){
-			$('.payment-page-right-btn button').removeClass('can');
-			$('.payment-page-right-btn button').text('立即付款');
+			// $('.payment-page-right-btn button').removeClass('can');
+			// $('.payment-page-right-btn button').text('立即付款');
+			$('.payment-page-right-btn').hide();
 			$('.order-price .order-price-hdk').show();
 			$('.order-price .order-price-busd').hide();
 			$('.payment-page-right-select').show();
@@ -300,6 +348,7 @@ $(function(){
 		};
 		
 		if(text==1){
+			$('.payment-page-right-btn').show();
 			$('.payment-page-right-btn button').addClass('can');
 			if($('.busd-tip').text()=='餘額不足'){
 				$('.payment-page-right-btn button').text('充值');

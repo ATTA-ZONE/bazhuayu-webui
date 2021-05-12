@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
 	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3-provider.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
@@ -22,7 +23,6 @@
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
-	
 </head>
 <body>
 	<!-- head -->
@@ -49,22 +49,34 @@
 					<img src="./images/Card.png" alt="">
 					<span class="language-tc">信用卡</span>
 				</div>
-				<div class="my-wallet-number">---</div>
+				<div class="my-wallet-number cardNo">---</div>
 				<div class="my-wallet-btn flex">
-					<a class="flex change modify-tc-pc tc-show"href="javascript:void(0);" onclick="changeCard()"><span class="language-tc">更換</span></a>
-					<a class="flex delete modify-tc-pc tc-show"href="javascript:void(0);" onclick="deleteCard()"><span class="language-tc">刪除</span></a>
+					<a class="flex change modify-tc-pc tc-show" href="javascript:void(0);" onclick="changeCard()"><span class="language-tc">更換</span></a>
+					<a class="flex delete modify-tc-pc tc-show" href="javascript:void(0);" onclick="deleteCard()"><span class="language-tc">刪除</span></a>
 				</div>
 			</li>
 			
-			<li>
+			<li class="metamask-wallet" data-wallet="metamask">
 				<div class="my-wallet-tit my-wallet-metamask flex">
 					<img src="./images/Metamask.png" alt="">
 					<span>Metamask</span>
 				</div>
 				<div class="my-wallet-number wallet-address">---</div>
 				<div class="my-wallet-btn flex">
-					<a class="flex change "href="javascript:void(0);"><span class="language-tc">更換</span></a>
-					<a class="flex delete modify-tc-pc tc-show"href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">刪除</span></a>
+					<a class="flex change" href="connectWallet.html"><span class="language-tc">更換</span></a>
+					<a class="flex delete modify-tc-pc tc-show" href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">刪除</span></a>
+				</div>
+			</li>
+			
+			<li class="walletconnect-wallet none" data-wallet="wallectconnect">
+				<div class="my-wallet-tit my-wallet-metamask flex">
+					<img src="./images/WalletConnect.png" alt="">
+					<span>WalletConnect</span>
+				</div>
+				<div class="my-wallet-number wallet-address">---</div>
+				<div class="my-wallet-btn flex">
+					<a class="flex change " href="connectWallet.html"><span class="language-tc">更換</span></a>
+					<a class="flex delete modify-tc-pc tc-show" href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">刪除</span></a>
 				</div>
 			</li>
 			
@@ -109,6 +121,7 @@
 	<div class="tips"></div>
 	
 </body>
+<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 <script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/mywallet.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
