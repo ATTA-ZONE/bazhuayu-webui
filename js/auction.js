@@ -175,8 +175,11 @@ if (typeof window.ethereum !== 'undefined') {
 	var walletId = ethereum.selectedAddress,
 		ethWei = 0.01;
 	var netVer = window.ethereum.networkVersion;
-	// var address = '0x6A2E6042DF6FDCdA84A45531C892b644b095E2b4';  //拍卖地址测试
-	var address = '0x26455c075eAD85015cbA283731db78d5E80615fF'; //拍卖地址正式
+	var address = ''
+	if (location.host !== 'bazhuayu.io') {
+		address = '0x6A2E6042DF6FDCdA84A45531C892b644b095E2b4';  //拍卖地址测试
+	}
+	address = '0x26455c075eAD85015cbA283731db78d5E80615fF'; //拍卖地址正式
 	var user_address = $('.bid-right-tip').data('address');
 
 	// 监听账户变更事件
