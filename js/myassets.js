@@ -118,8 +118,8 @@ function informationShow(obj){
 // 	hsycms.alert('model1');
 // }
 function getClaim(obj){
-	
-	if(document.cookie.split(';')[0]=='auction_wallet_connect=true'){
+
+	if(getCookie('isConnect')=='true'){
 		setTimeout(function(){
 			
 			var instanceId = $(obj).data('instanceid');
