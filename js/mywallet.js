@@ -1,4 +1,4 @@
-import {requestWeb3} from './requestMetamask'
+require('./requestMetamask') 
 
 requestWeb3()
 function mangeWalletCharge(){
