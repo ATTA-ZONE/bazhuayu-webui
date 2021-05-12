@@ -1,4 +1,48 @@
+import {requestWeb3} from './requestMetamask'
 
+requestWeb3()
+function mangeWalletCharge(){
+	if(res.data.address==accounts[0]){
+		var cwallet = res.data.cwallet;   //收款钱包 地址
+		contract.methods.balanceOf(accounts[0]).call()       //查询余额
+		.then(function(res){
+			// console.log(res);
+			// console.log(num);
+			
+			if(Number(res)>=Number(num)){
+				setTimeout(function(){
+					contract.methods.transfer(cwallet, num).send({     //转账
+						from:accounts[0]
+					})
+					.on('transactionHash', function(hash){
+						console.log(['hash',hash]);
+						success('充值成功',1800);
+						setTimeout(function(){
+							tips('預計10秒內到賬');
+						
+							setTimeout(function(){
+								window.location.reload();
+							},1500)
+						},1800);
+					}).on('receipt', function(receipt){
+						// console.log(['receipt',receipt])
+					}).on('error',function(err){
+						// console.log(['error',err])
+					});
+				},500)
+			}else{
+				
+				tips('餘額不足');
+				
+			}
+		});
+		
+	}else{
+		
+		tips('登入帳戶地址與綁定地址不一致，請切換帳戶或重新綁定');
+		
+	}
+}
 
 $(function(){
 	
@@ -53,7 +97,6 @@ $(function(){
 								loading();
 								window.ethereum.enable().then(function(accounts){
 									
-
 									if(window.ethereum&&window.ethereum.isConnected()){
 										document.cookie="isConnect=true";
 									}
@@ -63,76 +106,43 @@ $(function(){
 									},1000);
 									
 									//测试
-									window.ethereum.request({
-										method: 'wallet_addEthereumChain',
-										params: [
-											{
-												chainId: '0x61',
-												chainName: 'bsctestnet',
-												nativeCurrency: {
-													name: 'BNB',
-													symbol: 'BNB',
-													decimals: 18
-												},
-												rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-												blockExplorerUrls: ['https://testnet.bscscan.com']
-											}
-										]
-									})
-									
-									// window.ethereum.request({
-									// 	method:'wallet_addEthereumChain',
-									// 	params:[
-									// 		{
-									//             chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
-									//             nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
-									//             rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
-									// 			blockExplorerUrls:['https://bscscan.com/']
-									// 		}
-									// 	]
-									// })
-									.then(function(){
-										if(res.data.address==accounts[0]){
-											var cwallet = res.data.cwallet;   //收款钱包 地址
-											contract.methods.balanceOf(accounts[0]).call()       //查询余额
-											.then(function(res){
-												// console.log(res);
-												// console.log(num);
-												
-												if(Number(res)>=Number(num)){
-													setTimeout(function(){
-														contract.methods.transfer(cwallet, num).send({     //转账
-															from:accounts[0]
-														})
-														.on('transactionHash', function(hash){
-															console.log(['hash',hash]);
-															success('充值成功',1800);
-															setTimeout(function(){
-																tips('預計10秒內到賬');
-															
-																setTimeout(function(){
-																	window.location.reload();
-																},1500)
-															},1800);
-														}).on('receipt', function(receipt){
-															// console.log(['receipt',receipt])
-														}).on('error',function(err){
-															// console.log(['error',err])
-														});
-													},500)
-												}else{
-													
-													tips('餘額不足');
-													
+									if (location.host !== 'bazhuayu.io') {
+										window.ethereum.request({
+											method: 'wallet_addEthereumChain',
+											params: [
+												{
+													chainId: '0x61',
+													chainName: 'bsctestnet',
+													nativeCurrency: {
+														name: 'BNB',
+														symbol: 'BNB',
+														decimals: 18
+													},
+													rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
+													blockExplorerUrls: ['https://testnet.bscscan.com']
 												}
-											});
-											
-										}else{
-											
-											tips('登入帳戶地址與綁定地址不一致，請切換帳戶或重新綁定');
-											
-										}
-									});
+											]
+										}).then(
+											mangeWalletCharge()
+										)
+									} else {
+
+										window.ethereum.request({
+											method:'wallet_addEthereumChain',
+											params:[
+												{
+										            chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
+										            nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
+										            rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
+													blockExplorerUrls:['https://bscscan.com/']
+												}
+											]
+										}).then(
+											mangeWalletCharge()
+										)
+									}
+									
+									
 								});
 							}
 						}
