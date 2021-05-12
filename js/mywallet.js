@@ -78,7 +78,7 @@ $(function(){
 												blockExplorerUrls: ['https://testnet.bscscan.com']
 											}
 										]
-									});
+									})
 									
 									// window.ethereum.request({
 									// 	method:'wallet_addEthereumChain',
