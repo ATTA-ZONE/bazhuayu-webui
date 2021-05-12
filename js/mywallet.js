@@ -63,22 +63,22 @@ $(function(){
 									},1000);
 									
 									//测试
-									window.ethereum.request({
-										method: 'wallet_addEthereumChain',
-										params: [
-											{
-												chainId: '0x61',
-												chainName: 'bsctestnet',
-												nativeCurrency: {
-													name: 'BNB',
-													symbol: 'BNB',
-													decimals: 18
-												},
-												rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-												blockExplorerUrls: ['https://testnet.bscscan.com']
-											}
-										]
-									})
+									// window.ethereum.request({
+									// 	method: 'wallet_addEthereumChain',
+									// 	params: [
+									// 		{
+									// 			chainId: '0x61',
+									// 			chainName: 'bsctestnet',
+									// 			nativeCurrency: {
+									// 				name: 'BNB',
+									// 				symbol: 'BNB',
+									// 				decimals: 18
+									// 			},
+									// 			rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
+									// 			blockExplorerUrls: ['https://testnet.bscscan.com']
+									// 		}
+									// 	]
+									// })
 									
 									window.ethereum.request({
 										method: 'wallet_addEthereumChain',
