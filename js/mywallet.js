@@ -111,7 +111,7 @@ $(function () {
 												blockExplorerUrls: ['https://testnet.bscscan.com']
 											}]
 										}).then(
-											mangeWalletCharge()
+											mangeWalletCharge(res)
 										)
 									} else {
 
@@ -128,7 +128,9 @@ $(function () {
 												rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
 												blockExplorerUrls: ['https://bscscan.com/']
 											}]
-										})
+										}).then(
+											mangeWalletCharge(res)
+										)
 									}
 								});
 							}
