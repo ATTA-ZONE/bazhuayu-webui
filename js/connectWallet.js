@@ -308,7 +308,7 @@ if (typeof window.ethereum !== 'undefined') {
 	ethereum.autoRefreshOnNetworkChange = false;
 	ethereum.on('networkChanged', function (netVer) {
 		
-		if(netVer == '97'){
+		if(netVer != '97'){
 			window.ethereum.request({
 				method: 'wallet_addEthereumChain',
 				params: [
