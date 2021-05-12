@@ -119,7 +119,7 @@ function informationShow(obj){
 // }
 function getClaim(obj){
 	
-	if(document.cookie.split('=')[1]=='true'){
+	if(document.cookie.split(';')[0]=='auction_wallet_connect=true'){
 		setTimeout(function(){
 			
 			var instanceId = $(obj).data('instanceid');
