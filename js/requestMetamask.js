@@ -1,3 +1,3 @@
-export default function requestWeb3(){
+export function requestWeb3(){
   alert('333')
 }
