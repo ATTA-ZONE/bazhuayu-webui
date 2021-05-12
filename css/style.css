@@ -3041,8 +3041,8 @@ body,html{
 }
 .wx-code{
 	position:absolute;
-	bottom:220px;
-	right: 50px;
+	bottom:150px;
+	right: 0;
 	width: 270px;
 	height: 270px;
 	background: #16142e;
