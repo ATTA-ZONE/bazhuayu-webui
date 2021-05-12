@@ -146,6 +146,9 @@ function onCardTokenizationFailed(error) {
   Frames.enableSubmitForm();
 }
 
+$('.pay-button').click(function(){
+	loading();
+});
 Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, onCardTokenized);
 function onCardTokenized(event) {
   // var el = document.querySelector(".success-payment-message");
@@ -175,6 +178,7 @@ function onCardTokenized(event) {
 		data:JSON.stringify(data),
 		success:function(res){
 			console.log(res);
+			loadingHide();
 			if(res.code==0){
 				window.location.href = res.data.paytdsUrl;
 			}

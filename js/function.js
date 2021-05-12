@@ -204,12 +204,13 @@ function widthDraw(){
 function changeCard(){
 	$('.modify-tit span').text('更換信用卡');
 	$('.modify-tit').data('type','card');
+	
 	var html = ``;
 	html += `<div class="modify-ipt-add">
 				<div class="modify-ipt-tit">新信用卡信息</div>
 				<div class="modify-ipt-number flex">
 					<input class="modify-ipt-card" type="text" placeholder="卡號" />
-					<input class="modify-ipt-mm" type="text" id="datetimepicker" placeholder="MM/YYYY" />
+					<input class="modify-ipt-mm" type="text" id="datetimepicker" placeholder="MM/YY" />
 					<input class="modify-ipt-cvc" type="text" placeholder="CVC" />
 				</div>
 			</div>`;
@@ -225,7 +226,7 @@ function changeCard(){
 		autoclose: true,
 		language:'en'
 	});
-	// $('.modify').fadeIn();
+	// $('.modify-card').fadeIn();
 }
 
 //delete info

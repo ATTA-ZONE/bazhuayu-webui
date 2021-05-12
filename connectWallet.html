@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
 	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3-provider.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
@@ -37,7 +38,7 @@
 						</div>
 						<div class="connect-wallet-btn flex">
 							<a href="javascript:void(0);" class="flex metamask"><img src="./images/Metamask.png" ><span type="button">Metamask</span></a>
-							<!-- <a href="" class="flex"><img src="./images/WalletConnect.png" ><span type="button">WalletConnect</span></a> -->
+							<!-- <a id="walletColletBtn" href="javascript:void(0);" class="flex"><img src="./images/WalletConnect.png" ><span type="button">WalletConnect</span></a> -->
 						</div>
 						<div class="connect-wallet-tip">我們沒有您的私鑰，未經您的確認也無法訪問您的資金。</div>
 					</div>
@@ -51,5 +52,14 @@
 	<div class="tips"></div>
 	
 </body>
+<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 <script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$("#walletColletBtn").click(function (e) {
+		localStorage.removeItem("walletconnect");
+		
+		CHAIN.WALLET.connect(CHAIN.WALLET.WalletConnect.name);
+		
+	});
+</script>
 </html>
