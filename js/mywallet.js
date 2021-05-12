@@ -81,20 +81,20 @@ $(function(){
 									// })
 									
 									window.ethereum.request({
-										method:'wallet_addEthereumChain',
+										method: 'wallet_addEthereumChain',
 										params: [
-													{
-														chainId: '0x61',
-														chainName: 'bsctestnet',
-														nativeCurrency: {
-															name: 'BNB',
-															symbol: 'BNB',
-															decimals: 18
-														},
-														rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-														blockExplorerUrls: ['https://testnet.bscscan.com']
-													}
-												]
+											{
+												chainId: '0x61',
+												chainName: 'bsctestnet',
+												nativeCurrency: {
+													name: 'BNB',
+													symbol: 'BNB',
+													decimals: 18
+												},
+												rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
+												blockExplorerUrls: ['https://testnet.bscscan.com']
+											}
+										]
 									})
 									.then(function(){
 										if(res.data.address==accounts[0]){
