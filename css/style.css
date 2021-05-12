@@ -303,6 +303,8 @@ body,html{
 	font-size: 18px;
 	line-height: 22px;
 	color:#fff;
+	width: 100%;
+	display: inline-block;
 }
 .menu-list-con ul li span{
 	font-family: Inter;
