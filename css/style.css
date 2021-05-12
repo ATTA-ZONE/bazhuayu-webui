@@ -194,6 +194,14 @@ body,html{
 	border-radius:50%;
 	margin-right:10px;
 }
+.header-right-yidl-info p{
+	display: flex;
+    flex-direction: column;
+}
+.header-right-yidl-info p .my-email{
+	font-size: 10px;
+	color: rgba(255,255,255,0.8);
+}
 .header-right-yidl-info div img{
 	width:100%;
 	height: 100%;
@@ -212,7 +220,7 @@ body,html{
 	color:#9567FF;
 }
 .header-right-yidl-my{
-	width:140%;
+	width:70%;
 	position:absolute;
 	left:-15%;
 	top:70px;
