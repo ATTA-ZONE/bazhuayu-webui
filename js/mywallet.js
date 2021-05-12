@@ -1,41 +1,3 @@
-function mangeWalletCharge(res, accounts) {
-	if (res.data.address == accounts[0]) {
-		var cwallet = res.data.cwallet; //收款钱包 地址
-		contract.methods.balanceOf(accounts[0]).call() //查询余额
-			.then(function (res) {
-				if (Number(res) >= Number(num)) {
-					setTimeout(function () {
-						contract.methods.transfer(cwallet, num).send({ //转账
-								from: accounts[0]
-							})
-							.on('transactionHash', function (hash) {
-								console.log(['hash', hash]);
-								success('充值成功', 1800);
-								setTimeout(function () {
-									tips('預計10秒內到賬');
-
-									setTimeout(function () {
-										window.location.reload();
-									}, 1500)
-								}, 1800);
-							}).on('receipt', function (receipt) {
-								// console.log(['receipt',receipt])
-							}).on('error', function (err) {
-								// console.log(['error',err])
-							});
-					}, 500)
-				} else {
-					tips('餘額不足');
-				}
-			});
-
-	} else {
-
-		tips('登入帳戶地址與綁定地址不一致，請切換帳戶或重新綁定');
-
-	}
-}
-
 $(function () {
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
@@ -55,7 +17,6 @@ $(function () {
 
 	var web3 = getEth();
 	var contract = new web3.Contract(abi, address);
-	// console.log(contract);
 
 	//发送交易请求
 	$('.modify-btn-active').click(function (e) {
@@ -111,7 +72,41 @@ $(function () {
 												blockExplorerUrls: ['https://testnet.bscscan.com']
 											}]
 										}).then(
-											mangeWalletCharge(res, accounts)
+											function(){if (res.data.address == accounts[0]) {
+												var cwallet = res.data.cwallet; //收款钱包 地址
+												contract.methods.balanceOf(accounts[0]).call() //查询余额
+													.then(function (res) {
+														if (Number(res) >= Number(num)) {
+															setTimeout(function () {
+																contract.methods.transfer(cwallet, num).send({ //转账
+																		from: accounts[0]
+																	})
+																	.on('transactionHash', function (hash) {
+																		console.log(['hash', hash]);
+																		success('充值成功', 1800);
+																		setTimeout(function () {
+																			tips('預計10秒內到賬');
+										
+																			setTimeout(function () {
+																				window.location.reload();
+																			}, 1500)
+																		}, 1800);
+																	}).on('receipt', function (receipt) {
+																		// console.log(['receipt',receipt])
+																	}).on('error', function (err) {
+																		// console.log(['error',err])
+																	});
+															}, 500)
+														} else {
+															tips('餘額不足');
+														}
+													});
+										
+											} else {
+										
+												tips('登入帳戶地址與綁定地址不一致，請切換帳戶或重新綁定');
+										
+											}}
 										)
 									} else {
 
@@ -129,7 +124,43 @@ $(function () {
 												blockExplorerUrls: ['https://bscscan.com/']
 											}]
 										}).then(
-											mangeWalletCharge(res, accounts)
+											function(){
+												if (res.data.address == accounts[0]) {
+													var cwallet = res.data.cwallet; //收款钱包 地址
+													contract.methods.balanceOf(accounts[0]).call() //查询余额
+														.then(function (res) {
+															if (Number(res) >= Number(num)) {
+																setTimeout(function () {
+																	contract.methods.transfer(cwallet, num).send({ //转账
+																			from: accounts[0]
+																		})
+																		.on('transactionHash', function (hash) {
+																			console.log(['hash', hash]);
+																			success('充值成功', 1800);
+																			setTimeout(function () {
+																				tips('預計10秒內到賬');
+											
+																				setTimeout(function () {
+																					window.location.reload();
+																				}, 1500)
+																			}, 1800);
+																		}).on('receipt', function (receipt) {
+																			// console.log(['receipt',receipt])
+																		}).on('error', function (err) {
+																			// console.log(['error',err])
+																		});
+																}, 500)
+															} else {
+																tips('餘額不足');
+															}
+														});
+											
+												} else {
+											
+													tips('登入帳戶地址與綁定地址不一致，請切換帳戶或重新綁定');
+											
+												}
+											}
 										)
 									}
 								});
