@@ -24,7 +24,8 @@ function getAssetsList(current,pageSize){
 					$('.bzy-e-more').hide();
 				};
 				if(data.length==0){
-					html += `<li class="flex nothing"><img src="./images/nothing.png"><div>暫無藏品記錄</div></li>`;
+					html += `<li class="flex nothing">
+					<div>暫無藏品記錄</div></li>`;
 					$('.my-assets ul').css('padding-top','100px');
 				}else{
 					$.each(data,function(i,v){

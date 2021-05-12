@@ -59,7 +59,8 @@ function getOrderList(current,pageSize){
 				};
 				// var curTime = Date.now();
 				if(data.length==0){
-					html += `<li class="flex nothing"><img src="./images/nothing.png"><div>暫無搜索結果</div></li>`;
+					html += `<li class="flex nothing">
+					<div>暫無搜索結果</div></li>`;
 					$('.my-assets ul').css('padding-top','100px');
 				}else{
 					
