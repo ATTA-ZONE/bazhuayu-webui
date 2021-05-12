@@ -1,4 +1,4 @@
-function mangeWalletCharge() {
+function mangeWalletCharge(res) {
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		contract.methods.balanceOf(accounts[0]).call() //查询余额
