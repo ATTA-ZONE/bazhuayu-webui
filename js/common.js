@@ -8,7 +8,7 @@ url = url.substring(0,url.indexOf('.'));
 // var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
-if (window.location.href.indexOf('bazhuayu.io') != -1) {
+if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	base_url = 'http://localhost:8081';
 	if (window.location.href.indexOf('47.118.74.48:8081') > -1) {
 		base_url = 'http://47.118.74.48:8081';
