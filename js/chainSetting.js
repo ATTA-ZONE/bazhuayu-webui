@@ -30,7 +30,7 @@ var RPCSetting =
             56:     //  BSC 正式 主网络
                 {
                     'CHAIN_NAME': 'BSC_MAINNET',
-                    'RPC_URL': "https://bsc-dataseed4.binance.org/",
+                    'RPC_URL': "https://bsc-dataseed1.ninicoin.io",
                     'CHAIN_ID': 56,
                     'CHAIN_ID_HEX': '0x38',
                     'SYMBOL': 'BNB',
