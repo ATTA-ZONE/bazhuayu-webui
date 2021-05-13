@@ -74,7 +74,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						
 						html += 
 						`<li>
-							<a href="artworkDetails.html?id=`+v.id+`">`;
+							<a class="artwork-mask" href="artworkDetails.html?id=`+v.id+`"><div class="artwork-mask-wrap"></div>`;
 						
 						if(geshi=='mp4'){
 							

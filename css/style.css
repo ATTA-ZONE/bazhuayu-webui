@@ -909,6 +909,17 @@ body,html{
 	column-count:3;
 	column-gap:48px;
 }
+.artwork-mask {
+	position: relative;
+}
+.artwork-mask-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+}
 .bzy-e-list li{
 	width:100%;
 	transition:all 0.5s;
