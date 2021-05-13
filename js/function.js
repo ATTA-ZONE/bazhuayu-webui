@@ -138,7 +138,7 @@ function menuHide(){
 // add fund
 function addFund(){
 	if (getCookie('isConnect')=='false') {
-		window.location.href="connectWallet.html"
+		window.location.href="./connectWallet.html"
 	}else{
 
 		$('.modify-tit span').text('充值');
@@ -183,7 +183,7 @@ function cancelMobile(){
 //widthdraw
 function widthDraw(){
 	if (getCookie('isConnect')=='false') {
-		window.location.href="connectWallet.html"
+		window.location.href="./connectWallet.html"
 	}else{
 		$('.modify-tit span').text('提款');
 		$('.modify-tit').data('type','withdraw');
