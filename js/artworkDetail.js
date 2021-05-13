@@ -79,8 +79,8 @@ function orderTakeMobile(){
 // 播放视频
 function playVideo(obj,e){
 	e.stopPropagation();
-	$(obj)[0].pause();
-	var src = $(obj).attr('src');
+	$(obj).siblings('video')[0].pause();
+	var src = $(obj).siblings('video')[0].attr('src');
 	$('.video-model video').attr('src',src);
 	$('.video-model video')[0].play();
 	$('.video-mask').fadeIn('fast');
