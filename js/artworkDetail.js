@@ -80,7 +80,7 @@ function orderTakeMobile(){
 function playVideo(obj,e){
 	e.stopPropagation();
 	$(obj).siblings('video')[0].pause();
-	var src = $(obj).siblings('video')[0].attr('src');
+	var src = $(obj).siblings('video')[0].src;
 	$('.video-model video').attr('src',src);
 	$('.video-model video')[0].play();
 	$('.video-mask').fadeIn('fast');
