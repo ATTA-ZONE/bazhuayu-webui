@@ -95,7 +95,7 @@ ethereum.autoRefreshOnNetworkChange = false;
 ethereum.on('networkChanged', function (netVer) {
 	console.log(['networkChanged', netVer]);
 
-	if (location.host !== 'bazhuayu.io') {
+	if (window.location.href.indexOf('bazhuayu.io') == -1) {
 		if (netVer != '97') {
 			window.ethereum.request({
 				method: 'wallet_addEthereumChain',
@@ -177,7 +177,7 @@ $('#connectWallet').click(function () {
 		$('#pay_now').data('status', '1');
 		document.cookie = "address=" + accounts[0];
 
-		if (location.host !== 'bazhuayu.io') {
+		if (window.location.href.indexOf('bazhuayu.io') == -1) {
 			if (netVer != '97') {
 				window.ethereum.request({
 					method: 'wallet_addEthereumChain',

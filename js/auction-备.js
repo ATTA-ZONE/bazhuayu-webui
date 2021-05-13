@@ -166,7 +166,7 @@ if (typeof window.ethereum !== 'undefined') {
 	// 监听网络变更事件
 	ethereum.autoRefreshOnNetworkChange = false;
 	ethereum.on('networkChanged', function (netVer) {
-		if (location.host !== 'bazhuayu.io') {
+		if (window.location.href.indexOf('bazhuayu.io') == -1) {
 			if (netVer != '97') {
 				window.ethereum.request({
 					method: 'wallet_addEthereumChain',

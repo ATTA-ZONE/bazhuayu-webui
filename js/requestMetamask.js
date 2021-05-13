@@ -1,5 +1,5 @@
 function requestWeb3(){
-  if (location.host !== 'bazhuayu.io') {
+  if (window.location.href.indexOf('bazhuayu.io') == -1) {
     if(netVer!='97'){
       window.ethereum.request({
         method: 'wallet_addEthereumChain',

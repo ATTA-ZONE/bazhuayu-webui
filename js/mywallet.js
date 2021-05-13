@@ -183,7 +183,7 @@ $(function () {
 										setTimeout(function () {
 											loadingHide();
 										}, 1000);
-										if (location.host !== 'bazhuayu.io') {
+										if (window.location.href.indexOf('bazhuayu.io') == -1) {
 											window.ethereum.request({
 												method: 'wallet_addEthereumChain',
 												params: [{
