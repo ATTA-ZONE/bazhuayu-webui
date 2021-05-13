@@ -151,7 +151,7 @@ $(function(){
 		$('.tc-show').removeClass('modify-tc-pc');
 		$('.tc-show').addClass('modify-tc-mobile');
 		
-		$('.tc-show.modify-tc-mobile').on('click',function(){
+		$('.accountclass.modify-tc-mobile').on('click',function(){
 			$('.modify').addClass('modify-tc-active')
 		})
 	}
