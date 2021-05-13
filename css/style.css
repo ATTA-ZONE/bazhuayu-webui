@@ -2777,6 +2777,19 @@ body,html{
 	font-weight: normal;
 	color: #FF0000;
 }
+.sign-warn-check {
+	position:absolute;
+	display:block;
+	bottom:-24px;
+	font-size:12px;
+	width:100%;
+	left:0;
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	color: #fff;
+	opacity: 0.4;
+}
 .sign-btn{
 	border-top:1px solid rgba(255,255,255,0.15);
 	padding-top:24px;
