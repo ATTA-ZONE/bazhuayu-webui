@@ -180,13 +180,13 @@ $(function(){
 					res.data.edition = 200;
 				}
 				
-				$('.details-right-creator-edition').text('第'+res.data.edition+'版， 共'+res.data.endEndition+'版');
+				$('.details-right-creator-edition').text('第'+res.data.edition+'版， 共'+res.data.endEdition+'版');
 				$('.order-introduce').html(res.data.introduce==''?'暫無介紹':(res.data.introduce.replace(/;\|;/g,'<br>')));
 				$('.order-content').html(res.data.content==''?'暫無更多資訊':(res.data.content.replace(/;\|;/g,'<br>')));
 				
 				
 				
-				if(res.data.endEndition - res.data.edition > 0){  //还有库存
+				if(res.data.endEdition - res.data.edition > 0){  //还有库存
 					
 					if(systemTime < saleStartTimeMillis){
 						$('.details-right-btn').addClass('unclick');
