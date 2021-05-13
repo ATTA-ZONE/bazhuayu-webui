@@ -2757,7 +2757,7 @@ body,html{
 	border:0;
 	width:100%;
 	border-radius:2px;
-	text-indent:12px;
+	padding: 0 12px;
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
@@ -2777,6 +2777,14 @@ body,html{
 	font-weight: normal;
 	color: #FF0000;
 }
+.password-icon1, .password-icon2 {
+	position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 18px;
+    border-radius: 50%;
+}
+
 .sign-warn-check {
 	position:absolute;
 	display:block;
