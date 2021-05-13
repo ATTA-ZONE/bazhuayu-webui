@@ -89,15 +89,15 @@ function toggleLoginStatus() {
 	var result2 = regExp.test(pwd2)
 
 	if (result1 && pwd) {
-		$('.password-icon1').css('background','#8d6ef6')
+		$('.password-icon1').attr('src','./images/pass.png')
 	} else {
-		$('.password-icon1').css('background','transparent')
+		$('.password-icon1').attr('src','./images/refuse.png')
 	}
 
 	if (result2 && pwd === pwd2) {
-		$('.password-icon2').css('background','#8d6ef6')
+		$('.password-icon2').attr('src','./images/pass.png')
 	} else {
-		$('.password-icon2').css('background','transparent')
+		$('.password-icon2').attr('src','./images/refuse.png')
 	}
 
 	if (nickname != '' && email != '' && pwd != '' && pwd2 != '' && result1 && result2 && verifyChecked) {
