@@ -53,7 +53,8 @@ function confirm(){
 					success:function(res){
 						// console.log(res);
 						if(res.code==0){
-							window.location.reload();
+							// window.location.reload();
+							window.location.href = 'index.html';
 						}
 					}
 				})
@@ -257,7 +258,32 @@ $(function(){
 	
 	
 	
-
+	$.ajax({
+		url:base_url+'/v2/user/wallet/info',
+		async:false,
+		success:function(res){
+			// console.log(res)
+			if(res.code==0){
+				if(res.data.walletType=="TOKEN POCKET"){
+					CHAIN.WALLET.WalletConnect.events();
+					var t = setInterval(function(){
+						var walletconnect = localStorage.getItem('walletconnect');
+						var cookie = getCookie('isConnect');
+						// console.log(a);
+						if(walletconnect==null){
+							clearInterval(t);
+							// console.log(walletconnect);
+							// console.log(isWalletConnect);
+							isWalletConnect = false;
+							$('.header-right-wallet').html('<span>連接錢包</span>');
+							$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a>');
+						}
+					},200)
+				}
+			}
+			
+		}
+	})
 	
 
 

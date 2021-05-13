@@ -119,7 +119,6 @@ function informationShow(obj){
 // 	hsycms.alert('model1');
 // }
 function getClaim(obj){
-
 	if(getCookie('isConnect')=='true'){
 		setTimeout(function(){
 			
