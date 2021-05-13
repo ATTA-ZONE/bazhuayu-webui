@@ -44,7 +44,8 @@ function getArtworkList(current,pageSize,name,typeId){
 				};
 				
 				if(records.length==0){
-					html += `<li class="nothing-artwork"><img src="./images/nothing.png"><div>暫無搜索結果</div></li>`;
+					html += `<li class="nothing-artwork">
+					<div>暫無搜索結果</div></li>`;
 					$('.bzy-e-list').css('padding-top','100px');
 				}else{
 					 

@@ -24,7 +24,8 @@ function getAssetsList(current,pageSize){
 					$('.bzy-e-more').hide();
 				};
 				if(data.length==0){
-					html += `<li class="flex nothing"><img src="./images/nothing.png"><div>暫無藏品記錄</div></li>`;
+					html += `<li class="flex nothing">
+					<div>暫無藏品記錄</div></li>`;
 					$('.my-assets ul').css('padding-top','100px');
 				}else{
 					$.each(data,function(i,v){
@@ -74,7 +75,7 @@ function getAssetsList(current,pageSize){
 						}else if(v.status==2){
 							html+=  `<a class="flex claim claim-miting" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);">BSC NFT 鑄造結束</a>`;
 						}
-						html +=		`<a class="flex eth" target="_blank" href="javascript:void(0);">鑄造ETH NFT</a>
+						html +=		`<a class="flex eth" href="javascript:void(0);">鑄造ETH NFT</a>
 								</div>
 								<div class="my-assets-right-address flex">`;
 								
