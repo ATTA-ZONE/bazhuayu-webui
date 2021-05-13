@@ -119,7 +119,7 @@ function informationShow(obj){
 // }
 function getClaim(obj){
 	
-	if(document.cookie.split('=')[1]=='true'){
+	if(getCookie('isConnect')=='true'){
 		setTimeout(function(){
 			
 			var instanceId = $(obj).data('instanceid');

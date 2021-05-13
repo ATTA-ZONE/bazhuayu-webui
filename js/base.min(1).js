@@ -2,7 +2,9 @@
 	W.isFunction=function(a){return "function"===typeof(a)};
 	W.isArray=Array.isArray;
 	// W.conf={'dev':top.location.origin,'test':'https://test.wah.art','prod':'https://fmg.art',1:'https://fmg.art',56:'https://bsc.fmg.art'};
-	W.conf={'dev':top.location.origin,'test':'http://superguy021.vicp.cc:8866','prod':'http://superguy021.vicp.cc:8866',1:'http://superguy021.vicp.cc:8866',56:'http://superguy021.vicp.cc:8866'};
+	W.conf={'dev':top.location.origin,'test':'http://superguy021.vicp.cc:8866','prod':'http://superguy021.vicp.cc:8866',1:'http://superguy021.vicp.cc:8866',56:'http://superguy021.vicp.cc:8866',97:'http://superguy021.vicp.cc:8866'};  //测试
+	// W.conf={'dev':top.location.origin,'test':'https://www.bazhuayu.io','prod':'https://www.bazhuayu.io',1:'https://www.bazhuayu.io',56:'https://www.bazhuayu.io',97:'https://www.bazhuayu.io'};
+	
 	W.production=document.getElementById('base-min').getAttribute('data-mode');
 	W.debug=true;//(production==='dev');
 	W.BASE_URL=window.conf[production];
@@ -15,7 +17,8 @@
 			// ETH
 			1:'0x46DC38E5d685b092f88242a01b5e747311b8801f', //这里是 以太网正式网 的收款地址， chainId 1
 			// BSC
-			56:'0x4e1bdef49312651d2ccbddd23fb9169771ef285e', //这里是 BSC正式网的收款地址, chainId 56
+			56:'0x4e1bdef49312651d2ccbddd23fb9169771ef285e', //这里是 BSC正式网的收款地址, chainId 56,
+			97:'0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee',  //测试
 			__wallet__:"__wallet__",
 			walletAddress:function(){
 				var th=this,t=cookie(th.__wallet__),wallet=th[t];
@@ -56,7 +59,7 @@
 			disconnect:function(f){
 				var r=this.__wallet__;
 				localStorage.removeItem(r),cookie(r,null),cookie('TOKEN',null),localStorage.removeItem('walletconnect');
-				if(f)top.location.reload()
+				if(f)top.location.reload();
 			},
 			handleAccountsChanged:function(accounts){
 				window.debug&&console.log('accounts changed', accounts);
@@ -76,8 +79,10 @@
 						success:function(res){
 							console.log(res);
 							if(res.code==0){
-								// document.cookie="isConnect=true";
+								document.cookie="isConnect=true";
 								window.location.href = document.referrer;
+							}else{
+								tips(res.message)
 							}
 						}
 					});
@@ -216,9 +221,9 @@
 				},
 				events:function(){
 					var th=this,p=th.provider();
-					p.on('accountsChanged', CHAIN.WALLET.handleAccountsChanged);
-					p.on('chainChanged', CHAIN.WALLET.handleChainChanged);
-					p.on('modal_closed',function(){console.log('modal_closed',arguments)});
+					// p.on('accountsChanged', CHAIN.WALLET.handleAccountsChanged);
+					// p.on('chainChanged', CHAIN.WALLET.handleChainChanged);
+					// p.on('modal_closed',function(){console.log('modal_closed',arguments)});
 					p.on("disconnect", (code, reason) => {
 						console.log('disconnect', code, reason);
 						th.__provider=null;
