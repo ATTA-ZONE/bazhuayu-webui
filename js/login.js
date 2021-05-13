@@ -15,7 +15,7 @@ function confirm(vtoken){
 };
 
 //登录
-function logIn(data){
+function logIn(data,url){
 	$.ajax({
 		url:base_url+'/v2/user/login/email',
 		type: 'POST',
@@ -74,7 +74,7 @@ $(function(){
 		}
 		
 		if(isClick){
-			logIn(data);
+			logIn(data,url);
 		}
 		
 	})
@@ -99,7 +99,7 @@ $(function(){
 			};
 			
 			if(isClick){
-				logIn(data);
+				logIn(data,url);
 			}
 		}
 	})
