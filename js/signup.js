@@ -79,12 +79,13 @@ function toggleLoginStatus() {
 	var email = $('#email').val().trim();
 	var pwd = $('#pwd').val().trim();
 	var pwd2 = $('#pwd2').val().trim();
+	var verifyChecked = $('.sign-check input')[0].checked
 	checkTip($('.sign-check-tip'), '');
 	checkTip($('.sign-check-tip2'), '');
 
 	var regExp = /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/
 	var result = regExp.test(pwd) && regExp.test(pwd2)
-	if (nickname != '' && email != '' && pwd != '' && pwd2 != '' && result) {
+	if (nickname != '' && email != '' && pwd != '' && pwd2 != '' && result && verifyChecked) {
 		$('.sign-btn .sign-btn-register button').addClass('register-check');
 		$('.sign-btn .sign-btn-register button').data('click', 1);
 	} else {
