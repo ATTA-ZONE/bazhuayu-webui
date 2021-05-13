@@ -119,7 +119,7 @@ $(function () {
 			if (wallet_type == 'wallectconnect') {
 				
 				var provider = CHAIN.WALLET.WalletConnect.provider();
-				var address_p = '0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee';
+				var address_p = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
 				const web3_p = new Web3(provider);
 				var contract_p = new web3_p.eth.Contract(abi, address_p);
 				
