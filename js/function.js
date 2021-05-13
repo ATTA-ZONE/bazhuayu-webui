@@ -182,8 +182,7 @@ function cancelMobile(){
 
 //widthdraw
 function widthDraw(){
-	if (getCookie('isConnect')=='false') {
-		$(".modify").hide();
+	if (getCookie('isConnect')=='false') {	
 		window.location.href="./connectWallet.html"
 	}else{
 		$('.modify-tit span').text('提款');
