@@ -57,30 +57,39 @@ $(function () {
 				$('.usdt-rest').text(res.data.usdtRest + ' BUSD');
 				if (res.data.cardNo == null || res.data.cardNo == '') {
 					$('.cardNo').text('---');
+					$('.hideenbtn').hide();
+					$('.hideenbtn2').show();
 				} else {
 					$('.cardNo').text(res.data.cardNo);
+					$('.hideenbtn').show();
+					$('.hideenbtn2').hide();
 				};
-
-				if (res.data.walletType == "METAMASK") {
-					$('.walletconnect-wallet').hide();
-					$('.metamask-wallet').show();
-					$('.walletconnect-wallet').removeClass('wallet-li');
-					$('.metamask-wallet').addClass('wallet-li');
-					if (res.data.address == null || res.data.address == '') {
-						$('.metamask-wallet .wallet-address').text('---')
+				if (getCookie('isConnect')=='true') {
+					if (res.data.walletType == "METAMASK") {
+						$('.walletconnect-wallet').hide();
+						$('.metamask-wallet').show();
+						$('.walletconnect-wallet').removeClass('wallet-li');
+						$('.metamask-wallet').addClass('wallet-li');
+						if (res.data.address == null || res.data.address == '') {
+							$('.metamask-wallet .wallet-address').text('---')
+						} else {
+							$('.metamask-wallet .wallet-address').text(res.data.address)
+						}
 					} else {
-						$('.metamask-wallet .wallet-address').text(res.data.address)
+						$('.walletconnect-wallet').show();
+						$('.metamask-wallet').hide();
+						$('.walletconnect-wallet').addClass('wallet-li');
+						$('.metamask-wallet').removeClass('wallet-li');
+						if (res.data.address == null || res.data.address == '') {
+							$('.walletconnect-wallet .wallet-address').text('---')
+						} else {
+							$('.walletconnect-wallet .wallet-address').text(res.data.address)
+						}
 					}
-				} else {
-					$('.walletconnect-wallet').show();
+				}else{
+					$(".nowallet-wallet").show();
+					$(".walletconnect-wallet").hide();
 					$('.metamask-wallet').hide();
-					$('.walletconnect-wallet').addClass('wallet-li');
-					$('.metamask-wallet').removeClass('wallet-li');
-					if (res.data.address == null || res.data.address == '') {
-						$('.walletconnect-wallet .wallet-address').text('---')
-					} else {
-						$('.walletconnect-wallet .wallet-address').text(res.data.address)
-					}
 				}
 
 			}

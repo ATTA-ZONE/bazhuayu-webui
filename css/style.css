@@ -2414,6 +2414,10 @@ body,html{
 	padding-bottom:32px;
 	margin-bottom:32px;
 }
+.my-wallet-jumptip{
+	border: none;
+	margin-top: 5px;
+}
 .my-wallet-tip p{
 	font-family: Inter;
 	font-style: normal;
@@ -2431,6 +2435,9 @@ body,html{
 	font-weight: normal;
 	font-size: 14px;
 	line-height: 22px;
+}
+.my-wallet-jumptip a{
+	font-size: 12px;
 }
 .my-wallet-tip a:hover{
 	text-decoration:underline;
