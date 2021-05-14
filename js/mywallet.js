@@ -3,15 +3,15 @@ function mangeWalletCharge(res, accounts) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		var web3 = getEth();
 		var contract = new web3.Contract(abi, address);
-
 		var amount = $('.modify-ipt input').val().trim();
 				if (amount == '') {
 					amount = '0';
 				}
 		var num = getWeb3().utils.toWei(amount, 'ether');
 		contract.methods.balanceOf(accounts[0]).call() //查询余额
-		.then(function (resBalance) {
-				if (Number(resBalance) >= Number(num)) {
+			.then(function (res) {
+
+				if (Number(res) >= Number(num)) {
 					setTimeout(function () {
 						contract.methods.transfer(cwallet, num).send({ //转账
 								from: accounts[0]
@@ -128,11 +128,7 @@ $(function () {
 			if (wallet_type == 'wallectconnect') {
 				
 				var provider = CHAIN.WALLET.WalletConnect.provider();
-				var address_p = ''
-				if (location.href.indexOf('bazhuayu.io' < 0)) {
-					address_p = c_ERC20_BUSD[97].address
-				}
-				address_p = c_ERC20_BUSD[56].address
+				var address_p = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
 				const web3_p = new Web3(provider);
 				var contract_p = new web3_p.eth.Contract(abi, address_p);
 				
@@ -238,7 +234,7 @@ $(function () {
 										setTimeout(function () {
 											loadingHide();
 										}, 1000);
-										if (window.location.href.indexOf('bazhuayu.io') == -1) {
+										if (location.host.indexOf('bazhuayu.io') < 0) {
 											window.ethereum.request({
 												method: 'wallet_addEthereumChain',
 												params: [{
@@ -253,7 +249,6 @@ $(function () {
 													blockExplorerUrls: ['https://testnet.bscscan.com']
 												}]
 											}).then(function () {
-												
 												mangeWalletCharge(res, accounts)
 											})
 										} else {
