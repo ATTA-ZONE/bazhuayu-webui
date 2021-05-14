@@ -255,6 +255,7 @@ $(function () {
 													blockExplorerUrls: ['https://testnet.bscscan.com']
 												}]
 											}).then(function () {
+												debugger
 												mangeWalletCharge(res, accounts)
 											})
 										} else {
