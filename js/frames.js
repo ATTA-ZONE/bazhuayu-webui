@@ -134,7 +134,10 @@ Frames.addEventHandler(
   cardValidationChanged
 );
 function cardValidationChanged() {
-  payButton.disabled = !Frames.isCardValid();
+  payButton.disabled = true;
+  if ($('#save').prop('checked') && $('#savetips').prop('checked')) {
+    payButton.disabled = !Frames.isCardValid();
+  }
 }
 
 Frames.addEventHandler(

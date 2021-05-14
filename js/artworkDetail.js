@@ -89,8 +89,16 @@ function playVideo(obj,e){
 function closeVideo(){
 	$('.video-mask').hide();
 	$('.video-model').hide();
-	$('.details-left video')[0].play();
-	$('.video-model video')[0].pause();
+	// $('.details-left video')[0].play();
+	// $('.video-model video')[0].pause();
+	$('#save,#savetips').click(function(){
+		var payButton = document.getElementById("pay-button");
+		if ($('#save').prop('checked') && $('#savetips').prop('checked')) {
+			payButton.disabled = !Frames.isCardValid();
+		}else{
+			payButton.disabled = true;
+		}
+	})
 }
 
 
