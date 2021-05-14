@@ -1,9 +1,9 @@
 function mangeWalletCharge(res, accounts) {
-	console.log(res, accounts);
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		var web3 = getEth();
 		var contract = new web3.Contract(abi, address);
+		
 		var amount = $('.modify-ipt input').val().trim();
 				if (amount == '') {
 					amount = '0';
@@ -134,7 +134,6 @@ $(function () {
 					address_p = c_ERC20_BUSD[97].address
 				}
 				address_p = c_ERC20_BUSD[56].address
-				console.log(address_p,'address_p');
 				const web3_p = new Web3(provider);
 				var contract_p = new web3_p.eth.Contract(abi, address_p);
 				
