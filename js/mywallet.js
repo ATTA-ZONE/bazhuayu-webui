@@ -235,14 +235,11 @@ $(function () {
 											loadingHide();
 										}, 1000);
 										if (location.host.indexOf('bazhuayu.io')<0) {
-											changeNetwork(97).then(function () {
-												mangeWalletCharge(res, accounts)
-											})
+											changeNetwork(97)
+											mangeWalletCharge(res, accounts)
 										} else {
 											changeNetwork(56)
-												.then(function () {
-													mangeWalletCharge(res, accounts)
-												});
+											mangeWalletCharge(res, accounts)
 										}
 									});
 								}
