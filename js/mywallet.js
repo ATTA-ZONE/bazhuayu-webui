@@ -128,7 +128,12 @@ $(function () {
 			if (wallet_type == 'wallectconnect') {
 				
 				var provider = CHAIN.WALLET.WalletConnect.provider();
-				var address_p = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
+				var address_p = ''
+				if (location.href.indexOf('bazhuayu.io' < 0)) {
+					address_p = c_ERC20_BUSD[97].address
+				}
+				address_p = c_ERC20_BUSD[56].address
+				
 				const web3_p = new Web3(provider);
 				var contract_p = new web3_p.eth.Contract(abi, address_p);
 				
