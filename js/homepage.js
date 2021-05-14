@@ -16,22 +16,22 @@ $(function () {
 					var geshi = v.pic.substr(v.pic.lastIndexOf('.') + 1);
 
 					html += `<li onclick="progressToggle(this)">
-								<a href="`+ v.outHrefUrl + `">`
+								<a class="swiper-midia-mask" href="`+ v.outHrefUrl + `"><div class="index-video-mask"></div>`
 					if (geshi == 'mp4') {
-						html += `	<video x5-playsinline="true" x5-video-player-type="h5" webkit-playsinline="true" class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` +'http://47.118.74.48:8081'+ v.pic + `" muted="muted"></video>`;
+						html += `	<video x5-playsinline="true" x5-video-player-type="h5" webkit-playsinline="true" class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + v.pic + `" muted="muted"></video>`;
 					} else {
-						html += `	<img src="` +'http://47.118.74.48:8081'+ v.pic + `" alt="">`
+						html += `	<img src="` + v.pic + `" alt="">`
 					}
 					html += `</a>
 								<div class="banner-right-tit flex none"><span>` + (i + 1) + `</span><span>` + v.name + `</span></div>
 							</li>`;
 
 					html_mobile += `<div class="swiper-slide">
-										<a href="` + v.outHrefUrl + `">`
+										<a class="swiper-midia-mask" href="` + v.outHrefUrl + `"><div class="index-video-mask"></div>`
 					if (geshi == 'mp4') {
-						html_mobile += `	<video x5-playsinline="true" x5-video-player-type="h5" webkit-playsinline="true" class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` +'http://47.118.74.48:8081'+ v.pic + `" muted="muted"></video>`;
+						html_mobile += `	<video x5-playsinline="true" x5-video-player-type="h5" webkit-playsinline="true" class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + v.pic + `" muted="muted"></video>`;
 					} else {
-						html_mobile += `	<img src="` +'http://47.118.74.48:8081'+ v.pic + `" alt="">`
+						html_mobile += `	<img src="` + v.pic + `" alt="">`
 					}
 					html_mobile += `	<p>` + (i + 1) + ` ` + v.name + `</p>
 										</a>
