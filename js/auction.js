@@ -344,7 +344,7 @@ if (typeof window.ethereum !== 'undefined') {
     	// }
     	// ]	
     	$.ajax({
-    		url: 'https://api.bscscan.com/api?module=logs&action=getLogs&address=' + auctionAddress.toString() + '&topic0=0x19421268847f42dd61705778018ddfc43bcdce8517e7a630acb12f122c709481&apikey=' + scansite_apiKey,
+    		url: scansite_base_url + '/api?module=logs&action=getLogs&address=' + auctionAddress.toString() + '&topic0=0x19421268847f42dd61705778018ddfc43bcdce8517e7a630acb12f122c709481&apikey=' + scansite_apiKey,
     		success: function (res) {
     			var bidData = res.result;
     			var html = ``;
