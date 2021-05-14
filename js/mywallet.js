@@ -139,8 +139,8 @@ $(function () {
 				}
 				var num = getWeb3().utils.toWei(amount, 'ether');
 				
-				// var isWalletConnect = localStorage.getItem('walletconnect');
-				// console.log(isWalletConnect);
+				var isWalletConnect = localStorage.getItem('walletconnect');
+				console.log(isWalletConnect);
 				
 				if(isWalletConnect){
 					CHAIN.WALLET.WalletConnect.provider().enable()
