@@ -194,6 +194,14 @@ body,html{
 	border-radius:50%;
 	margin-right:10px;
 }
+.header-right-yidl-info p{
+	display: flex;
+    flex-direction: column;
+}
+.header-right-yidl-info p .my-email{
+	font-size: 10px;
+	color: rgba(255,255,255,0.8);
+}
 .header-right-yidl-info div img{
 	width:100%;
 	height: 100%;
@@ -212,9 +220,9 @@ body,html{
 	color:#9567FF;
 }
 .header-right-yidl-my{
-	width:140%;
+	width:70%;
 	position:absolute;
-	left:-15%;
+	left:0;
 	top:70px;
 	z-index:96;
 	box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
@@ -303,6 +311,8 @@ body,html{
 	font-size: 18px;
 	line-height: 22px;
 	color:#fff;
+	width: 100%;
+	display: inline-block;
 }
 .menu-list-con ul li span{
 	font-family: Inter;
@@ -491,6 +501,7 @@ body,html{
 	width:75%;
 	left:37.5%;
 	box-shadow:none;
+	position: relative;
 }
 .stacked-cards .active{
 	box-shadow:none!important;
@@ -898,6 +909,17 @@ body,html{
 	column-count:3;
 	column-gap:48px;
 }
+.artwork-mask {
+	position: relative;
+}
+.artwork-mask-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+}
 .bzy-e-list li{
 	width:100%;
 	transition:all 0.5s;
@@ -1113,17 +1135,17 @@ body,html{
 }
 .full-screen {
 	position: absolute !important;
-	bottom: 30px;
-	right: 7px;
-	z-index: 99 !important;
-	width: 12px !important;
+	bottom: 56px;
+    right: 10px;
+    z-index: 9 !important;
+    width: 28px !important;
 }
 .voice {
 	position: absolute !important;
-	bottom: 10px;
-	right: 4px;
-	z-index: 99 !important;
-	width: 15px !important;
+	bottom: 16px;
+    right: 6px;
+    z-index: 9 !important;
+    width: 32px !important;
 }
 .order-img .mohu{
 	position:absolute;
@@ -1297,7 +1319,7 @@ body,html{
 	z-index:50;
 }
 .payment-container{
-	align-items:center;
+	align-items: self-start;
 	justify-content:center;
 	width:100%;
 	height:100%;
@@ -1708,12 +1730,13 @@ body,html{
 }
 .tc-login-left{
 	width:339px;
+	height: 615px;
 	align-items:center;
+	justify-content: center;
+	background: rgb(36, 36, 36);
 }
 .tc-login-left img{
-	width:100%;
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
+	width:124px;
 	flex-shrink:0;
 }
 .tc-login-right{
@@ -2402,6 +2425,10 @@ body,html{
 	padding-bottom:32px;
 	margin-bottom:32px;
 }
+.my-wallet-jumptip{
+	border: none;
+	margin-top: 5px;
+}
 .my-wallet-tip p{
 	font-family: Inter;
 	font-style: normal;
@@ -2419,6 +2446,10 @@ body,html{
 	font-weight: normal;
 	font-size: 14px;
 	line-height: 22px;
+}
+.my-wallet-jumptip a{
+	font-size: 12px;
+	cursor: pointer;
 }
 .my-wallet-tip a:hover{
 	text-decoration:underline;
@@ -2745,7 +2776,7 @@ body,html{
 	border:0;
 	width:100%;
 	border-radius:2px;
-	text-indent:12px;
+	padding: 0 12px;
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
@@ -2753,7 +2784,7 @@ body,html{
 	line-height: 22px;
 	color:rgba(255,255,255,0.4);
 }
-.sign-check-tip{
+.sign-check-tip,.sign-check-tip2{
 	position:absolute;
 	display:block;
 	bottom:-20px;
@@ -2764,6 +2795,27 @@ body,html{
 	font-style: normal;
 	font-weight: normal;
 	color: #FF0000;
+}
+.password-icon1, .password-icon2 {
+	position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 18px;
+    border-radius: 50%;
+}
+
+.sign-warn-check {
+	position:absolute;
+	display:block;
+	bottom:-24px;
+	font-size:12px;
+	width:100%;
+	left:0;
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	color: #fff;
+	opacity: 0.4;
 }
 .sign-btn{
 	border-top:1px solid rgba(255,255,255,0.15);
@@ -3038,8 +3090,8 @@ body,html{
 }
 .wx-code{
 	position:absolute;
-	bottom:220px;
-	right: 50px;
+	bottom:150px;
+	right: 0;
 	width: 270px;
 	height: 270px;
 	background: #16142e;
@@ -3206,6 +3258,16 @@ body,html{
 	.banner{
 		display:flex;
 	}
+}
+.swiper-midia-mask {
+	
+	width: fit-content;
+	height: fit-content;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
 }
 .swiper-container {
   width: 100%;
