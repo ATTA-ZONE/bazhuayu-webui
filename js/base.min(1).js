@@ -241,6 +241,7 @@
 							console.log(provider.chainId);
 							CHAIN.WALLET.handleChainChanged(provider.chainId);
 						}
+						debugger
 						console.log(accounts)
 					}).catch(function(er) {
 						console.log(er);
