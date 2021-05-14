@@ -365,12 +365,12 @@ function networkChangedImplement() {
 
 if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
+	initialization()
 	loading();
 	setTimeout(function () {
 		loadingHide();
 	}, 1800);
 
-	initialization()
 
 	
 	networkChangedAssign(networkChangedImplement);
