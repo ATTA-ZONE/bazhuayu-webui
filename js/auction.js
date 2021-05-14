@@ -169,6 +169,8 @@ if (typeof window.ethereum !== 'undefined') {
 	setTimeout(function () {
 		loadingHide();
 	}, 1800);
+
+	initialization()
 	
 	function userBidInfo() {
 	    var user_address = ethereum.selectedAddress;
@@ -317,32 +319,7 @@ if (typeof window.ethereum !== 'undefined') {
     				})
     
     		});
-    	
-    	
-    	
-    	
-    	//接口直接获取竞拍
-	
-    	// 代替contract.methods.getBids和contract.events.Bid
-    	// 返回结果
-     // "result": [
-    	// 	{
-    	// 		"address": "0x26455c075ead85015cba283731db78d5e80615ff",
-    	// 		"topics": [
-    	// 				"0xf200b09dd7c67aa57db7b904692130ffededf03e80a5f2105605d50c0c187d69",
-    	// 				"0x0000000000000000000000009750edd9b139c61f42000aa3ec4836c424008359",
-    	// 				"0x00000000000000000000000000000000000000000000000000000000004c7250"
-    	// 		],
-    	// 		"data": "0x0000000000000000000000000000000000000000000000a2a15d09519be00000",
-    	// 		"blockNumber": "0x6e0794",
-    	// 		"timeStamp": "0x60950d38",
-    	// 		"gasPrice": "0x14cccf61e",
-    	// 		"gasUsed": "0x5a23b",
-    	// 		"logIndex": "0x79",
-    	// 		"transactionHash": "0x90951e91b9565ccbf241cc0baa2ccd3d207a7b17699b8cedfbd82ffce7ea0c58",
-    	// 		"transactionIndex": "0x4c"
-    	// }
-    	// ]	
+ 
     	$.ajax({
     		url: scansite_base_url + '/api?module=logs&action=getLogs&address=' + auctionAddress.toString() + '&topic0=0x19421268847f42dd61705778018ddfc43bcdce8517e7a630acb12f122c709481&apikey=' + scansite_apiKey,
     		success: function (res) {
@@ -409,7 +386,7 @@ if (typeof window.ethereum !== 'undefined') {
 	}
 	
 	accountsChangedAssign(accountsChangedImplement);
-	initialization()
+	
 } else {
 	$('#make_offer').data('sign', '4');
 	var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
