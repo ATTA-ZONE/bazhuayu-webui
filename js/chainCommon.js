@@ -1,3 +1,9 @@
+if (window.location.href.indexOf('bazhuayu.io') == -1) {
+    var targetChainId = 97
+} else {
+    var targetChainId = 56
+}
+
 function getWeb3() {
 	return new Web3(window.ethereum); // web3js就是你需要的web3实例
 }
@@ -20,7 +26,7 @@ function changeNetwork(status) {
       chainId: RPCSetting[status].CHAIN_ID_HEX,
       chainName: RPCSetting[status].CHAIN_NAME,
       nativeCurrency: {
-        name: 'BNB',
+        name: RPCSetting[status].SYMBOL,
         symbol: RPCSetting[status].SYMBOL,
         decimals: 18
       },
@@ -34,16 +40,9 @@ function changeNetwork(status) {
 ethereum.autoRefreshOnNetworkChange = false;
 
 ethereum.on('networkChanged', function (netVer) {
-
-  if (window.location.href.indexOf('bazhuayu.io') == -1) {
-    if (netVer != '97') {
-      changeNetwork(97)
+    if (netVer != targetChainId.toString()) {
+      changeNetwork(targetChainId)
     }
-  } else {
-    if (netVer != '56') {
-      changeNetwork(56)
-
-    }
-  }
+}
 
 });
