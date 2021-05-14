@@ -231,7 +231,7 @@ if (typeof window.ethereum !== 'undefined') {
         }
 	   
 	    // var netVer = netVers[0];
-	    var auctionAddress = c_auction[netVer]['address'];  // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+	    var auctionAddress = c_auction[netVer].address;  // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
 	    var auctionABI = c_auction['abi'];
 	    
 	    var web3 = getEth();
