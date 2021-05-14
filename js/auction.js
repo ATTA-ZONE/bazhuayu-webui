@@ -243,6 +243,9 @@ function userBidInfo() {
 	if (user_address != 0) {
 		auctionContractInstance.methods.getUserBids(user_address).call()
 			.then(function (res) {
+				if (!res || res.length < 1) {
+					return false
+				}
 				// console.log(res);
 				var text = $('.bid-right-status-time span:nth-child(2)').data('time');
 				var html = ``;
