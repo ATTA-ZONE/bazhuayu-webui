@@ -9,9 +9,9 @@ function mangeWalletCharge(res, accounts) {
 					amount = '0';
 				}
 		var num = getWeb3().utils.toWei(amount, 'ether');
-		debugger
 		contract.methods.balanceOf(accounts[0]).call() //查询余额
-			.then(function (resBalance) {
+		.then(function (resBalance) {
+				debugger
 
 				if (Number(resBalance) >= Number(num)) {
 					setTimeout(function () {
