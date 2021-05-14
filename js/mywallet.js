@@ -1,4 +1,5 @@
 function mangeWalletCharge(res, accounts) {
+	console.log(res, accounts);
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		var web3 = getEth();
