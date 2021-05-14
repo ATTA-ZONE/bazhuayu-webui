@@ -321,8 +321,8 @@
 
 					return new WalletConnectProvider({
 						rpc: {
-							97: "0x6A2E6042DF6FDCdA84A45531C892b644b095E2b4",
-							56: "0x26455c075eAD85015cbA283731db78d5E80615fF"
+							97: "https://data-seed-prebsc-2-s3.binance.org:8545",
+							56: "https://bsc-dataseed1.ninicoin.io"
 							
 						},
 					});
@@ -370,8 +370,8 @@
 		USDT: {
 			WEI: 1000000,
 			decimals: 6,
-			1: '0xdac17f958d2ee523a2206206994597c13d831ec7', //以太正式网
-			56: '0x26455c075eAD85015cbA283731db78d5E80615fF' //BSC正式网
+			1: 'https://mainnet.infura.io/v3/675a2550ac6f4006b7e60def6ad44923', //以太正式网
+			56: 'https://bsc-dataseed1.ninicoin.io' //BSC正式网
 		},
 		FMG: {
 			WEI: 1000000000000000000, //FMG是18位
