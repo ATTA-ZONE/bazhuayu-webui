@@ -133,7 +133,7 @@ $(function () {
 					address_p = c_ERC20_BUSD[97].address
 				}
 				address_p = c_ERC20_BUSD[56].address
-
+				console.log(address_p,'address_p');
 				const web3_p = new Web3(provider);
 				var contract_p = new web3_p.eth.Contract(abi, address_p);
 				
@@ -239,7 +239,7 @@ $(function () {
 										setTimeout(function () {
 											loadingHide();
 										}, 1000);
-										if (location.host.indexOf('bazhuayu.io')<0) {
+										if (window.location.href.indexOf('bazhuayu.io') == -1) {
 											window.ethereum.request({
 												method: 'wallet_addEthereumChain',
 												params: [{
@@ -253,29 +253,27 @@ $(function () {
 													rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
 													blockExplorerUrls: ['https://testnet.bscscan.com']
 												}]
-											}).then(function(){
-												console.log(res,accounts)
+											}).then(function () {
 												mangeWalletCharge(res, accounts)
 											})
 										} else {
 											window.ethereum.request({
-												method: 'wallet_addEthereumChain',
-												params: [{
-													chainId: '0x38',
-													chainName: 'Binance Smart Chain Mainnet', //如果是切换测试网 就 填 测试网 的RPC配置
-													nativeCurrency: {
-														name: 'BNB',
-														symbol: 'bnb',
-														decimals: 18
-													},
-													rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
-													blockExplorerUrls: ['https://bscscan.com/']
-												}]
-											}).then(function(){
-												console.log(res,accounts)
-												mangeWalletCharge(res, accounts)
-
-											})
+													method: 'wallet_addEthereumChain',
+													params: [{
+														chainId: '0x38',
+														chainName: 'Binance Smart Chain Mainnet', //如果是切换测试网 就 填 测试网 的RPC配置
+														nativeCurrency: {
+															name: 'BNB',
+															symbol: 'bnb',
+															decimals: 18
+														},
+														rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
+														blockExplorerUrls: ['https://bscscan.com/']
+													}]
+												})
+												.then(function () {
+													mangeWalletCharge(res, accounts)
+												});
 										}
 									});
 								}
