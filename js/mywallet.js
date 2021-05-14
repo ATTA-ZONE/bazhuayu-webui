@@ -11,8 +11,6 @@ function mangeWalletCharge(res, accounts) {
 		var num = getWeb3().utils.toWei(amount, 'ether');
 		contract.methods.balanceOf(accounts[0]).call() //查询余额
 		.then(function (resBalance) {
-				debugger
-
 				if (Number(resBalance) >= Number(num)) {
 					setTimeout(function () {
 						contract.methods.transfer(cwallet, num).send({ //转账
