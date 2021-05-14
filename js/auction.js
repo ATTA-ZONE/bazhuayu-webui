@@ -95,7 +95,7 @@ function changwWalletId(accounts) {
 }
 
 function initialization() {
-	var netVer = ethereum.networkVersion;
+	var netVer = window.ethereum.networkVersion;
 	console.log(netVer);
 	// var netVer = netVers[0];
 	if (netVer != targetChainId.toString()) {
