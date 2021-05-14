@@ -34,7 +34,7 @@ function changeNetwork(status) {
           decimals: 18
         },
         rpcUrls: [RPCSetting[status].RPC_URL],
-        blockExplorerUrls: RPCSetting[status].ETHERSCAN_URL
+        blockExplorerUrls: [RPCSetting[status].ETHERSCAN_URL]
       }]
     });
   })
