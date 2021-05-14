@@ -18,7 +18,7 @@ $.each(arr,function(i,v){
 });
 
 //询问弹窗
-function confirm(){
+function zfconfirm(){
 	hsycms.confirm('confirm','去我的資產核對',
 		function(res){            
 			hsycms.success('success','確認');
@@ -287,7 +287,7 @@ $(function(){
 	if(success_status==1){
 		success('支付成功',1800);
 		setTimeout(function(){
-			confirm();
+			zfconfirm();
 		},1800)
 		
 	}else if(success_status==0){
