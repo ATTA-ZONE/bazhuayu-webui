@@ -1,5 +1,4 @@
 
-
 //
 var url = window.location.pathname;
 url = url.substring(url.lastIndexOf('/')+1)
@@ -9,8 +8,11 @@ url = url.substring(0,url.indexOf('.'));
 // var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
-if (location.host !== 'bazhuayu.io') {
-	base_url = 'http://47.118.74.48:8081';
+if (window.location.href.indexOf('bazhuayu.io') == -1) {
+	base_url = 'http://localhost:8081';
+	if (window.location.href.indexOf('47.118.74.48:8081') > -1) {
+		base_url = 'http://47.118.74.48:8081';
+	}
 }
 var lang = 'TC';
 $.ajax({
@@ -22,6 +24,7 @@ $.ajax({
 		// console.log(res);
 	}
 });
+
 
 // $.ajax({
 // 	url:base_url+'/v2/index/index',
@@ -50,7 +53,8 @@ function confirm(){
 					success:function(res){
 						// console.log(res);
 						if(res.code==0){
-							window.location.reload();
+							// window.location.reload();
+							window.location.href = 'index.html';
 						}
 					}
 				})
@@ -148,7 +152,7 @@ $(function(){
 		$('.tc-show').removeClass('modify-tc-pc');
 		$('.tc-show').addClass('modify-tc-mobile');
 		
-		$('.modify-tc-mobile').on('click',function(){
+		$('.accountclass.modify-tc-mobile').on('click',function(){
 			$('.modify').addClass('modify-tc-active')
 		})
 	}
@@ -165,15 +169,23 @@ $(function(){
 				html += `<a class="header-right-yidl" href="javascript:void(0);">`;
 				html += `	<div class="header-right-yidl-info flex">`;
 				if(res.data.headIcon==null||res.data.headIcon==''){
-					html += `	<div><img src="./images/Ellipse 93.png" ></div><span class="ellipsis">`+res.data.name+`</span>`;
+					html += `	<div><img src="./images/Ellipse 93.png" ></div>
+								<p>
+									<span class="ellipsis">`+res.data.name+`</span>
+									<span class="my-email">`+res.data.email+`</span>
+								</p>`;
 				}else{
-					html += `	<div><img src="`+base_url+res.data.headIcon+`" ></div><span class="ellipsis">`+res.data.name+`</span>`;
+					html += `	<div><img src="`+base_url+res.data.headIcon+`" ></div>
+								<p>
+									<span class="ellipsis">`+res.data.name+`</span>
+									<span class="my-email">`+res.data.email+`</span>
+								</p>`;
 					$('.mobile-head-icon img').attr('src',res.data.headIcon);
 				};
 				html += `	</div>`;
 				
 				html += `	<div class="header-right-yidl-my none">
-								<span class="my-email">`+res.data.email+`</span>
+								
 								<span onclick="window.location.href = 'myaccount.html'">我的帳戶</span>
 								<span onclick="window.location.href = 'myorders.html'">我的訂單</span>
 								<span onclick="window.location.href = 'myassets.html'">我的藏品</span>
@@ -246,7 +258,32 @@ $(function(){
 	
 	
 	
-
+	$.ajax({
+		url:base_url+'/v2/user/wallet/info',
+		async:false,
+		success:function(res){
+			// console.log(res)
+			if(res.code==0){
+				if(res.data.walletType=="TOKEN POCKET"){
+					CHAIN.WALLET.WalletConnect.events();
+					var t = setInterval(function(){
+						var walletconnect = localStorage.getItem('walletconnect');
+						var cookie = getCookie('isConnect');
+						// console.log(a);
+						if(walletconnect==null){
+							clearInterval(t);
+							// console.log(walletconnect);
+							// console.log(isWalletConnect);
+							isWalletConnect = false;
+							$('.header-right-wallet').html('<span>連接錢包</span>');
+							$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a>');
+						}
+					},200)
+				}
+			}
+			
+		}
+	})
 	
 
 

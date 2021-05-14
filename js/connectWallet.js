@@ -1,23 +1,20 @@
-
-
 function getWeb3() {
 	return new Web3(window.ethereum); // web3js就是你需要的web3实例
 }
+
 function getEth() {
 	return getWeb3().eth;
 }
 
-	
-var abi = [
-	{
+
+var abi = [{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
 	{
 		"anonymous": false,
-		"inputs": [
-			{
+		"inputs": [{
 				"indexed": true,
 				"internalType": "address",
 				"name": "owner",
@@ -41,8 +38,7 @@ var abi = [
 	},
 	{
 		"anonymous": false,
-		"inputs": [
-			{
+		"inputs": [{
 				"indexed": true,
 				"internalType": "address",
 				"name": "from",
@@ -65,8 +61,7 @@ var abi = [
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
+		"inputs": [{
 				"internalType": "address",
 				"name": "owner",
 				"type": "address"
@@ -78,19 +73,16 @@ var abi = [
 			}
 		],
 		"name": "allowance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
+		"outputs": [{
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		}],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
+		"inputs": [{
 				"internalType": "address",
 				"name": "spender",
 				"type": "address"
@@ -102,51 +94,42 @@ var abi = [
 			}
 		],
 		"name": "approve",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [{
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		}],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
+		"inputs": [{
+			"internalType": "address",
+			"name": "account",
+			"type": "address"
+		}],
 		"name": "balanceOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
+		"outputs": [{
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		}],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "decimals",
-		"outputs": [
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
-			}
-		],
+		"outputs": [{
+			"internalType": "uint8",
+			"name": "",
+			"type": "uint8"
+		}],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
+		"inputs": [{
 				"internalType": "address",
 				"name": "spender",
 				"type": "address"
@@ -158,19 +141,16 @@ var abi = [
 			}
 		],
 		"name": "decreaseAllowance",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [{
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		}],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
+		"inputs": [{
 				"internalType": "address",
 				"name": "spender",
 				"type": "address"
@@ -182,58 +162,49 @@ var abi = [
 			}
 		],
 		"name": "increaseAllowance",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [{
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		}],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "name",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
+		"outputs": [{
+			"internalType": "string",
+			"name": "",
+			"type": "string"
+		}],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "symbol",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
+		"outputs": [{
+			"internalType": "string",
+			"name": "",
+			"type": "string"
+		}],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "totalSupply",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
+		"outputs": [{
+			"internalType": "uint256",
+			"name": "",
+			"type": "uint256"
+		}],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
+		"inputs": [{
 				"internalType": "address",
 				"name": "recipient",
 				"type": "address"
@@ -245,19 +216,16 @@ var abi = [
 			}
 		],
 		"name": "transfer",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [{
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		}],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
+		"inputs": [{
 				"internalType": "address",
 				"name": "sender",
 				"type": "address"
@@ -274,162 +242,101 @@ var abi = [
 			}
 		],
 		"name": "transferFrom",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [{
+			"internalType": "bool",
+			"name": "",
+			"type": "bool"
+		}],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
 
 if (typeof window.ethereum !== 'undefined') {
-	
+
 	// console.log(getWeb3())
 	// console.log(window.ethereum);
-	var walletId = ethereum.selectedAddress, ethWei = 0.01;
+	var walletId = ethereum.selectedAddress,
+		ethWei = 0.01;
 	var netVer = window.ethereum.networkVersion;
-	// var address = '0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee';  //测试
-	var address = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';  //正式
 	
-	
+	var address = ''
+	if (window.location.href.indexOf('bazhuayu.io') == -1) {
+		address = c_ERC20_BUSD[97].address; //测试
+	} else {
+		address = c_ERC20_BUSD[56].address; //正式
+	}
+
 	// 监听账户变更事件
 	ethereum.on('accountsChanged', function (accounts) {
 		if (accounts.length > 0) walletId = accounts[0];
 		console.log(['accountsChanged', accounts]);
-		
+
 	});
 
-	
-	// 监听网络变更事件
-	ethereum.autoRefreshOnNetworkChange = false;
-	ethereum.on('networkChanged', function (netVer) {
-		console.log(['networkChanged', netVer]);
-		
-		// if(netVer[0]!='97'){
-		// 	window.ethereum.request({
-		// 		method: 'wallet_addEthereumChain',
-		// 		params: [
-		// 			{
-		// 				chainId: '0x61',
-		// 				chainName: 'bsctestnet',
-		// 				nativeCurrency: {
-		// 					name: 'BNB',
-		// 					symbol: 'BNB',
-		// 					decimals: 18
-		// 				},
-		// 				rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-		// 				blockExplorerUrls: ['https://testnet.bscscan.com']
-		// 			}
-		// 		]
-		// 	});
-		// }
-		
-		if(netVer[0]!='56'){
-			window.ethereum.request({
-				method:'wallet_addEthereumChain',
-				params:[
-					{
-			            chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
-			            nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
-			            rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
-						blockExplorerUrls:['https://bscscan.com/']
-					}
-				]
-			})
-			
-		}
-		
-	})
-	
 }
 
 
 
 // 请求钱包授权，并得到当前使用的钱包地址，ES6
-$(".metamask").click(function(e){
-	
+$(".metamask").click(function (e) {
+
 	if (typeof window.ethereum !== 'undefined') {
-	  
+
 		window.ethereum.enable().then(function (accounts) {
 			loading();
-			
-			if(window.ethereum&&window.ethereum.isConnected()){
-				document.cookie="isConnect=true";
+
+			if (window.ethereum && window.ethereum.isConnected()) {
+				document.cookie = "isConnect=true";
 			};
-			window.ethereum.request({
-				method:'wallet_addEthereumChain',
-				params:[
-					{
-			            chainId:'0x38',chainName:'Binance Smart Chain Mainnet',     //如果是切换测试网 就 填 测试网 的RPC配置
-			            nativeCurrency:{name:'BNB',symbol:'bnb',decimals:18},
-			            rpcUrls:["https://bsc-dataseed1.ninicoin.io","https://bsc-dataseed1.defibit.io","https://bsc-dataseed.binance.org"],
-						blockExplorerUrls:['https://bscscan.com/']
-					}
-				]
-			});
-			
-			//测试
-			// window.ethereum.request({
-			// 	method: 'wallet_addEthereumChain',
-			// 	params: [
-			// 		{
-			// 			chainId: '0x61',
-			// 			chainName: 'bsctestnet',
-			// 			nativeCurrency: {
-			// 				name: 'BNB',
-			// 				symbol: 'BNB',
-			// 				decimals: 18
-			// 			},
-			// 			rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-			// 			blockExplorerUrls: ['https://testnet.bscscan.com']
-			// 		}
-			// 	]
-			// });
-			
+			if (window.location.href.indexOf('bazhuayu.io') == -1) {
+				if (netVer != '97') {
+					changeNetwork(97)
+				}
+			} else if (netVer != '56') {
+				changeNetwork(56)
+			}
+
 			walletId = accounts[0];
 			console.log(['enable', accounts]);
 			var data = {
-				address:accounts[0],
-				walletType:'METAMASK'
+				address: accounts[0],
+				walletType: 'METAMASK'
 			}
-			
+
 			$.ajax({
-				url:base_url+'/v2/user/wallet/bind',
+				url: base_url + '/v2/user/wallet/bind',
 				type: 'POST',
 				contentType: 'application/json',
 				dataType: 'json',
-				data:JSON.stringify(data),
-				success:function(res){
+				data: JSON.stringify(data),
+				success: function (res) {
 					loadingHide();
-					if(res.code==0){
-						success('連接成功',1800);
-						setTimeout(function(){
+					if (res.code == 0) {
+						success('連接成功', 1800);
+						setTimeout(function () {
 							window.location.href = document.referrer;
-						},1800);
-					}else{
+						}, 1800);
+					} else {
 						// error('連接失敗',1800);
 					}
 					// console.log(res);
 				}
 			});
-			
-			
-			
+
+
+
 		}).catch(function (reason) {
 			console.log(['enable.error', reason])
-				console.log(reason === "User rejected provider access")
+			console.log(reason === "User rejected provider access")
 		})
-		  
-	  
+
+
 	} else {
-	  // 处理用户没安装的情况， 比如显示一个消息
-	  // 告诉他们要安装 MetaMask 来使用我们的应用
+		// 处理用户没安装的情况， 比如显示一个消息
+		// 告诉他们要安装 MetaMask 来使用我们的应用
 		alert('請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。');
 	}
-	
-	
+
+
 });

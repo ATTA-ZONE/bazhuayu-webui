@@ -1,5 +1,4 @@
 
-
 //获取时间
 function formatDuring(mss) {
     var days = parseInt(mss / (1000 * 60 * 60 * 24));
@@ -54,13 +53,13 @@ function getAssetsList(current,pageSize){
 								<div class="my-assets-right-creator flex">
 									<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
 									<span>@ATTA</span>
-									<div class="my-assets-right-creator-edition">第`+v.edition+`版，共`+v.storage+`版</div>
+									<div class="my-assets-right-creator-edition">第`+v.edition+`版，共`+v.endEdition+`版</div>
 								</div>
 								<div class="details-right-des-tit">商品描述</div>
-								<div class="details-right-des">`+(v.introduce==''?'暫無介紹':v.introduce)+`</div>
+								<div class="details-right-des">`+(v.introduce==''?'暫無介紹':v.introduce.replace(/;\|;/g,'<br>'))+`</div>
 								<div class="details-right-additional">
 									<p class="details-right-additional-show" data-status="0" onclick="informationShow(this)">更多信息 <span>+</span></p>
-									<p class="details-right-additional-more none order-content">`+(v.content==''?'暫無更多資訊':v.content)+`</p>
+									<p class="details-right-additional-more none order-content">`+(v.content==''?'暫無更多資訊':v.content.replace(/;\|;/g,'<br>'))+`</p>
 								</div>
 								<div class="my-assets-right-price">
 									<p>購買價格：</p>
@@ -75,7 +74,7 @@ function getAssetsList(current,pageSize){
 						}else if(v.status==2){
 							html+=  `<a class="flex claim claim-miting" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);">BSC NFT 鑄造結束</a>`;
 						}
-						html +=		`<a class="flex eth" target="_blank" href="javascript:void(0);">鑄造ETH NFT</a>
+						html +=		`<a class="flex eth" href="javascript:void(0);">鑄造ETH NFT</a>
 								</div>
 								<div class="my-assets-right-address flex">`;
 								
@@ -119,8 +118,7 @@ function informationShow(obj){
 // 	hsycms.alert('model1');
 // }
 function getClaim(obj){
-	
-	if(document.cookie.split('=')[1]=='true'){
+	if(getCookie('isConnect')=='true'){
 		setTimeout(function(){
 			
 			var instanceId = $(obj).data('instanceid');
@@ -176,8 +174,14 @@ function getTime(current){
 			// console.log(status);
 			if(status==1){
 				var time = $(v).find('.claim').data('time') * 1000;
-				setInterval(function(){
+				var nt = setInterval(function(){
 					time = time - 1000;
+					if(time<0){
+						// console.log(1);
+						clearInterval(nt);
+						// return;
+						time = 0;
+					}
 					var js = formatDuring(time);
 					$(v).find('.claim font').text(js);
 				},1000)

@@ -1,4 +1,3 @@
-
 //获取时间
 function formatDuring(mss) {
     var days = parseInt(mss / (1000 * 60 * 60 * 24));
@@ -58,7 +57,7 @@ function getArtworkList(current,pageSize,name,typeId){
 							v.edition = 200;
 						}
 						
-						if(v.storage - v.edition > 0){   //有库存
+						if(v.endEdition - v.edition > 0){   //有库存
 							
 							if(systemTime < v.saleStartTimeMillis){
 								timeStatus = 1;    //未到销售时间
@@ -74,7 +73,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						
 						html += 
 						`<li>
-							<a href="artworkDetails.html?id=`+v.id+`">`;
+							<a class="artwork-mask" href="artworkDetails.html?id=`+v.id+`"><div class="artwork-mask-wrap"></div>`;
 						
 						if(geshi=='mp4'){
 							

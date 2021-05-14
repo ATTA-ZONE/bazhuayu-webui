@@ -1,4 +1,5 @@
 
+var tximg = "./images/Ellipse 93.png";
 
 $(function(){
 	
@@ -12,6 +13,7 @@ $(function(){
 				
 				if(res.data.headIcon != null && res.data.headIcon != ''){
 					$('.my-account-left-img img').attr('src',base_url+res.data.headIcon);
+					tximg = res.data.headIcon ? base_url+res.data.headIcon : "./images/Ellipse 93.png";
 				}
 				if(res.data.mobile!=null && res.data.mobile!=''){
 					$('.my-account-phone').text(res.data.mobile);

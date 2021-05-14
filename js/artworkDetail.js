@@ -1,4 +1,3 @@
-
 var param = window.location.search.substr(1);
 parm = param.split('&');
 var arr = [];
@@ -8,15 +7,19 @@ for (var key in parm){
 	});
 }
 
-var id,prev;
+var id,prev,success_status;
 
 $.each(arr,function(i,v){
 	if(v.key[0]=='id'){
 		id = v.key[1];
 	}else if(v.key[0]=='prev'){
 		prev = v.key[1];
+	}else if(v.key[0]=='success'){
+		success_status = v.key[1]
 	}
 })
+
+// console.log(success);
 
 
 // console.log(id);
@@ -75,8 +78,8 @@ function orderTakeMobile(){
 // 播放视频
 function playVideo(obj,e){
 	e.stopPropagation();
-	$(obj)[0].pause();
-	var src = $(obj).attr('src');
+	$(obj).siblings('video')[0].pause();
+	var src = $(obj).siblings('video')[0].src;
 	$('.video-model video').attr('src',src);
 	$('.video-model video')[0].play();
 	$('.video-mask').fadeIn('fast');
@@ -86,9 +89,35 @@ function playVideo(obj,e){
 function closeVideo(){
 	$('.video-mask').hide();
 	$('.video-model').hide();
-	$('.details-left video:nth-child(1)')[0].play();
-	$('.video-model video')[0].pause();
+	// $('.details-left video')[0].play();
+	// $('.video-model video')[0].pause();
+	$('#save,#savetips').click(function(){
+		var payButton = document.getElementById("pay-button");
+		if ($('#save').prop('checked') && $('#savetips').prop('checked')) {
+			payButton.disabled = !Frames.isCardValid();
+		}else{
+			payButton.disabled = true;
+		}
+	})
 }
+
+
+//询问弹窗
+function saveconfirm(){
+	hsycms.confirm('confirm','去我的資產核對',
+		function(res){            
+			hsycms.success('success','確認');
+			setTimeout(function(){
+				window.location.href = 'myassets.html';
+			},1500)
+		},
+		function(res){
+			hsycms.error('error','取消');
+		},
+	)
+};
+
+
 
 $('html').click(function(){
 	closeVideo();
@@ -117,6 +146,16 @@ $(function(){
 		$('.pre-mask').hide();
 	}
 	
+	if(success_status==1){
+		success('支付成功',1800);
+		setTimeout(function(){
+			saveconfirm();
+		},1800)
+		
+	}else if(success_status==0){
+		error('支付失敗',1800);
+	}
+	
 	//商品详情业加载
 	$.ajax({
 		url:base_url+'/v2/commodity/info',
@@ -130,7 +169,8 @@ $(function(){
 				var systemTime = res.data.systemTime;  //当前时间
 				var geshi = res.data.primaryPic.substr(res.data.primaryPic.lastIndexOf('.')+1);   //onclick=playVideo(this,event)
 				if(geshi=='mp4'){
-					var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" webkit-playsinline="true" onclick="playVideo(this,event)" muted="muted" ></video>
+					$('.detail-media').css('display', 'block')
+					var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" webkit-playsinline="true" muted="muted" ></video>
 								<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" muted="muted"></video>`;
 								
 					$('.order-img').append(html);
@@ -148,13 +188,13 @@ $(function(){
 					res.data.edition = 200;
 				}
 				
-				$('.details-right-creator-edition').text('第'+res.data.edition+'版， 共'+res.data.storage+'版');
+				$('.details-right-creator-edition').text('第'+res.data.edition+'版， 共'+res.data.endEdition+'版');
 				$('.order-introduce').html(res.data.introduce==''?'暫無介紹':(res.data.introduce.replace(/;\|;/g,'<br>')));
 				$('.order-content').html(res.data.content==''?'暫無更多資訊':(res.data.content.replace(/;\|;/g,'<br>')));
 				
 				
 				
-				if(res.data.storage - res.data.edition > 0){  //还有库存
+				if(res.data.endEdition - res.data.edition > 0){  //还有库存
 					
 					if(systemTime < saleStartTimeMillis){
 						$('.details-right-btn').addClass('unclick');
@@ -306,8 +346,9 @@ $(function(){
 		$(this).addClass('cur');
 		var text = $(this).data('type');
 		if(text==0){
-			$('.payment-page-right-btn button').removeClass('can');
-			$('.payment-page-right-btn button').text('立即付款');
+			// $('.payment-page-right-btn button').removeClass('can');
+			// $('.payment-page-right-btn button').text('立即付款');
+			$('.payment-page-right-btn').hide();
 			$('.order-price .order-price-hdk').show();
 			$('.order-price .order-price-busd').hide();
 			$('.payment-page-right-select').show();
@@ -316,6 +357,7 @@ $(function(){
 		};
 		
 		if(text==1){
+			$('.payment-page-right-btn').show();
 			$('.payment-page-right-btn button').addClass('can');
 			if($('.busd-tip').text()=='餘額不足'){
 				$('.payment-page-right-btn button').text('充值');
@@ -385,8 +427,5 @@ $(function(){
 			}
 		}
 	})
-	
-	
-	
 	
 })

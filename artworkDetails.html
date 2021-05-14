@@ -11,15 +11,19 @@
 	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/frames-base.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/frames.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
 	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3-provider.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="./js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
 		.pre-mask{
@@ -29,6 +33,15 @@
 			top: 0;
 			left: 0;
 			z-index: 999;
+		}
+		.detail-mask {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: transparent;
+			width: 100%;
+			height: 100%;
+			z-index: 6;
 		}
 	</style>
 </head>
@@ -94,7 +107,7 @@
 	</div>
 	
 	<div class="details center-80 flex">
-		<div class="details-left order-img"><img class="full-screen" src="./images/fullscreen.png"/><img class="voice" src="./images/voice.png"/></div>
+		<div class="details-left order-img"><div onclick="playVideo(this,event)" class="detail-mask"></div><img class="full-screen detail-media" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice detail-media" src="./images/mute.png"/></div>
 		<div class="details-right">
 			<div class="details-right-tit order-title">----</div>
 			<div class="details-right-price flex"><span class="cur order-price-hdk">HK$0 港元</span><span class="order-price-busd">0 BUSD</span></div>
@@ -163,12 +176,72 @@
 					</div>
 					
 					<div class="payment-page-right-select">
-						<p class="flex">
+						<!-- <p class="flex">
 							<input class="card-number" type="text" placeholder="卡號" />
-							<input class="date" type="text" placeholder="MM/YYYY" id="datetimepicker2" />
+							<input class="date" type="text" size=5 maxlength=5 placeholder="MM/YY" id="datetimepicker2" onkeyup="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')" />
 							<input class="cvc" type="text" placeholder="CVC" />
 						</p>
-						<p class="flex"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
+						<p class="flex"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p> -->
+						
+						<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
+							<div class="payment-form-ipt">
+								<div class="input-container card-number">
+									<div class="icon-container">
+										<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
+									</div>
+									<div class="card-number-frame"></div>
+									<div class="icon-container payment-method">
+										<img id="logo-payment-method" />
+									</div>
+									<div class="icon-container">
+										<img id="icon-card-number-error" src="images/card-icons/error.svg" />
+									</div>
+								</div>
+						
+								<div class="date-and-code">
+									<div>
+										<div class="input-container expiry-date">
+											<div class="icon-container">
+												<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
+											</div>
+											<div class="expiry-date-frame"></div>
+											<div class="icon-container">
+												<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
+											</div>
+										</div>
+									</div>
+						
+									<div>
+										<div class="input-container cvv">
+											<div class="icon-container">
+												<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
+											</div>
+											<div class="cvv-frame"></div>
+											<div class="icon-container">
+												<img id="icon-cvv-error" src="images/card-icons/error.svg" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
+						
+							<div class="pay-button"><button id="pay-button" disabled="">立即付款  -></button></div><div style="color: #fff;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								margin-top: 10px;"><input id="savetips" type="checkbox" /><span style="opacity: 0.4;">由於您購買的是數字作品，一經售出概不退換</span></div>
+						
+							<div>
+								<span class="error-message error-message__card-number"></span>
+								<span class="error-message error-message__expiry-date"></span>
+								<span class="error-message error-message__cvv"></span>
+							</div>
+						
+							<!-- <p class="success-payment-message"></p> -->
+						</form>
+						
 					</div>
 					
 					<div class="payment-page-right-busd none">
@@ -179,14 +252,16 @@
 							<span class="busd-tip none">0</span>
 						</div>
 					</div>
-					<div class="payment-page-right-btn">
+					<div class="payment-page-right-btn none">
 						<button type="button">立即付款  -></button>
 						<!-- <p>您的信用卡將立即授權這筆支付。</p> -->
+						<p><input id="savetips" type="checkbox" /><span>由於您購買的是數字作品，一經售出概不退換</span></p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	
 	<div class="pre-mask none"></div>
 	
@@ -201,20 +276,76 @@
 		</div>
 	</div>
 	
+	<!--提交成功-->
+	<div class="hsycms-model-mask" id="mask-success"></div>
+	<div class="hsycms-model hsycms-model-success" id="success">
+		<div class="hsycms-model-icon">
+			<svg width="50" height="50">
+				<circle class="hsycms-alert-svgcircle"  cx="25" cy="25" r="24" fill="none" stroke="#ffffff" stroke-width="2"></circle>   
+				<polyline class="hsycms-alert-svggou" fill="none" stroke="#ffffff" stroke-width="2.5" points="14,25 23,34 36,18" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+		</div>
+		<div class="hsycms-model-text">注册成功</div>
+	</div>
+	
+	<!--提交失败-->
+	<div class="hsycms-model-mask" id="mask-error"></div>
+	<div class="hsycms-model hsycms-model-error" id="error">
+		<div class="hsycms-model-icon">
+			<svg width="50" height="50">
+				<circle class="hsycms-alert-svgcircle"  cx="25" cy="25" r="24" fill="none" stroke="#f54655" stroke-width="2"></circle>   
+				<polyline class="hsycms-alert-svgca1" fill="none" stroke="#f54655" stroke-width="2.5" points="18,17 32,35" stroke-linecap="round" stroke-linejoin="round" />
+				<polyline class="hsycms-alert-svgca2" fill="none" stroke="#f54655" stroke-width="2.5" points="18,35 32,17" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+		</div>
+		<div class="hsycms-model-text">操作失败</div>
+	</div>
+	
 	<!-- foot -->
 	<div class="footerpage2"></div>
 	
 	<div class="tips"></div>
 	
 </body>
+<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.checkout.com/js/framesv2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/frames.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/artworkDetail.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-	$('#datetimepicker2').datetimepicker({
-		format: 'mm/yyyy',
-		minView: 3,
-		autoclose: true,
-		language:'en'
-	});
+	// $('#datetimepicker2').datetimepicker({
+	// 	format: 'mm/yyyy',
+	// 	minView: 3,
+	// 	autoclose: true,
+	// 	language:'en'
+	// });
+	
+	function toggleVideo(){
+		var voiceStatus = document.getElementsByTagName('video')[0].muted
+		document.getElementsByTagName('video')[0].muted = !voiceStatus
+		switch (voiceStatus) {
+			case true:
+				document.getElementsByClassName('voice')[0].src = './images/voice.png'
+				break;
+			case false:
+				document.getElementsByClassName('voice')[0].src = './images/mute.png'
+			break;
+		}
+		
+	}
+	function toggleScreen(){
+		FullScreen()
+	}
+	function FullScreen() {
+    var ele = document.getElementsByTagName('video')[0];
+    if (ele.requestFullscreen) {
+        ele.requestFullscreen();
+    } else if (ele.mozRequestFullScreen) {
+        ele.mozRequestFullScreen();
+    } else if (ele.webkitRequestFullScreen) {
+        ele.webkitRequestFullScreen();
+    }
+}
 </script>
 </html>
