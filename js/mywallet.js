@@ -240,12 +240,13 @@ $(function () {
 											loadingHide();
 										}, 1000);
 										if (location.host.indexOf('bazhuayu.io')<0) {
-											changeNetwork(97).then(()=>{
-
+											changeNetwork(97).then(function(){
+												console.log(res,accounts)
 												mangeWalletCharge(res, accounts)
 											})
 										} else {
-											changeNetwork(56).then(()=>{
+											changeNetwork(56).then(function(){
+												console.log(res,accounts)
 												mangeWalletCharge(res, accounts)
 
 											})
