@@ -363,7 +363,7 @@ function networkChangedImplement() {
 }
 
 
-if (typeof window.ethereum !== 'undefined') {
+if (typeof window.ethereum !== 'undefined' && window.ethereum.networkVersion) {
 	// $('#make_offer').data('sign','0');
 	initialization()
 	loading();
