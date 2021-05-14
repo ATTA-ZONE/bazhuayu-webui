@@ -1,7 +1,9 @@
+var targetChainId = ''
+
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
-    var targetChainId = 97
+     targetChainId = 97
 } else {
-    var targetChainId = 56
+     targetChainId = 56
 }
 
 function getWeb3() {
@@ -40,9 +42,7 @@ function changeNetwork(status) {
 ethereum.autoRefreshOnNetworkChange = false;
 
 ethereum.on('networkChanged', function (netVer) {
-    if (netVer != targetChainId.toString()) {
+    if (netVer != String(targetChainId)) {
       changeNetwork(targetChainId)
     }
-}
-
-});
+})
