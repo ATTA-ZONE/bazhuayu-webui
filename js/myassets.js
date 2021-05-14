@@ -1,5 +1,4 @@
 
-
 //获取时间
 function formatDuring(mss) {
     var days = parseInt(mss / (1000 * 60 * 60 * 24));
@@ -54,7 +53,7 @@ function getAssetsList(current,pageSize){
 								<div class="my-assets-right-creator flex">
 									<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
 									<span>@ATTA</span>
-									<div class="my-assets-right-creator-edition">第`+v.edition+`版，共`+v.storage+`版</div>
+									<div class="my-assets-right-creator-edition">第`+v.edition+`版，共`+v.endEdition+`版</div>
 								</div>
 								<div class="details-right-des-tit">商品描述</div>
 								<div class="details-right-des">`+(v.introduce==''?'暫無介紹':v.introduce.replace(/;\|;/g,'<br>'))+`</div>
