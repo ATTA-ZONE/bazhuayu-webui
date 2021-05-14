@@ -1,4 +1,3 @@
-
 var param = window.location.search.substr(1);
 parm = param.split('&');
 var arr = [];
