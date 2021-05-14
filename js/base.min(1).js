@@ -3,7 +3,7 @@
 	W.isArray=Array.isArray;
 	// W.conf={'dev':top.location.origin,'test':'https://test.wah.art','prod':'https://fmg.art',1:'https://fmg.art',56:'https://bsc.fmg.art'};
 	// W.conf={'dev':top.location.origin,'test':'http://superguy021.vicp.cc:8866','prod':'http://superguy021.vicp.cc:8866',1:'http://superguy021.vicp.cc:8866',56:'http://superguy021.vicp.cc:8866',97:'http://superguy021.vicp.cc:8866'};  //测试
-	W.conf={'dev':top.location.origin,'test':'https://www.bazhuayu.io','prod':'https://www.bazhuayu.io',1:'https://www.bazhuayu.io',56:'https://www.bazhuayu.io',97:'https://www.bazhuayu.io'};
+	W.conf={'dev':top.location.origin,'test':'https://www.bazhuayu.io','prod':'https://www.bazhuayu.io',1:'https://www.bazhuayu.io',56:'https://www.bazhuayu.io',97:'http://47.118.74.48:8081'};
 	
 	W.production=document.getElementById('base-min').getAttribute('data-mode');
 	W.debug=true;//(production==='dev');
@@ -241,6 +241,7 @@
 							console.log(provider.chainId);
 							CHAIN.WALLET.handleChainChanged(provider.chainId);
 						}
+						debugger
 						console.log(accounts)
 					}).catch(function(er) {
 						console.log(er);

@@ -1,5 +1,4 @@
 function mangeWalletCharge(res, accounts) {
-	console.log(res, accounts);
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		var web3 = getEth();
@@ -129,12 +128,7 @@ $(function () {
 			if (wallet_type == 'wallectconnect') {
 				
 				var provider = CHAIN.WALLET.WalletConnect.provider();
-				var address_p = ''
-				if (location.href.indexOf('bazhuayu.io' < 0)) {
-					address_p = c_ERC20_BUSD[97].address
-				}
-				address_p = c_ERC20_BUSD[56].address
-				console.log(address_p,'address_p');
+				var address_p = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
 				const web3_p = new Web3(provider);
 				var contract_p = new web3_p.eth.Contract(abi, address_p);
 				
@@ -240,7 +234,7 @@ $(function () {
 										setTimeout(function () {
 											loadingHide();
 										}, 1000);
-										if (window.location.href.indexOf('bazhuayu.io') == -1) {
+										if (location.host.indexOf('bazhuayu.io') < 0) {
 											window.ethereum.request({
 												method: 'wallet_addEthereumChain',
 												params: [{
@@ -255,7 +249,6 @@ $(function () {
 													blockExplorerUrls: ['https://testnet.bscscan.com']
 												}]
 											}).then(function () {
-												debugger
 												mangeWalletCharge(res, accounts)
 											})
 										} else {

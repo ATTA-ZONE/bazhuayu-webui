@@ -259,12 +259,13 @@ if (typeof window.ethereum !== 'undefined') {
 	var walletId = ethereum.selectedAddress,
 		ethWei = 0.01;
 	var netVer = window.ethereum.networkVersion;
+	
 	var address = ''
 	if (window.location.href.indexOf('bazhuayu.io') == -1) {
-		address = '0x65aF2dcE9694393496EE7568eeE92660116D5ae6'; //测试
+		address = c_ERC20_BUSD[97].address; //测试
+	} else {
+		address = c_ERC20_BUSD[56].address; //正式
 	}
-	address = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56'; //正式
-
 
 	// 监听账户变更事件
 	ethereum.on('accountsChanged', function (accounts) {
