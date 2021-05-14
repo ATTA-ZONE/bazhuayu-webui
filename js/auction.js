@@ -363,12 +363,15 @@ function networkChangedImplement() {
 }
 
 
-if (typeof window.ethereum !== 'undefined' && window.ethereum.networkVersion) {
+if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
-	initialization()
 	loading();
+	
 	setTimeout(function () {
 		loadingHide();
+		if (window.ethereum.networkVersion) {
+			 initialization()
+		}
 	}, 1800);
 
 
