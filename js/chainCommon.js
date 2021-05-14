@@ -22,7 +22,6 @@ function accountsChanged(fnc) {
 }
 
 function changeNetwork(status) {
-  return new Promise(()=>{
     window.ethereum.request({
       method: 'wallet_addEthereumChain',
       params: [{
@@ -37,7 +36,6 @@ function changeNetwork(status) {
         blockExplorerUrls: [RPCSetting[status].ETHERSCAN_URL]
       }]
     });
-  })
 }
 
 // 监听网络变更事件
