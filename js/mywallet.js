@@ -133,7 +133,7 @@ $(function () {
 					address_p = c_ERC20_BUSD[97].address
 				}
 				address_p = c_ERC20_BUSD[56].address
-				
+
 				const web3_p = new Web3(provider);
 				var contract_p = new web3_p.eth.Contract(abi, address_p);
 				
@@ -240,11 +240,15 @@ $(function () {
 											loadingHide();
 										}, 1000);
 										if (location.host.indexOf('bazhuayu.io')<0) {
-											changeNetwork(97)
-											mangeWalletCharge(res, accounts)
+											changeNetwork(97).then(()=>{
+
+												mangeWalletCharge(res, accounts)
+											})
 										} else {
-											changeNetwork(56)
-											mangeWalletCharge(res, accounts)
+											changeNetwork(56).then(()=>{
+												mangeWalletCharge(res, accounts)
+
+											})
 										}
 									});
 								}
