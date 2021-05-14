@@ -317,7 +317,7 @@
 					return this.provider().accounts.length > 0;
 				},
 				provider: function () {
-					return new WalletConnectProvider({
+					return new window.WalletConnectProvider({
 						rpc: {
 							97: "0x6A2E6042DF6FDCdA84A45531C892b644b095E2b4",
 							56: "0x26455c075eAD85015cbA283731db78d5E80615fF"
