@@ -44,15 +44,6 @@ function changeNetwork(status) {
 }
 
 // 监听网络变更事件
-<<<<<<< HEAD
-ethereum.autoRefreshOnNetworkChange = false;
-
-ethereum.on('networkChanged', function (netVer) {
-    if (netVer != String(targetChainId)) {
-      changeNetwork(targetChainId)
-    }
-})
-=======
 ethereum.autoRefreshOnNetworkChange = false; 
 //只有 这个属性为false，networkChanged 才会被使用
 function networkChangedAssign(fnc) {
@@ -60,4 +51,3 @@ function networkChangedAssign(fnc) {
         fnc(netVer)
     })
 };
->>>>>>> wangminqi/atta-web-ui-patch-1

@@ -170,7 +170,7 @@ if (typeof window.ethereum !== 'undefined') {
 		loadingHide();
 	}, 1800);
 	
-	function userBidInfo {
+	function userBidInfo() {
 	    var user_address = ethereum.selectedAddress;
 	    //获取users 对于 所有 竞拍 下的 所有 竞价
     	if (user_address != 0) {
@@ -223,7 +223,7 @@ if (typeof window.ethereum !== 'undefined') {
     	}
 	}
 	    
-	function initialization {
+	function initialization () {
 	    var netVer = window.ethereum.networkVersion;
 	    // var netVer = netVers[0];
 	    if (netVer != targetChainId.toString()) {
