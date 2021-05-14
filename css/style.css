@@ -735,6 +735,7 @@ body,html{
 	justify-content:space-between;
 	align-items:center;
 	padding:50px 0;
+	position: relative;
 }
 .footer-left{
 	width:220px;
@@ -3083,15 +3084,15 @@ body,html{
 
 /* qrcode */
 .footer-right-follow{
-	position:relative;
+	/* position:relative; */
 }
 .qrCode{
 	cursor: pointer;
 }
 .wx-code{
 	position:absolute;
-	bottom:150px;
-	right: 0;
+	bottom:220px;
+	right: 120px;
 	width: 270px;
 	height: 270px;
 	background: #16142e;
@@ -3183,21 +3184,33 @@ body,html{
 	.index-banner{
 		min-height: 340px;
 	}
+	.wx-code{
+		right : calc( ( 100% - 270px ) / 2)
+	}
 }
 @media screen and (min-width:376px) and (max-width:450px){
    .index-banner{
 	min-height:400px;
    }
+	.wx-code{
+		right : calc( ( 100% - 270px ) / 2)
+	}
 }
 @media screen and (min-width:451px) and (max-width:550px){
    .index-banner{
 	min-height:500px;
    }
+   .wx-code{
+		right : calc( ( 100% - 270px ) / 2)
+	}
 }
 @media screen and (min-width:551px) and (max-width:767px){
    .index-banner{
 	min-height: 645px;
    }
+   .wx-code{
+		right : calc( ( 100% - 270px ) / 2)
+	}
 }
 @media screen and (min-width:768px) and (max-width:991px){
    .index-banner{
@@ -3206,6 +3219,9 @@ body,html{
    .banner-left-tit{
 	   font-size: 60px
    }
+   .wx-code{
+		right : calc( ( 100% - 270px ) / 2)
+	}
 }
 @media screen and (min-width:992px) and (max-width:1199px){
    .index-banner{
