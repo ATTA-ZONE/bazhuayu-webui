@@ -3,12 +3,13 @@ function mangeWalletCharge(res, accounts) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		var web3 = getEth();
 		var contract = new web3.Contract(abi, address);
-		
+
 		var amount = $('.modify-ipt input').val().trim();
 				if (amount == '') {
 					amount = '0';
 				}
 		var num = getWeb3().utils.toWei(amount, 'ether');
+		debugger
 		contract.methods.balanceOf(accounts[0]).call() //查询余额
 			.then(function (res) {
 
@@ -254,7 +255,7 @@ $(function () {
 													blockExplorerUrls: ['https://testnet.bscscan.com']
 												}]
 											}).then(function () {
-												debugger
+												
 												mangeWalletCharge(res, accounts)
 											})
 										} else {
