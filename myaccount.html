@@ -19,6 +19,7 @@
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/upload.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
@@ -59,22 +60,22 @@
 			<div class="my-account-right-top">
 				<div class="my-account-right-tit">我的暱稱</div>
 				<div class="my-account-right-name my-account-name">----</div>
-				<div class="my-account-right-change modify-tc-pc tc-show flex" id="changeName" onclick="changeName()"><span class="language-tc">更換</span></div>
+				<div class="my-account-right-change modify-tc-pc tc-show flex accountclass" id="changeName" onclick="changeName()"><span class="language-tc">更換</span></div>
 			</div>
 			<div class="my-account-right-center flex">
 				<div class="my-account-right-center-item">
 					<div class="my-account-right-tit">電子信箱</div>
 					<div class="my-account-right-name my-account-email">----</div>
-					<!--<div class="my-account-right-change modify-tc-pc tc-show flex flex" onclick="changeEmail()">Change</div>-->
+					<!--<div class="my-account-right-change modify-tc-pc tc-show accountclass flex flex" onclick="changeEmail()">Change</div>-->
 				</div>
 				<div class="my-account-right-center-item">
 					<div class="my-account-right-tit">手机號碼</div>
 					<div class="my-account-right-name my-account-phone">----</div>
-					<!--<div class="my-account-right-change modify-tc-pc tc-show flex flex" onclick="changePhone()">Change</div>-->
+					<!--<div class="my-account-right-change modify-tc-pc tc-show accountclass flex flex" onclick="changePhone()">Change</div>-->
 				</div>
 			</div>
 			<div class="my-account-right-bottom">
-				<a class="flex modify-tc-pc tc-show flex" href="javascript:void(0)" onclick="changePwd()"><span class="language-tc">更換密碼</span></a>
+				<a class="flex modify-tc-pc tc-show accountclass flex" href="javascript:void(0)" onclick="changePwd()"><span class="language-tc">更換密碼</span></a>
 			</div>
 		</div>
 	</div>
@@ -99,6 +100,8 @@
 	</div>
 	<div class="tips"></div>
 </body>
+<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/myaccount.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
 

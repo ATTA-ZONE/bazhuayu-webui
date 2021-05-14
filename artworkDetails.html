@@ -23,6 +23,7 @@
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
 		.pre-mask{
@@ -32,6 +33,15 @@
 			top: 0;
 			left: 0;
 			z-index: 999;
+		}
+		.detail-mask {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: transparent;
+			width: 100%;
+			height: 100%;
+			z-index: 6;
 		}
 	</style>
 </head>
@@ -97,7 +107,7 @@
 	</div>
 	
 	<div class="details center-80 flex">
-		<div class="details-left order-img"><img class="full-screen" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice" src="./images/mute.png"/></div>
+		<div class="details-left order-img"><div onclick="playVideo(this,event)" class="detail-mask"></div><img class="full-screen" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice" src="./images/mute.png"/></div>
 		<div class="details-right">
 			<div class="details-right-tit order-title">----</div>
 			<div class="details-right-price flex"><span class="cur order-price-hdk">HK$0 港元</span><span class="order-price-busd">0 BUSD</span></div>
@@ -296,6 +306,8 @@
 	<div class="tips"></div>
 	
 </body>
+<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 <script src="https://cdn.checkout.com/js/framesv2.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/frames.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/artworkDetail.js" type="text/javascript" charset="utf-8"></script>

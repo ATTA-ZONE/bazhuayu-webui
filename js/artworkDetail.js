@@ -78,8 +78,8 @@ function orderTakeMobile(){
 // 播放视频
 function playVideo(obj,e){
 	e.stopPropagation();
-	$(obj)[0].pause();
-	var src = $(obj).attr('src');
+	$(obj).siblings('video')[0].pause();
+	var src = $(obj).siblings('video')[0].src;
 	$('.video-model video').attr('src',src);
 	$('.video-model video')[0].play();
 	$('.video-mask').fadeIn('fast');
@@ -161,7 +161,7 @@ $(function(){
 				var systemTime = res.data.systemTime;  //当前时间
 				var geshi = res.data.primaryPic.substr(res.data.primaryPic.lastIndexOf('.')+1);   //onclick=playVideo(this,event)
 				if(geshi=='mp4'){
-					var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" webkit-playsinline="true" onclick="playVideo(this,event)" muted="muted" ></video>
+					var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" webkit-playsinline="true" muted="muted" ></video>
 								<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" muted="muted"></video>`;
 								
 					$('.order-img').append(html);
