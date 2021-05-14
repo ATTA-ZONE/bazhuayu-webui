@@ -1134,6 +1134,9 @@ body,html{
 	position: relative;
 	z-index:3;
 }
+.detail-media {
+	display: none;
+}
 .full-screen {
 	position: absolute !important;
 	bottom: 56px;
