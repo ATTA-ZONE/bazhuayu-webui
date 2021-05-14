@@ -409,7 +409,7 @@ if (typeof window.ethereum !== 'undefined') {
 	}
 	
 	accountsChangedAssign(accountsChangedImplement);
-
+	initialization()
 } else {
 	$('#make_offer').data('sign', '4');
 	var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
