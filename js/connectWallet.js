@@ -263,8 +263,9 @@ if (typeof window.ethereum !== 'undefined') {
 	var address = ''
 	if (window.location.href.indexOf('bazhuayu.io') == -1) {
 		address = c_ERC20_BUSD[97].address; //测试
+	} else {
+		address = c_ERC20_BUSD[56].address; //正式
 	}
-	address = c_ERC20_BUSD[56].address; //正式
 
 	// 监听账户变更事件
 	ethereum.on('accountsChanged', function (accounts) {
