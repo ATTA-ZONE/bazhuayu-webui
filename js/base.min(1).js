@@ -113,7 +113,7 @@
 				}
 				if(production==='prod'){
 				    var url = window.conf[code];
-				    if(url == top.location.origin){
+				    // if(url == top.location.origin){
 						// if(top.location.pathname==='/wallet.html'){
 						// 	CHAIN.WALLET.handleAccountsChanged([address])
 						// }else{
@@ -125,10 +125,10 @@
 						}else{
 							top.location.reload()
 						}
-				    }else{
-					    // top.location.href=[url,'/jump/',address].join('')
-					    // top.location.href=[url,'/jump/',address].join('')
-				    }
+				    // }else{
+					//     // top.location.href=[url,'/jump/',address].join('')
+					//     // top.location.href=[url,'/jump/',address].join('')
+				    // }
 				}else{
 					// top.location.href=[window.BASE_URL,'/jump/',address].join('')
 				}
