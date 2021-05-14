@@ -39,7 +39,7 @@ var RPCSetting =
             97:     //  BSC 测试 网络
                 {
                     'CHAIN_NAME': 'BSC_TESTNET',
-                    'RPC_URL': "https://data-seed-prebsc-2-s3.binance.org:8545",
+                    'RPC_URL': "https://data-seed-prebsc-1-s2.binance.org:8545/",
                     'CHAIN_ID': 97,
                     'CHAIN_ID_HEX': '0x61',
                     'SYMBOL': 'BNB',
