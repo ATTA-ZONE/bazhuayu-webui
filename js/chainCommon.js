@@ -33,7 +33,7 @@ function changeNetwork(status) {
           symbol: RPCSetting[status].SYMBOL,
           decimals: 18
         },
-        rpcUrls: RPCSetting[status].RPC_URL,
+        rpcUrls: [RPCSetting[status].RPC_URL],
         blockExplorerUrls: RPCSetting[status].ETHERSCAN_URL
       }]
     });
