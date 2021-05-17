@@ -47,7 +47,7 @@ function changeNetwork(status) {
 ethereum.autoRefreshOnNetworkChange = false; 
 //只有 这个属性为false，networkChanged 才会被使用
 function networkChangedAssign(fnc) {
-    ethereum.on('networkChanged', function (netVer) {
+    ethereum.on('chainChanged', function (netVer) {
         fnc(netVer)
     })
 };
