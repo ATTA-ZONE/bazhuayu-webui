@@ -175,6 +175,7 @@ $(function(){
 								
 					$('.order-img').append(html);
 				}else{
+					$('.detail-media').css('display', 'none')
 					var html = `<img class="bzy-e-list-img" src="`+res.data.primaryPic+`" >
 								<img class="bzy-e-list-img mohu" src="`+res.data.primaryPic+`" >`;
 					$('.order-img').append(html);
