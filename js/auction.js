@@ -371,10 +371,6 @@ $.ajax({
 	}
 })
 
-function networkChangedImplement() {
-	initialization();
-}
-
 
 if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
@@ -382,19 +378,21 @@ if (typeof window.ethereum !== 'undefined') {
     initialization()
     loadingHide()
 	
-// 	var timer;
-// 	function func() {
-// 	    if (window.ethereum.networkVersion) {
-// 			initialization();
-// 			loadingHide();
-// 		} else {
-// 		    timer = setTimeout(func, 1000);
-// 		}
-// 	}
-	
-// 	timer = setTimeout(func, 1800);
+    // 	var timer;
+    // 	function func() {
+    // 	    if (window.ethereum.networkVersion) {
+    // 			initialization();
+    // 			loadingHide();
+    // 		} else {
+    // 		    timer = setTimeout(func, 1000);
+    // 		}
+    // 	}
+    	
+    // 	timer = setTimeout(func, 1800);
 
-
+    function networkChangedImplement() {
+	    initialization();
+    }
 	
 	networkChangedAssign(networkChangedImplement);
 
