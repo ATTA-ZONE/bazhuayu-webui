@@ -102,9 +102,9 @@ function initialization() {
             chainId = web3.utils.hexToNumber(res);
             console.log(chainId);
     });
-    
+
 	// var netVer = netVers[0];
-	if (chainId != targetChainId) {
+    if (chainId != targetChainId) {
 		changeNetwork(targetChainId)
 	};
 
