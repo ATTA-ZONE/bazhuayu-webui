@@ -96,8 +96,13 @@ function changwWalletId(accounts) {
 
 function initialization() {
     var web3 = getWeb3();
-	var chainId = web3.utils.hexToNumberString(ethereum.request({ method: 'eth_chainId' }));
-	console.log(chainId);
+    var chainId = '';
+    ethereum.request({ method: 'eth_chainId' })
+        .then(function (res) {
+            chainId = web3.utils.hexToNumber(res);
+            console.log(chainId);
+        })
+    
 	// var netVer = netVers[0];
 	if (chainId != targetChainId) {
 		changeNetwork(targetChainId)
@@ -203,11 +208,11 @@ function initialization() {
 			$('.bids-list-tit font').text(bidData.length);
 
 			$.each(newData, function (i, v) {
-				var unixTimestamp = getWeb3().utils.hexToNumber(v.timeStamp) * 1000;
+				var unixTimestamp = web3.utils.hexToNumber(v.timeStamp) * 1000;
 				unixTimestamp = new Date(unixTimestamp);
 				unixTimestamp = unixTimestamp.toLocaleString();
 				// console.log(unixTimestamp);
-				var price = getWeb3().utils.fromWei(v.data, 'ether');
+				var price = web3.utils.fromWei(v.data, 'ether');
 
 				var u_add = v.topics[1].split('000000000000000000000000').join('');
 				html += `<li class="flex">
@@ -238,10 +243,15 @@ function initialization() {
 }
 
 function userBidInfo() {
-	var user_address = ethereum.selectedAddress;
+	ethereum.request({ method: 'eth_accounts' })
+        .then(function (res) {
+            userAddress = res[0];
+            console.log(res[0]);
+        })
+	
 	//获取users 对于 所有 竞拍 下的 所有 竞价
-	if (user_address != 0) {
-		auctionContractInstance.methods.getUserBids(user_address).call()
+	if (userAddress != 0) {
+		auctionContractInstance.methods.getUserBids(userAddress).call()
 			.then(function (res) {
 				if (!res || res.length < 1) {
 					return false
@@ -369,27 +379,34 @@ function networkChangedImplement() {
 if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
 	loading();
+    initialization()
+    loadingHide()
 	
-	var timer;
-	function func() {
-	    if (window.ethereum.networkVersion) {
-			initialization();
-			loadingHide();
-		} else {
-		    timer = setTimeout(func, 1000);
-		}
-	}
+// 	var timer;
+// 	function func() {
+// 	    if (window.ethereum.networkVersion) {
+// 			initialization();
+// 			loadingHide();
+// 		} else {
+// 		    timer = setTimeout(func, 1000);
+// 		}
+// 	}
 	
-	timer = setTimeout(func, 1800);
+// 	timer = setTimeout(func, 1800);
 
 
 	
 	networkChangedAssign(networkChangedImplement);
 
-	var user_address = ethereum.request({ method: 'eth_accounts' });
+	var userAddress = '';
+	ethereum.request({ method: 'eth_accounts' })
+        .then(function (res) {
+            userAddress = res[0];
+            console.log(res[0]);
+        })
 
 	function accountsChangedImplement(accounts) {
-		if (accounts.length > 0) user_address = accounts[0];
+		if (accounts.length > 0) userAddress = accounts[0];
 		console.log(['accountsChanged', accounts]);
 		userBidInfo();
 	}
