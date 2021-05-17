@@ -107,7 +107,8 @@ function initialization() {
         changeNetwork(targetChainId)
     }
 
-    var auctionAddress = c_auction[chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+    var auctionAddress = c_auction[chainId].address;
+    // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
 	var auctionABI = c_auction['abi'];
 
 	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
