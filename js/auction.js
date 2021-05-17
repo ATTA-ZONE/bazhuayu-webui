@@ -114,13 +114,14 @@ function initialization() {
 	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
 	console.log(auctionContractInstance);
 
-
+    
+    var tokenTypeId = 0;
 	if (chainId == 97) {
-		var tokenTypeId = 80000003; // 测试环境
+		tokenTypeId = 80000003; // 测试环境
 	} else if (chainId == 56) {
-		var tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
+		tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
 	} else {
-		var tokenTypeId = '';
+		tokenTypeId = 0;
 	}
 
 
