@@ -2463,12 +2463,16 @@ html {
 }
 
 .my-assets-right-btn {
-	align-items: center;
+	align-items: flex-start;
 	justify-content: space-between;
 }
 
+.my-assets-claim-wrap {
+	flex-direction: column;
+  width: 49%;
+}
+
 .my-assets-right-btn a {
-	width: 47%;
 	align-items: center;
 	justify-content: center;
 	height: 48px;
@@ -2476,20 +2480,28 @@ html {
 	font-style: normal;
 	font-weight: 600;
 	font-size: 14px;
-	line-height: 22px;
+	line-height: 48px;
 	border-radius: 2px;
+}
+
+.claim-tip {
+	color: #9567FF;
+	margin-top: 5px;
 }
 
 .my-assets-right-btn .claim {
 	color: #fff;
 	background: #9567FF;
-	width: 66%;
+	width: 100%;
+	text-align: center;
 }
 
 .my-assets-right-btn .eth {
 	background: #5A5A5A;
 	color: #141414;
-	width: 30%;
+	width: 49%;
+	flex-direction: column;
+	line-height: 18px;
 }
 
 .my-assets-right-btn .minting {
