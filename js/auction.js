@@ -76,7 +76,7 @@ function playVideo(obj, e) {
 function closeVideo() {
 	$('.video-mask').hide();
 	$('.video-model').hide();
-	$('.bid-left video:nth-child(1)')[0].play();
+	$('.bid-left video')[0].play();
 	$('.video-model video')[0].pause();
 }
 
