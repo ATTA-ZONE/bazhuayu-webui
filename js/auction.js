@@ -95,25 +95,25 @@ function changwWalletId(accounts) {
 }
 
 function initialization() {
-	var netVer = window.ethereum.networkVersion;
-	console.log(netVer);
+    var web3 = getWeb3();
+	var chainId = web3.utils.hexToNumberString(ethereum.request({ method: 'eth_chainId' }));
+	console.log(chainId);
 	// var netVer = netVers[0];
-	if (netVer != targetChainId.toString()) {
+	if (chainId != targetChainId) {
 		changeNetwork(targetChainId)
 	}
 
 	// var netVer = netVers[0];
-	var auctionAddress = c_auction[netVer].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+	var auctionAddress = c_auction[chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
 	var auctionABI = c_auction['abi'];
 
-	var web3 = getEth();
-	auctionContractInstance = new web3.Contract(auctionABI, auctionAddress);
+	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
 	console.log(auctionContractInstance);
 
 
-	if (netVer == 97) {
+	if (chainId == 97) {
 		var tokenTypeId = 80000003; // 测试环境
-	} else if (netVer == 56) {
+	} else if (chainId == 56) {
 		var tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
 	} else {
 		var tokenTypeId = '';
@@ -386,7 +386,7 @@ if (typeof window.ethereum !== 'undefined') {
 	
 	networkChangedAssign(networkChangedImplement);
 
-	var user_address = ethereum.selectedAddress;
+	var user_address = ethereum.request({ method: 'eth_accounts' });
 
 	function accountsChangedImplement(accounts) {
 		if (accounts.length > 0) user_address = accounts[0];
