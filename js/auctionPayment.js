@@ -1,11 +1,3 @@
-function getWeb3() {
-	return new Web3(window.ethereum); // web3js就是你需要的web3实例
-}
-
-function getEth() {
-	return getWeb3().eth;
-}
-
 function backAuction() {
 	window.location.href = 'auction.html';
 }
@@ -27,7 +19,7 @@ $.ajax({
 							<img class="mohu" src="` + data.primaryPic + `" >`;
 
 				$('.bid-payment-img').html(html);
-			};
+			}
 
 			$('.auction-name').text(data.name);
 			// $('.auction-edition').text(`第`+data.edition+`版，共`+data.storage+`版`);
@@ -36,8 +28,150 @@ $.ajax({
 });
 
 
+function initialization() {
+    var web3 = getWeb3();
+    var chainId = '';
+    ethereum.request({ method: 'eth_chainId' })
+        .then(function (res) {
+            chainId = web3.utils.hexToNumber(res);
+            console.log(chainId);
+        });
+
+	// var netVer = netVers[0];
+	if (chainId != targetChainId) {
+        changeNetwork(targetChainId);
+    }
+
+
+	// var netVer = netVers[0];
+	var auctionAddress = c_auction[chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+	var auctionABI = c_auction.abi;
+	
+	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
+	console.log(auctionContractInstance);
+
+	
+	var busdAddress = c_ERC20_BUSD[chainId].address;
+	var busdABI = c_ERC20_BUSD.abi;
+	
+	busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
+	console.log(busdContractInstance);
+
+    userBidInfo()
+
+}
+
+function userBidInfo() {
+    var userAddress = '';
+    ethereum.request({ method: 'eth_accounts' })
+        .then(function (res) {
+            userAddress = res[0];
+            console.log(res[0]);
+        });
+        
+    if (userAddress != 0) {
+        
+        $.ajax({
+	        url: '/v2/user/wallet/info',
+	        async: false,
+	        success: function (res) {
+		        // console.log(res)
+		        if (res.code == 0) {
+		            var hintMessage = '';
+		            if (res.data.address == userAddress) {
+		                pass
+		            } else {
+		                if (res.data.address == null || res.data.address == '') {
+		                    hintMessage = "您的賬戶未綁定地址，點擊確定會為您自動綁定當前錢包地址\n基於區塊鏈的獨立性，即使不綁定您仍然可以參與競拍\n當前錢包地址: " + userAddress + " \n賬戶綁定地址: null";
+		                } else {
+		                    hintMessage = "您的賬戶綁定地址與當前錢包地址不符，點擊確定會為您重新綁定當前錢包地址\n基於區塊鏈的獨立性，即使不綁定您仍然可以參與競拍\n當前錢包地址: " + userAddress + " \n賬戶綁定地址: " + res.data.address;
+		                }
+		                
+			            if (window.confirm(hintMessage)) {
+			                var data = {
+			                    address: accounts[0],
+			                    walletType: 'METAMASK'
+		                    };
+
+		                    $.ajax({
+			                    url: base_url + '/v2/user/wallet/bind',
+			                    type: 'POST',
+			                    contentType: 'application/json',
+			                    dataType: 'json',
+			                    data: JSON.stringify(data),
+			                    success: function (res) {
+				                    if (res.code == 0) {
+					                    success('綁定成功！', 1800);
+				                    } else {
+					                    error('綁定失敗！',1800);
+				                    }
+			                    }
+		                    });
+			            }
+			        }
+		
+	            } else {
+			        window.alert("您的賬戶未登錄，但基於區塊鏈的獨立性，您仍然可以參與競拍\n當前錢包地址: " + userAddress);
+		        }
+	        }
+        });
+
+        
+        $('.no-connect-wallet').hide();
+    	$('.address-tit').show();
+    	$('.address-info').text(userAddress);
+    	$('.address-info').show();
+    	$('#pay_now').removeClass('grey');
+    	$('#pay_now').data('status', '1');
+    	$('.btn-tip').show();
+    } else {
+		$('.no-connect-wallet').show();
+	    $('.address-tit').hide();
+	    $('.address-info').hide();
+	    $('#pay_now').addClass('grey');
+	    $('#pay_now').data('status', '0');
+	    $('.btn-tip').hide();
+	}
+
+
+}
+
+
+
 //是否连接钱包
 // console.log(document.cookie);
+if (typeof window.ethereum !== 'undefined') {
+	// $('#make_offer').data('sign','0');
+	loading();
+	initialization();
+	loadingHide();
+	
+    function networkChangedImplement() {
+	    initialization();
+    }
+	
+	networkChangedAssign(networkChangedImplement);
+
+	var userAddress = '';
+	ethereum.request({ method: 'eth_accounts' })
+        .then(function (res) {
+            userAddress = res[0];
+            console.log(res[0]);
+        })
+
+	function accountsChangedImplement(accounts) {
+		if (accounts.length > 0) userAddress = accounts[0];
+		console.log(['accountsChanged', accounts]);
+		userBidInfo();
+	}
+
+	accountsChangedAssign(accountsChangedImplement);
+} else {
+    var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
+				<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
+	alert(html);
+}
+
 
 if (getCookie('auction_wallet_connect') == 'true') {
 	$('.no-connect-wallet').hide();
