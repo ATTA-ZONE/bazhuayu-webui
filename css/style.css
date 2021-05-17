@@ -250,9 +250,16 @@ html {
 	font-size: 10px;
 	color: rgba(255, 255, 255, 0.8);
 }
-
-.header-right-yidl-info div img {
-	width: 100%;
+.header-right-yidl-info p{
+	display: flex;
+    flex-direction: column;
+}
+.header-right-yidl-info p .my-email{
+	font-size: 10px;
+	color: rgba(255,255,255,0.8);
+}
+.header-right-yidl-info div img{
+	width:100%;
 	height: 100%;
 }
 
@@ -270,14 +277,13 @@ html {
 .header-right-yidl-info:hover span {
 	color: #9567FF;
 }
-
-.header-right-yidl-my {
-	width: 70%;
-	position: absolute;
-	left: -15%;
-	top: 70px;
-	z-index: 96;
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+.header-right-yidl-my{
+	width:70%;
+	position:absolute;
+	left:0;
+	top:70px;
+	z-index:96;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
 }
 
 .header-right-yidl-my span {
@@ -378,7 +384,7 @@ html {
 	font-weight: 600;
 	font-size: 18px;
 	line-height: 22px;
-	color: #fff;
+	color:#fff;
 	width: 100%;
 	display: inline-block;
 }
@@ -1073,9 +1079,24 @@ html {
 	column-count: 3;
 	column-gap: 48px;
 }
-
 .artwork-mask {
 	position: relative;
+}
+.artwork-mask-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+}
+.bzy-e-list li{
+	width:100%;
+	transition:all 0.5s;
+	margin-bottom:60px;
+	-moz-page-break-inside:avoid;
+	-webkit-column-break-inside:avoid;
+	break-inside:avoid;
 }
 
 .artwork-mask-wrap {
@@ -1543,22 +1564,20 @@ html {
 	font-size: 16px;
 	line-height: 150%;
 }
-
-.payment {
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	background: #141414;
-	z-index: 50;
+.payment{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	background:#141414;
+	z-index:50;
 }
-
-.payment-container {
+.payment-container{
 	align-items: self-start;
-	justify-content: center;
-	width: 100%;
-	height: 100%;
+	justify-content:center;
+	width:100%;
+	height:100%;
 	overflow: auto;
 }
 
@@ -2025,18 +2044,16 @@ html {
 	align-items: center;
 	position: relative;
 }
-
-.tc-login-left {
-	width: 339px;
+.tc-login-left{
+	width:339px;
 	height: 615px;
-	align-items: center;
+	align-items:center;
 	justify-content: center;
 	background: rgb(36, 36, 36);
 }
-
-.tc-login-left img {
-	width: 124px;
-	flex-shrink: 0;
+.tc-login-left img{
+	width:124px;
+	flex-shrink:0;
 }
 
 .tc-login-right {
@@ -2840,8 +2857,11 @@ html {
 	border: none;
 	margin-top: 5px;
 }
-
-.my-wallet-tip p {
+.my-wallet-jumptip{
+	border: none;
+	margin-top: 5px;
+}
+.my-wallet-tip p{
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
@@ -2860,14 +2880,12 @@ html {
 	font-size: 14px;
 	line-height: 22px;
 }
-
-.my-wallet-jumptip a {
+.my-wallet-jumptip a{
 	font-size: 12px;
 	cursor: pointer;
 }
-
-.my-wallet-tip a:hover {
-	text-decoration: underline;
+.my-wallet-tip a:hover{
+	text-decoration:underline;
 }
 
 .my-wallet-connect {
@@ -3229,13 +3247,12 @@ html {
 	margin-bottom: 32px;
 	position: relative;
 }
-
-.sign-input p input {
-	height: 46px;
-	background: #282828;
-	border: 0;
-	width: 100%;
-	border-radius: 2px;
+.sign-input p input{
+	height:46px;
+	background:#282828;
+	border:0;
+	width:100%;
+	border-radius:2px;
 	padding: 0 12px;
 	font-family: Inter;
 	font-style: normal;
@@ -3244,49 +3261,44 @@ html {
 	line-height: 22px;
 	color: rgba(255, 255, 255, 0.4);
 }
-
-.sign-check-tip,
-.sign-check-tip2 {
-	position: absolute;
-	display: block;
-	bottom: -20px;
-	font-size: 12px;
-	width: 100%;
-	left: 0;
+.sign-check-tip,.sign-check-tip2{
+	position:absolute;
+	display:block;
+	bottom:-20px;
+	font-size:12px;
+	width:100%;
+	left:0;
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	color: #FF0000;
 }
-
-.password-icon1,
-.password-icon2 {
+.password-icon1, .password-icon2 {
 	position: absolute;
-	top: 14px;
-	right: 14px;
-	width: 18px;
-	border-radius: 50%;
+    top: 14px;
+    right: 14px;
+    width: 18px;
+    border-radius: 50%;
 }
 
 .sign-warn-check {
-	position: absolute;
-	display: block;
-	bottom: -24px;
-	font-size: 12px;
-	width: 100%;
-	left: 0;
+	position:absolute;
+	display:block;
+	bottom:-24px;
+	font-size:12px;
+	width:100%;
+	left:0;
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	color: #fff;
 	opacity: 0.4;
 }
-
-.sign-btn {
-	border-top: 1px solid rgba(255, 255, 255, 0.15);
-	padding-top: 24px;
-	align-items: center;
-	flex-direction: column;
+.sign-btn{
+	border-top:1px solid rgba(255,255,255,0.15);
+	padding-top:24px;
+	align-items:center;
+	flex-direction:column;
 }
 
 .sign-btn button {
@@ -3816,9 +3828,8 @@ html {
 		display: flex;
 	}
 }
-
 .swiper-midia-mask {
-
+	
 	width: fit-content;
 	height: fit-content;
 	display: block;
@@ -3827,7 +3838,6 @@ html {
 	left: 0;
 	z-index: 9999;
 }
-
 .swiper-container {
 	width: 100%;
 	height: 100%;
