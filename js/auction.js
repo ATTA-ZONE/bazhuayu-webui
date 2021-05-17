@@ -370,12 +370,17 @@ if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
 	loading();
 	
-	setTimeout(function () {
-		loadingHide();
-		if (window.ethereum.networkVersion) {
-			 initialization()
+	var timer;
+	function func() {
+	    if (window.ethereum.networkVersion) {
+			initialization();
+			loadingHide();
+		} else {
+		    timer = setTimeout(func, 1000);
 		}
-	}, 1800);
+	}
+	
+	timer = setTimeout(func, 1800);
 
 
 	
