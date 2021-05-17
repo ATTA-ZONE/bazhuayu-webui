@@ -248,7 +248,7 @@ function userBidInfo() {
         .then(function (res) {
             userAddress = res[0];
             console.log(res[0]);
-        })
+        });
 	
 	//获取users 对于 所有 竞拍 下的 所有 竞价
 	if (userAddress != 0) {
