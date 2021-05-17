@@ -243,6 +243,7 @@ function initialization() {
 }
 
 function userBidInfo() {
+    var userAddress = '';
 	ethereum.request({ method: 'eth_accounts' })
         .then(function (res) {
             userAddress = res[0];
@@ -396,16 +397,7 @@ if (typeof window.ethereum !== 'undefined') {
 	
 	networkChangedAssign(networkChangedImplement);
 
-	var userAddress = '';
-	ethereum.request({ method: 'eth_accounts' })
-        .then(function (res) {
-            userAddress = res[0];
-            console.log(res[0]);
-        })
-
 	function accountsChangedImplement(accounts) {
-		if (accounts.length > 0) userAddress = accounts[0];
-		console.log(['accountsChanged', accounts]);
 		userBidInfo();
 	}
 
