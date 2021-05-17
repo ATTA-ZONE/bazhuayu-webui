@@ -82,7 +82,7 @@ function closeVideo() {
 
 $('html').click(function () {
 	closeVideo();
-})
+});
 
 $('.video-model video').click(function (e) {
 	e.stopPropagation();
@@ -90,7 +90,7 @@ $('.video-model video').click(function (e) {
 
 function changwWalletId(accounts) {
 	if (accounts.length > 0) {
-		user_address = accounts[0]
+		user_address = accounts[0];
 	}
 }
 
@@ -104,12 +104,12 @@ function initialization() {
         });
 
     if (chainId != targetChainId) {
-        changeNetwork(targetChainId)
+        changeNetwork(targetChainId);
     }
 
     var auctionAddress = c_auction[chainId].address;
     // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
-	var auctionABI = c_auction['abi'];
+	var auctionABI = c_auction.abi;
 
 	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
 	console.log(auctionContractInstance);
@@ -132,7 +132,7 @@ function initialization() {
 			res = getWeb3().utils.fromWei(res, 'ether');
 			$('.bid-right-btn span').data('price', res);
 			$('.bid-right-btn span font').text(res);
-		})
+		});
 
 
 	//获取 拍卖的 详情，包括 时间参数，最高价     等设定
