@@ -107,7 +107,7 @@
 	</div>
 	
 	<div class="details center-80 flex">
-		<div class="details-left order-img"><div onclick="playVideo(this,event)" class="detail-mask"></div><img class="full-screen" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice" src="./images/mute.png"/></div>
+		<div class="details-left order-img"><div onclick="playVideo(this,event)" class="detail-mask"></div><img class="full-screen detail-media" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice detail-media" src="./images/mute.png"/></div>
 		<div class="details-right">
 			<div class="details-right-tit order-title">----</div>
 			<div class="details-right-price flex"><span class="cur order-price-hdk">HK$0 港元</span><span class="order-price-busd">0 BUSD</span></div>
@@ -228,9 +228,10 @@
 							<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
 						
 							<div class="pay-button"><button id="pay-button" disabled="">立即付款  -></button></div><div style="color: #fff;
-								opacity: 0.4;
-								text-align: center;
-								margin-top: 10px;">由於您購買的是數字作品，一經售出概不退換</div>
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								margin-top: 10px;"><input id="savetips" type="checkbox" /><span style="opacity: 0.4;">由於您購買的是數字作品，一經售出概不退換</span></div>
 						
 							<div>
 								<span class="error-message error-message__card-number"></span>
@@ -254,7 +255,7 @@
 					<div class="payment-page-right-btn none">
 						<button type="button">立即付款  -></button>
 						<!-- <p>您的信用卡將立即授權這筆支付。</p> -->
-						<p>由於您購買的是數字作品，一經售出概不退換</p>
+						<p><input id="savetips" type="checkbox" /><span>由於您購買的是數字作品，一經售出概不退換</span></p>
 					</div>
 				</div>
 			</div>

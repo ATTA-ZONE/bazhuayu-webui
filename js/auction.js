@@ -76,7 +76,7 @@ function playVideo(obj, e) {
 function closeVideo() {
 	$('.video-mask').hide();
 	$('.video-model').hide();
-	$('.bid-left video:nth-child(1)')[0].play();
+	$('.bid-left video')[0].play();
 	$('.video-model video')[0].pause();
 }
 
@@ -315,10 +315,11 @@ $.ajax({
 			var data = res.data.pageResult.records[0];
 			var geshi = data.primaryPic.substr(data.primaryPic.lastIndexOf('.') + 1);
 			if (geshi == 'mp4') {
+				$('.detail-media').css('display', 'block')
 				var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="` + data.primaryPic + `" onclick="playVideo(this,event)" muted="muted"></video>
 							<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + data.primaryPic + `" muted="muted"></video>`;
 
-				$('.bid-left').html(html);
+				$('.bid-left').append(html);
 			} else {
 				var html = `<img src="` + data.primaryPic + `" >
 							<img class="mohu" src="` + data.primaryPic + `" >`;
