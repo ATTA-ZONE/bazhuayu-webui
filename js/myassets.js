@@ -6,7 +6,9 @@ var app = new Vue({
 			isConnect: false,
 			current: 1,
 			pageSize: 9,
-			showMoreInfo: -1
+			showMoreInfo: -1,
+			selectedNftName:'',
+			selectedNft: null
 		}
 	},
 	created() {
@@ -17,6 +19,11 @@ var app = new Vue({
 	},
 	
 	methods: {
+		showSelectedNft(item){
+			this.selectedNftName=item.name
+			this.selectedNft= this.getBuildedBsc(item.mintList)  
+			hsycms.alert('model3')
+		},
 		getBuildedBsc(list){
 			let arr = []
 			list.filter(item => {
@@ -105,13 +112,6 @@ var app = new Vue({
 				}
 			})
 		},
-		alertModel() {
-			if (getCookie('isConnect') != 'true') {
-				setTimeout(function () {
-					hsycms.alert('model2');
-				}, 50)
-			}
-		},
 		
 		conneAssetsctWallet() {
 			if (getCookie('isConnect') == 'true') {
@@ -119,7 +119,6 @@ var app = new Vue({
 					hsycms.alert('model1')
 				}, 50)
 			} else {
-
 				setTimeout(function () {
 					hsycms.alert('model2');
 				}, 50)
