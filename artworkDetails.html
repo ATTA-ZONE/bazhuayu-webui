@@ -110,14 +110,36 @@
 		<div class="details-left order-img"><div onclick="playVideo(this,event)" class="detail-mask"></div><img class="full-screen detail-media" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice detail-media" src="./images/mute.png"/></div>
 		<div class="details-right">
 			<div class="details-right-tit order-title">----</div>
-			<div class="details-right-price flex"><span class="cur order-price-hdk">HK$0 港元</span><span class="order-price-busd">0 BUSD</span></div>
-			<div class="details-right-btn flex payment-btn-pc" data-status="0">立即購買  -></div>
-			<div class="details-right-time flex"><span>銷售結束於：</span><span class="details-right-time-djs">01 : 05 : 32</span></div>
 			<div class="details-right-creator flex">
 				<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
 				<span>@ATTA</span>
 				<div class="details-right-creator-edition">第1版，共150版</div>
 			</div>
+			<div class="checknumbox">
+				<div class="purchasenumbox">
+					<button onclick="changenum(event,1)"><img src="./images/jian.png" alt=""></button>
+					<span class="purchase_num">1</span>
+					<button onclick="changenum(event,2)"><img src="./images/jia.png" alt=""></button>
+				</div>
+				<p class="selectnumbox">已選第 <span class="selectarrnum">1</span> 版</p>
+			</div>
+			<div class="countmoneybox">
+				<p class="moneryridebox">
+					單價：
+					<span class="cur order-price-hdk">HK$0 港元</span>
+					<span>/</span>
+					<span class="order-price-busd">0 BUSD</span>
+				</p>
+				<p class="countetcbox">
+					<img src="./images/multiply.png" alt="">
+					<span class="purchase_num">1</span>
+					=
+				</p>
+			</div>
+			<!-- <div class="details-right-price flex"><span class="cur order-price-hdk hkdPrice">HK$0 港元</span><span class="order-price-busd busdPrice">0 BUSD</span></div> -->
+			<div class="details-right-price flex"><span class="cur order-price-hdk hkdPrice">HK$0 港元</span> <span style="margin-right: 20px;">/</span> <span class="order-price-busd busdPrice" style="opacity: 1;">0 BUSD</span></div>
+			<div class="details-right-btn flex payment-btn-pc" data-status="0">立即購買  -></div>
+			<div class="details-right-time flex"><span>銷售結束於：</span><span class="details-right-time-djs">01 : 05 : 32</span></div>
 			<div class="details-right-des order-introduce">
 				<!-- <div class="details-right-des-top">
 					<p>character: VR-Punk</p>
@@ -172,7 +194,7 @@
 					<div class="payment-page-right-pay flex"><span class="cur" data-type="0">信用卡</span><span data-type="1">加密貨幣</span></div>
 					<div class="payment-page-right-total">
 						<p>這是待付款，您的付款金額為：</p>
-						<p class="order-price"><span class="order-price-hdk">HK$0 港元</span><span class="order-price-busd none">0 BUSD</span></p>
+						<p class="order-price"><span class="order-price-hdk hkdPrice">HK$0 港元</span><span class="order-price-busd none busdPrice">0 BUSD</span></p>
 					</div>
 					
 					<div class="payment-page-right-select">

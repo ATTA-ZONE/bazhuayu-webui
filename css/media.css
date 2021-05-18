@@ -23,11 +23,17 @@
 	.details-right-creator{
 		margin-bottom:30px;
 	}
+	.newstyle-name{
+		display: none;
+	}
 }
 
 @media only screen and (max-width:1400px){
 	.payment-page-left{
 		width:480px;
+	}
+	.newstyle-name{
+		display: none;
 	}
 }
 
@@ -37,6 +43,9 @@
 	}
 	.payment-page-right{
 		width:400px;
+	}
+	.newstyle-name{
+		display: none;
 	}
 }
 
@@ -56,6 +65,9 @@
 	.my-assets-right-tit{
 		font-size:32px;
 		word-break: break-all;
+	}
+	.newstyle-name{
+		display: none;
 	}
 }
 
@@ -85,6 +97,9 @@
 	.my-account-right-name{
 		font-size:20px;
 	}
+	.newstyle-name{
+		display: none;
+	}
 }
 
 @media only screen and (max-width:1150px){
@@ -93,6 +108,9 @@
 	}
 	.payment-page-right{
 		width:48%;
+	}
+	.newstyle-name{
+		display: none;
 	}
 }
 
@@ -602,6 +620,9 @@
 	.modify-tc-active{
 		bottom:0;
 	}
+	.newstyle-name{
+		display: block;
+	}
 }
 
 @media only screen and (max-width:768px){
@@ -1001,5 +1022,8 @@
 	}
 	.video-close{
 		opacity:1;
+	}
+	.newstyle-name{
+		display: block;
 	}
 }

@@ -1508,9 +1508,10 @@ html {
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 150%;
-	color: #fff;
-	opacity: 0.7;
+	/* color: #fff; */
+	/* opacity: 0.7; */
 	margin-left: 30px;
+	color: rgba(255, 255, 255, 0.7);
 }
 
 .details-right-des-tit {
@@ -3710,6 +3711,9 @@ html {
 	.bzy-e-rt .bzy-e-rt-info {
 		font-size: 14px;
 	}
+	.paymenttypebox,.moneryridebox,.countmoneybox .moneryridebox span,.countmoneybox .countetcbox span,.countmoneybox .countetcbox,.purchaseprice{
+		font-size: 12px !important;
+	}
 }
 
 @media screen and (max-width:375px) {
@@ -3720,6 +3724,9 @@ html {
 	.wx-code {
 		right: calc((100% - 270px) / 2)
 	}
+	.paymenttypebox,.moneryridebox,.countmoneybox .moneryridebox span,.countmoneybox .countetcbox span,.countmoneybox .countetcbox,.purchaseprice{
+		font-size: 12px !important;
+	}
 }
 
 @media screen and (min-width:376px) and (max-width:450px) {
@@ -3729,6 +3736,9 @@ html {
 
 	.wx-code {
 		right: calc((100% - 270px) / 2)
+	}
+	.paymenttypebox,.moneryridebox,.countmoneybox .moneryridebox span,.countmoneybox .countetcbox span,.countmoneybox .countetcbox,.purchaseprice{
+		font-size: 12px !important;
 	}
 }
 
@@ -3892,4 +3902,89 @@ html {
 	align-items: center;
 	position: relative;
 	height: 100%;
+}
+.checknumbox{
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	margin-bottom: 9px;
+}
+.checknumbox .purchasenumbox{
+	border: 1px solid #7A7A7A;
+	box-sizing: border-box;
+	border-radius: 4px;
+	display: flex;
+	justify-content: center;
+	width: 105px;
+	margin-bottom: 10px;
+	margin-right: 22px;
+}
+.checknumbox .purchasenumbox button{
+	background: none;
+	border: none;
+	width: 33.33%;
+}
+.checknumbox .purchasenumbox span{
+	width: 33.33%;
+	text-align: center;
+	font-weight: 500;
+	font-size: 20px;
+	color: #9567FF;
+}
+.checknumbox .selectnumbox{
+	font-weight: 600;
+	font-size: 18px;
+	color: #FFFFFF;
+	margin-bottom: 10px;
+}
+.checknumbox .selectnumbox span{
+	color: #9567FF;
+}
+.countmoneybox{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+.countmoneybox .moneryridebox{
+	font-weight: 300;
+	font-size: 18px;
+	color: #FFFFFF;
+}
+.countmoneybox .moneryridebox span{
+	font-size: 16px;
+	color: rgba(255, 255, 255, 0.64);
+}
+.countmoneybox .countetcbox{
+	font-size: 24px;
+	color: #FFFFFF;
+	display: flex;
+    align-items: center;
+}
+.countmoneybox .countetcbox span{
+	font-size: 18px;
+	margin: 0 9px;
+}
+.paymenttypebox{
+	font-weight: 300;
+	font-size: 16px;
+	color: rgba(255, 255, 255,0.7);
+}
+.purchaseprice{
+	font-size: 24px;
+	font-weight: 600;
+	color: #fff;
+}
+.newstyle-date{
+	opacity: 1;
+	font-size: 14px;
+}
+.newstyle-id{
+	border-top: 1px solid #fff;
+	padding-top: 8px;
+	margin-top: 8px;
+}
+.newstyle-name{
+	border: none;
+	margin: 0;
 }
