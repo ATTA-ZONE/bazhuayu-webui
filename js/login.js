@@ -1,6 +1,6 @@
 
 
-function confirm(vtoken){
+function loginconfirm(vtoken){
 	hsycms.confirm('confirm','該郵箱已被注册，但未驗證，去驗證郵箱',
 		function(res){            
 			hsycms.success('success','確認');
@@ -39,7 +39,7 @@ function logIn(data,url){
 				if(res.data.verified==0){
 					// tips('該郵箱已被注册，但未驗證');
 					// setTimeout(function(){
-					confirm(res.data.verifiedToken);
+					loginconfirm(res.data.verifiedToken);
 					// },1500);
 				}
 				

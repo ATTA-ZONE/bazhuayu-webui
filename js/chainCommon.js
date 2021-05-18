@@ -1,10 +1,15 @@
 var targetChainId = ''
 
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
-     targetChainId = 97
+    var targetChainId = 97;
+    var scansite_apiKey = ''
+    var scansite_base_url = 'https://api-testnet.bscscan.com'
 } else {
-     targetChainId = 56
+    var targetChainId = 56;
+    var scansite_apiKey = '9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27';
+    var scansite_base_url = 'https://api.bscscan.com'
 }
+
 
 function getWeb3() {
 	return new Web3(window.ethereum); // web3js就是你需要的web3实例
@@ -15,7 +20,7 @@ function getEth() {
 }
 
 // 监听账户变更事件
-function accountsChanged(fnc) {
+function accountsChangedAssign(fnc) {
   ethereum.on('accountsChanged', function (accounts) {
     fnc(accounts)
   });
@@ -39,10 +44,10 @@ function changeNetwork(status) {
 }
 
 // 监听网络变更事件
-ethereum.autoRefreshOnNetworkChange = false;
-
-ethereum.on('networkChanged', function (netVer) {
-    if (netVer != String(targetChainId)) {
-      changeNetwork(targetChainId)
-    }
-})
+ethereum.autoRefreshOnNetworkChange = false; 
+//只有 这个属性为false，networkChanged 才会被使用
+function networkChangedAssign(fnc) {
+    ethereum.on('networkChanged', function (netVer) {
+        fnc(netVer)
+    })
+};

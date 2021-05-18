@@ -438,7 +438,7 @@ function moneyFormat(value) { // 金额 格式化
             return intPartFormat + "." + floatPart;
         }
     } else {
-        return intPartFormat + floatPart;
+        return intPartFormat;
     }
 }
 

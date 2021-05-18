@@ -50,6 +50,9 @@
 	.my-assets-right-btn a{
 		width:100%!important;
 	}
+	.my-assets-claim-wrap {
+		width:100%!important;
+	}
 	.my-assets-right-btn .eth{
 		margin-top:20px;
 	}

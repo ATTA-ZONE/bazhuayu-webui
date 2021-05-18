@@ -89,13 +89,21 @@ function playVideo(obj,e){
 function closeVideo(){
 	$('.video-mask').hide();
 	$('.video-model').hide();
-	$('.details-left video')[0].play();
-	$('.video-model video')[0].pause();
+	// $('.details-left video')[0].play();
+	// $('.video-model video')[0].pause();
+	$('#save,#savetips').click(function(){
+		var payButton = document.getElementById("pay-button");
+		if ($('#save').prop('checked') && $('#savetips').prop('checked')) {
+			payButton.disabled = !Frames.isCardValid();
+		}else{
+			payButton.disabled = true;
+		}
+	})
 }
 
 
 //询问弹窗
-function confirm(){
+function saveconfirm(){
 	hsycms.confirm('confirm','去我的資產核對',
 		function(res){            
 			hsycms.success('success','確認');
@@ -141,7 +149,7 @@ $(function(){
 	if(success_status==1){
 		success('支付成功',1800);
 		setTimeout(function(){
-			confirm();
+			saveconfirm();
 		},1800)
 		
 	}else if(success_status==0){
@@ -161,11 +169,13 @@ $(function(){
 				var systemTime = res.data.systemTime;  //当前时间
 				var geshi = res.data.primaryPic.substr(res.data.primaryPic.lastIndexOf('.')+1);   //onclick=playVideo(this,event)
 				if(geshi=='mp4'){
+					$('.detail-media').css('display', 'block')
 					var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" webkit-playsinline="true" muted="muted" ></video>
 								<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" muted="muted"></video>`;
 								
 					$('.order-img').append(html);
 				}else{
+					$('.detail-media').css('display', 'none')
 					var html = `<img class="bzy-e-list-img" src="`+res.data.primaryPic+`" >
 								<img class="bzy-e-list-img mohu" src="`+res.data.primaryPic+`" >`;
 					$('.order-img').append(html);

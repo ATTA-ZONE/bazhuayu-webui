@@ -1,11 +1,10 @@
 
 //获取时间
 function formatDuring(mss) {
-    var days = parseInt(mss / (1000 * 60 * 60 * 24));
-    var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var hours = parseInt(mss / (1000 * 60 * 60));
     var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = parseInt((mss % (1000 * 60)) / 1000);
-    return days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+    return hours + ":" + minutes + ":" + seconds;
 }
 
 function getAssetsList(current,pageSize){
@@ -62,19 +61,18 @@ function getAssetsList(current,pageSize){
 									<p class="details-right-additional-more none order-content">`+(v.content==''?'暫無更多資訊':v.content.replace(/;\|;/g,'<br>'))+`</p>
 								</div>
 								<div class="my-assets-right-price">
-									<p>購買價格：</p>
-									<div class="flex"><span>HK$ `+moneyFormat(v.payPriceHkd)+` 港元</span><span>`+moneyFormat(v.payPriceUsdt)+` BUSD</span></div>
+									
 									<div class="flex my-assets-right-download"><a class="flex download" target="_blank" href="`+v.attachment+`">下載原始文件副本</a></div>
 								</div>
 								<div class="my-assets-right-btn flex">`;
 						if(v.status==0||v.status==null){
-							html+=  `<a class="flex claim" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);" onclick="getClaim(this)">提取NFT</a>`;
+							html+=  `<div class="flex my-assets-claim-wrap"><a class="claim" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);" onclick="getClaim(this)">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>`;
 						}else if(v.status==1){
-							html+=  `<a class="flex claim claim-miting" data-time="`+v.restTime+`" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);">BSC NFT鑄造時間 (<font>`+time+`</font>)</a>`;
+							html+=  `<div class="flex my-assets-claim-wrap"><a class="claim claim-miting" data-time="`+v.restTime+`" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);">BSC NFT鑄造時間 (<font>`+time+`</font>)</a><div class="claim-tip">當前正在鑄造：第6版</div></div>`;
 						}else if(v.status==2){
-							html+=  `<a class="flex claim claim-miting" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);">BSC NFT 鑄造結束</a>`;
+							html+=  `<div class="flex my-assets-claim-wrap"><a class="claim claim-miting" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);">BSC NFT 鑄造結束</a><div class="claim-tip">查看已鑄造NFT(1)</div></div>`;
 						}
-						html +=		`<a class="flex eth" href="javascript:void(0);">鑄造ETH NFT</a>
+						html +=		`<a class="flex eth" href="javascript:void(0);"><div>鑄造ETH NFT</div><div>(功能準備中)</div></a>
 								</div>
 								<div class="my-assets-right-address flex">`;
 								
