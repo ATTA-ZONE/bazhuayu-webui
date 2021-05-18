@@ -76,9 +76,8 @@ function getOrderList(current,pageSize){
 						html += 
 						`<li class="flex" data-storage="`+v.storage+`" data-edition="`+v.edition+`">
 							<div class="my-orders-head none">
-								<div class="my-orders-number-mb">訂單號 # `+v.orderNo+`</div>
-								<div class="my-orders-tit-mb">`+v.name+`</div>
-								<div class="my-orders-time-mb flex"><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
+								<div class="my-orders-time-mb flex newstyle-date"><span>購買日期：</span><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
+								<div class="my-orders-number-mb newstyle-id">訂單號 # `+v.orderNo+`</div>
 							</div>
 							<div class="my-orders-body flex">
 								<div class="my-orders-left">`;
@@ -93,62 +92,98 @@ function getOrderList(current,pageSize){
 						
 						html+=	`</div>
 								<div class="my-orders-right">
-									<div class="my-orders-time flex"><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
+									<div class="my-orders-time flex"><span>購買日期：</span><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
 									<div class="my-orders-order">
 										<div class="my-orders-order-number">訂單號 # `+v.orderNo+`</div>
 										<div class="my-orders-order-tit">`+v.name+`</div>
 									</div>
+									<div class="my-orders-tit-mb newstyle-name">`+v.name+`</div>
+									<div class="flex" style="flex-wrap: wrap;color:#fff;align-items: center;padding-bottom: 15px;">
+										<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
+										<span style="margin-right:10px;">@ATTA</span>
+										<p class="details-right-creator-edition" style="margin:0px;">第<span style="color: #9567FF;">`+(v.edition.split(',')).join('、')+`</span>版，共<span>`+v.endEdition+`</span>版</p>
+									</div>
 									<div class="my-orders-status">
-										<div class="my-orders-status-status">
-											<div class="status-tit">狀態</div>`;
-											
+									`;
+										
 						if(v.status==1){
 							
-							html += `		<div class="status-des">待支付</div>
-											<div class="status-due">截至 `+v.expireTime.split(' ')[1]+`</div>
-										</div>
-										<div class="my-orders-status-payment">
-											<div class="payment-tit">付款金額</div>
-											<div class="payment-price"><span data-price="`+v.payPriceHkd+`">HK$ `+moneyFormat(v.payPriceHkd)+` 港元</span><span data-price="`+v.payPriceUsdt+`">`+moneyFormat(v.payPriceUsdt)+` BUSD</span></div>
-										</div>
-									</div>
-									<div class="my-orders-btn flex">
-										<a class="flex my-orders-btn-paynow payment-btn-pc" onclick="payNow(this)" href="javascript:void(0);">立即付款</a>
-										<div class="my-orders-btn-time flex">
-											<img src="./images/image13.png" >
-											<span>`+time+`</span>
-										</div>
-									</div>`;
+							// html += `		<div class="status-des">待支付</div>
+							// 				<div class="status-due">截至 `+v.expireTime.split(' ')[1]+`</div>
+							// 			</div>
+							// 			<div class="my-orders-status-payment">
+							// 				<div class="payment-tit">付款金額</div>
+							// 				<div class="payment-price"><span data-price="`+v.payPriceHkd+`">HK$ `+moneyFormat(v.payPriceHkd)+` 港元</span><span data-price="`+v.payPriceUsdt+`">`+moneyFormat(v.payPriceUsdt)+` BUSD</span></div>
+							// 			</div>
+							// 		</div>
+							// 		<div class="my-orders-btn flex">
+							// 			<a class="flex my-orders-btn-paynow payment-btn-pc" onclick="payNow(this)" href="javascript:void(0);">立即付款</a>
+							// 			<div class="my-orders-btn-time flex">
+							// 				<img src="./images/image13.png" >
+							// 				<span>`+time+`</span>
+							// 			</div>
+							// 		</div>`;
 						}else if(v.status==2){
-							html += `		<div class="status-des">支付成功</div>
-										</div>`
+							// html += `		<div class="status-des">支付成功</div>
+							// 			</div>`
 										
 							if(v.payMethod==1){
 										
-								html +=	`<div class="my-orders-status-payment">
-											<div class="payment-tit">付款金額</div>
-											<div class="payment-price">`+moneyFormat(v.payPriceUsdt)+` BUSD</div>
-										</div>
-									</div>`;
+								// html +=	`<div class="my-orders-status-payment">
+								// 			<div class="payment-tit">付款金額</div>
+								// 			<div class="payment-price">`+moneyFormat(v.payPriceUsdt)+` BUSD</div>
+								// 		</div>
+								// 	</div>`;
 							}else{
-								html +=	`<div class="my-orders-status-card">
-											<div class="card-tit">信用卡賬號</div>
-											<div class="card-number">`+v.cardNo+`</div>
-										</div>
-										<div class="my-orders-status-payment">
-											<div class="payment-tit">付款金額</div>
-											<div class="payment-price">HK$ `+moneyFormat(v.payPriceHkd)+` 港元</div>
-										</div>
-									</div>`;
+								// html +=	`<div class="my-orders-status-card">
+								// 			<div class="card-tit">信用卡賬號</div>
+								// 			<div class="card-number">`+v.cardNo+`</div>
+								// 		</div>
+								// 		<div class="my-orders-status-payment">
+								// 			<div class="payment-tit">付款金額</div>
+								// 			<div class="payment-price">HK$ `+moneyFormat(v.payPriceHkd)+` 港元</div>
+								// 		</div>
+								// 	</div>`;
 							};
 							
 							
 							
 						}else{
-							html += `		<div class="status-des">已關閉</div>
-										</div>
-									</div>`;
+							// html += `		<div class="status-des">已關閉</div>
+							// 			</div>
+							// 		</div>`;
 						}
+						if (v.payMethod == 1) {
+							html +=`<div class="paymenttypebox">支付方式：<span>加密貨幣</span></div>
+									<div class="countmoneybox">
+									<p class="moneryridebox">
+										單價：
+										<span class="order-price-busd">`+moneyFormat(v.unitPriceUsdt)+` BUSD</span>
+									</p>
+									<p class="countetcbox">
+										<img src="./images/multiply.png" alt="">
+										<span class="purchase_num">`+(v.edition.split(',')).length+`</span>
+										=
+									</p>
+								</div>
+								<p class="purchaseprice">購買價格 : `+moneyFormat(v.payPriceUsdt)+` BUSD </p>`
+						}
+						if (v.payMethod == 2) {
+							html +=`<div class="paymenttypebox">支付方式：<span>銀行卡支付</span></div>
+									<div class="countmoneybox">
+									<p class="moneryridebox">
+										單價：
+										<span class="cur order-price-hdk">HK$`+moneyFormat(v.unitPriceHkd)+` </span>
+									</p>
+									<p class="countetcbox">
+										<img src="./images/multiply.png" alt="">
+										<span class="purchase_num">`+(v.edition.split(',')).length+`</span>
+										=
+									</p>
+								</div>
+								<p class="purchaseprice">購買價格 : HK$`+moneyFormat(v.payPriceHkd)+` 港元 </p>`
+						}
+						
 											
 						html +=	`		
 								</div>
