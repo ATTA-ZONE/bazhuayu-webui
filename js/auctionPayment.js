@@ -80,46 +80,46 @@ function initialization() {
         .then(function (res) {
             chainId = web3.utils.hexToNumber(res);
             console.log(chainId);
-        });
-
-	// var netVer = netVers[0];
-	if (chainId != targetChainId) {
-        changeNetwork(targetChainId);
-    }
-
-
-	// var netVer = netVers[0];
-	auctionAddress = c_auction[chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
-	var auctionABI = c_auction.abi;
-	
-	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
-	console.log(auctionContractInstance);
-
-	
-	// busdAddress 供外界使用
-	var busdAddress = c_ERC20_BUSD[chainId].address;
-	var busdABI = c_ERC20_BUSD.abi;
-	
-	busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-	console.log(busdContractInstance);
-
-    userBidInfo();
     
-    tokenTypeId = '';
-    if (window.location.href.indexOf('bazhuayu.io') == -1) {
-        tokenTypeId = 80000003;
-    } else {
-        tokenTypeId = 5010000;
-    }
-    
-//获取 拍卖的 详情，包括 时间参数，最高价 等设定
-    auctionContractInstance.methods._auctions(tokenTypeId).call()
-	    .then(function (res) {
-		    // console.log(res);
-		    var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
-		    $('.info-busd span').text(tokenTopBid);
-	    });
-	    
+
+        	// var netVer = netVers[0];
+        	if (chainId != targetChainId) {
+                changeNetwork(targetChainId);
+            }
+        
+        
+        	// var netVer = netVers[0];
+        	auctionAddress = c_auction[chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+        	var auctionABI = c_auction.abi;
+        	
+        	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
+        	console.log(auctionContractInstance);
+        
+        	
+        	// busdAddress 供外界使用
+        	var busdAddress = c_ERC20_BUSD[chainId].address;
+        	var busdABI = c_ERC20_BUSD.abi;
+        	
+        	busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
+        	console.log(busdContractInstance);
+        
+            userBidInfo();
+            
+            tokenTypeId = '';
+            if (window.location.href.indexOf('bazhuayu.io') == -1) {
+                tokenTypeId = 80000003;
+            } else {
+                tokenTypeId = 5010000;
+            }
+            
+        //获取 拍卖的 详情，包括 时间参数，最高价 等设定
+            auctionContractInstance.methods._auctions(tokenTypeId).call()
+        	    .then(function (res) {
+        		    // console.log(res);
+        		    var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
+        		    $('.info-busd span').text(tokenTopBid);
+        	    });
+        });    
 	
     
 
@@ -133,28 +133,28 @@ function userBidInfo() {
                 userAddress = res[0];
                 console.log(res[0]);
             }
+        
+        
+            if (userAddress != 0) {
+        //检测用户绑定钱包 是否 与系统内记录的一致，并且提供快速 替换绑定的 方法
+                bindWallet(userAddress);
+                
+                $('.no-connect-wallet').hide();
+            	$('.address-tit').show();
+            	$('.address-info').text(userAddress);
+            	$('.address-info').show();
+            	$('#pay_now').removeClass('grey');
+            	$('#pay_now').data('status', '1');
+            	$('.btn-tip').show();
+            } else {
+        		$('.no-connect-wallet').show();
+        	    $('.address-tit').hide();
+        	    $('.address-info').hide();
+        	    $('#pay_now').addClass('grey');
+        	    $('#pay_now').data('status', '0');
+        	    $('.btn-tip').hide();
+        	}
         });
-        
-    if (userAddress != 0) {
-//检测用户绑定钱包 是否 与系统内记录的一致，并且提供快速 替换绑定的 方法
-        bindWallet(userAddress);
-        
-        $('.no-connect-wallet').hide();
-    	$('.address-tit').show();
-    	$('.address-info').text(userAddress);
-    	$('.address-info').show();
-    	$('#pay_now').removeClass('grey');
-    	$('#pay_now').data('status', '1');
-    	$('.btn-tip').show();
-    } else {
-		$('.no-connect-wallet').show();
-	    $('.address-tit').hide();
-	    $('.address-info').hide();
-	    $('#pay_now').addClass('grey');
-	    $('#pay_now').data('status', '0');
-	    $('.btn-tip').hide();
-	}
-
 }
 
 
