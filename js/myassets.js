@@ -116,7 +116,7 @@ var app = new Vue({
 		conneAssetsctWallet() {
 			if (getCookie('isConnect') == 'true') {
 				setTimeout(function () {
-					hsycms.alert('mask-model1')
+					hsycms.alert('model1')
 				}, 50)
 			} else {
 
