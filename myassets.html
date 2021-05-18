@@ -62,16 +62,15 @@
 							{{getIntroduce(item,'暫無更多資訊')}}</p>
 					</div>
 					<div class="my-assets-right-price">
-
 						<div class="flex my-assets-right-download"><a class="flex download" target="_blank"
 								:href="item.attachment">下載原始文件副本</a></div>
 					</div>
 					<div class="my-assets-right-btn flex">
-						<div v-if="!isConnect" class="flex my-assets-claim-wrap"><a class="claim">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>
+						<div v-if="!isConnect" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>
 
-						<div v-if="isConnect && item.status == 1" class="flex my-assets-claim-wrap"><a class="claim claim-miting">BSC NFT鑄造時間 ( time )</a><div class="claim-tip">當前正在鑄造：第6版</div></div>
+						<div v-if="isConnect && item.status == 1" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT鑄造時間 ( time )</a><div class="claim-tip">當前正在鑄造：第6版</div></div>
 
-						<div v-if="isConnect && item.status == 2" class="flex my-assets-claim-wrap"><a class="claim claim-miting">BSC NFT 鑄造結束</a><div class="claim-tip">查看已鑄造NFT(1)</div></div>
+						<div v-if="isConnect && item.status == 2" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT 鑄造結束</a><div class="claim-tip">查看已鑄造NFT(1)</div></div>
 
 						<a class="flex eth"><div>鑄造ETH NFT</div><div>(功能準備中)</div></a>						
 					</div>

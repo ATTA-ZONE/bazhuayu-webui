@@ -1,6 +1,6 @@
 var app = new Vue({
 	el: '#app',
-	data: function (){
+	data: function () {
 		return {
 			assetsList: {},
 			isConnect: false,
@@ -10,45 +10,44 @@ var app = new Vue({
 		}
 	},
 	created() {
-		this.isConnect = getCookie('isConnect')
+		this.isConnect = getCookie('isConnect') == 'false' ? false : true
 		this.getTime(0)
 	},
 	mounted() {
 		this.getAssetsList()
 	},
 	methods: {
-		getIntroduce(item, str){
+		getIntroduce(item, str) {
 			return item.introduce == '' ? str : item.introduce.replace(/;\|;/g, '<br>')
 		},
-		toggleMoreInfo(idx){
+		toggleMoreInfo(idx) {
 			if (this.showMoreInfo == idx) {
 				this.showMoreInfo = -1
 			} else {
-				
 				this.showMoreInfo = idx
 			}
 		},
-		getMoreList(){
-			this.current+=1
+		getMoreList() {
+			this.current += 1
 			this.getAssetsList()
 			setTimeout(function () {
 				this.getTime(this.current - 1);
 			}, 100)
 		},
-		 getCookie(cookieName) {
+		getCookie(cookieName) {
 			const strCookie = document.cookie
 			const cookieList = strCookie.split('; ')
 			var cookieValue = false;
-			for(let i = 0; i < cookieList.length; i++) {
+			for (let i = 0; i < cookieList.length; i++) {
 				const arr = cookieList[i].split('=')
 				if (cookieName === arr[0]) {
 					cookieValue = arr[1];
 				}
 			}
-		
+
 			return cookieValue;
 		},
-		getFormat(item){
+		getFormat(item) {
 			return item.primaryPic.substr(item.primaryPic.lastIndexOf('.') + 1)
 		},
 		formatDuring(mss) {
@@ -62,7 +61,7 @@ var app = new Vue({
 			$.ajax({
 				url: base_url + '/v2/user/commodity/list',
 				data: {
-					current:this.current,
+					current: this.current,
 					pageSize: this.pageSize
 				},
 				success: function (res) {
@@ -72,7 +71,7 @@ var app = new Vue({
 				}
 			})
 		},
-		alertModel(){
+		alertModel() {
 			if (getCookie('isConnect') != 'true') {
 				setTimeout(function () {
 					hsycms.alert('model2');
@@ -116,20 +115,30 @@ var app = new Vue({
 				$(obj).data('status', '0');
 			}
 		},
-		nftConnect() {
-			window.location.href = 'connectWallet.html';
-		},
-		getNft() {
-			success('確認', 1800);
-			setTimeout(function () {
-				window.location.reload();
-			}, 1800);
+		
+		
+		conneAssetsctWallet() {
+			if (getCookie('isConnect') == 'true') {
+				setTimeout(function () {
+					hsycms.alert('mask-model1')
+				}, 50)
+			} else {
+
+				setTimeout(function () {
+					hsycms.alert('model2');
+				}, 50)
+			}
 		}
 	}
 });
 
+function nftConnect() {
+	window.location.href = 'connectWallet.html';
+}
 
-
-
-
-
+function getNft() {
+	success('確認', 1800);
+	setTimeout(function () {
+		window.location.reload();
+	}, 1800);
+}
