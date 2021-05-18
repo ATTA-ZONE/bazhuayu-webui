@@ -83,7 +83,7 @@
 		</ul>
 		<div v-else>暫無藏品記錄</div>
 		<div class="bzy-e-more" v-if="assetsList.total > 9">
-			<div class="flex assets-list-load">
+			<div class="flex assets-list-load" @click="getMoreList">
 				<span class="language-tc">加载更多</span>
 				<img src="./images/next.png">
 				<img src="./images/xiala2.png">

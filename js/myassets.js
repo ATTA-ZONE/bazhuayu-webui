@@ -2,29 +2,25 @@ var app = new Vue({
 	el: '#app',
 	data: {
 		assetsList: {},
-		isConnect: false
+		isConnect: false,
+		current: 1,
+		pageSize: 9
 	},
 	created() {
-		var current = 1;
-		this.getAssetsList(current, 9);
-		var isConnect = getCookie('isConnect')
-
-		$('.assets-list-load').click(function () {
-			current++;
-			getAssetsList(current, 9);
-			setTimeout(function () {
-				this.getTime(current - 1);
-			}, 100)
-		});
-
-		
-			this.getTime(0)
-		
+		this.isConnect = getCookie('isConnect')
+		this.getTime(0)
 	},
-	computed: {
-		
+	mounted() {
+		this.getAssetsList()
 	},
 	methods: {
+		getMoreList(){
+			this.current+=1
+			this.getAssetsList()
+			setTimeout(function () {
+				this.getTime(this.current - 1);
+			}, 100)
+		},
 		 getCookie(cookieName) {
 			const strCookie = document.cookie
 			const cookieList = strCookie.split('; ')
@@ -47,12 +43,12 @@ var app = new Vue({
 			var seconds = parseInt((mss % (1000 * 60)) / 1000);
 			return hours + ":" + minutes + ":" + seconds;
 		},
-		getAssetsList(current, pageSize) {
+		getAssetsList() {
 			$.ajax({
 				url: base_url + '/v2/user/commodity/list',
 				data: {
-					current,
-					pageSize
+					current:this.current,
+					pageSize: this.pageSize
 				},
 				success: function (res) {
 					if (res.code == 0) {
@@ -68,11 +64,11 @@ var app = new Vue({
 				}, 50)
 			}
 		},
-		getTime(current) {
+		getTime() {
 			$.each($('.my-assets ul li'), function (i, v) {
 				var index = parseInt($(v).index()) + 1;
 				// console.log(index + current*9);
-				if (index >= current * 9 + 1 && index <= current * 9 + 9) {
+				if (index >= this.current * 9 + 1 && index <= this.current * 9 + 9) {
 					var status = $(v).find('.claim').data('status');
 					// console.log(status);
 					if (status == 1) {
