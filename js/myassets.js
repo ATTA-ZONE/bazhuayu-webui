@@ -2,7 +2,7 @@ var app = new Vue({
 	el: '#app',
 	data: function (){
 		return {
-			assetsList: {},
+			assetsList: {records:[]},
 			isConnect: false,
 			current: 1,
 			pageSize: 9
@@ -46,6 +46,7 @@ var app = new Vue({
 			return hours + ":" + minutes + ":" + seconds;
 		},
 		getAssetsList() {
+			var self = this
 			$.ajax({
 				url: base_url + '/v2/user/commodity/list',
 				data: {
@@ -54,7 +55,7 @@ var app = new Vue({
 				},
 				success: function (res) {
 					if (res.code == 0) {
-						this.assetsList = res.data.pageResult
+						self.assetsList = res.data.pageResult
 						}
 					}
 			})
