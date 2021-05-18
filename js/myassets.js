@@ -2,7 +2,7 @@ var app = new Vue({
 	el: '#app',
 	data: function (){
 		return {
-			assetsList: {records:[]},
+			assetsList: {},
 			isConnect: false,
 			current: 1,
 			pageSize: 9
@@ -56,8 +56,8 @@ var app = new Vue({
 				success: function (res) {
 					if (res.code == 0) {
 						self.assetsList = res.data.pageResult
-						}
 					}
+				}
 			})
 		},
 		alertModel(){

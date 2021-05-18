@@ -67,7 +67,7 @@
 								:href="item.attachment">下載原始文件副本</a></div>
 					</div>
 					<div class="my-assets-right-btn flex">
-						<div v-if="!isConnect" class="flex my-assets-claim-wrap"><a class="claim" data-status="` + v.status + `" data-instanceId="` + v.instanceId + `" href="javascript:void(0);">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>
+						<div v-if="!isConnect" class="flex my-assets-claim-wrap"><a class="claim">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>
 
 						<div v-if="isConnect && item.status == 1" class="flex my-assets-claim-wrap"><a class="claim claim-miting">BSC NFT鑄造時間 ( time )</a><div class="claim-tip">當前正在鑄造：第6版</div></div>
 
