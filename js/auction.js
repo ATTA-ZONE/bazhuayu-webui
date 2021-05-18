@@ -82,7 +82,7 @@ function closeVideo() {
 
 $('html').click(function () {
 	closeVideo();
-})
+});
 
 $('.video-model video').click(function (e) {
 	e.stopPropagation();
@@ -90,33 +90,38 @@ $('.video-model video').click(function (e) {
 
 function changwWalletId(accounts) {
 	if (accounts.length > 0) {
-		user_address = accounts[0]
+		user_address = accounts[0];
 	}
 }
 
 function initialization() {
-	var netVer = window.ethereum.networkVersion;
-	console.log(netVer);
-	// var netVer = netVers[0];
-	if (netVer != targetChainId.toString()) {
-		changeNetwork(targetChainId)
-	}
+    var web3 = getWeb3();
+    var chainId = '';
+    ethereum.request({ method: 'eth_chainId' })
+        .then(function (res) {
+            chainId = web3.utils.hexToNumber(res);
+            console.log(chainId);
+        });
 
-	// var netVer = netVers[0];
-	var auctionAddress = c_auction[netVer].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
-	var auctionABI = c_auction['abi'];
+    if (chainId != targetChainId) {
+        changeNetwork(targetChainId);
+    }
 
-	var web3 = getEth();
-	auctionContractInstance = new web3.Contract(auctionABI, auctionAddress);
+    var auctionAddress = c_auction[chainId].address;
+    // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+	var auctionABI = c_auction.abi;
+
+	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
 	console.log(auctionContractInstance);
 
-
-	if (netVer == 97) {
-		var tokenTypeId = 80000003; // 测试环境
-	} else if (netVer == 56) {
-		var tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
+    
+    var tokenTypeId = 0;
+	if (chainId == 97) {
+		tokenTypeId = 80000003; // 测试环境
+	} else if (chainId == 56) {
+		tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
 	} else {
-		var tokenTypeId = '';
+		tokenTypeId = 0;
 	}
 
 
@@ -127,7 +132,7 @@ function initialization() {
 			res = getWeb3().utils.fromWei(res, 'ether');
 			$('.bid-right-btn span').data('price', res);
 			$('.bid-right-btn span font').text(res);
-		})
+		});
 
 
 	//获取 拍卖的 详情，包括 时间参数，最高价     等设定
@@ -203,11 +208,11 @@ function initialization() {
 			$('.bids-list-tit font').text(bidData.length);
 
 			$.each(newData, function (i, v) {
-				var unixTimestamp = getWeb3().utils.hexToNumber(v.timeStamp) * 1000;
+				var unixTimestamp = web3.utils.hexToNumber(v.timeStamp) * 1000;
 				unixTimestamp = new Date(unixTimestamp);
 				unixTimestamp = unixTimestamp.toLocaleString();
 				// console.log(unixTimestamp);
-				var price = getWeb3().utils.fromWei(v.data, 'ether');
+				var price = web3.utils.fromWei(v.data, 'ether');
 
 				var u_add = v.topics[1].split('000000000000000000000000').join('');
 				html += `<li class="flex">
@@ -238,10 +243,18 @@ function initialization() {
 }
 
 function userBidInfo() {
-	var user_address = ethereum.selectedAddress;
+    var userAddress = '';
+	ethereum.request({ method: 'eth_accounts' })
+        .then(function (res) {
+            if (res.length > 0) {
+                userAddress = res[0];
+                console.log(res[0]);
+            }
+        });
+	
 	//获取users 对于 所有 竞拍 下的 所有 竞价
-	if (user_address != 0) {
-		auctionContractInstance.methods.getUserBids(user_address).call()
+	if (userAddress != 0) {
+		auctionContractInstance.methods.getUserBids(userAddress).call()
 			.then(function (res) {
 				if (!res || res.length < 1) {
 					return false
@@ -362,31 +375,32 @@ $.ajax({
 	}
 })
 
-function networkChangedImplement() {
-	initialization();
-}
-
 
 if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
 	loading();
+    initialization()
+    loadingHide()
 	
-	setTimeout(function () {
-		loadingHide();
-		if (window.ethereum.networkVersion) {
-			 initialization()
-		}
-	}, 1800);
+    // 	var timer;
+    // 	function func() {
+    // 	    if (window.ethereum.networkVersion) {
+    // 			initialization();
+    // 			loadingHide();
+    // 		} else {
+    // 		    timer = setTimeout(func, 1000);
+    // 		}
+    // 	}
+    	
+    // 	timer = setTimeout(func, 1800);
 
-
+    function networkChangedImplement() {
+	    initialization();
+    }
 	
 	networkChangedAssign(networkChangedImplement);
 
-	var user_address = ethereum.selectedAddress;
-
 	function accountsChangedImplement(accounts) {
-		if (accounts.length > 0) user_address = accounts[0];
-		console.log(['accountsChanged', accounts]);
 		userBidInfo();
 	}
 
