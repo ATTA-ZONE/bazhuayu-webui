@@ -246,8 +246,10 @@ function userBidInfo() {
     var userAddress = '';
 	ethereum.request({ method: 'eth_accounts' })
         .then(function (res) {
-            userAddress = res[0];
-            console.log(res[0]);
+            if (res.length > 0) {
+                userAddress = res[0];
+                console.log(res[0]);
+            }
         });
 	
 	//获取users 对于 所有 竞拍 下的 所有 竞价
