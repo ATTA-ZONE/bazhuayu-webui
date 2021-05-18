@@ -50,7 +50,7 @@
 					<div class="my-assets-right-creator flex">
 						<div class="details-right-creator-img"><img src="./images/t8.png"></div>
 						<span>@ATTA</span>
-						<div class="my-assets-right-creator-edition">第{{item.edition}}版，共{{item.endEdition}}版</div>
+						<div class="my-assets-right-creator-edition">第{{getAllBsc(item.mintList).join(',')}}版，共{{item.endEdition}}版</div>
 					</div>
 					<div class="details-right-des-tit">商品描述</div>
 					<div class="details-right-des">{{getIntroduce(item,'暫無介紹')}}
@@ -68,9 +68,9 @@
 					<div class="my-assets-right-btn flex">
 						<div v-if="!isConnect" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>
 
-						<div v-if="isConnect && item.status == 1" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT鑄造時間 ( time )</a><div class="claim-tip">當前正在鑄造：第6版</div></div>
+						<div v-if="isConnect && mangeStatus(item.mintList) == 1" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT鑄造時間 ( 约7天完成 )</a><div class="claim-tip">當前正在鑄造：第{{getBuildingBsc(item.mintList).join(',')}}版</div><div class="claim-tip" v-if="getBuildedBsc(item.mintList).length > 0">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
 
-						<div v-if="isConnect && item.status == 2" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT 鑄造結束</a><div class="claim-tip">查看已鑄造NFT(1)</div></div>
+						<div v-if="isConnect && mangeStatus(item.mintList) == 2" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT 鑄造結束</a><div class="claim-tip">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
 
 						<a class="flex eth"><div>鑄造ETH NFT</div><div>(功能準備中)</div></a>						
 					</div>

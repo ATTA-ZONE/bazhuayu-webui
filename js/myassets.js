@@ -11,12 +11,48 @@ var app = new Vue({
 	},
 	created() {
 		this.isConnect = getCookie('isConnect') == 'false' ? false : true
-		this.getTime(0)
 	},
 	mounted() {
 		this.getAssetsList()
 	},
+	
 	methods: {
+		getBuildedBsc(list){
+			let arr = []
+			list.filter(item => {
+				if (item.status == 2) {
+					arr.push(item)
+				}
+			})
+			return arr
+		},
+		getBuildingBsc(list){
+			let arr = []
+			list.filter(item => {
+				if (item.status == 1) {
+					arr.push(item.edition)
+				}
+			})
+			return arr
+		},
+		getAllBsc(list){
+			let arr = []
+			list.filter(item => {
+				if (arr.indexOf(item.edition)) {
+					arr.push(item.edition)
+				}
+			})
+			return arr
+		},
+		mangeStatus(list) {
+			let status = 0
+			list.filter(item => {
+				if (item.status > status) {
+					status = item.status
+				}
+			})
+			return status
+		},
 		getIntroduce(item, str) {
 			return item.introduce == '' ? str : item.introduce.replace(/;\|;/g, '<br>')
 		},
@@ -30,9 +66,7 @@ var app = new Vue({
 		getMoreList() {
 			this.current += 1
 			this.getAssetsList()
-			setTimeout(function () {
-				this.getTime(this.current - 1);
-			}, 100)
+			
 		},
 		getCookie(cookieName) {
 			const strCookie = document.cookie
@@ -78,44 +112,6 @@ var app = new Vue({
 				}, 50)
 			}
 		},
-		getTime() {
-			$.each($('.my-assets ul li'), function (i, v) {
-				var index = parseInt($(v).index()) + 1;
-				// console.log(index + current*9);
-				if (index >= this.current * 9 + 1 && index <= this.current * 9 + 9) {
-					var status = $(v).find('.claim').data('status');
-					// console.log(status);
-					if (status == 1) {
-						var time = $(v).find('.claim').data('time') * 1000;
-						var nt = setInterval(function () {
-							time = time - 1000;
-							if (time < 0) {
-								// console.log(1);
-								clearInterval(nt);
-								// return;
-								time = 0;
-							}
-							var js = this.formatDuring(time);
-							$(v).find('.claim font').text(js);
-						}, 1000)
-						// console.log(js);
-					}
-				}
-			});
-		},
-		informationShow(obj) {
-			var status = $(obj).data('status');
-			if (status == 0) {
-				$('.details-right-additional-more').slideDown('fast');
-				$(obj).children('span').text('-');
-				$(obj).data('status', '1');
-			} else if (status == 1) {
-				$('.details-right-additional-more').slideUp('fast');
-				$(obj).children('span').text('+');
-				$(obj).data('status', '0');
-			}
-		},
-		
 		
 		conneAssetsctWallet() {
 			if (getCookie('isConnect') == 'true') {
