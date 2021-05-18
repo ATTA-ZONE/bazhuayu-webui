@@ -119,7 +119,11 @@
 				</div>
 			</li>
 		</ul>
-		<div v-else>暫無藏品記錄</div>
+		<ul v-else style="padding-top: 100px;">
+			<li class="flex nothing">
+				<div>暫無藏品記錄</div>
+			</li>
+		</ul>
 		<div class="bzy-e-more" v-if="assetsList.total > 9">
 			<div class="flex assets-list-load" @click="getMoreList">
 				<span class="language-tc">加载更多</span>
