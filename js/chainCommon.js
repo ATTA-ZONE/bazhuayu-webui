@@ -1,13 +1,15 @@
-var targetChainId = ''
+var targetChainId = '';
+var scansite_apiKey = '';
+var scansite_base_url = '';
 
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
-    var targetChainId = 97;
-    var scansite_apiKey = ''
-    var scansite_base_url = 'https://api-testnet.bscscan.com'
+    targetChainId = 97;
+    scansite_apiKey = ''
+    scansite_base_url = 'https://api-testnet.bscscan.com'
 } else {
-    var targetChainId = 56;
-    var scansite_apiKey = '9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27';
-    var scansite_base_url = 'https://api.bscscan.com'
+    targetChainId = 56;
+    scansite_apiKey = '9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27';
+    scansite_base_url = 'https://api.bscscan.com'
 }
 
 
