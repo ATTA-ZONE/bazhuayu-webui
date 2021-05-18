@@ -35,7 +35,7 @@
 
 	<div class="my-assets center-80" id="app">
 		<ul v-if="assetsList.records && assetsList.records.length > 0">
-			<li class="flex" v-for="(item,idx) in assetsList.records">
+			<li class="flex" v-for="(item,idx) in assetsList.records" :key="idx">
 				<div class="my-assets-left" v-if="getFormat(item) == 'mp4'">
 					<video style="width:100%;" autoplay="autoplay" loop="loop" :src=" item.primaryPic" muted="muted"></video>
 					<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" :src="item.primaryPic"
@@ -53,13 +53,13 @@
 						<div class="my-assets-right-creator-edition">第{{item.edition}}版，共{{item.endEdition}}版</div>
 					</div>
 					<div class="details-right-des-tit">商品描述</div>
-					<div class="details-right-des">{{item.introduce == '' ? '暫無介紹' : item.introduce.replace(/;\|;/g, '<br>')}}
+					<div class="details-right-des">{{getIntroduce(item,'暫無介紹')}}
 					</div>
 					<div class="details-right-additional">
-						<p class="details-right-additional-show" data-status="0" onclick="informationShow(this)">更多信息 <span>+</span>
+						<p class="details-right-additional-show" @click="toggleMoreInfo(idx)">更多信息 <span>+</span>
 						</p>
-						<p class="details-right-additional-more none order-content">
-							{{item.content == '' ? '暫無更多資訊' : item.content.replace(/;\|;/g, '<br>')}}</p>
+						<p class="details-right-additional-more order-content" v-if="showMoreInfo==idx">
+							{{getIntroduce(item,'暫無更多資訊')}}</p>
 					</div>
 					<div class="my-assets-right-price">
 

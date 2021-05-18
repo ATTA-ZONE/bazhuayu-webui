@@ -5,7 +5,8 @@ var app = new Vue({
 			assetsList: {},
 			isConnect: false,
 			current: 1,
-			pageSize: 9
+			pageSize: 9,
+			showMoreInfo: -1
 		}
 	},
 	created() {
@@ -16,6 +17,17 @@ var app = new Vue({
 		this.getAssetsList()
 	},
 	methods: {
+		getIntroduce(item, str){
+			return item.introduce == '' ? str : item.introduce.replace(/;\|;/g, '<br>')
+		},
+		toggleMoreInfo(idx){
+			if (this.showMoreInfo == idx) {
+				this.showMoreInfo = -1
+			} else {
+				
+				this.showMoreInfo = idx
+			}
+		},
 		getMoreList(){
 			this.current+=1
 			this.getAssetsList()
@@ -37,7 +49,7 @@ var app = new Vue({
 			return cookieValue;
 		},
 		getFormat(item){
-			return item.primaryPic.substr(v.primaryPic.lastIndexOf('.') + 1)
+			return item.primaryPic.substr(item.primaryPic.lastIndexOf('.') + 1)
 		},
 		formatDuring(mss) {
 			var hours = parseInt(mss / (1000 * 60 * 60));
