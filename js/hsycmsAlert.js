@@ -10,7 +10,7 @@ var hsycms =function(){
      $("#mask-"+id).fadeIn(300);
      obj.addClass("hsycms-ani-open");
      var height = obj.height();
-     obj.css("margin-top", "-"+Math.ceil(height/2)+'px');  
+     //obj.css("margin-top", "-"+Math.ceil(height/2)+'px');  
      if(txt!=''){   
        obj.find(".hsycms-model-text").html(txt);  
      }  
