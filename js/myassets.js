@@ -1,10 +1,12 @@
 var app = new Vue({
 	el: '#app',
-	data: {
-		assetsList: {},
-		isConnect: false,
-		current: 1,
-		pageSize: 9
+	data: function (){
+		return {
+			assetsList: {},
+			isConnect: false,
+			current: 1,
+			pageSize: 9
+		}
 	},
 	created() {
 		this.isConnect = getCookie('isConnect')
