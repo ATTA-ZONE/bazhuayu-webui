@@ -4000,3 +4000,9 @@ html {
 	border: none;
 	margin: 0;
 }
+.my-orders-status .countmoneybox{
+	justify-content: normal;
+}
+.my-orders-status .countmoneybox .countetcbox{
+	margin-left: 10px;
+}
