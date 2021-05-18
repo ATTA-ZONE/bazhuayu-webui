@@ -68,7 +68,7 @@ function getAssetsList(current,pageSize){
 						if(v.status==0||v.status==null){
 							html+=  `<div class="flex my-assets-claim-wrap"><a class="claim" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);" onclick="getClaim(this)">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>`;
 						}else if(v.status==1){
-							html+=  `<div class="flex my-assets-claim-wrap"><a class="claim claim-miting" data-time="`+v.restTime+`" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);">BSC NFT鑄造時間 (<font>`+time+`</font>)</a><div class="claim-tip">當前正在鑄造：第6版</div></div>`;
+							html+=  `<div class="flex my-assets-claim-wrap"><a class="claim claim-miting" data-time="`+v.restTime+`" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);">BSC NFT鑄造時間 (<font>`+time+`</font>)</a><div class="claim-tip"></div></div>`;
 						}else if(v.status==2){
 							html+=  `<div class="flex my-assets-claim-wrap"><a class="claim claim-miting" data-status="`+v.status+`" data-instanceId="`+v.instanceId+`" href="javascript:void(0);">BSC NFT 鑄造結束</a><div class="claim-tip">查看已鑄造NFT(1)</div></div>`;
 						}
