@@ -10,8 +10,8 @@ url = url.substring(0,url.indexOf('.'));
 var base_url = '';
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	base_url = 'http://localhost:8081';
-	if (window.location.href.indexOf('47.118.74.48:8081') > -1) {
-		base_url = 'http://47.118.74.48:8081';
+	if (window.location.href.indexOf('47.118.74.48:') > -1) {
+		base_url = 'http://47.118.74.48:'+window.location.port;
 	}
 }
 var lang = 'TC';
@@ -41,7 +41,7 @@ $.ajax({
 
 
 //询问弹窗
-function confirm(){
+function logoutConfirm(){
 	hsycms.confirm('confirm','你確定要登出嗎',
 		function(res){            
 			hsycms.success('success','成功');
@@ -190,7 +190,7 @@ $(function(){
 								<span onclick="window.location.href = 'myorders.html'">我的訂單</span>
 								<span onclick="window.location.href = 'myassets.html'">我的藏品</span>
 								<span onclick="window.location.href = 'mywallet.html'">我的錢包</span>
-								<span class="logout" onclick="confirm()">登出</span>
+								<span class="logout" onclick="logoutConfirm()">登出</span>
 							</div>`;
 				
 				html += `</a>`;
@@ -244,7 +244,7 @@ $(function(){
 		// console.log(1)
 		setTimeout(function(){
 			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span>已連接錢包</span>');
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc" href="javascript:void(0);">已連接錢包</a>');
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a>');
 		},200)
 		
 	}else{
