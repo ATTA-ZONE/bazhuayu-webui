@@ -145,7 +145,6 @@ Frames.addEventHandler(
   onCardTokenizationFailed
 );
 function onCardTokenizationFailed(error) {
-  console.log("CARD_TOKENIZATION_FAILED: %o", error);
   Frames.enableSubmitForm();
 }
 
@@ -161,7 +160,6 @@ function onCardTokenized(event) {
   //   event.token +
   //   "</span>";
 	
-	console.log(event.token);
 	var orderNo = $('.order-number span').text().trim();
 	var saveCard = $('#save').prop('checked');
 	var ctoken = event.token;
@@ -182,7 +180,6 @@ function onCardTokenized(event) {
 		dataType:'json',
 		data:JSON.stringify(data),
 		success:function(res){
-			console.log(res);
 			loadingHide();
 			if(res.code==0){
 				window.location.href = res.data.paytdsUrl;

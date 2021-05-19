@@ -3,7 +3,6 @@
 var url = window.location.pathname;
 url = url.substring(url.lastIndexOf('/')+1)
 url = url.substring(0,url.indexOf('.'));
-// console.log(url)
 
 // var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
@@ -21,7 +20,6 @@ $.ajax({
 	dataType:'json',
 	data:{lang:lang},
 	success:function(res){
-		// console.log(res);
 	}
 });
 
@@ -35,7 +33,6 @@ $.ajax({
 // 		}else{
 			
 // 		}
-// 		// console.log(res);
 // 	}
 // });
 
@@ -51,7 +48,6 @@ function logoutConfirm(){
 					type:"POST",
 					dataType:'json',
 					success:function(res){
-						// console.log(res);
 						if(res.code==0){
 							// window.location.reload();
 							window.location.href = 'index.html';
@@ -91,9 +87,7 @@ $(function(){
 			var twitterUrl=res.data.twitterUrl;
 			var telegramUrl=res.data.telegramUrl;
 			var qrPath1=res.data.qrPath;
-			var qrPath = JSON.parse(qrPath1)[0];
-			// console.log(qrPath)
-			
+			var qrPath = JSON.parse(qrPath1)[0];			
 			$(".weiboUrl").attr("href",weiboUrl);
 			$(".twitterUrl").attr("href",twitterUrl);
 			$(".telegramUrl").attr("href",telegramUrl);
@@ -218,7 +212,6 @@ $(function(){
 				// $('.mobile-logout').hide();
 			}
 			$('.header-dl').html(html);
-			// console.log(res)
 		}
 	});
 	
@@ -235,20 +228,17 @@ $(function(){
 				$('.mobile-connect-wallet').hide();
 				document.cookie="isConnect=false";
 			}
-			// console.log(res);
 		}
 	})
 	
 	
 	if(getCookie('isConnect')=='true'){
-		// console.log(1)
 		setTimeout(function(){
 			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span>已連接錢包</span>');
 			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a>');
 		},200)
 		
 	}else{
-		// console.log(2)
 		setTimeout(function(){
 			$('.header-right-wallet').html('<span>連接錢包</span>');
 			$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a>');
@@ -262,18 +252,14 @@ $(function(){
 		url:base_url+'/v2/user/wallet/info',
 		async:false,
 		success:function(res){
-			// console.log(res)
 			if(res.code==0){
 				if(res.data.walletType=="TOKEN POCKET"){
 					CHAIN.WALLET.WalletConnect.events();
 					var t = setInterval(function(){
 						var walletconnect = localStorage.getItem('walletconnect');
 						var cookie = getCookie('isConnect');
-						// console.log(a);
 						if(walletconnect==null){
 							clearInterval(t);
-							// console.log(walletconnect);
-							// console.log(isWalletConnect);
 							isWalletConnect = false;
 							$('.header-right-wallet').html('<span>連接錢包</span>');
 							$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a>');

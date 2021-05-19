@@ -146,7 +146,6 @@ function addFund(){
 		$.ajax({
 			url:base_url+'/v2/user/wallet/info',
 			success:function(res){
-				console.log(res)
 				if(res.code==0){
 					var html = ``;
 					html += `<div class="modify-ipt-add">
@@ -190,7 +189,6 @@ function widthDraw(){
 		$.ajax({
 			url:base_url+'/v2/user/wallet/info',
 			success:function(res){
-				console.log(res)
 				if(res.code==0){
 					var html = ``;
 					html += `<div class="modify-ipt-add">

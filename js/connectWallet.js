@@ -253,9 +253,6 @@ var abi = [{
 ]
 
 if (typeof window.ethereum !== 'undefined') {
-
-	// console.log(getWeb3())
-	// console.log(window.ethereum);
 	var walletId = ethereum.selectedAddress,
 		ethWei = 0.01;
 	var netVer = window.ethereum.networkVersion;
@@ -270,8 +267,6 @@ if (typeof window.ethereum !== 'undefined') {
 	// 监听账户变更事件
 	ethereum.on('accountsChanged', function (accounts) {
 		if (accounts.length > 0) walletId = accounts[0];
-		console.log(['accountsChanged', accounts]);
-
 	});
 
 }
@@ -298,7 +293,6 @@ $(".metamask").click(function (e) {
 			}
 
 			walletId = accounts[0];
-			console.log(['enable', accounts]);
 			var data = {
 				address: accounts[0],
 				walletType: 'METAMASK'
@@ -320,15 +314,13 @@ $(".metamask").click(function (e) {
 					} else {
 						// error('連接失敗',1800);
 					}
-					// console.log(res);
 				}
 			});
 
 
 
 		}).catch(function (reason) {
-			console.log(['enable.error', reason])
-			console.log(reason === "User rejected provider access")
+			
 		})
 
 

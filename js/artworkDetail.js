@@ -22,12 +22,6 @@ $.each(arr,function(i,v){
 	}
 })
 
-// console.log(success);
-
-
-// console.log(id);
-
-
 //下单
 function orderTakePc(){
 	payment();
@@ -42,7 +36,6 @@ function orderTakePc(){
 	// 	dataType: 'json',
 	// 	data:JSON.stringify(data),
 	// 	success:function(res){
-	// 		// console.log(res);
 	// 		if(res.code==0){
 	// 			$('.order-number span').text(res.data.orderNo);
 	// 			payment();
@@ -69,7 +62,6 @@ function orderTakeMobile(){
 	// 	dataType: 'json',
 	// 	data:JSON.stringify(data),
 	// 	success:function(res){
-	// 		// console.log(res);
 	// 		if(res.code==0){
 	// 			$('.order-number span').text(res.data.orderNo);
 	// 			$('.payment').addClass('payment-active')
@@ -167,7 +159,6 @@ $(function(){
 		url:base_url+'/v2/commodity/info',
 		data:{id:id,forceLang:'TC'},
 		success:function(res){
-			console.log(res);
 			if(res.code==0){
 				var content = res.data.content;
 				var saleStartTimeMillis = res.data.saleStartTimeMillis;  //开始销售时间
@@ -233,7 +224,6 @@ $(function(){
 						
 						var msTime = saleEndTimeMillis - systemTime;
 						var time = formatDuring(msTime);
-						console.log(time);
 						let ycdjs = time.split('d')[0];
 						if (ycdjs > 1825) {
 							$(".details-right-time").hide();
@@ -299,7 +289,6 @@ $(function(){
 	//
 	$('.payment-btn-pc').on('click',function(){
 		var status = $(this).data('status');
-		// console.log(status)
 		if(status==0){
 			$.ajax({
 				url:base_url+'/v2/user/account',
@@ -328,7 +317,6 @@ $(function(){
 		
 		$('.payment-btn-mobile').on('click',function(){
 			var status = $(this).data('status');
-			// console.log(status)
 			if(status==0){
 				$.ajax({
 					url:base_url+'/v2/user/account',
@@ -409,7 +397,6 @@ $(function(){
 		var value = $(this).text().trim();
 		var orderNo = $('.order-number').text().trim().split('：')[1];
 		var busd = $('.order-price .order-price-busd').text().trim();
-		// console.log(text)
 		if(text==1){
 			if(value=='立即付款'){
 				$.ajax({
@@ -419,7 +406,6 @@ $(function(){
 					dataType: 'json',
 					data:JSON.stringify({configCommodityId:id,buyCount:selectarr.length,connectStatus:getCookie('isConnect')}),
 					success:function(res){
-						console.log(res);
 						if(res.code==0){
 							success('支付成功',1800);
 							setTimeout(function(){
