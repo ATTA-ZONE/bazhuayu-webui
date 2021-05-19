@@ -422,7 +422,6 @@ $(function(){
 						console.log(res);
 						if(res.code==0){
 							success('支付成功',1800);
-							window.location.reload();
 							setTimeout(function(){
 								$('.payment-page-right-tit').text('完成');
 								$('.payment-page-right-order').show();
