@@ -130,9 +130,3 @@ var app = new Vue({
 function nftConnect() {
 	window.location.href = 'connectWallet.html';
 }
-
-function getNft() {
-	setTimeout(function () {
-		window.location.reload();
-	}, 1800);
-}
