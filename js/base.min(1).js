@@ -33,7 +33,6 @@
 			},
 			auth:function(c,f){
 				var th=this,t=cookie(th.__wallet__),wallet=th[t];
-				window.debug&&console.log('checked', t, wallet, f);
 				if(wallet){
 					if(wallet.isConnected()&&wallet.isUnlocked()){
 						// 已连接需要怎么处理
@@ -49,11 +48,9 @@
 			},
 			connect:function(t,c){
 				var th=this,wallet=th[t];
-				window.debug&&console.log('connect', t, wallet);
 				if(wallet){
 					wallet.connect(c)
 				}else{
-					console.log(t + ' is not supported.')
 				}
 			},
 			disconnect:function(f){
@@ -62,7 +59,6 @@
 				if(f)top.location.reload();
 			},
 			handleAccountsChanged:function(accounts){
-				window.debug&&console.log('accounts changed', accounts);
 				var addr=accounts[0].toLocaleLowerCase();
 				localStorage.setItem(this.__wallet__,addr);
 				window.setTimeout(function(){
@@ -77,7 +73,6 @@
 							walletType:'TOKEN POCKET'
 						}),
 						success:function(res){
-							console.log(res);
 							if(res.code==0){
 								document.cookie="isConnect=true";
 								window.location.href = document.referrer;
@@ -106,7 +101,6 @@
 				if(typeof(chainId)==='number')chainId=chainId.toFixed(0);
 				var code=chainId,address=CHAIN.WALLET.walletAddress();
 				if(chainId.indexOf('0x')>=0)code=parseInt(chainId.substring(2),16);
-				window.debug&&console.log('chain changed', chainId, code, address);
 				if (!address || address.length == 0) {
 					alert('Failed to query wallet address, please try again.')
 					return;
@@ -120,7 +114,6 @@
 						// 	top.location.reload()
 						// }
 						if(top.location.pathname==='/mobile/tc/connectWallet.html'){
-							// console.log(12)
 							CHAIN.WALLET.handleAccountsChanged([address])
 						}else{
 							top.location.reload()
@@ -164,7 +157,6 @@
 			// 				}
 			// 			};
 			// 			eth.enable().then(function(accounts){
-			// 				window.debug&&console.log('ethereum.enable', accounts);
 			// 				var wallet=CHAIN.WALLET.__wallet__,addr=accounts[0].toLocaleLowerCase();
 			// 				localStorage.setItem(wallet,addr),cookie(wallet,th.name,1000,'/','.fmg.art');
 			// 				// 如果在BSC网站上登录的不是BSC网络，需要提示用户切换网络状态
@@ -180,21 +172,17 @@
 			// 							}
 			// 						]
 			// 					}).then(function(){
-			// 						console.log('request.eth', arguments);
 			// 						CB()
 			// 					}).catch(function(ex){
-			// 						console.log('ethereum.enable', ex);
 			// 						CB()
 			// 					})
 			// 				}else{
 			// 					CB()
 			// 				}
 			// 			}).catch(function(er){
-			// 				console.log(er);
 			// 				alert(er.message);
 			// 			})
 			// 		} else {
-			// 			console.log('Meta mask is not supported.')
 			// 		}
 			// 	}
 			// },
@@ -223,9 +211,7 @@
 					var th=this,p=th.provider();
 					// p.on('accountsChanged', CHAIN.WALLET.handleAccountsChanged);
 					// p.on('chainChanged', CHAIN.WALLET.handleChainChanged);
-					// p.on('modal_closed',function(){console.log('modal_closed',arguments)});
 					p.on("disconnect", (code, reason) => {
-						console.log('disconnect', code, reason);
 						th.__provider=null;
 					});
 				},
@@ -238,12 +224,9 @@
 						if(c){
 							c(provider,addr,provider.chainId)
 						}else{
-							console.log(provider.chainId);
 							CHAIN.WALLET.handleChainChanged(provider.chainId);
 						}
-						console.log(accounts)
 					}).catch(function(er) {
-						console.log(er);
 						if(er.message==='User closed modal'){
 							th.__provider=null;
 							return;

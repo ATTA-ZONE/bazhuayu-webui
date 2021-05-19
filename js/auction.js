@@ -2,7 +2,6 @@
 function alert(txt) {
 	hsycms.alert('alert', txt, function () {
 		hsycms.close('alert');
-		// console.log("点击了确定");
 		// window.open('https://metamask.io/');
 	})
 }
@@ -100,7 +99,6 @@ function initialization() {
     ethereum.request({ method: 'eth_chainId' })
         .then(function (res) {
             chainId = web3.utils.hexToNumber(res);
-            console.log(chainId);
 
             if (chainId != targetChainId) {
                 changeNetwork(targetChainId);
@@ -111,7 +109,6 @@ function initialization() {
         	var auctionABI = c_auction.abi;
         
         	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
-        	console.log(auctionContractInstance);
         
             
             var tokenTypeId = 0;
@@ -127,7 +124,6 @@ function initialization() {
         	//获取 tokenId 的 下一个 竞价的 至少 要大于 的 值
         	auctionContractInstance.methods.getNextMinimalBid(tokenTypeId).call()
         		.then(function (res) {
-        			// console.log(res);
         			res = getWeb3().utils.fromWei(res, 'ether');
         			$('.bid-right-btn span').data('price', res);
         			$('.bid-right-btn span font').text(res);
@@ -137,7 +133,6 @@ function initialization() {
         	//获取 拍卖的 详情，包括 时间参数，最高价     等设定
         	auctionContractInstance.methods._auctions(tokenTypeId).call()
         		.then(function (res) {
-        			// console.log(res);
         			var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
         			$('.bid-right-status-current span:nth-child(2)').text('BUSD ' + tokenTopBid);
         
@@ -151,7 +146,6 @@ function initialization() {
         
         			auctionContractInstance.methods.auctionOpenBid(tokenTypeId).call()
         				.then(function (key) {
-        					// console.log(res)
         					// if(minLastPeriod - (tokenLastBidTime + callBackPeriod) < 0 && key){
         					// 	endTime = endTime + callBackPeriod;
         					// }
@@ -210,7 +204,6 @@ function initialization() {
         				var unixTimestamp = web3.utils.hexToNumber(v.timeStamp) * 1000;
         				unixTimestamp = new Date(unixTimestamp);
         				unixTimestamp = unixTimestamp.toLocaleString();
-        				// console.log(unixTimestamp);
         				var price = web3.utils.fromWei(v.data, 'ether');
         
         				var u_add = v.topics[1].split('000000000000000000000000').join('');
@@ -233,7 +226,6 @@ function initialization() {
         	//获取 tokenId 下  竞价 数量
         	// contract.methods.getBidsLength(tokenTypeId).call()
         	// .then(function(res){
-        	// 	// console.log(res);
         	// 	$('.bids-list-tit span').val(res);
         	// });
         
@@ -247,7 +239,6 @@ function userBidInfo() {
         .then(function (res) {
             if (res.length > 0) {
                 userAddress = res[0];
-                console.log(res[0]);
             }
 	
         	//获取users 对于 所有 竞拍 下的 所有 竞价
@@ -257,11 +248,9 @@ function userBidInfo() {
         				if (!res || res.length < 1) {
         					return false
         				}
-        				// console.log(res);
         				var text = $('.bid-right-status-time span:nth-child(2)').data('time');
         				var html = ``;
         				var currentPrice = $('.bid-right-status-current span:nth-child(2)').text().trim().split(' ')[1];
-        				// console.log(currentPrice);
         				if (res[0].price > 0) {
         					if (text == 2) {
         						// $('.bid-right-btn span').hide();
@@ -309,7 +298,6 @@ function userBidInfo() {
 $.ajax({
 	url: '/v2/auction/list',
 	success: function (res) {
-		// console.log(res);
 		if (res.code == 0) {
 			var data = res.data.pageResult.records[0];
 			var geshi = data.primaryPic.substr(data.primaryPic.lastIndexOf('.') + 1);
@@ -356,7 +344,6 @@ $.ajax({
 	url: '/v2/user/wallet/info',
 	async: false,
 	success: function (res) {
-		// console.log(res)
 		if (res.code == 0) {
 			if (res.data.address == null || res.data.address == '') {
 				$('.bid-right-tip').data('address', '0');

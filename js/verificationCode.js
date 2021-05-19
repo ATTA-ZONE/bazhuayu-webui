@@ -12,7 +12,6 @@ function reSend(){
 			verifiedToken:verifiedToken
 		}),
 		success:function(res){
-			console.log(res)
 			if(res.code==0){
 				success('發送成功',1800);
 			}
@@ -51,7 +50,6 @@ $(function(){
 				dataType: 'json',
 				data:JSON.stringify(data),
 				success:function(res){
-					console.log(res);
 					if(res.code==0){
 						success('注册成功',1800);
 						setTimeout(function(){
