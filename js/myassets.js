@@ -61,7 +61,7 @@ var app = new Vue({
 			return status
 		},
 		getIntroduce(item, str) {
-			return item.introduce == '' ? str : item.introduce.replace(/;\|;/g, '<br>')
+			return item.introduce == '' ? str : item.introduce.replace(/;\|;/g, '<br/>')
 		},
 		toggleMoreInfo(idx) {
 			if (this.showMoreInfo == idx) {
@@ -132,7 +132,6 @@ function nftConnect() {
 }
 
 function getNft() {
-	success('確認', 1800);
 	setTimeout(function () {
 		window.location.reload();
 	}, 1800);
