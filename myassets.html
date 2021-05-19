@@ -89,19 +89,19 @@
 					<div class="my-assets-right-creator flex">
 						<div class="details-right-creator-img"><img src="./images/t8.png"></div>
 						<span>@ATTA</span>
-						<div class="my-assets-right-creator-edition">第{{getAllBsc(item.mintList).join(',')}}版，共{{item.endEdition}}版</div>
+						<div class="my-assets-right-creator-edition">當前持有第{{getAllBsc(item.mintList).join(',')}}版，共{{item.endEdition}}版</div>
 					</div>
 					<div class="details-right-des-tit">商品描述</div>
-					<div class="details-right-des">{{getIntroduce(item,'暫無介紹')}}
+					<div class="details-right-des" v-html="getIntroduce(item,'暫無介紹')">
 					</div>
 					<div class="details-right-additional">
 						<p class="details-right-additional-show" @click="toggleMoreInfo(idx)">更多信息 <span>+</span>
 						</p>
-						<p class="details-right-additional-more order-content" v-if="showMoreInfo==idx">
-							{{getIntroduce(item,'暫無更多資訊')}}</p>
+						<p class="details-right-additional-more order-content" v-if="showMoreInfo==idx" v-html="getIntroduce(item,'暫無更多資訊')">
+						</p>
 					</div>
 					<div class="my-assets-right-price">
-						<div class="flex my-assets-right-download"><a class="flex download" target="_blank"
+						<div class="flex my-assets-right-download"><a class="flex download" :download="item.attachment"
 								:href="item.attachment">下載原始文件副本</a></div>
 					</div>
 					<div class="my-assets-right-btn flex">
