@@ -31,10 +31,7 @@
 			border-bottom: none !important;
 			padding-bottom: 4px !important;
 		}
-		.nth-con-tip {
-			opacity: 1 !important;
-			font-size: 28px !important;
-		}
+		
 		.bsc-table {
 			color: #fff;
 			width: 100%;
@@ -109,7 +106,7 @@
 
 						<div v-if="isConnect && mangeStatus(item.mintList) == 1" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT鑄造中 ( 约7天完成 )</a><div class="claim-tip">當前正在鑄造：第{{getBuildingBsc(item.mintList).join(',')}}版</div><div class="claim-tip" v-if="getBuildedBsc(item.mintList).length > 0" @click="showSelectedNft(item)">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
 
-						<div v-if="isConnect && mangeStatus(item.mintList) == 2" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT 鑄造結束</a><div class="claim-tip" @click="showSelectedNft(item)">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
+						<div v-if="isConnect && mangeStatus(item.mintList) == 2" class="flex my-assets-claim-wrap"><a class="claim claim-miting">BSC NFT 鑄造結束</a><div class="claim-tip" @click="showSelectedNft(item)">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
 
 						<a class="flex eth"><div>鑄造ETH NFT</div><div>(功能準備中)</div></a>						
 					</div>
