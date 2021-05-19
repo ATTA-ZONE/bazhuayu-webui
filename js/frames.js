@@ -169,6 +169,7 @@ function onCardTokenized(event) {
 	var data = {
 		// orderNo,
     configCommodityId:id,buyCount:selectarr.length,
+    isConnect:getCookie('isConnect'),
 		saveCard,
 		ctoken,
 		useLast
