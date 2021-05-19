@@ -417,7 +417,7 @@ $(function(){
 					type: 'POST',
 					contentType: 'application/json',
 					dataType: 'json',
-					data:JSON.stringify({configCommodityId:id,buyCount:selectarr.length,isConnect:getCookie('isConnect')}),
+					data:JSON.stringify({configCommodityId:id,buyCount:selectarr.length,connectStatus:getCookie('isConnect')}),
 					success:function(res){
 						console.log(res);
 						if(res.code==0){
