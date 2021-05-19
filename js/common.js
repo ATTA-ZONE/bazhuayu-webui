@@ -41,7 +41,7 @@ $.ajax({
 
 
 //询问弹窗
-function confirm(){
+function logoutConfirm(){
 	hsycms.confirm('confirm','你確定要登出嗎',
 		function(res){            
 			hsycms.success('success','成功');
@@ -190,7 +190,7 @@ $(function(){
 								<span onclick="window.location.href = 'myorders.html'">我的訂單</span>
 								<span onclick="window.location.href = 'myassets.html'">我的藏品</span>
 								<span onclick="window.location.href = 'mywallet.html'">我的錢包</span>
-								<span class="logout" onclick="confirm()">登出</span>
+								<span class="logout" onclick="logoutConfirm()">登出</span>
 							</div>`;
 				
 				html += `</a>`;
