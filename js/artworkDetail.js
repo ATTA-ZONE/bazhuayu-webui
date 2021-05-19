@@ -423,6 +423,7 @@ $(function(){
 						if(res.code==0){
 							success('支付成功',1800);
 							setTimeout(function(){
+								$('.order-number').text("Order #："+res.data);
 								$('.payment-page-right-tit').text('完成');
 								$('.payment-page-right-order').show();
 								$('.payment-page-right-pay').hide();
@@ -432,6 +433,8 @@ $(function(){
 								$('.payment-page-right-order-je span').text(busd);
 								$('.payment-page-right-order-by span').text('餘額支付');
 							},1800);
+						}else{
+							error(res.mess);
 						}
 					}
 				})
