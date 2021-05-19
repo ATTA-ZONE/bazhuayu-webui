@@ -244,7 +244,7 @@ $(function(){
 		// console.log(1)
 		setTimeout(function(){
 			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span>已連接錢包</span>');
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc" href="javascript:void(0);">已連接錢包</a>');
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a>');
 		},200)
 		
 	}else{
