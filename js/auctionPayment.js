@@ -163,9 +163,7 @@ function userBidInfo() {
 // console.log(document.cookie);
 if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
-	loading();
 	initialization();
-	loadingHide();
 	
     function networkChangedImplement() {
 	    initialization();
@@ -282,7 +280,10 @@ $('#pay_now').click(function () {
 										$('.bid-payment-right-btn button').hide();
 									}, 1800)
 								})
-
+								.catch(function(error) {
+									loadingHide();
+									error('競價失敗！',1800);
+								})
 						});
 				} else {
 					//发起者 对tokenId 下注 price
@@ -305,6 +306,10 @@ $('#pay_now').click(function () {
 								$('.address-tit').text('付費地址：');
 								$('.bid-payment-right-btn button').hide();
 							}, 1800)
+						})
+						.catch(function(error) {
+							loadingHide();
+							error('競價失敗！',1800);
 						})
 				}
 
