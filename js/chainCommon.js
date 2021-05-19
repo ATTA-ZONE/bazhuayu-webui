@@ -1,6 +1,6 @@
-var targetChainId = ''
-var scansite_base_url = ''
-var scansite_apiKey = ''
+var targetChainId = '';
+var scansite_apiKey = '';
+var scansite_base_url = '';
 
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
     targetChainId = 97;
@@ -49,7 +49,7 @@ function changeNetwork(status) {
 ethereum.autoRefreshOnNetworkChange = false; 
 //只有 这个属性为false，networkChanged 才会被使用
 function networkChangedAssign(fnc) {
-    ethereum.on('networkChanged', function (netVer) {
+    ethereum.on('chainChanged', function (netVer) {
         fnc(netVer)
     })
 };
