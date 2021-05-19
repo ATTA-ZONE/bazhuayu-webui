@@ -434,7 +434,7 @@ $(function(){
 								$('.payment-page-right-order-by span').text('餘額支付');
 							},1800);
 						}else{
-							error(res.mess);
+							error(res.message,1800);
 						}
 					}
 				})
