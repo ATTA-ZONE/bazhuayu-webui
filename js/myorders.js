@@ -101,7 +101,7 @@ function getOrderList(current,pageSize){
 									<div class="flex" style="flex-wrap: wrap;color:#fff;align-items: center;padding-bottom: 15px;">
 										<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
 										<span style="margin-right:10px;">@ATTA</span>
-										<p class="details-right-creator-edition" style="margin:0px;">已购第<span style="color: #9567FF;">`+(v.edition.split(',')).join('、')+`</span>版，共<span>`+v.endEdition+`</span>版</p>
+										<p class="details-right-creator-edition" style="margin:0px;">已購第<span style="color: #9567FF;">`+(v.edition.split(',')).join('、')+`</span>版，共<span>`+v.endEdition+`</span>版</p>
 									</div>
 									<div class="my-orders-status">
 									`;
