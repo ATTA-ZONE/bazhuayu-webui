@@ -1,19 +1,54 @@
-function getWeb3() {
-	return new Web3(window.ethereum); // web3js就是你需要的web3实例
-}
-
-function getEth() {
-	return getWeb3().eth;
-}
-
 function backAuction() {
 	window.location.href = 'auction.html';
+}
+
+
+function bindWallet(targetAddress) {
+    $.ajax({
+	        url: '/v2/user/wallet/info',
+	        async: false,
+	        success: function (res) {
+		        if (res.code == 0) {
+		            var hintMessage = '';
+		            if (res.data.address != targetAddress) {
+		                if (res.data.address == null || res.data.address == '') {
+		                    hintMessage = "您的賬戶未綁定地址，點擊確定會為您自動綁定當前錢包地址\n基於區塊鏈的獨立性，即使不綁定您仍然可以參與競拍\n當前錢包地址: " + targetAddress + " \n賬戶綁定地址: null";
+		                } else {
+		                    hintMessage = "您的賬戶綁定地址與當前錢包地址不符，點擊確定會為您重新綁定當前錢包地址\n基於區塊鏈的獨立性，即使不綁定您仍然可以參與競拍\n當前錢包地址: " + targetAddress + " \n賬戶綁定地址: " + res.data.address;
+		                }
+		                
+			            if (window.confirm(hintMessage)) {
+			                var data = {
+			                    address: accounts[0],
+			                    walletType: 'METAMASK'
+		                    };
+
+		                    $.ajax({
+			                    url: base_url + '/v2/user/wallet/bind',
+			                    type: 'POST',
+			                    contentType: 'application/json',
+			                    dataType: 'json',
+			                    data: JSON.stringify(data),
+			                    success: function (res) {
+				                    if (res.code == 0) {
+					                    success('綁定成功！', 1800);
+				                    } else {
+					                    error('綁定失敗！',1800);
+				                    }
+			                    }
+		                    });
+			            }
+			        }
+	            } else {
+			        window.alert("您尚未登錄，無法綁定錢包，但基於區塊鏈的獨立性，您仍然可以參與競拍\n當前錢包地址: " + targetAddress);
+		        }
+	        }
+        });
 }
 
 $.ajax({
 	url: '/v2/auction/list',
 	success: function (res) {
-		console.log(res);
 		if (res.code == 0) {
 			var data = res.data.pageResult.records[0];
 			var geshi = data.primaryPic.substr(data.primaryPic.lastIndexOf('.') + 1);
@@ -27,7 +62,7 @@ $.ajax({
 							<img class="mohu" src="` + data.primaryPic + `" >`;
 
 				$('.bid-payment-img').html(html);
-			};
+			}
 
 			$('.auction-name').text(data.name);
 			// $('.auction-edition').text(`第`+data.edition+`版，共`+data.storage+`版`);
@@ -36,199 +71,135 @@ $.ajax({
 });
 
 
+function initialization() {
+    var web3 = getWeb3();
+    var chainId = '';
+    ethereum.request({ method: 'eth_chainId' })
+        .then(function (res) {
+            chainId = web3.utils.hexToNumber(res);    
+        	// var netVer = netVers[0];
+        	if (chainId != targetChainId) {
+                changeNetwork(targetChainId);
+            }
+        
+        
+        	// var netVer = netVers[0];
+        	auctionAddress = c_auction[chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+        	var auctionABI = c_auction.abi;
+        	
+        	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);        
+        	// busdAddress 供外界使用
+        	var busdAddress = c_ERC20_BUSD[chainId].address;
+        	var busdABI = c_ERC20_BUSD.abi;
+        	
+        	busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);        
+            userBidInfo();
+            tokenTypeId = '';
+            if (window.location.href.indexOf('bazhuayu.io') == -1) {
+                tokenTypeId = 80000003;
+            } else {
+                tokenTypeId = 5010000;
+            }
+            
+        //获取 拍卖的 详情，包括 时间参数，最高价 等设定
+            auctionContractInstance.methods._auctions(tokenTypeId).call()
+        	    .then(function (res) {
+        		    var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
+        		    $('.info-busd span').text(tokenTopBid);
+        	    });
+        });    
+}
+
+function userBidInfo() {
+    var userAddress = '';
+    ethereum.request({ method: 'eth_accounts' })
+        .then(function (res) {
+            if (res.length > 0) {
+                userAddress = res[0];
+            }
+        
+        
+            if (userAddress != 0) {
+        //检测用户绑定钱包 是否 与系统内记录的一致，并且提供快速 替换绑定的 方法
+                bindWallet(userAddress);
+                
+                $('.no-connect-wallet').hide();
+            	$('.address-tit').show();
+            	$('.address-info').text(userAddress);
+            	$('.address-info').show();
+            	$('#pay_now').removeClass('grey');
+            	$('#pay_now').data('status', '1');
+            	$('.btn-tip').show();
+            } else {
+        		$('.no-connect-wallet').show();
+        	    $('.address-tit').hide();
+        	    $('.address-info').hide();
+        	    $('#pay_now').addClass('grey');
+        	    $('#pay_now').data('status', '0');
+        	    $('.btn-tip').hide();
+        	}
+        });
+}
+
+
+
 //是否连接钱包
-// console.log(document.cookie);
+if (typeof window.ethereum !== 'undefined') {
+	// $('#make_offer').data('sign','0');
+	loading();
+	initialization();
+	loadingHide();
+	
+    function networkChangedImplement() {
+	    initialization();
+    }
+	
+	networkChangedAssign(networkChangedImplement);
 
-if (getCookie('auction_wallet_connect') == 'true') {
-	$('.no-connect-wallet').hide();
-	$('.address-tit').show();
-	$('.address-info').text(getCookie('address'));
-	$('.address-info').show();
-	$('#pay_now').removeClass('grey');
-	$('#pay_now').data('status', '1');
-	$('.btn-tip').show();
-} else {
-	$('.no-connect-wallet').show();
-	$('.address-tit').hide();
-	$('.address-info').hide();
-	$('#pay_now').addClass('grey');
-	$('#pay_now').data('status', '0');
-	$('.btn-tip').hide();
-}
-// if(document.cookie.split('=')[1]=='true'){
-// 	setTimeout(function(){
-// 		$('.header-right-wallet').text('已連接錢包');
-// 		$('.mobile-connect-wallet').text('已連接錢包');
-// 	},50)
+// 	var userAddress = '';
+// 	ethereum.request({ method: 'eth_accounts' })
+//         .then(function (res) {
+//             userAddress = res[0];
+//         })
 
-// }else{
-// 	setTimeout(function(){
-// 		$('.header-right-wallet').text('連接錢包');
-// 		$('.mobile-connect-wallet').text('連接錢包');
-// 	},50)
-
-// }
-
-
-var walletId = ethereum.selectedAddress;
-var netVer = window.ethereum.networkVersion;
-var address = ''
-var address_sq = ''
-if (location.host !== 'bazhuayu.io') {
-	address_sq = '0x65aF2dcE9694393496EE7568eeE92660116D5ae6'
-	address = '0x6A2E6042DF6FDCdA84A45531C892b644b095E2b4'; //拍卖地址测试
-} else {
-	address = '0x26455c075eAD85015cbA283731db78d5E80615fF'
-	address_sq = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56'; //busd地址  //正式
-}
-
-
-// 监听账户变更事件
-ethereum.on('accountsChanged', function (accounts) {
-	if (accounts.length > 0) walletId = accounts[0];
-	console.log(['accountsChanged', accounts]);
-
-});
-
-// 监听网络变更事件
-ethereum.autoRefreshOnNetworkChange = false;
-ethereum.on('networkChanged', function (netVer) {
-	console.log(['networkChanged', netVer]);
-
-	if (window.location.href.indexOf('bazhuayu.io') == -1) {
-		if (netVer != '97') {
-			window.ethereum.request({
-				method: 'wallet_addEthereumChain',
-				params: [{
-					chainId: '0x61',
-					chainName: 'bsctestnet',
-					nativeCurrency: {
-						name: 'BNB',
-						symbol: 'BNB',
-						decimals: 18
-					},
-					rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-					blockExplorerUrls: ['https://testnet.bscscan.com']
-				}]
-			});
-		}
-	} else {
-		if (netVer != '56') {
-			window.ethereum.request({
-				method: 'wallet_addEthereumChain',
-				params: [{
-					chainId: '0x38',
-					chainName: 'Binance Smart Chain Mainnet', //如果是切换测试网 就 填 测试网 的RPC配置
-					nativeCurrency: {
-						name: 'BNB',
-						symbol: 'bnb',
-						decimals: 18
-					},
-					rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
-					blockExplorerUrls: ['https://bscscan.com/']
-				}]
-			})
-
-		}
+	function accountsChangedImplement(accounts) {
+// 		if (accounts.length > 0) userAddress = accounts[0];
+		userBidInfo();
 	}
 
-});
+	accountsChangedAssign(accountsChangedImplement);
+} else {
+    var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
+				<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
+	alert(html);
+}
 
 
 //连接钱包
 $('#connectWallet').click(function () {
-
 	window.ethereum.enable().then(function (accounts) {
-
-		var data = {
-			address: accounts[0],
-			walletType: 'METAMASK'
-		}
-
-		$.ajax({
-			url: base_url + '/v2/user/wallet/bind',
-			type: 'POST',
-			contentType: 'application/json',
-			dataType: 'json',
-			data: JSON.stringify(data),
-			success: function (res) {
-				if (res.code == 0) {
-					success('連接成功', 1800);
-
-				} else {
-					// error('連接失敗',1800);
-				}
-				// console.log(res);
-			}
-		});
-
-		if (window.ethereum && window.ethereum.isConnected()) {
-			document.cookie = "auction_wallet_connect=true";
-			document.cookie = "isConnect=true";
-		};
-
-		// console.log(accounts);
-
-		$('.no-connect-wallet').hide();
-		$('.address-tit').show();
-		$('.address-info').text(accounts[0]);
-		$('.address-info').show();
-		$('#pay_now').removeClass('grey');
-		$('#pay_now').data('status', '1');
-		document.cookie = "address=" + accounts[0];
-
-		if (window.location.href.indexOf('bazhuayu.io') == -1) {
-			if (netVer != '97') {
-				window.ethereum.request({
-					method: 'wallet_addEthereumChain',
-					params: [{
-						chainId: '0x61',
-						chainName: 'bsctestnet',
-						nativeCurrency: {
-							name: 'BNB',
-							symbol: 'BNB',
-							decimals: 18
-						},
-						rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-						blockExplorerUrls: ['https://testnet.bscscan.com']
-					}]
-				});
-			}
-		} else {
-			if (netVer != '56') {
-				window.ethereum.request({
-					method: 'wallet_addEthereumChain',
-					params: [{
-						chainId: '0x38',
-						chainName: 'Binance Smart Chain Mainnet', //如果是切换测试网 就 填 测试网 的RPC配置
-						nativeCurrency: {
-							name: 'BNB',
-							symbol: 'bnb',
-							decimals: 18
-						},
-						rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
-						blockExplorerUrls: ['https://bscscan.com/']
-					}]
-				})
-
-			}
-		}
-
+	    var userAddress = '';
+        if (accounts.length > 0) {
+            userAddress = accounts[0];
+            bindWallet(userAddress);
+            
+            $('.no-connect-wallet').hide();
+		    $('.address-tit').show();
+		    $('.address-info').text(userAddress);
+		    $('.address-info').show();
+		    $('#pay_now').removeClass('grey');
+		    $('#pay_now').data('status', '1');
+		    $('.btn-tip').show();
+        } else {
+            $('.no-connect-wallet').show();
+	        $('.address-tit').hide();
+	        $('.address-info').hide();
+	        $('#pay_now').addClass('grey');
+	        $('#pay_now').data('status', '0');
+	        $('.btn-tip').hide();
+        }
 	});
-
-
 });
-
-
-
-var web3 = getEth();
-var contract = new web3.Contract(abi, address); //拍卖合约实例
-var contract_sq = new web3.Contract(abi_sq, address_sq); //busd合约实例
-// var tokenTypeId = 80000003;
-var tokenTypeId = 5010000;
-
-console.log(contract);
-console.log(contract_sq);
 
 //获取 tokenId 的 下一个 竞价的 至少 要大于 的 值
 // contract.methods.getNextMinimalBid(tokenTypeId).call()
@@ -238,23 +209,13 @@ console.log(contract_sq);
 // 	$('.info-your-busd span').text(Number(res)+1);
 // })
 
-//用户报价
+//用户初始报价
 var userPrice = window.location.search.split('=')[1];
 $('.info-your-busd span').text(userPrice);
-
-//获取 拍卖的 详情，包括 时间参数，最高价     等设定
-contract.methods._auctions(tokenTypeId).call()
-	.then(function (res) {
-		// console.log(res);
-		var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
-		$('.info-busd span').text(tokenTopBid);
-	});
-
 
 //拍卖
 $('#pay_now').click(function () {
 	var status = $(this).data('status');
-	// console.log(status);
 
 	if (status == 1) { //已连接
 		var price = $('.bid-payment-right-info .info-your-busd span').text().trim();
@@ -265,28 +226,25 @@ $('#pay_now').click(function () {
 		//余额
 		// contract_sq.methods.balanceOf(self_address).call()
 		// .then(function(res){
-		// console.log(res)
-		// console.log(price)
 		// if(Number(price) <= Number(res)){
 
 		//是否授权
-		contract_sq.methods.allowance(self_address, address).call()
+		busdContractInstance.methods.allowance(self_address, auctionAddress).call()
 			.then(function (res) {
 
-				if (res == 0) {
+				if (res < Number(price)) {
 					var num = getWeb3().utils.toWei('999999999999999', 'ether');
 					//发起授权
 					loading();
-					contract_sq.methods.approve(address, num).send({
+					busdContractInstance.methods.approve(address, num).send({
 							from: self_address
 						})
 						.then(function (res) {
 							//发起者 对tokenId 下注 price
-							contract.methods.bidToken(tokenTypeId, price).send({
+							auctionContractInstance.methods.bidToken(tokenTypeId, price).send({
 									from: self_address
 								})
 								.then(function (res) {
-									// console.log(res);
 									var price = getWeb3().utils.fromWei(res.events.Bid.returnValues.price, 'ether');
 									loadingHide();
 									success('競價成功', 1800);
@@ -306,11 +264,10 @@ $('#pay_now').click(function () {
 				} else {
 					//发起者 对tokenId 下注 price
 					loading();
-					contract.methods.bidToken(tokenTypeId, price).send({
+					auctionContractInstance.methods.bidToken(tokenTypeId, price).send({
 							from: self_address
 						})
 						.then(function (res) {
-							// console.log(res);
 							var price = getWeb3().utils.fromWei(res.events.Bid.returnValues.price, 'ether');
 							loadingHide();
 							success('競價成功', 1800);

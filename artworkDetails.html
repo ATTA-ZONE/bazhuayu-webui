@@ -23,6 +23,7 @@
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
 		.pre-mask{
@@ -32,6 +33,15 @@
 			top: 0;
 			left: 0;
 			z-index: 999;
+		}
+		.detail-mask {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: transparent;
+			width: 100%;
+			height: 100%;
+			z-index: 6;
 		}
 	</style>
 </head>
@@ -92,22 +102,44 @@
 				<li><a class="language-tc" href="myassets.html">我的藏品</a></li>
 				<li><a class="language-tc" href="mywallet.html">我的錢包</a></li>
 			</ul>
-			<div class="menu-list-con-tit-btn mobile-logout" onclick="confirm()"><a class="flex" href="javascript:void(0);"><span class="language-tc">登出</span></a></div>
+			<div class="menu-list-con-tit-btn mobile-logout" onclick="logoutConfirm()"><a class="flex" href="javascript:void(0);"><span class="language-tc">登出</span></a></div>
 		</div>
 	</div>
 	
 	<div class="details center-80 flex">
-		<div class="details-left order-img"><img class="full-screen" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice" src="./images/mute.png"/></div>
+		<div class="details-left order-img"><div onclick="playVideo(this,event)" class="detail-mask"></div><img class="full-screen detail-media" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice detail-media" src="./images/mute.png"/></div>
 		<div class="details-right">
 			<div class="details-right-tit order-title">----</div>
-			<div class="details-right-price flex"><span class="cur order-price-hdk">HK$0 港元</span><span class="order-price-busd">0 BUSD</span></div>
-			<div class="details-right-btn flex payment-btn-pc" data-status="0">立即購買  -></div>
-			<div class="details-right-time flex"><span>銷售結束於：</span><span class="details-right-time-djs">01 : 05 : 32</span></div>
 			<div class="details-right-creator flex">
 				<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
 				<span>@ATTA</span>
 				<div class="details-right-creator-edition">第1版，共150版</div>
 			</div>
+			<div class="checknumbox">
+				<div class="purchasenumbox">
+					<button onclick="changenum(event,1)"><img src="./images/jian.png" alt=""></button>
+					<span class="purchase_num">1</span>
+					<button onclick="changenum(event,2)"><img src="./images/jia.png" alt=""></button>
+				</div>
+				<p class="selectnumbox">已選第 <span class="selectarrnum">1</span> 版</p>
+			</div>
+			<div class="countmoneybox">
+				<p class="moneryridebox">
+					單價：
+					<span class="cur order-price-hdk">HK$0 港元</span>
+					<span>/</span>
+					<span class="order-price-busd">0 BUSD</span>
+				</p>
+				<p class="countetcbox">
+					<img src="./images/multiply.png" alt="">
+					<span class="purchase_num">1</span>
+					=
+				</p>
+			</div>
+			<!-- <div class="details-right-price flex"><span class="cur order-price-hdk hkdPrice">HK$0 港元</span><span class="order-price-busd busdPrice">0 BUSD</span></div> -->
+			<div class="details-right-price flex"><span class="cur order-price-hdk hkdPrice">HK$0 港元</span> <span style="margin-right: 20px;">/</span> <span class="order-price-busd busdPrice" style="opacity: 1;">0 BUSD</span></div>
+			<div class="details-right-btn flex payment-btn-pc" data-status="0">立即購買  -></div>
+			<div class="details-right-time flex"><span>銷售結束於：</span><span class="details-right-time-djs">01 : 05 : 32</span></div>
 			<div class="details-right-des order-introduce">
 				<!-- <div class="details-right-des-top">
 					<p>character: VR-Punk</p>
@@ -162,7 +194,7 @@
 					<div class="payment-page-right-pay flex"><span class="cur" data-type="0">信用卡</span><span data-type="1">加密貨幣</span></div>
 					<div class="payment-page-right-total">
 						<p>這是待付款，您的付款金額為：</p>
-						<p class="order-price"><span class="order-price-hdk">HK$0 港元</span><span class="order-price-busd none">0 BUSD</span></p>
+						<p class="order-price"><span class="order-price-hdk hkdPrice">HK$0 港元</span><span class="order-price-busd none busdPrice">0 BUSD</span></p>
 					</div>
 					
 					<div class="payment-page-right-select">
@@ -218,9 +250,10 @@
 							<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
 						
 							<div class="pay-button"><button id="pay-button" disabled="">立即付款  -></button></div><div style="color: #fff;
-								opacity: 0.4;
-								text-align: center;
-								margin-top: 10px;">由於您購買的是數字作品，一經售出概不退換</div>
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								margin-top: 10px;"><input id="savetips" type="checkbox" /><span style="opacity: 0.4;">由於您購買的是數字作品，一經售出概不退換</span></div>
 						
 							<div>
 								<span class="error-message error-message__card-number"></span>
@@ -244,7 +277,7 @@
 					<div class="payment-page-right-btn none">
 						<button type="button">立即付款  -></button>
 						<!-- <p>您的信用卡將立即授權這筆支付。</p> -->
-						<p>由於您購買的是數字作品，一經售出概不退換</p>
+						<p><input id="savetips" type="checkbox" /><span>由於您購買的是數字作品，一經售出概不退換</span></p>
 					</div>
 				</div>
 			</div>
@@ -296,6 +329,8 @@
 	<div class="tips"></div>
 	
 </body>
+<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 <script src="https://cdn.checkout.com/js/framesv2.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/frames.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/artworkDetail.js" type="text/javascript" charset="utf-8"></script>

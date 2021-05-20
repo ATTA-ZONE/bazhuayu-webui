@@ -3,15 +3,14 @@
 var url = window.location.pathname;
 url = url.substring(url.lastIndexOf('/')+1)
 url = url.substring(0,url.indexOf('.'));
-// console.log(url)
 
 // var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	base_url = 'http://localhost:8081';
-	if (window.location.href.indexOf('47.118.74.48:8081') > -1) {
-		base_url = 'http://47.118.74.48:8081';
+	if (window.location.href.indexOf('47.118.74.48:') > -1) {
+		base_url = 'http://47.118.74.48:'+window.location.port;
 	}
 }
 var lang = 'TC';
@@ -21,7 +20,6 @@ $.ajax({
 	dataType:'json',
 	data:{lang:lang},
 	success:function(res){
-		// console.log(res);
 	}
 });
 
@@ -35,13 +33,12 @@ $.ajax({
 // 		}else{
 			
 // 		}
-// 		// console.log(res);
 // 	}
 // });
 
 
 //询问弹窗
-function confirm(){
+function logoutConfirm(){
 	hsycms.confirm('confirm','你確定要登出嗎',
 		function(res){            
 			hsycms.success('success','成功');
@@ -51,9 +48,9 @@ function confirm(){
 					type:"POST",
 					dataType:'json',
 					success:function(res){
-						// console.log(res);
 						if(res.code==0){
-							window.location.reload();
+							// window.location.reload();
+							window.location.href = 'index.html';
 						}
 					}
 				})
@@ -90,9 +87,7 @@ $(function(){
 			var twitterUrl=res.data.twitterUrl;
 			var telegramUrl=res.data.telegramUrl;
 			var qrPath1=res.data.qrPath;
-			var qrPath = JSON.parse(qrPath1)[0];
-			// console.log(qrPath)
-			
+			var qrPath = JSON.parse(qrPath1)[0];			
 			$(".weiboUrl").attr("href",weiboUrl);
 			$(".twitterUrl").attr("href",twitterUrl);
 			$(".telegramUrl").attr("href",telegramUrl);
@@ -151,7 +146,7 @@ $(function(){
 		$('.tc-show').removeClass('modify-tc-pc');
 		$('.tc-show').addClass('modify-tc-mobile');
 		
-		$('.modify-tc-mobile').on('click',function(){
+		$('.accountclass.modify-tc-mobile').on('click',function(){
 			$('.modify').addClass('modify-tc-active')
 		})
 	}
@@ -189,7 +184,7 @@ $(function(){
 								<span onclick="window.location.href = 'myorders.html'">我的訂單</span>
 								<span onclick="window.location.href = 'myassets.html'">我的藏品</span>
 								<span onclick="window.location.href = 'mywallet.html'">我的錢包</span>
-								<span class="logout" onclick="confirm()">登出</span>
+								<span class="logout" onclick="logoutConfirm()">登出</span>
 							</div>`;
 				
 				html += `</a>`;
@@ -217,7 +212,6 @@ $(function(){
 				// $('.mobile-logout').hide();
 			}
 			$('.header-dl').html(html);
-			// console.log(res)
 		}
 	});
 	
@@ -234,20 +228,17 @@ $(function(){
 				$('.mobile-connect-wallet').hide();
 				document.cookie="isConnect=false";
 			}
-			// console.log(res);
 		}
 	})
 	
 	
 	if(getCookie('isConnect')=='true'){
-		// console.log(1)
 		setTimeout(function(){
 			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span>已連接錢包</span>');
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc" href="javascript:void(0);">已連接錢包</a>');
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a>');
 		},200)
 		
 	}else{
-		// console.log(2)
 		setTimeout(function(){
 			$('.header-right-wallet').html('<span>連接錢包</span>');
 			$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a>');
@@ -257,7 +248,28 @@ $(function(){
 	
 	
 	
-
+	$.ajax({
+		url:base_url+'/v2/user/wallet/info',
+		async:false,
+		success:function(res){
+			if(res.code==0){
+				if(res.data.walletType=="TOKEN POCKET"){
+					CHAIN.WALLET.WalletConnect.events();
+					var t = setInterval(function(){
+						var walletconnect = localStorage.getItem('walletconnect');
+						var cookie = getCookie('isConnect');
+						if(walletconnect==null){
+							clearInterval(t);
+							isWalletConnect = false;
+							$('.header-right-wallet').html('<span>連接錢包</span>');
+							$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a>');
+						}
+					},200)
+				}
+			}
+			
+		}
+	})
 	
 
 

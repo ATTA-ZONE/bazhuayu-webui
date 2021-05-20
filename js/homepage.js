@@ -5,7 +5,6 @@ $(function () {
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function (res) {
-			console.log(res)
 			if (res.code == 0) {
 				let data = res.data;
 				let banners = data.banners;
@@ -16,7 +15,7 @@ $(function () {
 					var geshi = v.pic.substr(v.pic.lastIndexOf('.') + 1);
 
 					html += `<li onclick="progressToggle(this)">
-								<a class="swiper-midia-mask" href="` + v.outHrefUrl + `">`
+								<a href="`+ v.outHrefUrl + `"><div class="index-video-mask"></div>`
 					if (geshi == 'mp4') {
 						html += `	<video x5-playsinline="true" x5-video-player-type="h5" webkit-playsinline="true" class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + v.pic + `" muted="muted"></video>`;
 					} else {
@@ -27,7 +26,7 @@ $(function () {
 							</li>`;
 
 					html_mobile += `<div class="swiper-slide">
-										<a class="swiper-midia-mask" href="` + v.outHrefUrl + `">`
+										<a href="` + v.outHrefUrl + `"><div class="index-video-mask"></div>`
 					if (geshi == 'mp4') {
 						html_mobile += `	<video x5-playsinline="true" x5-video-player-type="h5" webkit-playsinline="true" class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + v.pic + `" muted="muted"></video>`;
 					} else {
@@ -65,7 +64,7 @@ $(function () {
 			}
 		},
 		error: function (err) {
-			console.log(err)
+			console.log(res.message)
 		}
 	})
 

@@ -1,4 +1,3 @@
-
 //获取时间
 function formatDuring(mss) {
     var days = parseInt(mss / (1000 * 60 * 60 * 24));
@@ -25,7 +24,6 @@ function getArtworkList(current,pageSize,name,typeId){
 		url:base_url+'/v2/commodity/list',
 		data:data,
 		success: function (res) {
-			console.log(res);
 			if (res.code == 0) {
 				let records = res.data.pageResult.records;
 				let html = '';
@@ -52,13 +50,12 @@ function getArtworkList(current,pageSize,name,typeId){
 					$.each(records,function(i,v){
 						var timeStatus;
 						var geshi = v.primaryPic.substr(v.primaryPic.lastIndexOf('.')+1);
-						// console.log(geshi);
 						
 						if(v.name=='徐冬冬 牛N.X潮玩 NFT限量版'){
 							v.edition = 200;
 						}
 						
-						if(v.storage - v.edition > 0){   //有库存
+						if(v.endEdition - v.edition > 0){   //有库存
 							
 							if(systemTime < v.saleStartTimeMillis){
 								timeStatus = 1;    //未到销售时间
@@ -74,7 +71,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						
 						html += 
 						`<li>
-							<a href="artworkDetails.html?id=`+v.id+`">`;
+							<a class="artwork-mask" href="artworkDetails.html?id=`+v.id+`"><div class="artwork-mask-wrap"></div>`;
 						
 						if(geshi=='mp4'){
 							
@@ -172,11 +169,9 @@ function getArtworkList(current,pageSize,name,typeId){
 					
 				
 			} else {
-				console.log(res.message);
 			}
 		},
 		error: function (err) {
-			console.log(1)
 		}
 	})
 	
@@ -189,7 +184,6 @@ function getTypeList(){
 	$.ajax({
 		url:base_url+'/v2/commodity/type/list',
 		success:function(res){
-			// console.log(res)
 			if(res.code==0){
 				var html_pc = ``;
 				var html_mobile = ``;
@@ -230,8 +224,6 @@ $(function(){
 		var typeId = $(this).data('type');
 		var name = $(this).data('name');
 		typeId == -1?typeId = null:typeId = typeId;
-		// console.log(typeId);
-		// console.log(name);
 		getArtworkList(current,9,name,typeId);
 
 	});
@@ -277,7 +269,6 @@ $(function(){
 	$('.bzy-search input').on('keypress',function(e){
 		var name = $(this).val().trim();
 		$('.artwork-list-load').data('name',name);
-		// console.log(name)
 		if(e.keyCode==13){
 			$('.bzy-e-list').html('');
 			getArtworkList(1,9,name,null);
@@ -309,7 +300,6 @@ $(function(){
 		$('.bzy-search input').on('input',function(e){
 			var name = $(this).val().trim();
 			$('.artwork-list-load').data('name',name);
-			// console.log(name)
 			// if(e.keyCode==13){
 			$('.bzy-e-list').html('');
 			getArtworkList(1,9,name,null);

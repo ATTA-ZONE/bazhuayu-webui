@@ -137,26 +137,30 @@ function menuHide(){
 
 // add fund
 function addFund(){
-	$('.modify-tit span').text('充值');
-	$('.modify-tit').data('type','add');
-	$.ajax({
-		url:base_url+'/v2/user/wallet/info',
-		success:function(res){
-			console.log(res)
-			if(res.code==0){
-				var html = ``;
-				html += `<div class="modify-ipt-add">
-							<div class="modify-ipt-tit">`+(res.data.address==null?'請連接錢包':'From '+res.data.address)+`</div>
-							<input type="text" placeholder="輸入金額" />
-						</div>`;
-						
-				$('.modify-ipt').html(html);
-				$('.modify-btn-active').addClass('add');
-				$('.modify-btn-active').removeClass('delete');
-				$('.modify-btn-active').text('立即充值');
+	if (getCookie('isConnect')=='false') {
+		window.location.href="./connectWallet.html"
+	}else{
+
+		$('.modify-tit span').text('充值');
+		$('.modify-tit').data('type','add');
+		$.ajax({
+			url:base_url+'/v2/user/wallet/info',
+			success:function(res){
+				if(res.code==0){
+					var html = ``;
+					html += `<div class="modify-ipt-add">
+								<div class="modify-ipt-tit">`+(res.data.address==null?'請連接錢包':'From '+res.data.address)+`</div>
+								<input type="text" placeholder="輸入金額" />
+							</div>`;
+							
+					$('.modify-ipt').html(html);
+					$('.modify-btn-active').addClass('add');
+					$('.modify-btn-active').removeClass('delete');
+					$('.modify-btn-active').text('立即充值');
+				}
 			}
-		}
-	})
+		})
+	}
 }
 
 function cancel(){
@@ -177,27 +181,30 @@ function cancelMobile(){
 
 //widthdraw
 function widthDraw(){
-	$('.modify-tit span').text('提款');
-	$('.modify-tit').data('type','withdraw');
-	$.ajax({
-		url:base_url+'/v2/user/wallet/info',
-		success:function(res){
-			console.log(res)
-			if(res.code==0){
-				var html = ``;
-				html += `<div class="modify-ipt-add">
-							<div class="modify-ipt-tit">`+(res.data.address==null?'請連接錢包':'To '+res.data.address)+`</div>
-							<input type="text" placeholder="輸入金額" />
-						</div>`;
-						
-				$('.modify-ipt').html(html);
-				$('.modify-btn-active').addClass('add');
-				$('.modify-btn-active').removeClass('delete');
-				$('.modify-btn-active').text('立即提款');
+	if (getCookie('isConnect')=='false') {	
+		window.location.href="./connectWallet.html"
+	}else{
+		$('.modify-tit span').text('提款');
+		$('.modify-tit').data('type','withdraw');
+		$.ajax({
+			url:base_url+'/v2/user/wallet/info',
+			success:function(res){
+				if(res.code==0){
+					var html = ``;
+					html += `<div class="modify-ipt-add">
+								<div class="modify-ipt-tit">`+(res.data.address==null?'請連接錢包':'To '+res.data.address)+`</div>
+								<input type="text" placeholder="輸入金額" />
+							</div>`;
+							
+					$('.modify-ipt').html(html);
+					$('.modify-btn-active').addClass('add');
+					$('.modify-btn-active').removeClass('delete');
+					$('.modify-btn-active').text('立即提款');
+				}
 			}
-		}
-	})
-	// $('.modify').fadeIn();
+		})
+		// $('.modify').fadeIn();
+	}
 }
 
 //change card
@@ -429,7 +436,7 @@ function moneyFormat(value) { // 金额 格式化
             return intPartFormat + "." + floatPart;
         }
     } else {
-        return intPartFormat + floatPart;
+        return intPartFormat;
     }
 }
 

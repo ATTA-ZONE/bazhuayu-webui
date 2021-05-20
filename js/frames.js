@@ -134,7 +134,10 @@ Frames.addEventHandler(
   cardValidationChanged
 );
 function cardValidationChanged() {
-  payButton.disabled = !Frames.isCardValid();
+  payButton.disabled = true;
+  if ($('#save').prop('checked') && $('#savetips').prop('checked')) {
+    payButton.disabled = !Frames.isCardValid();
+  }
 }
 
 Frames.addEventHandler(
@@ -142,7 +145,6 @@ Frames.addEventHandler(
   onCardTokenizationFailed
 );
 function onCardTokenizationFailed(error) {
-  console.log("CARD_TOKENIZATION_FAILED: %o", error);
   Frames.enableSubmitForm();
 }
 
@@ -158,13 +160,14 @@ function onCardTokenized(event) {
   //   event.token +
   //   "</span>";
 	
-	console.log(event.token);
 	var orderNo = $('.order-number span').text().trim();
 	var saveCard = $('#save').prop('checked');
 	var ctoken = event.token;
 	var useLast = false;
 	var data = {
-		orderNo,
+		// orderNo,
+    configCommodityId:id,buyCount:selectarr.length,
+    connectStatus:getCookie('isConnect'),
 		saveCard,
 		ctoken,
 		useLast
@@ -177,7 +180,6 @@ function onCardTokenized(event) {
 		dataType:'json',
 		data:JSON.stringify(data),
 		success:function(res){
-			console.log(res);
 			loadingHide();
 			if(res.code==0){
 				window.location.href = res.data.paytdsUrl;

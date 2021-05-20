@@ -21,6 +21,7 @@
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
@@ -80,13 +81,13 @@
 				<li><a class="language-tc" href="myassets.html">我的藏品</a></li>
 				<li><a class="language-tc" href="mywallet.html">我的錢包</a></li>
 			</ul>
-			<div class="menu-list-con-tit-btn mobile-logout" onclick="confirm()"><a class="flex" href="javascript:void(0);"><span class="language-tc">登出</span></a></div>
+			<div class="menu-list-con-tit-btn mobile-logout" onclick="logoutConfirm()"><a class="flex" href="javascript:void(0);"><span class="language-tc">登出</span></a></div>
 		</div>
 	</div>
 	
 	
 	<div class="bid center-80 flex">
-		<div class="bid-left"></div>
+		<div class="bid-left"><img class="full-screen detail-media" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice detail-media" src="./images/mute.png"/></div>
 		<div class="bid-right">
 			<div class="bid-right-tit">----</div>
 			<div class="bid-right-edition flex">
@@ -172,6 +173,36 @@
 	
 	<div class="tips"></div>
 </body>
-<script src="./js/auctionAbi.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/chainCommon.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/auction.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	function toggleVideo(){
+		var voiceStatus = document.getElementsByTagName('video')[0].muted
+		document.getElementsByTagName('video')[0].muted = !voiceStatus
+		switch (voiceStatus) {
+			case true:
+				document.getElementsByClassName('voice')[0].src = './images/voice.png'
+				break;
+			case false:
+				document.getElementsByClassName('voice')[0].src = './images/mute.png'
+			break;
+		}
+		
+	}
+	function toggleScreen(){
+		FullScreen()
+	}
+	function FullScreen() {
+    var ele = document.getElementsByTagName('video')[0];
+    if (ele.requestFullscreen) {
+        ele.requestFullscreen();
+    } else if (ele.mozRequestFullScreen) {
+        ele.mozRequestFullScreen();
+    } else if (ele.webkitRequestFullScreen) {
+        ele.webkitRequestFullScreen();
+    }
+}
+</script>
 </html>

@@ -1,7 +1,9 @@
-
 var param = window.location.search.substr(1);
 parm = param.split('&');
 var arr = [];
+var selectarr = [];//已选版数数组
+var maxbannum = 0;
+var busdPrice = 0,hkdPrice = 0,curUserOwned=0,oneUserCountLimit=0,onceCountLimit=0;
 for (var key in parm){
 	arr.push({
 		key:parm[key].split('=')
@@ -20,67 +22,62 @@ $.each(arr,function(i,v){
 	}
 })
 
-// console.log(success);
-
-
-// console.log(id);
-
-
 //下单
 function orderTakePc(){
+	payment();
 	var data = {
 		configCommodityId:id,
 		buyCount:1
 	};
-	$.ajax({
-		url:base_url+'/v2/order/order/take',
-		type: 'POST',
-		contentType: 'application/json',
-		dataType: 'json',
-		data:JSON.stringify(data),
-		success:function(res){
-			// console.log(res);
-			if(res.code==0){
-				$('.order-number span').text(res.data.orderNo);
-				payment();
-			}else{
-				tips(res.message);
-			}
-		}
+	// $.ajax({
+	// 	url:base_url+'/v2/order/order/take',
+	// 	type: 'POST',
+	// 	contentType: 'application/json',
+	// 	dataType: 'json',
+	// 	data:JSON.stringify(data),
+	// 	success:function(res){
+	// 		if(res.code==0){
+	// 			$('.order-number span').text(res.data.orderNo);
+	// 			payment();
+	// 		}else{
+	// 			tips(res.message);
+	// 		}
+	// 	}
 		
-	})
+	// })
 }
 
 //下单
 function orderTakeMobile(){
+	// $('.order-number span').text(res.data.orderNo);
+	$('.payment').addClass('payment-active')
 	var data = {
 		configCommodityId:id,
 		buyCount:1
 	};
-	$.ajax({
-		url:base_url+'/v2/order/order/take',
-		type: 'POST',
-		contentType: 'application/json',
-		dataType: 'json',
-		data:JSON.stringify(data),
-		success:function(res){
-			// console.log(res);
-			if(res.code==0){
-				$('.order-number span').text(res.data.orderNo);
-				$('.payment').addClass('payment-active')
-			}else{
-				tips(res.message);
-			}
-		}
+	// $.ajax({
+	// 	url:base_url+'/v2/order/order/take',
+	// 	type: 'POST',
+	// 	contentType: 'application/json',
+	// 	dataType: 'json',
+	// 	data:JSON.stringify(data),
+	// 	success:function(res){
+	// 		if(res.code==0){
+	// 			$('.order-number span').text(res.data.orderNo);
+	// 			$('.payment').addClass('payment-active')
+	// 		}else{
+	// 			tips(res.message);
+	// 		}
+	// 	}
 		
-	})
+	// })
 }
 
 // 播放视频
 function playVideo(obj,e){
 	e.stopPropagation();
-	$(obj)[0].pause();
-	var src = $(obj).attr('src');
+	$(obj).siblings('video')[0].pause();
+	var src = $(obj).siblings('video')[0].src;
 	$('.video-model video').attr('src',src);
 	$('.video-model video')[0].play();
 	$('.video-mask').fadeIn('fast');
@@ -90,13 +87,21 @@ function playVideo(obj,e){
 function closeVideo(){
 	$('.video-mask').hide();
 	$('.video-model').hide();
-	$('.details-left video')[0].play();
-	$('.video-model video')[0].pause();
+	// $('.details-left video')[0].play();
+	// $('.video-model video')[0].pause();
+	$('#save,#savetips').click(function(){
+		var payButton = document.getElementById("pay-button");
+		if ($('#save').prop('checked') && $('#savetips').prop('checked')) {
+			payButton.disabled = !Frames.isCardValid();
+		}else{
+			payButton.disabled = true;
+		}
+	})
 }
 
 
 //询问弹窗
-function confirm(){
+function saveconfirm(){
 	hsycms.confirm('confirm','去我的資產核對',
 		function(res){            
 			hsycms.success('success','確認');
@@ -142,7 +147,7 @@ $(function(){
 	if(success_status==1){
 		success('支付成功',1800);
 		setTimeout(function(){
-			confirm();
+			saveconfirm();
 		},1800)
 		
 	}else if(success_status==0){
@@ -154,19 +159,27 @@ $(function(){
 		url:base_url+'/v2/commodity/info',
 		data:{id:id,forceLang:'TC'},
 		success:function(res){
-			console.log(res);
 			if(res.code==0){
 				var content = res.data.content;
 				var saleStartTimeMillis = res.data.saleStartTimeMillis;  //开始销售时间
 				var saleEndTimeMillis = res.data.saleEndTimeMillis;  //销售结束时间
 				var systemTime = res.data.systemTime;  //当前时间
 				var geshi = res.data.primaryPic.substr(res.data.primaryPic.lastIndexOf('.')+1);   //onclick=playVideo(this,event)
+				selectarr.push(res.data.edition);
+				maxbannum = res.data.endEdition;
+				hkdPrice = res.data.hkdPrice;
+				busdPrice = res.data.price;
+				curUserOwned = res.data.curUserOwned;
+				oneUserCountLimit = res.data.oneUserCountLimit;
+				onceCountLimit = res.data.onceCountLimit;
 				if(geshi=='mp4'){
-					var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" webkit-playsinline="true" onclick="playVideo(this,event)" muted="muted" ></video>
+					$('.detail-media').css('display', 'block')
+					var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" webkit-playsinline="true" muted="muted" ></video>
 								<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="`+res.data.primaryPic+`" muted="muted"></video>`;
 								
 					$('.order-img').append(html);
 				}else{
+					$('.detail-media').css('display', 'none')
 					var html = `<img class="bzy-e-list-img" src="`+res.data.primaryPic+`" >
 								<img class="bzy-e-list-img mohu" src="`+res.data.primaryPic+`" >`;
 					$('.order-img').append(html);
@@ -180,13 +193,14 @@ $(function(){
 					res.data.edition = 200;
 				}
 				
-				$('.details-right-creator-edition').text('第'+res.data.edition+'版， 共'+res.data.storage+'版');
+				$('.details-right-creator-edition').text('第'+res.data.edition+'版， 共'+res.data.endEdition+'版');
+				$('.selectarrnum').text(res.data.edition);
 				$('.order-introduce').html(res.data.introduce==''?'暫無介紹':(res.data.introduce.replace(/;\|;/g,'<br>')));
 				$('.order-content').html(res.data.content==''?'暫無更多資訊':(res.data.content.replace(/;\|;/g,'<br>')));
 				
 				
 				
-				if(res.data.storage - res.data.edition > 0){  //还有库存
+				if(res.data.endEdition - res.data.edition > 0){  //还有库存
 					
 					if(systemTime < saleStartTimeMillis){
 						$('.details-right-btn').addClass('unclick');
@@ -210,7 +224,6 @@ $(function(){
 						
 						var msTime = saleEndTimeMillis - systemTime;
 						var time = formatDuring(msTime);
-						console.log(time);
 						let ycdjs = time.split('d')[0];
 						if (ycdjs > 1825) {
 							$(".details-right-time").hide();
@@ -276,7 +289,6 @@ $(function(){
 	//
 	$('.payment-btn-pc').on('click',function(){
 		var status = $(this).data('status');
-		// console.log(status)
 		if(status==0){
 			$.ajax({
 				url:base_url+'/v2/user/account',
@@ -305,7 +317,6 @@ $(function(){
 		
 		$('.payment-btn-mobile').on('click',function(){
 			var status = $(this).data('status');
-			// console.log(status)
 			if(status==0){
 				$.ajax({
 					url:base_url+'/v2/user/account',
@@ -386,7 +397,6 @@ $(function(){
 		var value = $(this).text().trim();
 		var orderNo = $('.order-number').text().trim().split('：')[1];
 		var busd = $('.order-price .order-price-busd').text().trim();
-		// console.log(text)
 		if(text==1){
 			if(value=='立即付款'){
 				$.ajax({
@@ -394,12 +404,12 @@ $(function(){
 					type: 'POST',
 					contentType: 'application/json',
 					dataType: 'json',
-					data:JSON.stringify({orderNo:orderNo}),
+					data:JSON.stringify({configCommodityId:id,buyCount:selectarr.length,connectStatus:getCookie('isConnect')}),
 					success:function(res){
-						console.log(res);
 						if(res.code==0){
 							success('支付成功',1800);
 							setTimeout(function(){
+								$('.order-number').text("Order #："+res.data);
 								$('.payment-page-right-tit').text('完成');
 								$('.payment-page-right-order').show();
 								$('.payment-page-right-pay').hide();
@@ -409,6 +419,8 @@ $(function(){
 								$('.payment-page-right-order-je span').text(busd);
 								$('.payment-page-right-order-by span').text('餘額支付');
 							},1800);
+						}else{
+							error(res.message,1800);
 						}
 					}
 				})
@@ -421,3 +433,41 @@ $(function(){
 	})
 	
 })
+function changenum(e,type){
+	let str = '';
+	if (type == 1) {
+		if (selectarr.length < 2) {
+			tips("至少選擇一件噢~");
+		}else{
+			selectarr.pop();
+		}
+	}
+	if (type == 2) {
+		if (selectarr[selectarr.length - 1] < maxbannum) {
+			if (curUserOwned + selectarr.length >= oneUserCountLimit) {
+				tips('已達到賬號購買數量限制');
+				return;
+			}
+			if (selectarr.length >= onceCountLimit ) {
+				tips('已達到單次購買數量限制');
+				return;
+			}
+			selectarr.push(selectarr[selectarr.length - 1] + 1);
+		}else{
+			if (selectarr.length == 1) {
+				tips('當前剩餘只可選擇1個');
+			}else{
+				tips('已達到最大購買數量');
+			}
+		}
+	}
+	selectarr.forEach((item,index)=>{
+		if (index != 0) {str += '、';}
+		str += item;
+	})
+	$('.hkdPrice').text('HK$ '+moneyFormat(hkdPrice * selectarr.length)+' 港元');
+	$('.busdPrice').text(moneyFormat(busdPrice * selectarr.length)+' BUSD');
+	$(".purchase_num").text(selectarr.length);
+	$('.selectarrnum').text(str);
+	$('.busd-tip').text('-'+busdPrice * selectarr.length);
+}

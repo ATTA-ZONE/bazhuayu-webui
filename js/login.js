@@ -1,6 +1,6 @@
 
 
-function confirm(vtoken){
+function loginconfirm(vtoken){
 	hsycms.confirm('confirm','該郵箱已被注册，但未驗證，去驗證郵箱',
 		function(res){            
 			hsycms.success('success','確認');
@@ -15,7 +15,7 @@ function confirm(vtoken){
 };
 
 //登录
-function logIn(data){
+function logIn(data,url){
 	$.ajax({
 		url:base_url+'/v2/user/login/email',
 		type: 'POST',
@@ -39,7 +39,7 @@ function logIn(data){
 				if(res.data.verified==0){
 					// tips('該郵箱已被注册，但未驗證');
 					// setTimeout(function(){
-					confirm(res.data.verifiedToken);
+					loginconfirm(res.data.verifiedToken);
 					// },1500);
 				}
 				
@@ -54,9 +54,7 @@ function logIn(data){
 
 $(function(){
 	
-	var url = window.location.search;
-	console.log(url)
-	
+	var url = window.location.search;	
 	$('.form-btn-signin').on('click',function(){
 		var isClick = false;
 		var email = $('#email').val().trim();
@@ -74,7 +72,7 @@ $(function(){
 		}
 		
 		if(isClick){
-			logIn(data);
+			logIn(data,url);
 		}
 		
 	})
@@ -99,7 +97,7 @@ $(function(){
 			};
 			
 			if(isClick){
-				logIn(data);
+				logIn(data,url);
 			}
 		}
 	})

@@ -7,7 +7,6 @@ $(function(){
 	$.ajax({
 		url:base_url+'/v2/user/account',
 		success:function(res){
-			console.log(res)
 			if(res.code==0){
 				$('.my-account-name').text(res.data.name);
 				
@@ -62,10 +61,8 @@ $(function(){
 		} else if (exchange == "pwd"){//修改密码
 			
 			if(newPwd.length <=5){
-				console.log("密码最少6位")
 				$(".newPwd-message").css("display","block")
 			} else if (repeatPwd != newPwd){
-				console.log("新密码2次不同")
 				$(".newPwd-message").css("display","none")
 				$(".repeatPwd-message").css("display","block")	
 			}  else {
@@ -85,7 +82,6 @@ $(function(){
 								window.location.href = 'login.html';
 							},1500)
 						}else{
-							console.log("原密码错误")
 							$(".newPwd-message").css("display","none")
 							$(".repeatPwd-message").css("display","none")	
 							$(".oldPwd-message").css("display","block")
