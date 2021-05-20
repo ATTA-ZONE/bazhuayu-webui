@@ -8,7 +8,6 @@ function bindWallet(targetAddress) {
 	        url: '/v2/user/wallet/info',
 	        async: false,
 	        success: function (res) {
-		        // console.log(res)
 		        if (res.code == 0) {
 		            var hintMessage = '';
 		            if (res.data.address != targetAddress) {
@@ -50,7 +49,6 @@ function bindWallet(targetAddress) {
 $.ajax({
 	url: '/v2/auction/list',
 	success: function (res) {
-		console.log(res);
 		if (res.code == 0) {
 			var data = res.data.pageResult.records[0];
 			var geshi = data.primaryPic.substr(data.primaryPic.lastIndexOf('.') + 1);
@@ -78,10 +76,7 @@ function initialization() {
     var chainId = '';
     ethereum.request({ method: 'eth_chainId' })
         .then(function (res) {
-            chainId = web3.utils.hexToNumber(res);
-            console.log(chainId);
-    
-
+            chainId = web3.utils.hexToNumber(res);    
         	// var netVer = netVers[0];
         	if (chainId != targetChainId) {
                 changeNetwork(targetChainId);
@@ -92,19 +87,13 @@ function initialization() {
         	auctionAddress = c_auction[chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
         	var auctionABI = c_auction.abi;
         	
-        	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
-        	console.log(auctionContractInstance);
-        
-        	
+        	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);        
         	// busdAddress 供外界使用
         	var busdAddress = c_ERC20_BUSD[chainId].address;
         	var busdABI = c_ERC20_BUSD.abi;
         	
-        	busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-        	console.log(busdContractInstance);
-        
+        	busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);        
             userBidInfo();
-            
             tokenTypeId = '';
             if (window.location.href.indexOf('bazhuayu.io') == -1) {
                 tokenTypeId = 80000003;
@@ -115,14 +104,10 @@ function initialization() {
         //获取 拍卖的 详情，包括 时间参数，最高价 等设定
             auctionContractInstance.methods._auctions(tokenTypeId).call()
         	    .then(function (res) {
-        		    // console.log(res);
         		    var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
         		    $('.info-busd span').text(tokenTopBid);
         	    });
         });    
-	
-    
-
 }
 
 function userBidInfo() {
@@ -131,7 +116,6 @@ function userBidInfo() {
         .then(function (res) {
             if (res.length > 0) {
                 userAddress = res[0];
-                console.log(res[0]);
             }
         
         
@@ -160,7 +144,6 @@ function userBidInfo() {
 
 
 //是否连接钱包
-// console.log(document.cookie);
 if (typeof window.ethereum !== 'undefined') {
 	// $('#make_offer').data('sign','0');
 	loading();
@@ -177,12 +160,10 @@ if (typeof window.ethereum !== 'undefined') {
 // 	ethereum.request({ method: 'eth_accounts' })
 //         .then(function (res) {
 //             userAddress = res[0];
-//             console.log(res[0]);
 //         })
 
 	function accountsChangedImplement(accounts) {
 // 		if (accounts.length > 0) userAddress = accounts[0];
-// 		console.log(['accountsChanged', accounts]);
 		userBidInfo();
 	}
 
@@ -235,7 +216,6 @@ $('.info-your-busd span').text(userPrice);
 //拍卖
 $('#pay_now').click(function () {
 	var status = $(this).data('status');
-	// console.log(status);
 
 	if (status == 1) { //已连接
 		var price = $('.bid-payment-right-info .info-your-busd span').text().trim();
@@ -246,8 +226,6 @@ $('#pay_now').click(function () {
 		//余额
 		// contract_sq.methods.balanceOf(self_address).call()
 		// .then(function(res){
-		// console.log(res)
-		// console.log(price)
 		// if(Number(price) <= Number(res)){
 
 		//是否授权
@@ -267,7 +245,6 @@ $('#pay_now').click(function () {
 									from: self_address
 								})
 								.then(function (res) {
-									// console.log(res);
 									var price = getWeb3().utils.fromWei(res.events.Bid.returnValues.price, 'ether');
 									loadingHide();
 									success('競價成功', 1800);
@@ -291,7 +268,6 @@ $('#pay_now').click(function () {
 							from: self_address
 						})
 						.then(function (res) {
-							// console.log(res);
 							var price = getWeb3().utils.fromWei(res.events.Bid.returnValues.price, 'ether');
 							loadingHide();
 							success('競價成功', 1800);

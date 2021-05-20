@@ -52,7 +52,6 @@ $(function () {
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
 		success: function (res) {
-			console.log(res)
 			if (res.code == 0) {
 				$('.usdt-rest').text(res.data.usdtRest + ' BUSD');
 				if (res.data.cardNo == null || res.data.cardNo == '') {
@@ -139,9 +138,7 @@ $(function () {
 				}
 				var num = getWeb3().utils.toWei(amount, 'ether');
 				
-				var isWalletConnect = localStorage.getItem('walletconnect');
-				console.log(isWalletConnect);
-				
+				var isWalletConnect = localStorage.getItem('walletconnect');				
 				if(isWalletConnect){
 					CHAIN.WALLET.WalletConnect.provider().enable()
 					.then(function (res) {
@@ -149,15 +146,12 @@ $(function () {
 						
 						$.ajax({
 							url:base_url+'/v2/user/wallet/simpleInfo',
-							success:function(response){
-								// console.log(response);
-								
+							success:function(response){								
 								contract_p.methods.transfer(response.data.cwallet, num).send({     //转账
 									from:response.data.address
 								})
 								.on('transactionHash', function(hash){
 									loadingHide();
-									console.log(['hash',hash]);
 									success('充值成功',1800);
 									setTimeout(function(){
 										tips('預計10秒內到賬');
@@ -168,9 +162,7 @@ $(function () {
 									},1800);
 								}).on('receipt', function(receipt){
 									loadingHide();
-									console.log(['receipt',receipt])
 								}).on('error',function(err){
-									console.log(['error',err]);
 									loadingHide();
 									error('充值失敗',1800);
 									setTimeout(function(){
@@ -186,26 +178,13 @@ $(function () {
 				}else{
 					tips('請連接錢包');
 				}
-
-					
-					
-			
-
-				// const accounts = web3_p.eth.getAccounts();
-				// console.log(accounts)
-
-				// console.log(web3Provider)
-
 				var dd = CHAIN.WALLET.WalletConnect.isConnected();
-				console.log(dd);
-
 			} else if (wallet_type == 'metamask') {
 
 				var amount = $('.modify-ipt input').val().trim();
 				if (amount == '') {
 					amount = '0';
 				}
-				// console.log(amount)
 
 				var num = getWeb3().utils.toWei(amount, 'ether');
 
@@ -214,7 +193,6 @@ $(function () {
 					$.ajax({
 						url: base_url + '/v2/user/wallet/simpleInfo',
 						success: function (res) {
-							// console.log(res)
 							if (res.code == 0) {
 
 								if (res.data.address == null || res.data.address == '') {
@@ -296,7 +274,6 @@ $(function () {
 							window.location.reload();
 						}, 1800)
 					}
-					// console.log(res);
 				}
 			});
 
@@ -349,7 +326,7 @@ $(function () {
 
 		} else if (tit == 'card') {
 
-			console.log(1)
+			console.log('tit == card')
 			
 		}else if(tit == 'dcard'){
 			// $.ajax({

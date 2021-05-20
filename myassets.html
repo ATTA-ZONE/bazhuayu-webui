@@ -102,11 +102,11 @@
 								:href="item.attachment">下載原始文件副本</a></div>
 					</div>
 					<div class="my-assets-right-btn flex">
-						<div v-if="!isConnect" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>
+						<div v-if="!isConnect && mangeStatus(item.mintList) == 0" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet(item)" class="claim">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>
 
-						<div v-if="isConnect && mangeStatus(item.mintList) == 1" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT鑄造中 ( 约7天完成 )</a><div class="claim-tip">當前正在鑄造：第{{getBuildingBsc(item.mintList).join(',')}}版</div><div class="claim-tip" v-if="getBuildedBsc(item.mintList).length > 0" @click="showSelectedNft(item)">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
+						<div v-if="mangeStatus(item.mintList) == 1" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT鑄造中 ( 约7天完成 )</a><div class="claim-tip">當前正在鑄造：第{{getBuildingBsc(item.mintList).join(',')}}版</div><div class="claim-tip" v-if="getBuildedBsc(item.mintList).length > 0" @click="showSelectedNft(item)">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
 
-						<div v-if="isConnect && mangeStatus(item.mintList) == 2" class="flex my-assets-claim-wrap"><a class="claim claim-miting">BSC NFT 鑄造結束</a><div class="claim-tip" @click="showSelectedNft(item)">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
+						<div v-if="mangeStatus(item.mintList) == 2" class="flex my-assets-claim-wrap"><a class="claim claim-miting">BSC NFT 鑄造結束</a><div class="claim-tip" @click="showSelectedNft(item)">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
 
 						<a class="flex eth"><div>鑄造ETH NFT</div><div>(功能準備中)</div></a>						
 					</div>
@@ -148,7 +148,7 @@
 			<div class="nth-con-tip">為了接收您的NFT,您需要先連接錢包。</div>
 			<div class="nth-con-tip" style="color: #9567FF;">如果您不熟悉加密貨幣錢包,請單擊此處</div>
 		</div>
-		<div class="nth-btn"><button type="button" onclick="nftConnect()">立即連接</button></div>
+		<div class="nth-btn"><button type="button" @click="nftConnect">立即連接</button></div>
 	</div>
 	<!-- 已铸造nft -->
 	<div class="hsycms-model-mask" onclick="hsycms.closeAll()" id="mask-model3"></div>

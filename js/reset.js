@@ -24,7 +24,6 @@ $(function(){
 		for(var i = 0; i < url.length; i++){
 			newArr.push(url[i].split('='))
 		};
-		// console.log(newArr);
 		$.each(newArr,function(i,v){
 			if(v[0]=='token'){
 				token = v[1];
@@ -33,8 +32,6 @@ $(function(){
 				code = v[1];
 			}
 		});
-		// console.log(token)
-		// console.log(code)
 		
 		if(newPwd == ''){
 			tips('密碼不能為空');

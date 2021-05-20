@@ -46,8 +46,7 @@ function emailRegister(data) {
 		data: JSON.stringify(data),
 		success: function (res) {
 			loadingHide();
-			console.log(res);
-			// console.log(data)
+			
 			if (res.code == 0) {
 				var token = res.data.verifiedToken;
 				setTimeout(function () {
@@ -55,7 +54,6 @@ function emailRegister(data) {
 				}, 500)
 			} else {
 				tips(res.message);
-				// console.log(res);
 			}
 		}
 	})
@@ -169,10 +167,8 @@ $(function () {
 								email: email
 							}),
 							success: function (res) { // console.log(res);
-								// console.log(res.data.code)//邀請碼
 								// var inviteCode = res.data.code;
 								var code = res.data.emailStatus;
-								// console.log(code)
 								if (code == 0) {
 									loading();
 									emailRegister(data);
