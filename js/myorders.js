@@ -46,9 +46,7 @@ function getOrderList(current,pageSize){
 	$.ajax({
 		url:base_url+'/v2/order/list',
 		data:{current:current,pageSize:pageSize},
-		success:function(res){
-			console.log(res);
-			
+		success:function(res){			
 			if(res.code==0){
 				var data = res.data.pageResult.records;
 				var html = ``;
@@ -405,7 +403,6 @@ $(function(){
 		var value = $(this).text().trim();
 		var orderNo = $('.order-number').text().trim().split(' ')[2];
 		var busd = $('.order-price .order-price-busd').text().trim();
-		console.log(text)
 		if(text=='CRYPTO'){
 			if(value=='Pay Now'){
 				$.ajax({
@@ -415,7 +412,6 @@ $(function(){
 					dataType: 'json',
 					data:JSON.stringify({orderNo:orderNo}),
 					success:function(res){
-						console.log(res);
 						if(res.code==0){
 							success('支付成功',1800);
 							setTimeout(function(){

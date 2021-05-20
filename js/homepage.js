@@ -5,7 +5,6 @@ $(function () {
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function (res) {
-			console.log(res)
 			if (res.code == 0) {
 				let data = res.data;
 				let banners = data.banners;

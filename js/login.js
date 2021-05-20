@@ -54,9 +54,7 @@ function logIn(data,url){
 
 $(function(){
 	
-	var url = window.location.search;
-	console.log(url)
-	
+	var url = window.location.search;	
 	$('.form-btn-signin').on('click',function(){
 		var isClick = false;
 		var email = $('#email').val().trim();
