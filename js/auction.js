@@ -393,6 +393,7 @@ if (typeof window.ethereum !== 'undefined') {
 	accountsChangedAssign(accountsChangedImplement);
 
 } else {
+	alert(getCookie('isConnect'))
 	if (getCookie('isConnect') == false) {
 		$('#make_offer').data('sign', '4');
 		var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
