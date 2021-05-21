@@ -282,7 +282,7 @@ html {
 	position:absolute;
 	left:0;
 	top:70px;
-	z-index:96;
+	z-index:1000;
 	box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
 }
 
@@ -4005,4 +4005,20 @@ html {
 }
 .my-orders-status .countmoneybox .countetcbox{
 	margin-left: 10px;
+}
+.switchlanguagebox{
+	font-weight: 600;
+	font-size: 14px;
+	margin-left: 32px;
+	color: #fff;
+}
+.switchlanguagebox .separate{
+	margin: 0 16px;
+}
+.switchlanguagebox a{
+	color: #fff;
+	cursor: pointer;
+}
+.switchlanguage_mobile a{
+	width: auto !important;
 }
