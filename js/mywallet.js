@@ -73,7 +73,7 @@ $(function () {
 						if (res.data.address == null || res.data.address == '') {
 							$('.walletconnect-wallet .wallet-address').text('---')
 						} else {
-							$('.walletconnect-wallet .wallet-address').text(res.data.address)
+							$('.walletconnect-wallet .wallet-address').text("当前钱包地址："+res.data.address)
 						}
 						
 					} else if(res.data.walletType == "METAMASK") {
