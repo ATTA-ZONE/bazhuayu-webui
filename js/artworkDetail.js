@@ -186,7 +186,7 @@ $(function(){
 				}
 				// $('.order-img img').attr('src',res.data.primaryPic);
 				$('.order-title').text(res.data.name);
-				$('.order-price-hdk').text('HK$ '+moneyFormat(res.data.hkdPrice)+' 港元');
+				$('.order-price-hdk').text('HK$ '+moneyFormat(res.data.hkdPrice)+' ');
 				$('.order-price-busd').text(moneyFormat(res.data.price)+' BUSD');
 				
 				if(res.data.name=='徐冬冬 牛N.X潮玩 NFT限量版'){
@@ -465,7 +465,7 @@ function changenum(e,type){
 		if (index != 0) {str += '、';}
 		str += item;
 	})
-	$('.hkdPrice').text('HK$ '+moneyFormat(hkdPrice * selectarr.length)+' 港元');
+	$('.hkdPrice').text('HK$ '+moneyFormat(hkdPrice * selectarr.length)+' ');
 	$('.busdPrice').text(moneyFormat(busdPrice * selectarr.length)+' BUSD');
 	$(".purchase_num").text(selectarr.length);
 	$('.selectarrnum').text(str);

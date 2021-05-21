@@ -89,7 +89,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` 港元</span>
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 									</div>`;
 							
 							html +=`<div class="bzy-e-list-info-sale flex">
@@ -109,7 +109,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` 港元</span>
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
 										<span>預售</span>
@@ -131,7 +131,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` 港元</span>
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 									</div>`;
 									
 							html +=`
@@ -147,7 +147,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` 港元</span>
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
 										<span>銷售已結束</span>
