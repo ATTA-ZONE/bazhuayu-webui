@@ -187,7 +187,7 @@ $(function(){
 				// $('.order-img img').attr('src',res.data.primaryPic);
 				$('.order-title').text(res.data.name);
 				$('.order-price-hdk').text('HK$ '+moneyFormat(res.data.hkdPrice)+' ');
-				$('.order-price-busd').text(moneyFormat(res.data.price)+' BUSD');
+				$('.order-price-busd').text('BUSD '+moneyFormat(res.data.price));
 				
 				if(res.data.name=='徐冬冬 牛N.X潮玩 NFT限量版'){
 					res.data.edition = 200;
@@ -271,7 +271,7 @@ $(function(){
 					url:base_url+'/v2/user/wallet/info',
 					success:function(result){
 						if(result.code==0){
-							$('.busd-ye').text(result.data.usdtRest+' BUSD');
+							$('.busd-ye').text('BUSD '+result.data.usdtRest);
 							if(res.data.price > result.data.usdtRest){
 								$('.busd-tip').text('餘額不足');
 							}else{
@@ -466,7 +466,7 @@ function changenum(e,type){
 		str += item;
 	})
 	$('.hkdPrice').text('HK$ '+moneyFormat(hkdPrice * selectarr.length)+' ');
-	$('.busdPrice').text(moneyFormat(busdPrice * selectarr.length)+' BUSD');
+	$('.busdPrice').text('BUSD '+moneyFormat(busdPrice * selectarr.length));
 	$(".purchase_num").text(selectarr.length);
 	$('.selectarrnum').text(str);
 	$('.busd-tip').text('-'+busdPrice * selectarr.length);
