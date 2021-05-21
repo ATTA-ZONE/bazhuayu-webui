@@ -221,6 +221,9 @@ $(function(){
 			if(res.code==0){
 				$('.header-right-wallet').show();
 				$('.mobile-connect-wallet').show();
+			}else if (res.code==1002 && islogin) {
+				document.cookie="islogin=false";
+				window.location.href = 'index.html';
 			}else{
 				$('.header-right-wallet').hide();
 				$('.mobile-connect-wallet').hide();
