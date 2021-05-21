@@ -111,7 +111,7 @@ function getOrderList(current,pageSize){
 							// 			</div>
 							// 			<div class="my-orders-status-payment">
 							// 				<div class="payment-tit">付款金額</div>
-							// 				<div class="payment-price"><span data-price="`+v.payPriceHkd+`">HK$ `+moneyFormat(v.payPriceHkd)+` </span><span data-price="`+v.payPriceUsdt+`">`+moneyFormat(v.payPriceUsdt)+` BUSD</span></div>
+							// 				<div class="payment-price"><span data-price="`+v.payPriceHkd+`">HK$ `+moneyFormat(v.payPriceHkd)+` </span><span data-price="`+v.payPriceUsdt+`">`+' BUSD'+moneyFormat(v.payPriceUsdt)+` </span></div>
 							// 			</div>
 							// 		</div>
 							// 		<div class="my-orders-btn flex">
@@ -129,7 +129,7 @@ function getOrderList(current,pageSize){
 										
 								// html +=	`<div class="my-orders-status-payment">
 								// 			<div class="payment-tit">付款金額</div>
-								// 			<div class="payment-price">`+moneyFormat(v.payPriceUsdt)+` BUSD</div>
+								// 			<div class="payment-price">`+' BUSD'+moneyFormat(v.payPriceUsdt)`</div>
 								// 		</div>
 								// 	</div>`;
 							}else{
@@ -156,7 +156,7 @@ function getOrderList(current,pageSize){
 									<div class="countmoneybox">
 									<p class="moneryridebox">
 										單價：
-										<span class="order-price-busd">`+moneyFormat(v.unitPriceUsdt)+` BUSD</span>
+										<span class="order-price-busd">'BUSD '`+moneyFormat(v.unitPriceUsdt)+` </span>
 									</p>
 									<p class="countetcbox">
 										<img src="./images/multiply.png" alt="">
@@ -164,7 +164,7 @@ function getOrderList(current,pageSize){
 										=
 									</p>
 								</div>
-								<p class="purchaseprice">購買價格 : `+moneyFormat(v.payPriceUsdt)+` BUSD </p>`
+								<p class="purchaseprice">購買價格 : 'BUSD '+`+moneyFormat(v.payPriceUsdt)+` </p>`
 						}
 						if (v.payMethod == 2) {
 							html +=`<div class="paymenttypebox">支付方式：<span>銀行卡支付</span></div>
@@ -247,15 +247,15 @@ function payNow(obj){
 	$('.order-img').html(img);
 	$('.details-right-creator-edition').text('Edition '+edition+' of '+storage);
 	$('.order-price-hdk').text('HK$ '+moneyFormat(payPriceHkd)+' ');
-	$('.order-price-busd').text(moneyFormat(payPriceUsdt)+' BUSD');
+	$('.order-price-busd').text('BUSD '+moneyFormat(payPriceUsdt));
 	$('.order-number span').text(orderNo.split(' ')[2]);
-	$('.payment-page-right-order-je span').text(moneyFormat(payPriceUsdt)+' BUSD');
+	$('.payment-page-right-order-je span').text('BUSD '+moneyFormat(payPriceUsdt));
 	
 	$.ajax({
 		url:base_url+'/v2/user/wallet/info',
 		success:function(result){
 			if(result.code==0){
-				$('.busd-ye').text(moneyFormat(result.data.usdtRest)+' BUSD');
+				$('.busd-ye').text('BUSD '+moneyFormat(result.data.usdtRest));
 				if(Number(payPriceUsdt) > Number(result.data.usdtRest)){
 					$('.busd-tip').text('餘額不足');
 				}else{
