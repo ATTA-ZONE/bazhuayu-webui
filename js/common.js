@@ -7,6 +7,12 @@ url = url.substring(0,url.indexOf('.'));
 // var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
+var islogin;
+if (getCookie('islogin') != 'false') {
+	islogin = getCookie('islogin');
+}else{
+	islogin = false;
+}
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	base_url = 'http://localhost:8081';
 	if (window.location.href.indexOf('47.118.74.48:') > -1) {
@@ -220,9 +226,14 @@ $(function(){
 	$.ajax({
 		url:base_url+'/v2/user/wallet/info',
 		success:function(res){
+			debugger
+			console.log("islogin-----"+islogin);
 			if(res.code==0){
 				$('.header-right-wallet').show();
 				$('.mobile-connect-wallet').show();
+			}else if (res.code==1002 && islogin) {
+				document.cookie="islogin=false";
+				window.location.href = 'index.html';
 			}else{
 				$('.header-right-wallet').hide();
 				$('.mobile-connect-wallet').hide();
