@@ -4021,3 +4021,6 @@ html {
 .switchlanguage_mobile a{
 	width: auto !important;
 }
+.switchlanguage_mobile, .switchlanguagebox {
+	display: none;
+}
