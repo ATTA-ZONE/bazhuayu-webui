@@ -111,7 +111,7 @@ function getOrderList(current,pageSize){
 							// 			</div>
 							// 			<div class="my-orders-status-payment">
 							// 				<div class="payment-tit">付款金額</div>
-							// 				<div class="payment-price"><span data-price="`+v.payPriceHkd+`">HK$ `+moneyFormat(v.payPriceHkd)+` 港元</span><span data-price="`+v.payPriceUsdt+`">`+moneyFormat(v.payPriceUsdt)+` BUSD</span></div>
+							// 				<div class="payment-price"><span data-price="`+v.payPriceHkd+`">HK$ `+moneyFormat(v.payPriceHkd)+` </span><span data-price="`+v.payPriceUsdt+`">`+moneyFormat(v.payPriceUsdt)+` BUSD</span></div>
 							// 			</div>
 							// 		</div>
 							// 		<div class="my-orders-btn flex">
@@ -139,7 +139,7 @@ function getOrderList(current,pageSize){
 								// 		</div>
 								// 		<div class="my-orders-status-payment">
 								// 			<div class="payment-tit">付款金額</div>
-								// 			<div class="payment-price">HK$ `+moneyFormat(v.payPriceHkd)+` 港元</div>
+								// 			<div class="payment-price">HK$ `+moneyFormat(v.payPriceHkd)+` </div>
 								// 		</div>
 								// 	</div>`;
 							};
@@ -179,7 +179,7 @@ function getOrderList(current,pageSize){
 										=
 									</p>
 								</div>
-								<p class="purchaseprice">購買價格 : HK$`+moneyFormat(v.payPriceHkd)+` 港元 </p>`
+								<p class="purchaseprice">購買價格 : HK$`+moneyFormat(v.payPriceHkd)+`  </p>`
 						}
 						
 											
@@ -246,7 +246,7 @@ function payNow(obj){
 	$('.order-title').text(name);
 	$('.order-img').html(img);
 	$('.details-right-creator-edition').text('Edition '+edition+' of '+storage);
-	$('.order-price-hdk').text('HK$ '+moneyFormat(payPriceHkd)+' 港元');
+	$('.order-price-hdk').text('HK$ '+moneyFormat(payPriceHkd)+' ');
 	$('.order-price-busd').text(moneyFormat(payPriceUsdt)+' BUSD');
 	$('.order-number span').text(orderNo.split(' ')[2]);
 	$('.payment-page-right-order-je span').text(moneyFormat(payPriceUsdt)+' BUSD');
