@@ -226,7 +226,6 @@ $(function(){
 	$.ajax({
 		url:base_url+'/v2/user/wallet/info',
 		success:function(res){
-			console.log("islogin-----"+islogin);
 			if(res.code==0){
 				$('.header-right-wallet').show();
 				$('.mobile-connect-wallet').show();
