@@ -393,8 +393,9 @@ if (typeof window.ethereum !== 'undefined') {
 	accountsChangedAssign(accountsChangedImplement);
 
 } else {
-	$('#make_offer').data('sign', '4');
-	var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
-				<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
-	alert(html);
+	alert(getCookie('isConnect'))
+	// $('#make_offer').data('sign', '4');
+	// var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
+	// 			<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
+	// alert(html);
 }
