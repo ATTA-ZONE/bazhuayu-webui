@@ -4006,3 +4006,19 @@ html {
 .my-orders-status .countmoneybox .countetcbox{
 	margin-left: 10px;
 }
+.switchlanguagebox{
+	font-weight: 600;
+	font-size: 14px;
+	margin-left: 32px;
+	color: #fff;
+}
+.switchlanguagebox .separate{
+	margin: 0 16px;
+}
+.switchlanguagebox a{
+	color: #fff;
+	cursor: pointer;
+}
+.switchlanguage_mobile a{
+	width: auto !important;
+}
