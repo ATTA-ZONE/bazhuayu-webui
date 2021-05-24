@@ -172,7 +172,10 @@ function cancel(){
 }
 
 function cancelMobile(){
+	// 原代码
 	$('.modify').removeClass('modify-tc-active');
+	// 修复手机端无法关闭的代码
+	$('.modify').hide();
 	$.each($('.modify input'),function(i,v){
 		$(v).val('');
 	})

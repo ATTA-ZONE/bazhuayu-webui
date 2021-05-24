@@ -614,12 +614,13 @@
 	.modify-tit img{
 		display:block;
 	}
-	.modify{
+	/* 源代码，修复手机端删除按钮没反应bug需要注销该样式 */
+	/* .modify{
 		top:auto;
 		bottom:-100%;
 		display:block;
 		transition:all 0.3s;
-	}
+	} */
 	.modify-tc-active{
 		bottom:0;
 	}
