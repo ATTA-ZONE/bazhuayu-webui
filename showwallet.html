@@ -70,8 +70,8 @@
 				<div class="modify-btn flex">
 					<button v-if="status == 1" class="add modify-btn-active " type="button" onclick="walletaddressreplace()">{{btn1name}}</button>
 					<button v-if="status == 1" class="cancel cancel-mobile del" type="button" @click="clickdelete()">{{btn2name}}</button>
-					<button v-if="status == 2" class="add modify-btn-active delbg" type="button" onclick="walletaddressreplace()">{{btn2name}}</button>
-					<button v-if="status == 2" class="cancel cancel-mobile" type="button" @click="clickdelete()">取消</button>
+					<button v-if="status == 2" class="add modify-btn-active delbg" type="button" @click="clickdelete2()">{{btn2name}}</button>
+					<button v-if="status == 2" class="cancel cancel-mobile" type="button" @click="closebtn()">{{btn3name}}</button>
 				</div>
 				<div class="modify-btn-tips"></div>
 				<div class="modify-close" @click="closebtn()"><img src="./images/Close.png" ></div>

@@ -51,6 +51,26 @@ var app = new Vue({
 		clickdelete(){
 			this.status = 2;
 			deleteWallet();
+			setTimeout(() => {
+				$('.cancel-mobile').text('取消');
+			}, 300);
+		},
+		clickdelete2(){
+			var that = this;
+			$.ajax({
+				url: base_url + '/v2/user/wallet/delete',
+				type: 'POST',
+				dataType: 'json',
+				success: function (res) {
+					if (res.code == 0) {
+						success('删除成功', 1800);
+						document.cookie = "isConnect=false";
+						setTimeout(function () {
+							that.closebtn();
+						}, 1800)
+					}
+				}
+			});
 		}
 	}
 });
