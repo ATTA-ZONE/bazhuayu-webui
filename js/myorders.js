@@ -164,7 +164,7 @@ function getOrderList(current,pageSize){
 										=
 									</p>
 								</div>
-								<p class="purchaseprice">購買價格 : BUSD +`+moneyFormat(v.payPriceUsdt)+` </p>`
+								<p class="purchaseprice">購買價格 : BUSD `+moneyFormat(v.payPriceUsdt)+` </p>`
 						}
 						if (v.payMethod == 2) {
 							html +=`<div class="paymenttypebox">支付方式：<span>銀行卡支付</span></div>
