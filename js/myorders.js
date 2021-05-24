@@ -179,7 +179,7 @@ function getOrderList(current,pageSize){
 										=
 									</p>
 								</div>
-								<p class="purchaseprice">購買價格 : HK$`+moneyFormat(v.payPriceHkd)+`  </p>`
+								<p class="purchaseprice">購買價格 : HK$ `+moneyFormat(v.payPriceHkd)+`  </p>`
 						}
 						
 											
