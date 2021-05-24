@@ -247,8 +247,8 @@ $(function(){
 		
 	}else{
 		setTimeout(function(){
-			$('.header-right-wallet').html('<span>連接錢包</span>');
-			$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a>');
+			$('.header-right-wallet').html('<span>未連接錢包</span>');
+			$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a>');
 		},200)
 	
 	}
@@ -268,8 +268,8 @@ $(function(){
 						if(walletconnect==null){
 							clearInterval(t);
 							isWalletConnect = false;
-							$('.header-right-wallet').html('<span>連接錢包</span>');
-							$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">連接錢包</a>');
+							$('.header-right-wallet').html('<span>未連接錢包</span>');
+							$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a>');
 						}
 					},200)
 				}
