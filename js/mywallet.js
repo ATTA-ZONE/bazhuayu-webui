@@ -116,6 +116,7 @@ $(function () {
 
 	//发送交易请求
 	$('.modify-btn-active').click(function (e) {
+		debugger
 		var tit = $('.modify-tit').data('type');
 
 
@@ -337,6 +338,8 @@ $(function () {
 			// 		console.lo9g(res)
 			// 	}
 			// })
+		}else if (tit == '') {
+			
 		}
 	});
 

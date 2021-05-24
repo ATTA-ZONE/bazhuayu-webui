@@ -75,9 +75,16 @@ function headIconHide(){
 	$('.menu-list2').removeClass('menu-list-show');
 	$('video').removeClass('video-hidden');
 }
-$('.modify-btn-active.walletaddress-replace').on('click',function(){
-	debugger
-})
+function walletaddressreplace(){
+	window.location.href = 'connectWallet.html';
+}
+function walletaddressdelete(){
+	$('.modify-btn-active').removeClass('walletaddress-replace');
+	$('.cancel').removeClass('walletaddress-delete');
+	$('.cancel').text('取消');
+	$('.modify-tips').hide();
+	deleteWallet();
+}
 
 $(function(){
 	$(".headerpage").load("header.html");
@@ -244,9 +251,8 @@ $(function(){
 	
 	if(getCookie('isConnect')=='true'){
 		setTimeout(function(){
-			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show" onclick="showwalletaddress()">已連接錢包</span>');
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0); onclick="showwalletaddress()">已連接錢包</a>');
-			$('.header-right-wallet')
+			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span>');
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a>');
 		},200)
 		
 	}else{
@@ -282,8 +288,19 @@ $(function(){
 		}
 	})
 
-
+	$('.header-right-wallet').click(function(e){
+		if (e.target.textContent == "已連接錢包") {
+			window.location.href  = 'showwallet.html';
+		}
+	})
 
 
 
 })
+function showwalletaddress(e){
+	if (e.target.textContent == "已連接錢包") {
+		window.location.href  = 'showwallet.html';
+	}else{
+		connectWallet();
+	}
+}

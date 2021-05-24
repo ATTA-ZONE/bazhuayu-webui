@@ -306,6 +306,7 @@ function linksuccessful(){
 // show wallet address
 function showwalletaddress(){
 	$('.modify-tit span').text('當前錢包地址如下：');
+	$('.modify-tit').data('type','walletaddress-replace');
 	var html = `<div class="modify-ipt-add" style="display: flex; align-items: center;">`;
 	if (localStorage.getItem('walletconnect')) {
 		html += `<img src="./images/WalletConnect.png" alt=""><span style="color: #fff;font-size: 16px;margin-left: 12px;">WalletConnect：</span>`
@@ -328,7 +329,6 @@ function showwalletaddress(){
 	$('.cancel').addClass('walletaddress-delete');
 	$('.modify').fadeIn();
 }
-
 //change email
 function changeEmail(){
 	// $('.modify-tit span').text('Change Email');
