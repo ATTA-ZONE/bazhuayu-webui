@@ -64,7 +64,7 @@ var app = new Vue({
 			if (content === 'desc') {
 				return item.introduce == '' ? str : item.introduce.replace(/;\|;/g, '<br/>')
 			} else {
-				return item.content == '' ? str : item.introduce.replace(/;\|;/g, '<br/>')
+				return item.content == '' ? str : item.content.replace(/;\|;/g, '<br/>')
 			}
 		},
 		toggleMoreInfo(idx) {
