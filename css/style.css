@@ -121,7 +121,7 @@ html {
 }
 
 .header-left ul {
-	width: 220px;
+	width: 180px;
 	justify-content: space-between;
 }
 
@@ -903,12 +903,11 @@ html {
 }
 
 .footer-right-links {
-	width: 48%;
+	width: 33.33%;
 	flex-direction: column;
 }
-
 .footer-right-follow {
-	width: 48%;
+	width: 33.33%;
 	flex-direction: column;
 }
 
@@ -4021,4 +4020,7 @@ html {
 }
 .switchlanguage_mobile a{
 	width: auto !important;
+}
+.switchlanguage_mobile, .switchlanguagebox {
+	display: none;
 }

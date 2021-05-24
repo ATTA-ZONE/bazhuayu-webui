@@ -62,9 +62,7 @@ function logoutConfirm(){
 				})
 			},1500)
 		},
-		function(res){
-			hsycms.error('error','取消');
-		},
+		function(){},
 	)
 };
 

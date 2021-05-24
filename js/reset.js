@@ -37,8 +37,8 @@ $(function(){
 			tips('密碼不能為空');
 			canClick = false;
 			
-		}else if(newPwd.length < 6){
-			tips('密碼長度不能低於6');
+		}else if(newPwd.length < 8){
+			tips('密碼長度不能低於8');
 			canClick = false;
 			
 		}else if(newPwd != repeatPwd){

@@ -53,7 +53,7 @@ $(function () {
 		url: base_url + '/v2/user/wallet/info',
 		success: function (res) {
 			if (res.code == 0) {
-				$('.usdt-rest').text(res.data.usdtRest + ' BUSD');
+				$('.usdt-rest').text('BUSD '+res.data.usdtRest);
 				if (res.data.cardNo == null || res.data.cardNo == '') {
 					$('.cardNo').text('---');
 					$('.hideenbtn').hide();
@@ -73,7 +73,7 @@ $(function () {
 						if (res.data.address == null || res.data.address == '') {
 							$('.walletconnect-wallet .wallet-address').text('---')
 						} else {
-							$('.walletconnect-wallet .wallet-address').text(res.data.address)
+							$('.walletconnect-wallet .wallet-address').text("当前钱包地址："+res.data.address)
 						}
 						
 					} else if(res.data.walletType == "METAMASK") {
@@ -86,7 +86,7 @@ $(function () {
 						if (res.data.address == null || res.data.address == '') {
 							$('.metamask-wallet .wallet-address').text('---')
 						} else {
-							$('.metamask-wallet .wallet-address').text(res.data.address)
+							$('.metamask-wallet .wallet-address').text("当前钱包地址："+res.data.address)
 						}
 						
 					}else{
