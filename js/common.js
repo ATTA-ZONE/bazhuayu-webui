@@ -75,9 +75,9 @@ function headIconHide(){
 	$('.menu-list2').removeClass('menu-list-show');
 	$('video').removeClass('video-hidden');
 }
-function walletaddressreplace(){
+$('.modify-btn-active.walletaddress-replace').on('click',function(){
 	debugger
-}
+})
 
 $(function(){
 	$(".headerpage").load("header.html");
@@ -280,13 +280,6 @@ $(function(){
 			}
 			
 		}
-	})
-	
-	$('.walletaddress-replace').on('click',function(){
-		debugger
-	})
-	$('.walletaddress-delete').on('click',function(){
-		debugger
 	})
 
 

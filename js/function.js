@@ -326,8 +326,6 @@ function showwalletaddress(){
 	$('.cancel').text('刪除');
 	$('.modify-btn-active').addClass('walletaddress-replace');
 	$('.cancel').addClass('walletaddress-delete');
-	$('.modify-btn-active').attr('onclick',walletaddressreplace());
-	$('.cancel').attr('onclick',walletaddressdelete());
 	$('.modify').fadeIn();
 }
 
