@@ -306,14 +306,15 @@ $(".metamask").click(function (e) {
 				data: JSON.stringify(data),
 				success: function (res) {
 					loadingHide();
-					if (res.code == 0) {
-						success('連接成功', 1800);
-						setTimeout(function () {
-							window.location.href = document.referrer;
-						}, 1800);
-					} else {
-						// error('連接失敗',1800);
-					}
+					linksuccessful();
+					// if (res.code == 0) {
+					// 	success('連接成功', 1800);
+					// 	setTimeout(function () {
+					// 		window.location.href = document.referrer;
+					// 	}, 1800);
+					// } else {
+					// 	// error('連接失敗',1800);
+					// }
 				}
 			});
 
@@ -332,3 +333,6 @@ $(".metamask").click(function (e) {
 
 
 });
+$(".connectWalletpage .modify-btn-active,.connectWalletpage .modify-close").click(function(){
+	window.location.href = document.referrer;
+})

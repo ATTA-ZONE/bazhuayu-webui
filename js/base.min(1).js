@@ -58,7 +58,7 @@
 				localStorage.removeItem(r),cookie(r,null),cookie('TOKEN',null),localStorage.removeItem('walletconnect');
 				if(f)top.location.reload();
 			},
-			handleAccountsChanged:function(accounts){
+			handleAccountsChanged:function(accounts,c){
 				var addr=accounts[0].toLocaleLowerCase();
 				localStorage.setItem(this.__wallet__,addr);
 				window.setTimeout(function(){
@@ -75,7 +75,11 @@
 						success:function(res){
 							if(res.code==0){
 								document.cookie="isConnect=true";
-								window.location.href = document.referrer;
+								if (c) {
+									c();
+								}else{
+									window.location.href = document.referrer;
+								}
 							}else{
 								tips(res.message)
 							}
@@ -97,7 +101,7 @@
 					
 				},500);
 			},
-			handleChainChanged:function(chainId){
+			handleChainChanged:function(chainId,c){
 				if(typeof(chainId)==='number')chainId=chainId.toFixed(0);
 				var code=chainId,address=CHAIN.WALLET.walletAddress();
 				if(chainId.indexOf('0x')>=0)code=parseInt(chainId.substring(2),16);
@@ -114,7 +118,7 @@
 						// 	top.location.reload()
 						// }
 						if(top.location.pathname==='/mobile/tc/connectWallet.html'){
-							CHAIN.WALLET.handleAccountsChanged([address])
+							CHAIN.WALLET.handleAccountsChanged([address],c)
 						}else{
 							top.location.reload()
 						}
@@ -219,13 +223,14 @@
 					var th=this,provider=th.provider();
 					provider.chainId=null;
 					provider.enable().then(function(accounts){
+						debugger
 						var wallet=CHAIN.WALLET.__wallet__,addr=accounts[0].toLocaleLowerCase();
 						localStorage.setItem(wallet,addr),cookie(wallet,th.name,1000,'/','index.html');
-						if(c){
-							c(provider,addr,provider.chainId)
-						}else{
-							CHAIN.WALLET.handleChainChanged(provider.chainId);
-						}
+						// if(c){
+						// 	c(provider,addr,provider.chainId)
+						// }else{
+							CHAIN.WALLET.handleChainChanged(provider.chainId,c);
+						// }
 					}).catch(function(er) {
 						if(er.message==='User closed modal'){
 							th.__provider=null;

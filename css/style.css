@@ -3111,6 +3111,17 @@ html {
 	line-height: 22px;
 	color: rgba(255, 255, 255, 0.4);
 }
+.modify-tips-content{
+	color: rgba(255, 56, 56, 0.92);
+    font-size: 12px;
+    position: relative;
+    top: 10px;
+}
+.modify-btn-tips-content{
+	font-size: 10px;
+    color: rgba(255,255,255,0.82);
+    margin-top: 5px;
+}
 
 .modify-btn {
 	margin-top: 32px;

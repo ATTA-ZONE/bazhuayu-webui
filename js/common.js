@@ -241,14 +241,15 @@ $(function(){
 	
 	if(getCookie('isConnect')=='true'){
 		setTimeout(function(){
-			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span>已連接錢包</span>');
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a>');
+			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show" onclick="showwalletaddress()">已連接錢包</span>');
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0); onclick="showwalletaddress()">已連接錢包</a>');
+			$('.header-right-wallet')
 		},200)
 		
 	}else{
 		setTimeout(function(){
-			$('.header-right-wallet').html('<span>未連接錢包</span>');
-			$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a>');
+			$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span>未連接錢包</span>');
+			$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a>');
 		},200)
 	
 	}
@@ -268,8 +269,8 @@ $(function(){
 						if(walletconnect==null){
 							clearInterval(t);
 							isWalletConnect = false;
-							$('.header-right-wallet').html('<span>未連接錢包</span>');
-							$('.mobile-connect-wallet').html('<a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a>');
+							$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span>未連接錢包</span>');
+							$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a>');
 						}
 					},200)
 				}
@@ -278,7 +279,12 @@ $(function(){
 		}
 	})
 	
+	$('.walletaddress-replace').on('click',function(){
+		
+	})
+	$('.walletaddress-delete').on('click',function(){
 
+	})
 
 
 

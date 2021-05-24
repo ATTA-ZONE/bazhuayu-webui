@@ -283,6 +283,48 @@ function changeName(){
 	$('.modify-btn-active').text('儲存');
 	// $('.modify').fadeIn();
 }
+// link successful
+function linksuccessful(){
+	$('.modify-tit span').text('您成功登記了一個錢包');
+	var html = ``;
+	html += `<div class="modify-ipt-add">
+				<div class="modify-ipt-tit">`+(address==null?'請連接錢包':'錢包地址：'+address)+`</div>
+			</div>`;
+			
+	$('.modify-ipt').html(html);
+	$('.modify-tips').html(`<span class="modify-tips-content">請註意：您購買的NFT資產只會發放至當前登記的錢包</span>`);
+	$('.modify-btn-tips').html(`<span class="modify-btn-tips-content">（ 如果您想使用其他錢包，請點擊右上角“已連接錢包”進行更換 ）</span>`);
+	$('.modify-btn-active').addClass('add');
+	$('.modify-btn-active').removeClass('delete');
+	$('.modify-btn-active').text('知道了');
+	$('.cancel').hide();
+	$('.modify').fadeIn();
+}
+// show wallet address
+function showwalletaddress(){
+	$('.modify-tit span').text('當前錢包地址如下：');
+	var html = `<div class="modify-ipt-add" style="display: flex; align-items: center;">`;
+	if (localStorage.getItem('walletconnect')) {
+		html += `<img src="./images/WalletConnect.png" alt=""><span style="color: #fff;font-size: 16px;margin-left: 12px;">WalletConnect：</span>`
+	}else{
+		html += `<img src="./images/Metamask.png" alt=""><span style="color: #fff;font-size: 16px;">Metamask：</span>`
+	}
+	html += `
+				<span class="modify-ipt-tit" style="font-size: 12px;">`+address+`</span>
+			</div>`;
+			
+	$('.modify-ipt').html(html);
+	$('.modify-tips').html(`<span class="modify-tips-content">當前購買的所有NFT資產將會發送至以上錢包地址</span>`);
+	$('.modify-btn-active').addClass('add');
+	$('.modify-btn-active').removeClass('delete');
+	$('.modify-btn-active').text('更換');
+	$('.cancel').css('color','#CB5252');
+	$('.cancel').css('borderColor','#CB5252');
+	$('.cancel').text('刪除');
+	$('.modify-btn-active').addClass('walletaddress-replace');
+	$('.cancel').addClass('walletaddress-delete');
+	$('.modify').fadeIn();
+}
 
 //change email
 function changeEmail(){
@@ -386,7 +428,7 @@ function connectWallet(){
 		success:function(res){
 			if(res.code==0){
 				var text = $('.header-right-wallet').text().trim();
-				if(text=='連接錢包'){
+				if(text=='未連接錢包'){
 					window.location.href = 'connectWallet.html';
 				}else{
 					tips('已連接');
