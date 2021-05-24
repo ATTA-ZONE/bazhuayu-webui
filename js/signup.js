@@ -87,14 +87,20 @@ function toggleLoginStatus() {
 	var result2 = regExp.test(pwd2)
 
 	if (result1 && pwd) {
+		$('.password-icon1').show();
+		$('.pswerror').hide();
 		$('.password-icon1').attr('src','./images/pass.png')
 	} else {
+		$('.password-icon1').show();
+		$('.pswerror').show();
 		$('.password-icon1').attr('src','./images/refuse.png')
 	}
 
 	if (result2 && pwd === pwd2) {
+		$('.password-icon2').show();
 		$('.password-icon2').attr('src','./images/pass.png')
 	} else {
+		$('.password-icon2').show();
 		$('.password-icon2').attr('src','./images/refuse.png')
 	}
 
