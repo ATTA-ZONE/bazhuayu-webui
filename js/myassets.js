@@ -60,7 +60,7 @@ var app = new Vue({
 			})
 			return status
 		},
-		getIntroduce(item, str) {
+		getIntroduce(item,content, str) {
 			if (content === 'desc') {
 				return item.introduce == '' ? str : item.introduce.replace(/;\|;/g, '<br/>')
 			} else {

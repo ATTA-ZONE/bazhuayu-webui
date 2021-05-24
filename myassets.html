@@ -89,12 +89,12 @@
 						<div class="my-assets-right-creator-edition">當前持有第<font style="color:#9567FF">{{getAllBsc(item.mintList).join(',')}}</font>版，共{{item.endEdition}}版</div>
 					</div>
 					<div class="details-right-des-tit">商品描述</div>
-					<div class="details-right-des" v-html="getIntroduce(item,'暫無介紹')">
+					<div class="details-right-des" v-html="getIntroduce(item,'desc','暫無介紹')">
 					</div>
 					<div class="details-right-additional">
 						<p class="details-right-additional-show" @click="toggleMoreInfo(idx)">更多信息 <span>+</span>
 						</p>
-						<p class="details-right-additional-more order-content" v-if="showMoreInfo==idx" v-html="getIntroduce(item,'暫無更多資訊')">
+						<p class="details-right-additional-more order-content" v-if="showMoreInfo==idx" v-html="getIntroduce(item,'detail','暫無更多資訊')">
 						</p>
 					</div>
 					<div class="my-assets-right-price">
