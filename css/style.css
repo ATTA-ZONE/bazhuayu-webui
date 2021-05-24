@@ -3292,6 +3292,13 @@ html {
     width: 18px;
     border-radius: 50%;
 }
+.pswerror{
+	position: absolute;
+	right: 42px;
+	top: 15px;
+	font-size: 10px;
+	color: rgba(255, 255, 255, 0.4);
+}
 
 .sign-warn-check {
 	position:absolute;
