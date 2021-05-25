@@ -560,7 +560,7 @@ $(function () {
 				$('#cryptoBtn').text('請先連接錢包 ->')
 				$('#cryptoBtn').attr('disabled', false)
 			} else {
-				$('#cryptoBtn').text('立即付款  ->')
+				$('#cryptoBtn').text('立即付款  >')
 				$('#cryptoBtn').attr('disabled', true)
 			}
 			$('.payment-page-right-btn').show();
