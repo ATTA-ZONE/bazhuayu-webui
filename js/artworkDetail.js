@@ -525,6 +525,7 @@ $(function () {
 		var text = $(this).data('type');
 		if (text == 0) {
 			$('.payment-page-right-btn').hide();
+			$('.payment-page-right-total').show();
 			$('.order-price .order-price-hdk').show();
 			$('.order-price .order-price-busd').hide();
 			$('.payment-page-right-select').show();
@@ -539,6 +540,7 @@ $(function () {
 		if (text == 1) {
 			$('.payment-page-right-btn').show();
 			$('.payment-page-right-balance').show()
+			$('.payment-page-right-total').show();
 			$('.payment-page-right-btn button').addClass('can');
 			if ($('.busd-tip').text() == '餘額不足') {
 				$('.payment-page-right-btn button').text('充值');
