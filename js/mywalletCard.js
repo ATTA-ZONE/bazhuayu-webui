@@ -72,8 +72,7 @@ function onCardTokenizationFailed(error) {
   Frames.enableSubmitForm();
 }
 
-$('.pay-button').click(function(){
-  console.log(8989798798);
+$('#pay-button').click(function(){
 	loading();
 });
 Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, onCardTokenized);

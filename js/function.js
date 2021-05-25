@@ -164,6 +164,7 @@ function addFund(){
 }
 
 function cancel(){
+	console.log(88888888);
 	$('.modify').hide();
 	$.each($('.modify input'),function(i,v){
 		$(v).val('');
@@ -258,6 +259,7 @@ function deleteCard(){
 }
 
 function deleteWallet(){
+	$('.modify-ipt-none').addClass('modify-ipt');
 	var payForm = document.getElementById("modify-ipt-form");
 	var deleteBtn = document.getElementById("delete-dialog");
 	payForm.style.display = "none";
