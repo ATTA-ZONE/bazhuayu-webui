@@ -216,16 +216,13 @@ function changeCard(){
 	$('.modify-tit').data('type','card');
 	
 	var html = ``;
-	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">新信用卡信息</div>
-				<div class="modify-ipt-number flex">
-					<input class="modify-ipt-card" type="text" placeholder="卡號" />
-					<input class="modify-ipt-mm" type="text" id="datetimepicker" placeholder="MM/YY" />
-					<input class="modify-ipt-cvc" type="text" placeholder="CVC" />
-				</div>
-			</div>`;
-			
-	$('.modify-ipt').html(html);
+			$('.modify-ipt-none').html(html);
+			$('.modify-ipt-none').removeClass('modify-ipt');
+			var payForm = document.getElementById("modify-ipt-form");
+			payForm.style.display = "block";
+			var deleteBtn = document.getElementById("delete-dialog");
+			deleteBtn.style.display = "none";
+	// $('.modify-ipt').html(html);
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
 	$('.modify-btn-active').text('儲存');
@@ -241,6 +238,11 @@ function changeCard(){
 
 //delete info
 function deleteCard(){
+	$('.modify-ipt-none').addClass('modify-ipt');
+	var payForm = document.getElementById("modify-ipt-form");
+	var deleteBtn = document.getElementById("delete-dialog");
+	payForm.style.display = "none";
+	deleteBtn.style.display = "block";
 	$('.modify-tit span').text('刪除資料');
 	$('.modify-tit').data('type','dcard');
 	var html = ``;
@@ -256,6 +258,10 @@ function deleteCard(){
 }
 
 function deleteWallet(){
+	var payForm = document.getElementById("modify-ipt-form");
+	var deleteBtn = document.getElementById("delete-dialog");
+	payForm.style.display = "none";
+	deleteBtn.style.display = "block";
 	$('.modify-tit span').html('刪除資料');
 	$('.modify-tit').data('type','dwallet');
 	var html = ``;
