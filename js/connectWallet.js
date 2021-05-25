@@ -275,7 +275,7 @@ if (typeof window.ethereum !== 'undefined') {
 
 // 请求钱包授权，并得到当前使用的钱包地址，ES6
 $(".metamask").click(function (e) {
-
+	
 	if (typeof window.ethereum !== 'undefined') {
 
 		window.ethereum.enable().then(function (accounts) {

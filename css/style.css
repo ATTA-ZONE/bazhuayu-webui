@@ -1752,7 +1752,7 @@ html {
 	opacity: 0.7;
 }
 
-.payment-page-right-btn button {
+.payment-page-right-btn button, .payment-page-right-crypto button {
 	width: 100%;
 	background: rgba(255, 255, 255, 0.3);
 	border: 0;
@@ -1767,7 +1767,7 @@ html {
 	margin-bottom: 20px;
 }
 
-.payment-page-right-btn .can {
+.payment-page-right-btn .can, .payment-page-right-crypto .can {
 	background: #9567FF;
 	color: #fff;
 }
