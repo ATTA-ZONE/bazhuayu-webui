@@ -4,7 +4,7 @@ var app = new Vue({
 		return {
 			wallettitle  : "當前錢包地址如下：",
 			isshowicon : false,
-			address:address,
+			walletId:walletId,
 			tipscon:"當前購買的所有NFT資產將會發送至以上錢包地址",
 			btn1name:"更換",
 			btn2name:"刪除",
@@ -17,7 +17,7 @@ var app = new Vue({
 	},
 	mounted() {
 		this.getwallettype();
-		this.address = window.address;
+		this.walletId = window.walletId;
 	},
 	
 	methods: {

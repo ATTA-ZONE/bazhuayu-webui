@@ -291,7 +291,7 @@ function linksuccessful(){
 	$('.modify-tit span').text('您成功登記了一個錢包');
 	var html = ``;
 	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">`+(address==null?'請連接錢包':'錢包地址：'+address)+`</div>
+				<div class="modify-ipt-tit">`+(walletId==null?'請連接錢包':'錢包地址：'+walletId)+`</div>
 			</div>`;
 			
 	$('.modify-ipt').html(html);
