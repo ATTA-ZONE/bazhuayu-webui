@@ -135,9 +135,9 @@ var app = new Vue({
 					}, 50)
 				}
 			}
-		},
-		nftConnect() {
-			window.location.href = 'connectWallet.html';
 		}
 	}
 });
+function nftConnect() {
+	window.location.href = 'connectWallet.html';
+}
