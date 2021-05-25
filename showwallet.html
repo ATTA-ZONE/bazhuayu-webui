@@ -72,7 +72,7 @@
 	<div class="modify" id="app">
 		<div class="modify-container flex">
 			<div class="modify-form">
-				<div class="modify-tit flex" data-type="walletaddress-replace"><span>{{wallettitle}}</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
+				<div class="modify-tit flex" data-type="walletaddress-replace"><span>{{wallettitle}}</span><img class="none" @click="closebtn()" src="./images/Close.png" ></div>
 				<div class="modify-ipt contentbox" v-if="isshowicon">
 					<img src="./images/WalletConnect.png" alt="">
 					<span class="walletname">WalletConnect：</span>
