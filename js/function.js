@@ -303,32 +303,7 @@ function linksuccessful(){
 	$('.cancel').hide();
 	$('.modify').fadeIn();
 }
-// show wallet address
-function showwalletaddress(){
-	$('.modify-tit span').text('當前錢包地址如下：');
-	$('.modify-tit').data('type','walletaddress-replace');
-	var html = `<div class="modify-ipt-add" style="display: flex; align-items: center;">`;
-	if (localStorage.getItem('walletconnect')) {
-		html += `<img src="./images/WalletConnect.png" alt=""><span style="color: #fff;font-size: 16px;margin-left: 12px;">WalletConnect：</span>`
-	}else{
-		html += `<img src="./images/Metamask.png" alt=""><span style="color: #fff;font-size: 16px;">Metamask：</span>`
-	}
-	html += `
-				<span class="modify-ipt-tit" style="font-size: 12px;">`+address+`</span>
-			</div>`;
-			
-	$('.modify-ipt').html(html);
-	$('.modify-tips').html(`<span class="modify-tips-content">當前購買的所有NFT資產將會發送至以上錢包地址</span>`);
-	$('.modify-btn-active').addClass('add');
-	$('.modify-btn-active').removeClass('delete');
-	$('.modify-btn-active').text('更換');
-	$('.cancel').css('color','#CB5252');
-	$('.cancel').css('borderColor','#CB5252');
-	$('.cancel').text('刪除');
-	$('.modify-btn-active').addClass('walletaddress-replace');
-	$('.cancel').addClass('walletaddress-delete');
-	$('.modify').fadeIn();
-}
+
 //change email
 function changeEmail(){
 	// $('.modify-tit span').text('Change Email');

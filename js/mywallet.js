@@ -337,8 +337,6 @@ $(function () {
 			// 		console.lo9g(res)
 			// 	}
 			// })
-		}else if (tit == '') {
-			
 		}
 	});
 
