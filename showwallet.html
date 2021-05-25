@@ -63,13 +63,16 @@
 				display: block;
 			}
 		}
+		[v-cloak] {
+			display: none;
+		}
 	</style>
 </head>
 
 <body>
 	<!-- head -->
 	<!-- modify -->
-	<div class="modify" id="app">
+	<div class="modify" id="app" v-cloak>
 		<div class="modify-container flex">
 			<div class="modify-form">
 				<div class="modify-tit flex" data-type="walletaddress-replace"><span>{{wallettitle}}</span><img class="none" @click="closebtn()" src="./images/Close.png" ></div>

@@ -117,27 +117,19 @@ var app = new Vue({
 			})
 		},
 		
-		conneAssetsctWallet(item) {
-			if (item) {
-				item.mintList.filter(itm => {
-					if (itm.status == 0) {
-						hsycms.alert('model2');
-					}
-				})
+		conneAssetsctWallet() {
+			if (getCookie('isConnect') == 'true') {
+				setTimeout(function () {
+					hsycms.alert('model1')
+				}, 50)
 			} else {
-				if (getCookie('isConnect') == 'true') {
-					setTimeout(function () {
-						hsycms.alert('model1')
-					}, 50)
-				} else {
-					setTimeout(function () {
-						hsycms.alert('model2');
-					}, 50)
-				}
+				setTimeout(function () {
+					hsycms.alert('model2');
+				}, 50)
 			}
-		},
-		nftConnect() {
-			window.location.href = 'connectWallet.html';
 		}
 	}
 });
+function nftConnect() {
+	window.location.href = 'connectWallet.html';
+}

@@ -71,18 +71,10 @@ function emailCheck(email) {
 	}
 	return isEmail;
 }
-
-
-function toggleLoginStatus() {
+function judgepsw(){
 	var regExp = /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/
-	var nickname = $('#nickname').val().trim();
-	var email = $('#email').val().trim();
 	var pwd = $('#pwd').val().trim();
 	var pwd2 = $('#pwd2').val().trim();
-	var verifyChecked = $('.sign-check input')[0].checked
-	checkTip($('.sign-check-tip'), '');
-	checkTip($('.sign-check-tip2'), '');
-
 	var result1 = regExp.test(pwd)
 	var result2 = regExp.test(pwd2)
 
@@ -103,6 +95,20 @@ function toggleLoginStatus() {
 		$('.password-icon2').show();
 		$('.password-icon2').attr('src','./images/refuse.png')
 	}
+}
+
+function toggleLoginStatus() {
+	var regExp = /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/
+	var nickname = $('#nickname').val().trim();
+	var email = $('#email').val().trim();
+	var pwd = $('#pwd').val().trim();
+	var pwd2 = $('#pwd2').val().trim();
+	var verifyChecked = $('.sign-check input')[0].checked
+	checkTip($('.sign-check-tip'), '');
+	checkTip($('.sign-check-tip2'), '');
+
+	var result1 = regExp.test(pwd)
+	var result2 = regExp.test(pwd2)
 
 	if (nickname != '' && email != '' && pwd != '' && pwd2 != '' && result1 && result2 && verifyChecked) {
 		$('.sign-btn .sign-btn-register button').addClass('register-check');
@@ -118,8 +124,8 @@ $(function () {
 		toggleLoginStatus()
 	})
 
-	// 输入框不为空时 可注册
-	$('.sign-input p input').on('input', function () {
+	// 输入框不为空时 可注册 .sign-input p input
+	$('.sign-input p #nickname,.sign-input p #email,.sign-input p #regType').on('input', function (e) {
 		toggleLoginStatus()
 	})
 
