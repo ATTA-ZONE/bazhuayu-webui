@@ -13,7 +13,7 @@ var app = new Vue({
 		}
 	},
 	created() {
-		
+
 	},
 	mounted() {
 		this.getwallettype();
