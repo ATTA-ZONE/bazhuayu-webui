@@ -4039,9 +4039,7 @@ html {
 .switchlanguage_mobile a{
 	width: auto !important;
 }
-.switchlanguage_mobile, .switchlanguagebox {
-	display: none;
-}
+
 .walletIdshow{
 	width: 85px;
 	color: rgba(255, 255, 255, 0.6);
