@@ -77,14 +77,15 @@
 						<input id="email" type="text" placeholder="電子信箱地址" />
 						<span class="sign-check-tip"></span>
 					</p>
-					<p>
-						<input id="pwd" type="password" placeholder="密碼" />
-						<img class="password-icon1" src="./images/refuse.png" />
+					<p style="position: relative;">
+						<input id="pwd" type="password" placeholder="密碼" oninput="judgepsw()"/>
+						<img style="display: none;" class="password-icon1" src="./images/refuse.png" />
+						<span style="display: none;" class="pswerror">密碼不符合要求</span>
 						<span class="sign-warn-check">密碼至少8位，請至少包含一個大寫字母和一個小寫字母</span>
 					</p>
 					<p>
-						<input id="pwd2" type="password" placeholder="再次輸入密碼" />
-						<img class="password-icon2" src="./images/refuse.png" />
+						<input id="pwd2" type="password" placeholder="再次輸入密碼" oninput="judgepsw()"/>
+						<img style="display: none;" class="password-icon2" src="./images/refuse.png" />
 						<span class="sign-check-tip2"></span>
 					</p>
 					<p class="regType"><input id="regType" type="text" name="regType" placeholder="邀請碼"/></p>

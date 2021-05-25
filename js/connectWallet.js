@@ -275,10 +275,13 @@ if (typeof window.ethereum !== 'undefined') {
 
 // 请求钱包授权，并得到当前使用的钱包地址，ES6
 $(".metamask").click(function (e) {
-
+	
 	if (typeof window.ethereum !== 'undefined') {
 
-		window.ethereum.enable().then(function (accounts) {
+		window.ethereum.request({
+			method: 'wallet_requestPermissions',
+			params: [{ eth_accounts: {} }],
+		  }).then(function () {
 			loading();
 
 			if (window.ethereum && window.ethereum.isConnected()) {
@@ -291,31 +294,27 @@ $(".metamask").click(function (e) {
 			} else if (netVer != '56') {
 				changeNetwork(56)
 			}
-
-			walletId = accounts[0];
-			var data = {
-				address: accounts[0],
-				walletType: 'METAMASK'
-			}
-
-			$.ajax({
-				url: base_url + '/v2/user/wallet/bind',
-				type: 'POST',
-				contentType: 'application/json',
-				dataType: 'json',
-				data: JSON.stringify(data),
-				success: function (res) {
-					loadingHide();
-					if (res.code == 0) {
-						success('連接成功', 1800);
-						setTimeout(function () {
-							window.location.href = document.referrer;
-						}, 1800);
-					} else {
-						// error('連接失敗',1800);
-					}
+			window.ethereum.request({ method: 'eth_accounts'}).then(function(accounts){
+				walletId = accounts[0];
+				var data = {
+					address: accounts[0],
+					walletType: 'METAMASK'
 				}
-			});
+	
+				$.ajax({
+					url: base_url + '/v2/user/wallet/bind',
+					type: 'POST',
+					contentType: 'application/json',
+					dataType: 'json',
+					data: JSON.stringify(data),
+					success: function (res) {
+						loadingHide();
+						linksuccessful();
+					}
+				});	
+			})
+
+			
 
 
 
@@ -332,3 +331,6 @@ $(".metamask").click(function (e) {
 
 
 });
+$(".connectWalletpage .modify-btn-active,.connectWalletpage .modify-close").click(function(){
+	window.location.href = document.referrer;
+})

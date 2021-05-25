@@ -1752,7 +1752,7 @@ html {
 	opacity: 0.7;
 }
 
-.payment-page-right-btn button {
+.payment-page-right-btn button, .payment-page-right-crypto button {
 	width: 100%;
 	background: rgba(255, 255, 255, 0.3);
 	border: 0;
@@ -1767,7 +1767,7 @@ html {
 	margin-bottom: 20px;
 }
 
-.payment-page-right-btn .can {
+.payment-page-right-btn .can, .payment-page-right-crypto .can {
 	background: #9567FF;
 	color: #fff;
 }
@@ -3111,6 +3111,17 @@ html {
 	line-height: 22px;
 	color: rgba(255, 255, 255, 0.4);
 }
+.modify-tips-content{
+	color: rgba(255, 56, 56, 0.92);
+    font-size: 12px;
+    position: relative;
+    top: 10px;
+}
+.modify-btn-tips-content{
+	font-size: 10px;
+    color: rgba(255,255,255,0.82);
+    margin-top: 5px;
+}
 
 .modify-btn {
 	margin-top: 32px;
@@ -3291,6 +3302,13 @@ html {
     right: 14px;
     width: 18px;
     border-radius: 50%;
+}
+.pswerror{
+	position: absolute;
+	right: 42px;
+	top: 15px;
+	font-size: 10px;
+	color: rgba(255, 255, 255, 0.4);
 }
 
 .sign-warn-check {
@@ -3954,7 +3972,7 @@ html {
 .countmoneybox{
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	margin-bottom: 10px;
 }
 .countmoneybox .moneryridebox{
@@ -3971,6 +3989,7 @@ html {
 	color: #FFFFFF;
 	display: flex;
     align-items: center;
+	margin-left: 10px;
 }
 .countmoneybox .countetcbox span{
 	font-size: 18px;
@@ -4021,6 +4040,11 @@ html {
 .switchlanguage_mobile a{
 	width: auto !important;
 }
-.switchlanguage_mobile, .switchlanguagebox {
-	display: none;
+.walletIdshow{
+	width: 85px;
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 10px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
 }

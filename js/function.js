@@ -164,6 +164,7 @@ function addFund(){
 }
 
 function cancel(){
+	console.log(88888888);
 	$('.modify').hide();
 	$.each($('.modify input'),function(i,v){
 		$(v).val('');
@@ -172,7 +173,10 @@ function cancel(){
 }
 
 function cancelMobile(){
+	// 原代码
 	$('.modify').removeClass('modify-tc-active');
+	// 修复手机端无法关闭的代码
+	$('.modify').hide();
 	$.each($('.modify input'),function(i,v){
 		$(v).val('');
 	})
@@ -213,16 +217,13 @@ function changeCard(){
 	$('.modify-tit').data('type','card');
 	
 	var html = ``;
-	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">新信用卡信息</div>
-				<div class="modify-ipt-number flex">
-					<input class="modify-ipt-card" type="text" placeholder="卡號" />
-					<input class="modify-ipt-mm" type="text" id="datetimepicker" placeholder="MM/YY" />
-					<input class="modify-ipt-cvc" type="text" placeholder="CVC" />
-				</div>
-			</div>`;
-			
-	$('.modify-ipt').html(html);
+			$('.modify-ipt-none').html(html);
+			$('.modify-ipt-none').removeClass('modify-ipt');
+			var payForm = document.getElementById("modify-ipt-form");
+			payForm.style.display = "block";
+			var deleteBtn = document.getElementById("delete-dialog");
+			deleteBtn.style.display = "none";
+	// $('.modify-ipt').html(html);
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
 	$('.modify-btn-active').text('儲存');
@@ -238,6 +239,11 @@ function changeCard(){
 
 //delete info
 function deleteCard(){
+	$('.modify-ipt-none').addClass('modify-ipt');
+	var payForm = document.getElementById("modify-ipt-form");
+	var deleteBtn = document.getElementById("delete-dialog");
+	payForm.style.display = "none";
+	deleteBtn.style.display = "block";
 	$('.modify-tit span').text('刪除資料');
 	$('.modify-tit').data('type','dcard');
 	var html = ``;
@@ -253,6 +259,11 @@ function deleteCard(){
 }
 
 function deleteWallet(){
+	$('.modify-ipt-none').addClass('modify-ipt');
+	var payForm = document.getElementById("modify-ipt-form");
+	var deleteBtn = document.getElementById("delete-dialog");
+	payForm.style.display = "none";
+	deleteBtn.style.display = "block";
 	$('.modify-tit span').html('刪除資料');
 	$('.modify-tit').data('type','dwallet');
 	var html = ``;
@@ -282,6 +293,23 @@ function changeName(){
 	$('.modify-btn-active').removeClass('delete');
 	$('.modify-btn-active').text('儲存');
 	// $('.modify').fadeIn();
+}
+// link successful
+function linksuccessful(){
+	$('.modify-tit span').text('您成功登記了一個錢包');
+	var html = ``;
+	html += `<div class="modify-ipt-add">
+				<div class="modify-ipt-tit">`+(walletId==null?'請連接錢包':'錢包地址：'+walletId)+`</div>
+			</div>`;
+			
+	$('.modify-ipt').html(html);
+	$('.modify-tips').html(`<span class="modify-tips-content">請註意：您購買的NFT資產只會發放至當前登記的錢包</span>`);
+	$('.modify-btn-tips').html(`<span class="modify-btn-tips-content">（ 如果您想使用其他錢包，請點擊右上角“已連接錢包”進行更換 ）</span>`);
+	$('.modify-btn-active').addClass('add');
+	$('.modify-btn-active').removeClass('delete');
+	$('.modify-btn-active').text('知道了');
+	$('.cancel').hide();
+	$('.modify').fadeIn();
 }
 
 //change email
@@ -386,7 +414,7 @@ function connectWallet(){
 		success:function(res){
 			if(res.code==0){
 				var text = $('.header-right-wallet').text().trim();
-				if(text=='連接錢包'){
+				if(text=='未連接錢包'){
 					window.location.href = 'connectWallet.html';
 				}else{
 					tips('已連接');

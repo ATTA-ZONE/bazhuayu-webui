@@ -603,8 +603,29 @@
 	.modify-btn .cancel-mobile{
 		display:block;
 	}
-	.modify-ipt-number{
+	.modify-ipt-number .payment-form-ipt{
 		flex-direction:column;
+		margin-top: -15px;
+		height: auto !important;
+	}
+	.modify-ipt-number .payment-form-ipt >div{
+		height: 46px;
+		width: 100%;
+		margin-top: 15px;
+	}
+	.modify-ipt-number .payment-form-ipt >div >div{
+		height: 46px;
+		width: 100% !important;
+	}
+	.my-wallet-form .modify-form .message span{
+		margin-top: -2px !important;
+		margin-right: 0 !important;
+	}
+	.my-wallet-form .modify-form .message .error-message__expiry-date{
+		margin-top: 60px !important;
+	}
+	.my-wallet-form .modify-form .message .error-message__cvv{
+		margin-top: 120px !important;
 	}
 	.modify-ipt input{
 		width:100%!important;
@@ -614,12 +635,13 @@
 	.modify-tit img{
 		display:block;
 	}
-	.modify{
+	/* 源代码，修复手机端删除按钮没反应bug需要注销该样式 */
+	/* .modify{
 		top:auto;
 		bottom:-100%;
 		display:block;
 		transition:all 0.3s;
-	}
+	} */
 	.modify-tc-active{
 		bottom:0;
 	}

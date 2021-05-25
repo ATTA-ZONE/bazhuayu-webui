@@ -98,4 +98,37 @@ c_ERC20_BUSD = {
         }
 };
 
+var contractSetting = {
+    'aunction_contract': {
+        'proxy': '',
+        'interfaceType': '',
+        'abi': c_auction_abi,
+        97:  //  BSC 测试 网络
+            {
+                'address': '0x6A2E6042DF6FDCdA84A45531C892b644b095E2b4'
+            },
+        56:  //  BSC 正式 主网络
+            {
+                'address': '0x26455c075eAD85015cbA283731db78d5E80615fF',
+            }
+    },
+    'busd_ERC20': {
+        'proxy': '',
+        'interfaceType': 'ERC20',
+        'abi': c_ERC20_abi,
+        97:  //  BSC 测试 网络
+            {
+                'symbol': 'BUSD',
+                'decimals': 18,
+                'address': '0x65aF2dcE9694393496EE7568eeE92660116D5ae6',
+            },
+        56:  //  BSC 正式 主网络
+            {
+                'symbol': 'BUSD',
+                'decimals': 18,
+                'address': '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+            }
+    }
+}
+
 

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>我的钱包</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css" />
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css" />
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css" />
+	<link rel="stylesheet" type="text/css" href="./css/style.css" />
+	<link rel="stylesheet" type="text/css" href="./css/media.css" />
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3-provider.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.contentbox{
+			display: flex; 
+			align-items: center;
+			flex-wrap: wrap;
+		}
+		.walletname{
+			color: #fff;
+			font-size: 16px;
+			margin-left: 12px;
+		}
+		.addressfs{
+			font-size: 12px;
+		}
+		.h5showaddress{
+			display: none;
+			background: #282828;
+			border-radius: 2px;
+			width: 100%;
+			padding: 15px 11px;
+			margin-top: 20px;
+			color: #fff;
+			font-size: 12px;
+		}
+		.modify-btn .cancel-mobile.del{
+			color: #CB5252;
+			border-color: #CB5252;
+		}
+		.modify-btn .delbg{
+			background-color: #CB5252;
+		}
+		@media only screen and (max-width:768px){
+			.addressfs{
+				display: none;
+			}
+			.h5showaddress{
+				display: block;
+			}
+		}
+		[v-cloak] {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- head -->
+	<!-- modify -->
+	<div class="modify" id="app" v-cloak>
+		<div class="modify-container flex">
+			<div class="modify-form">
+				<div class="modify-tit flex" data-type="walletaddress-replace"><span>{{wallettitle}}</span><img class="none" @click="closebtn()" src="./images/Close.png" ></div>
+				<div class="modify-ipt contentbox" v-if="isshowicon">
+					<img src="./images/WalletConnect.png" alt="">
+					<span class="walletname">WalletConnect：</span>
+					<span class="modify-ipt-tit addressfs">{{walletIdvue}}</span>
+					<div class="h5showaddress">{{walletIdvue}}</div>
+				</div>
+				<div class="modify-ipt contentbox" v-else>
+					<img src="./images/Metamask.png" alt="">
+					<span class="walletname">Metamask：</span>
+					<span class="modify-ipt-tit addressfs">{{walletIdvue}}</span>
+					<div class="h5showaddress">{{walletIdvue}}</div>
+				</div>
+				<div class="modify-tips">
+					<span class="modify-tips-content" v-if="tipscon && status == 1">{{tipscon}}</span>
+				</div>
+				<div class="modify-btn flex">
+					<button v-if="status == 1" class="add modify-btn-active " type="button" onclick="walletaddressreplace()">{{btn1name}}</button>
+					<button v-if="status == 1" class="cancel cancel-mobile del" type="button" @click="clickdelete()">{{btn2name}}</button>
+					<button v-if="status == 2" class="add modify-btn-active delbg" type="button" @click="clickdelete2()">{{btn2name}}</button>
+					<button v-if="status == 2" class="cancel cancel-mobile" type="button" @click="closebtn()">{{btn3name}}</button>
+				</div>
+				<div class="modify-btn-tips"></div>
+				<div class="modify-close" @click="closebtn()"><img src="./images/Close.png" ></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="tips"></div>
+</div>
+</body>
+<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/showwallet.js" type="text/javascript" charset="utf-8"></script>
+
+</html>
