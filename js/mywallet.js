@@ -325,18 +325,23 @@ $(function () {
 			}
 
 		} else if (tit == 'card') {
-
 			console.log('tit == card')
 			
 		}else if(tit == 'dcard'){
-			// $.ajax({
-			// 	url:base_url+'/v2/user/wallet/credit/delete',
-			// 	type:'POST',
-			// 	dataType:'json',
-			// 	success:function(res){
-			// 		console.lo9g(res)
-			// 	}
-			// })
+			console.log(tit);
+			loading();
+					$.ajax({
+						url: base_url + '/v2/user/wallet/credit/delete',
+						type: 'POST',
+						dataType: 'json',
+						data: {},
+						success: function (res) {
+							loadingHide();
+							if(res.code==0){
+								window.location.reload();
+							}
+						}
+					})
 		}
 	});
 

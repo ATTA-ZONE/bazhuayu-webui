@@ -525,6 +525,7 @@ $(function () {
 		var text = $(this).data('type');
 		if (text == 0) {
 			$('.payment-page-right-btn').hide();
+			$('.payment-page-right-total').show();
 			$('.order-price .order-price-hdk').show();
 			$('.order-price .order-price-busd').hide();
 			$('.payment-page-right-select').show();
@@ -533,12 +534,13 @@ $(function () {
 			$('.payment-page-right-btn p').text('您的信用卡將立即授權這筆支付。');
 			$('.payment-page-right-btn').hide();
 			$('.wallet-payment-desc').hide();
-			$('.payment-page-right-crypto').show();
+			$('.payment-page-right-crypto').hide();
 		};
 
 		if (text == 1) {
 			$('.payment-page-right-btn').show();
 			$('.payment-page-right-balance').show()
+			$('.payment-page-right-total').show();
 			$('.payment-page-right-btn button').addClass('can');
 			if ($('.busd-tip').text() == '餘額不足') {
 				$('.payment-page-right-btn button').text('充值');
