@@ -59,7 +59,7 @@ $(function () {
 					$('.hideenbtn').hide();
 					$('.hideenbtn2').show();
 				} else {
-					$('.cardNo').text(res.data.cardNo);
+					$('.cardNo').text('XXXX - XXXX - XXXX - '+res.data.cardNo.slice(-4));
 					$('.hideenbtn').show();
 					$('.hideenbtn2').hide();
 				};
