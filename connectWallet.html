@@ -24,7 +24,7 @@
 	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
 </head>
-<body>
+<body class="connectWalletpage">
 	
 	<!-- connect wallet -->
 	<div class="tc connect">
@@ -51,6 +51,24 @@
 	</div>
 	
 	<div class="tc-mask"></div>
+
+	<!-- modify -->
+	<div class="modify none">
+		<div class="modify-container flex">
+			<div class="modify-form">
+				<div class="modify-tit flex" data-type="add"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
+				<div class="modify-ipt"></div>
+				<div class="modify-tips"></div>
+				<div class="modify-btn flex">
+					<button class="add modify-btn-active " type="button"></button>
+					<button class="cancel" type="button" onclick="cancel()">取消</button>
+					<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
+				</div>
+				<div class="modify-btn-tips"></div>
+				<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
+			</div>
+		</div>
+	</div>
 	
 	<div class="tips"></div>
 	
@@ -64,8 +82,9 @@
 	$("#walletColletBtn").click(function (e) {
 		localStorage.removeItem("walletconnect");
 		
-		CHAIN.WALLET.connect(CHAIN.WALLET.WalletConnect.name);
-		
+		CHAIN.WALLET.connect(CHAIN.WALLET.WalletConnect.name,function(){
+			linksuccessful();
+		});
 	});
 </script>
 </html>
