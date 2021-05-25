@@ -59,7 +59,9 @@
 			display: flex;
 			line-height:22px;
 		}
-
+		[v-cloak] {
+			display: none;
+		}
 	</style>
 </head>
 
@@ -69,7 +71,7 @@
 
 	<div class="bzy-title center-80"><span class="language-tc">我的藏品</span></div>
 
-	<div class="my-assets center-80" id="app">
+	<div class="my-assets center-80" id="app" v-cloak>
 		<ul v-if="assetsList.records && assetsList.records.length > 0">
 			<li class="flex" v-for="(item,idx) in assetsList.records" :key="idx">
 				<div class="my-assets-left" v-if="getFormat(item) == 'mp4'">
