@@ -533,7 +533,7 @@ $(function () {
 			$('.payment-page-right-btn p').text('您的信用卡將立即授權這筆支付。');
 			$('.payment-page-right-btn').hide();
 			$('.wallet-payment-desc').hide();
-			$('.payment-page-right-crypto').show();
+			$('.payment-page-right-crypto').hide();
 		};
 
 		if (text == 1) {
