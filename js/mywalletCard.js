@@ -32,20 +32,25 @@ Frames.addEventHandler(
   Frames.Events.FRAME_VALIDATION_CHANGED,
   onValidationChanged
 );
+
+var errorList = ["card-number","expiry-date","cvv"]
 function onValidationChanged(event) {
   var e = event.element;
   console.log(event);
-  if (event.isValid || event.isEmpty) {
-    clearErrorMessage(e);
+	clearErrorMessage(e);
+  if (event.isValid && !event.isEmpty) {
   } else {
     setErrorMessage(e);
   }
 }
 
 function clearErrorMessage(el) {
-  var selector = ".error-message__" + el;
-  var message = document.querySelector(selector);
-  message.textContent = "";
+	console.log(el);
+	errorList.forEach(function(item){
+		var selector = ".error-message__" + item;
+		var message = document.querySelector(selector);
+		message.textContent = "";
+	})
 }
 
 function setErrorMessage(el) {

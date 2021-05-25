@@ -545,7 +545,7 @@ $(function () {
 			if ($('.busd-tip').text() == '餘額不足') {
 				$('.payment-page-right-btn button').text('充值');
 			} else {
-				$('.payment-page-right-btn button').text('立即付款');
+				$('.payment-page-right-btn button').text('立即付款  >');
 			}
 			$('.order-price .order-price-hdk').hide();
 			$('.order-price .order-price-busd').show();
@@ -571,7 +571,7 @@ $(function () {
 			if ($('.busd-tip').text() == '餘額不足') {
 				$('.payment-page-right-btn button').text('充值');
 			} else {
-				$('.payment-page-right-btn button').text('立即付款');
+				$('.payment-page-right-btn button').text('立即付款  >');
 			}
 			$('.payment-page-right-total').hide();
 			$('.order-price .order-price-hdk').hide();

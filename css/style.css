@@ -3972,7 +3972,7 @@ html {
 .countmoneybox{
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	margin-bottom: 10px;
 }
 .countmoneybox .moneryridebox{
@@ -3989,6 +3989,7 @@ html {
 	color: #FFFFFF;
 	display: flex;
     align-items: center;
+	margin-left: 10px;
 }
 .countmoneybox .countetcbox span{
 	font-size: 18px;
