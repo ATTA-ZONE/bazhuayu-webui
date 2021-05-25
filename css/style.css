@@ -4042,3 +4042,11 @@ html {
 .switchlanguage_mobile, .switchlanguagebox {
 	display: none;
 }
+.walletIdshow{
+	width: 85px;
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 10px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}

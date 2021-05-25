@@ -235,6 +235,7 @@ $(function(){
 		url:base_url+'/v2/user/wallet/info',
 		success:function(res){
 			if(res.code==0){
+				walletId = res.data.address;
 				$('.header-right-wallet').show();
 				$('.mobile-connect-wallet').show();
 			}else if (res.code==1002 && islogin) {
@@ -251,10 +252,10 @@ $(function(){
 	
 	if(getCookie('isConnect')=='true'){
 		setTimeout(function(){
-			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span>');
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a>');
+			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
 		},200)
-		$('.mobile-connect-wallet').click(function(){
+		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
 			window.location.href  = 'showwallet.html';
 		})
 	}else{

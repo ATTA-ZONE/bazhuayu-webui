@@ -4,7 +4,7 @@ var app = new Vue({
 		return {
 			wallettitle  : "當前錢包地址如下：",
 			isshowicon : false,
-			walletId:walletId,
+			walletIdvue:'',
 			tipscon:"當前購買的所有NFT資產將會發送至以上錢包地址",
 			btn1name:"更換",
 			btn2name:"刪除",
@@ -13,11 +13,9 @@ var app = new Vue({
 		}
 	},
 	created() {
-
+		this.getwallettype();
 	},
 	mounted() {
-		this.getwallettype();
-		this.walletId = window.walletId;
 	},
 	
 	methods: {
@@ -26,15 +24,17 @@ var app = new Vue({
 			cancel();
 		},
 		getwallettype(){
+			var that = this;
 			$.ajax({
 				url:base_url+'/v2/user/wallet/info',
 				async:false,
 				success:function(res){
 					if(res.code==0){
+						that.walletIdvue = res.data.address;
 						if(res.data.walletType=="TOKEN POCKET"){
-							this.isshowicon = true;
+							that.isshowicon = true;
 						}else if (res.data.walletType=="METAMASK") {
-							this.isshowicon = false;
+							that.isshowicon = false;
 						}
 					}
 					
