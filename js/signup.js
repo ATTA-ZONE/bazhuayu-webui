@@ -95,6 +95,7 @@ function judgepsw(){
 		$('.password-icon2').show();
 		$('.password-icon2').attr('src','./images/refuse.png')
 	}
+	toggleLoginStatus()
 }
 
 function toggleLoginStatus() {
@@ -110,7 +111,7 @@ function toggleLoginStatus() {
 	var result1 = regExp.test(pwd)
 	var result2 = regExp.test(pwd2)
 
-	if (nickname != '' && email != '' && pwd != '' && pwd2 != '' && result1 && result2 && verifyChecked) {
+	if (nickname != '' && email != '' && pwd != '' && pwd2 != '' && result1 && result2 && verifyChecked && pwd == pwd2) {
 		$('.sign-btn .sign-btn-register button').addClass('register-check');
 		$('.sign-btn .sign-btn-register button').data('click', 1);
 	} else {
