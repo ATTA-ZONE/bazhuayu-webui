@@ -223,7 +223,6 @@
 					var th=this,provider=th.provider();
 					provider.chainId=null;
 					provider.enable().then(function(accounts){
-						debugger
 						var wallet=CHAIN.WALLET.__wallet__,addr=accounts[0].toLocaleLowerCase();
 						localStorage.setItem(wallet,addr),cookie(wallet,th.name,1000,'/','index.html');
 						// if(c){

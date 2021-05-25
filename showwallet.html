@@ -28,6 +28,7 @@
 		.contentbox{
 			display: flex; 
 			align-items: center;
+			flex-wrap: wrap;
 		}
 		.walletname{
 			color: #fff;
@@ -37,12 +38,30 @@
 		.addressfs{
 			font-size: 12px;
 		}
+		.h5showaddress{
+			display: none;
+			background: #282828;
+			border-radius: 2px;
+			width: 100%;
+			padding: 15px 11px;
+			margin-top: 20px;
+			color: #fff;
+			font-size: 12px;
+		}
 		.modify-btn .cancel-mobile.del{
 			color: #CB5252;
 			border-color: #CB5252;
 		}
 		.modify-btn .delbg{
 			background-color: #CB5252;
+		}
+		@media only screen and (max-width:768px){
+			.addressfs{
+				display: none;
+			}
+			.h5showaddress{
+				display: block;
+			}
 		}
 	</style>
 </head>
@@ -58,14 +77,16 @@
 					<img src="./images/WalletConnect.png" alt="">
 					<span class="walletname">WalletConnect：</span>
 					<span class="modify-ipt-tit addressfs">{{address}}</span>
+					<div class="h5showaddress">{{address}}</div>
 				</div>
 				<div class="modify-ipt contentbox" v-else>
 					<img src="./images/Metamask.png" alt="">
 					<span class="walletname">Metamask：</span>
 					<span class="modify-ipt-tit addressfs">{{address}}</span>
+					<div class="h5showaddress">{{address}}</div>
 				</div>
 				<div class="modify-tips">
-					<span class="modify-tips-content" v-if="tipscon">{{tipscon}}</span>
+					<span class="modify-tips-content" v-if="tipscon && status == 1">{{tipscon}}</span>
 				</div>
 				<div class="modify-btn flex">
 					<button v-if="status == 1" class="add modify-btn-active " type="button" onclick="walletaddressreplace()">{{btn1name}}</button>

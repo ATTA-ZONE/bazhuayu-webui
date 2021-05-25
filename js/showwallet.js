@@ -10,17 +10,10 @@ var app = new Vue({
 			btn2name:"刪除",
 			btn3name:"取消",
 			status : 1,
-			assetsList: {},
-			isConnect: false,
-			current: 1,
-			pageSize: 9,
-			showMoreInfo: -1,
-			selectedNftName:'',
-			selectedNft: null
 		}
 	},
 	created() {
-		this.isConnect = getCookie('isConnect') == 'false' ? false : true;
+		
 	},
 	mounted() {
 		this.getwallettype();
@@ -56,7 +49,6 @@ var app = new Vue({
 			}, 300);
 		},
 		clickdelete2(){
-			var that = this;
 			$.ajax({
 				url: base_url + '/v2/user/wallet/delete',
 				type: 'POST',
@@ -66,7 +58,7 @@ var app = new Vue({
 						success('删除成功', 1800);
 						document.cookie = "isConnect=false";
 						setTimeout(function () {
-							that.closebtn();
+							window.location.href = 'index.html';
 						}, 1800)
 					}
 				}

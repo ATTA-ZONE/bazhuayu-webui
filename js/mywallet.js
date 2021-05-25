@@ -116,7 +116,6 @@ $(function () {
 
 	//发送交易请求
 	$('.modify-btn-active').click(function (e) {
-		debugger
 		var tit = $('.modify-tit').data('type');
 
 
