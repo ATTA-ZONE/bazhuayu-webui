@@ -192,7 +192,8 @@
 				</div>
 				<div class="details-right-price flex"><span class="cur order-price-hdk hkdPrice">HK$0 </span> <span
 						style="margin-right: 20px;">/</span> <span class="order-price-busd busdPrice" style="opacity: 1;">BUSD 0
-					</span></div>
+					</span>
+				</div>
 				<div class="details-right-btn flex payment-btn-pc" @click="toPay">立即購買 -></div>
 				<div class="details-right-time flex"><span>銷售結束於：</span><span class="details-right-time-djs">01 : 05 : 32</span>
 				</div>
@@ -242,7 +243,8 @@
 						</div>
 						<div class="payment-page-right-pay flex">
 							<span v-for="(item, index) in payTabs" :key="index" :class="selectedPayMethod == index? 'cur':''"
-								@click="togglePayMethod(index)">{{item}}</span>
+								@click="togglePayMethod(index)">{{item}}
+							</span>
 						</div>
 						<div class="payment-page-right-total">
 							<p>這是待付款，您的付款金額為：</p>
@@ -291,19 +293,19 @@
 											</div>
 										</div>
 									</div>
-
 									<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
 									<div style="color: #FF1313;
-								display: flex;
-								align-items: center;
-								margin-top: 10px;"><input id="savetips" type="checkbox" /><span>由於您購買的是數字作品，一經售出概不退換</span></div>
-
+										display: flex;
+										align-items: center;
+										margin-top: 10px;"><input id="savetips" type="checkbox" /><span>由於您購買的是數字作品，一經售出概不退換</span>
+									</div>
 									<div>
 										<div class="pay-button"><button id="pay-button" disabled="">立即付款 ></button></div>
 										<span class="error-message error-message__card-number"></span>
 										<span class="error-message error-message__expiry-date"></span>
 										<span class="error-message error-message__cvv"></span>
 									</div>
+								</div>
 							</form>
 						</div>
 						<div class="payment-page-right-busd none">
