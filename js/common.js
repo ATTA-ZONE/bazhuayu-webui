@@ -310,5 +310,6 @@ function showwalletaddress(e){
 	}
 }
 function setcookieff(value){
-	document.cookie=value+";Path=/;domain="+window.location.host;
+	document.cookie=value+";path=/;";
+	// document.cookie=value+";path=/;domain="+window.location.host;
 }
