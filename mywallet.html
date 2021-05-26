@@ -24,56 +24,6 @@
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
-	<style>
-		.my-wallet-form .modify-form #payment-form .payment-form-ipt >div >i{
-			width: 20px;
-			background: #282828;
-			opacity: 0.4;
-			height: 46px;
-		}
-		.my-wallet-form .modify-form #payment-form .payment-form-ipt .modify-ipt-card{
-			width: 228px;
-		}
-		.my-wallet-form .modify-form #payment-form .payment-form-ipt .modify-ipt-mm{
-			width: 72px;
-		}
-		.my-wallet-form .modify-form #payment-form .payment-form-ipt .modify-ipt-cvc{
-			width: 34px;
-		}
-		.my-wallet-form .modify-form #payment-form{
-			position: relative;
-		}
-		.my-wallet-form .modify-form .message{
-			width: 100%;
-			text-align: right;
-			position: absolute;
-			top: 46px;
-			height: 20px;
-		}
-		.my-wallet-form .modify-form .message span{
-			display: block;
-			color: #c9501c;
-			font-size: 0.9rem;
-			margin: 8px 0 0 1px;
-			font-weight: 300;
-		}
-		.my-wallet-form .modify-form .message .error-message__card-number{
-			margin-right: 180px;
-		}
-		.my-wallet-form .modify-form .message .error-message__expiry-date{
-			margin-right: 70px;
-		}
-		.my-wallet-form .modify-ipt-form{
-			margin-bottom: 0;
-			border-bottom: 0;
-			padding-bottom: 0;
-			margin-top: 0;
-		}
-		.my-wallet-form .modify-ipt-form .pay-button{
-			padding-top: 32px;
-			border-top: 1px solid rgba(255, 255, 255, 0.15);
-		}
-	</style>
 </head>
 <body>
 	<!-- head -->
@@ -167,49 +117,12 @@
 	<div class="footerpage2"></div>
 	
 	<!-- modify -->
-	<div class="modify none my-wallet-form">
+	<div class="modify none">
 		<div class="modify-container flex">
 			<div class="modify-form">
 				<div class="modify-tit flex" data-type="add"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
-				<div class="modify-ipt-form" id="modify-ipt-form" style="display: block;">
-					<div class="modify-ipt-add">
-						<div class="modify-ipt-tit">新信用卡信息</div>
-						<div class="modify-ipt-number flex" style="margin-top: 16px;">
-							<!-- fream组件 -->
-								<!-- <input class="modify-ipt-card" type="text" placeholder="卡號" />
-								<input class="modify-ipt-mm" type="text" id="datetimepicker" placeholder="MM/YY" />
-								<input class="modify-ipt-cvc" type="text" placeholder="CVC" /> -->
-							<form id="payment-form" method="POST" action="https://merchant.com/charge-card" style="width:100%;">
-								<div class="payment-form-ipt flex" style="height: 100%;justify-content: space-between;height: 46px;">
-									<div class="flex card-number">
-										<i></i>
-										<div class="modify-ipt-card card-number-frame"></div>
-									</div>
-									<div class="flex expiry-date">
-										<i></i>
-										<div class="modify-ipt-mm expiry-date-frame"></div>
-									</div>
-									<div class="flex cvv">
-										<i></i>
-										<div class="modify-ipt-cvc cvv-frame"></div>
-									</div>
-								</div>
-								<div class="pay-button modify-btn">
-									<button class="add modify-btn-active" id="pay-button"></button>
-									<button class="cancel" type="button" onclick="cancel()">取消</button>
-									<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
-								</div>
-								<div class="message">
-									<span class="error-message error-message__card-number"></span>
-									<span class="error-message error-message__expiry-date"></span>
-									<span class="error-message error-message__cvv"></span>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="modify-ipt-none"></div>
-				<div id="delete-dialog" class="delete-dialog modify-btn flex" style="margin-top: 64px;">
+				<div class="modify-ipt"></div>
+				<div class="modify-btn flex">
 					<button class="add modify-btn-active " type="button"></button>
 					<button class="cancel" type="button" onclick="cancel()">取消</button>
 					<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
@@ -222,8 +135,6 @@
 	<div class="tips"></div>
 	
 </body>
-<script src="https://cdn.checkout.com/js/framesv2.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="./js/mywalletCard.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
 
 <script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
