@@ -55,6 +55,26 @@
 		.wallet-payment-desc {
 			color: #fff;
 		}
+
+		
+		.modify-ipt-fream{
+			position: relative;
+		}
+		.modify-ipt-fream .error-message{
+			position: absolute;
+		}
+		.error-message__card-number{
+			top: 40px;
+			right: 0;
+		}
+		.error-message__expiry-date{
+			top: 104px;
+			right: 226;
+		}
+		.error-message__cvv{
+			top: 104px;
+			right: 0;
+		}
 	</style>
 </head>
 
@@ -231,10 +251,10 @@
 								class="order-price-busd none busdPrice">BUSD 0 </span></p>
 					</div>
 
-					<div class="payment-page-right-select">
+					<div class="payment-page-right-select modify-ipt-fream">
 						<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
 							<div class="payment-form-ipt">
-								<div class="input-container card-number">
+								<div class="input-container card-number" style="margin-bottom: 20px !important;">
 									<div class="icon-container">
 										<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
 									</div> 
