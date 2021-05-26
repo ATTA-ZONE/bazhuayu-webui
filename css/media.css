@@ -349,6 +349,39 @@
 		padding-bottom:20px;
 		margin-bottom:20px;
 	}
+	/* 信用卡移动端 */
+	.input-container{
+		display: block !important;
+		height: auto !important;
+	}
+	.icon-container{
+		height: 46px;
+	}
+	.input-container >div{
+		margin-bottom: 20px !important;
+	}
+	.payment-form-ipt .card-number-frame{
+		width: 100%;
+	}
+	.payment-form-ipt .expiry-date-frame{
+		width: 100%;
+	}
+	.payment-form-ipt .cvv-frame{
+		width: 100%;
+	}
+	.error-message__card-number{
+		top: 48px;
+		padding-right:0;
+	}
+	.error-message__expiry-date{
+		top: 114px;
+		padding-right:0;
+	}
+	.error-message__cvv{
+		top: 180px;
+		padding-right:0;
+	}
+
 	.payment-page{
 		width:100%;
 		max-width:100%;
@@ -360,6 +393,8 @@
 	.payment-page-left{
 		width:100%;
 	}
+
+
 	.payment-page-right{
 		width:100%;
 		margin-top:20px;

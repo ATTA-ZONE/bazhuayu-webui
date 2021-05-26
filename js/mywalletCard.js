@@ -38,7 +38,8 @@ function onValidationChanged(event) {
   var e = event.element;
   console.log(event);
 	clearErrorMessage(e);
-  if (event.isValid && !event.isEmpty) {
+  // 移动端首次修改校验的是cvv，此处需要做过滤
+  if (event.isValid || event.isEmpty) {
   } else {
     setErrorMessage(e);
   }
