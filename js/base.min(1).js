@@ -59,6 +59,7 @@
 				if(f)top.location.reload();
 			},
 			handleAccountsChanged:function(accounts,c){
+				walletId = accounts;
 				var addr=accounts[0].toLocaleLowerCase();
 				localStorage.setItem(this.__wallet__,addr);
 				window.setTimeout(function(){
