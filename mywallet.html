@@ -27,23 +27,23 @@
 	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
 	<style>
-		
-		.modify-ipt-fream{
+	
+	.modify-ipt-fream{
 			position: relative;
 		}
 		.modify-ipt-fream .error-message{
 			position: absolute;
 		}
 		.error-message__card-number{
-			top: 40px;
+			top: 98px;
 			right: 0;
 		}
 		.error-message__expiry-date{
-			top: 104px;
-			right: 226;
+			top: 162px;
+			right: 226px;
 		}
 		.error-message__cvv{
-			top: 104px;
+			top: 162px;
 			right: 0;
 		}
 	</style>
@@ -145,6 +145,9 @@
 			<div class="modify-form">
 				<div class="modify-tit flex" data-type="add"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
 				<div class="modify-ipt-fream" id="modify-ipt-form">
+					<div class="modify-ipt-add">
+						<div class="modify-ipt-tit">新信用卡信息</div>
+					</div>
 					<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
 						<div class="payment-form-ipt" style="margin-top: 30px;">
 							<div class="input-container card-number" style="margin-bottom: 20px !important;">
