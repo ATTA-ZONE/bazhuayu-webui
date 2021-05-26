@@ -417,7 +417,7 @@ function connectWallet(){
 				if(text=='未連接錢包'){
 					window.location.href = 'connectWallet.html';
 				}else{
-					tips('已連接');
+					// tips('已連接');
 				}
 				
 			}else{
