@@ -62,7 +62,6 @@ label {
 	position: relative;
 	display: flex;
 	height: 46px;
-	background: #282828;
 	border-radius: 2px;
 }
 
@@ -75,8 +74,10 @@ label {
 }
 
 .input-container.card-number {
+	justify-content: space-between;
 	margin-bottom: 15px !important;
 	width: 100% !important;
+	position: relative;
 }
 
 .input-container.expiry-date {
@@ -86,8 +87,17 @@ label {
 .card-number-frame,
 .expiry-date-frame,
 .cvv-frame {
-	flex: 1 1 auto;
-	padding-left: 40px !important;
+	/* flex: 1 1 auto; */
+	padding-left: 12px !important;
+}
+.card-number-frame{
+	width: 248px;
+}
+.expiry-date-frame{
+	width: 92px;
+}
+.cvv-frame{
+	width: 54px;
 }
 
 div+button {
@@ -100,9 +110,10 @@ div+button {
 	bottom: 0;
 	display: flex;
 	justify-content: center;
-	width: 26px;
-	margin: 0 7px !important;
-	text-indent: 0 !important;
+	background-color: #282828;
+	width: 12px;
+	/* margin: 0 7px !important; */
+	/* text-indent: 0 !important; */
 }
 
 .icon-container.payment-method {
@@ -149,10 +160,20 @@ div+button {
 
 .error-message {
 	display: block;
+	width: 100%;
+	text-align: right;
 	color: #c9501c;
 	font-size: 0.9rem;
-	margin: 8px 0 0 1px;
+	/* margin: 8px 0 0 1px; */
 	font-weight: 300;
+	position:absolute;
+	top: 50px;
+}
+.error-message__card-number{
+	padding-right: 180px;
+}
+.error-message__expiry-date{
+	padding-right: 70px;
 }
 
 #pay-button {
