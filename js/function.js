@@ -140,7 +140,12 @@ function addFund(){
 	if (getCookie('isConnect')=='false') {
 		window.location.href="./connectWallet.html"
 	}else{
-
+		
+	$('.modify-ipt-none').addClass('modify-ipt');
+	var payForm = document.getElementById("modify-ipt-form");
+	var deleteBtn = document.getElementById("delete-dialog");
+	payForm.style.display = "none";
+	deleteBtn.style.display = "block";
 		$('.modify-tit span').text('充值');
 		$('.modify-tit').data('type','add');
 		$.ajax({
@@ -417,7 +422,7 @@ function connectWallet(){
 				if(text=='未連接錢包'){
 					window.location.href = 'connectWallet.html';
 				}else{
-					// tips('已連接');
+					tips('已連接');
 				}
 				
 			}else{
