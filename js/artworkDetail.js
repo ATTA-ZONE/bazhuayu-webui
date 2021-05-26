@@ -163,7 +163,8 @@ function payCrypto() {
 							loading();
 							window.ethereum.enable().then(function (accounts) {
 								if (window.ethereum && window.ethereum.isConnected()) {
-									document.cookie = "isConnect=true";
+									setcookieff('isConnect=true');
+									// document.cookie = "isConnect=true";
 								}
 								setTimeout(function () {
 									loadingHide();
@@ -544,6 +545,7 @@ $(function () {
 			$('.payment-page-right-btn button').addClass('can');
 			if ($('.busd-tip').text() == '餘額不足') {
 				$('.payment-page-right-btn button').text('充值');
+				document.getElementById("balanceBtn").disabled = false
 			} else {
 				$('.payment-page-right-btn button').text('立即付款  >');
 			}
@@ -604,7 +606,7 @@ $(function () {
 	//支付
 	$('.payment-page-right-btn button').click(function () {
 		var text = $('.payment-page-right-pay .cur').data('type');
-		var value = $(this).text().trim();
+		var value = $(this).text().trim().split(" ")[0];
 		var orderNo = $('.order-number').text().trim().split('：')[1];
 		var busd = $('.order-price .order-price-busd').text().trim();
 		// console.log(text)

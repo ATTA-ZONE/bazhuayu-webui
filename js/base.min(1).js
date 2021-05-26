@@ -59,6 +59,7 @@
 				if(f)top.location.reload();
 			},
 			handleAccountsChanged:function(accounts,c){
+				walletId = accounts;
 				var addr=accounts[0].toLocaleLowerCase();
 				localStorage.setItem(this.__wallet__,addr);
 				window.setTimeout(function(){
@@ -74,7 +75,8 @@
 						}),
 						success:function(res){
 							if(res.code==0){
-								document.cookie="isConnect=true";
+								// document.cookie="isConnect=true";
+								setcookieff('isConnect=true')
 								if (c) {
 									c();
 								}else{
