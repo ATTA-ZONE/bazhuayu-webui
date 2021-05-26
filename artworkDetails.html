@@ -55,6 +55,30 @@
 		.wallet-payment-desc {
 			color: #fff;
 		}
+
+
+		.modify-ipt-fream {
+			position: relative;
+		}
+
+		.modify-ipt-fream .error-message {
+			position: absolute;
+		}
+
+		.error-message__card-number {
+			top: 40px;
+			right: 0;
+		}
+
+		.error-message__expiry-date {
+			top: 104px;
+			right: 226;
+		}
+
+		.error-message__cvv {
+			top: 104px;
+			right: 0;
+		}
 	</style>
 </head>
 
@@ -135,8 +159,8 @@
 		<div class="details center-80 flex">
 			<div class="details-left order-img">
 				<div onclick="playVideo(this,event)" class="detail-mask"></div><img class="full-screen detail-media"
-				@click="FullScreen" src="./images/fullscreen.png" /><img @click="toggleVideo"
-					class="voice detail-media" src="./images/mute.png" />
+					@click="FullScreen" src="./images/fullscreen.png" /><img @click="toggleVideo" class="voice detail-media"
+					src="./images/mute.png" />
 			</div>
 			<div class="details-right">
 				<div class="details-right-tit order-title">----</div>
@@ -226,10 +250,10 @@
 									class="order-price-busd none busdPrice">BUSD 0 </span></p>
 						</div>
 
-						<div class="payment-page-right-select">
+						<div class="payment-page-right-select modify-ipt-fream">
 							<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
 								<div class="payment-form-ipt">
-									<div class="input-container card-number">
+									<div class="input-container card-number" style="margin-bottom: 20px !important;">
 										<div class="icon-container">
 											<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
 										</div>
@@ -240,47 +264,46 @@
 										<div class="icon-container">
 											<img id="icon-card-number-error" src="images/card-icons/error.svg" />
 										</div>
-									</div>
 
-									<div class="date-and-code">
-										<div>
-											<div class="input-container expiry-date">
-												<div class="icon-container">
-													<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
+										<div class="date-and-code">
+											<div>
+												<div class="input-container expiry-date">
+													<div class="icon-container">
+														<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
+													</div>
+													<div class="expiry-date-frame"></div>
+													<div class="icon-container">
+														<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
+													</div>
 												</div>
-												<div class="expiry-date-frame"></div>
-												<div class="icon-container">
-													<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
+											</div>
+
+											<div>
+												<div class="input-container cvv">
+													<div class="icon-container">
+														<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
+													</div>
+													<div class="cvv-frame"></div>
+													<div class="icon-container">
+														<img id="icon-cvv-error" src="images/card-icons/error.svg" />
+													</div>
 												</div>
 											</div>
 										</div>
-
-										<div>
-											<div class="input-container cvv">
-												<div class="icon-container">
-													<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
-												</div>
-												<div class="cvv-frame"></div>
-												<div class="icon-container">
-													<img id="icon-cvv-error" src="images/card-icons/error.svg" />
-												</div>
-											</div>
-										</div>
 									</div>
-								</div>
 
-								<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
-								<div style="color: #FF1313;
+									<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
+									<div style="color: #FF1313;
 								display: flex;
 								align-items: center;
 								margin-top: 10px;"><input id="savetips" type="checkbox" /><span>由於您購買的是數字作品，一經售出概不退換</span></div>
 
-								<div>
-									<div class="pay-button"><button id="pay-button" disabled="">立即付款 ></button></div>
-									<span class="error-message error-message__card-number"></span>
-									<span class="error-message error-message__expiry-date"></span>
-									<span class="error-message error-message__cvv"></span>
-								</div>
+									<div>
+										<div class="pay-button"><button id="pay-button" disabled="">立即付款 ></button></div>
+										<span class="error-message error-message__card-number"></span>
+										<span class="error-message error-message__expiry-date"></span>
+										<span class="error-message error-message__cvv"></span>
+									</div>
 							</form>
 						</div>
 						<div class="payment-page-right-busd none">

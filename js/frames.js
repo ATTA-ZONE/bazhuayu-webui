@@ -54,16 +54,19 @@ Frames.addEventHandler(
   Frames.Events.FRAME_VALIDATION_CHANGED,
   onValidationChanged
 );
+var errList = ['card-number','expiry-date','cvv'];
 function onValidationChanged(event) {
+	console.log(event);
   var e = event.element;
-
+	errList.forEach(element => {
+		setDefaultIcon(element);
+		clearErrorIcon(element);
+		clearErrorMessage(element);
+	});
   if (event.isValid || event.isEmpty) {
     if (e === "card-number" && !event.isEmpty) {
       showPaymentMethodIcon();
     }
-    setDefaultIcon(e);
-    clearErrorIcon(e);
-    clearErrorMessage(e);
   } else {
     if (e === "card-number") {
       clearPaymentMethodIcon();
@@ -73,6 +76,25 @@ function onValidationChanged(event) {
     setErrorMessage(e);
   }
 }
+// function onValidationChanged(event) {
+//   var e = event.element;
+
+//   if (event.isValid || event.isEmpty) {
+//     if (e === "card-number" && !event.isEmpty) {
+//       showPaymentMethodIcon();
+//     }
+//     setDefaultIcon(e);
+//     clearErrorIcon(e);
+//     clearErrorMessage(e);
+//   } else {
+//     if (e === "card-number") {
+//       clearPaymentMethodIcon();
+//     }
+//     setDefaultErrorIcon(e);
+//     setErrorIcon(e);
+//     setErrorMessage(e);
+//   }
+// }
 
 function clearErrorMessage(el) {
   var selector = ".error-message__" + el;

@@ -140,7 +140,11 @@ function addFund(){
 	if (getCookie('isConnect')=='false') {
 		window.location.href="./connectWallet.html"
 	}else{
-
+		var payForm = document.getElementById("modify-ipt-form");
+		payForm.style.display = "none";
+		var modifyForm = document.getElementById("modify-btn-form");
+		modifyForm.style.display = "block";
+		$('.modify-ipt-form').addClass('modify-ipt');
 		$('.modify-tit span').text('充值');
 		$('.modify-tit').data('type','add');
 		$.ajax({
@@ -187,6 +191,11 @@ function widthDraw(){
 	if (getCookie('isConnect')=='false') {	
 		window.location.href="./connectWallet.html"
 	}else{
+		var payForm = document.getElementById("modify-ipt-form");
+		payForm.style.display = "none";
+		var modifyForm = document.getElementById("modify-btn-form");
+		modifyForm.style.display = "block";
+		$('.modify-ipt-form').addClass('modify-ipt');
 		$('.modify-tit span').text('提款');
 		$('.modify-tit').data('type','withdraw');
 		$.ajax({
@@ -212,35 +221,34 @@ function widthDraw(){
 
 //change card
 function changeCard(){
+	var payForm = document.getElementById("modify-ipt-form");
+	payForm.style.display = "block";
+	var modifyForm = document.getElementById("modify-btn-form");
+	modifyForm.style.display = "none";
+	$('.modify-ipt-form').removeClass('modify-ipt');
+	$('.modify-ipt-form').html(``);
 	$('.modify-tit span').text('更換信用卡');
 	$('.modify-tit').data('type','card');
-	
-	var html = ``;
-	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">新信用卡信息</div>
-				<div class="modify-ipt-number flex">
-					<input class="modify-ipt-card" type="text" placeholder="卡號" />
-					<input class="modify-ipt-mm" type="text" id="datetimepicker" placeholder="MM/YY" />
-					<input class="modify-ipt-cvc" type="text" placeholder="CVC" />
-				</div>
-			</div>`;
-			
-	$('.modify-ipt').html(html);
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
 	$('.modify-btn-active').text('儲存');
 	
-	$('#datetimepicker').datetimepicker({
-		format: 'mm/yyyy',
-		minView: 3,
-		autoclose: true,
-		language:'en'
-	});
+	// $('#datetimepicker').datetimepicker({
+	// 	format: 'mm/yyyy',
+	// 	minView: 3,
+	// 	autoclose: true,
+	// 	language:'en'
+	// });
 	// $('.modify-card').fadeIn();
 }
 
 //delete info
 function deleteCard(){
+	var payForm = document.getElementById("modify-ipt-form");
+	payForm.style.display = "none";
+	var modifyForm = document.getElementById("modify-btn-form");
+	modifyForm.style.display = "block";
+	$('.modify-ipt-form').addClass('modify-ipt');
 	$('.modify-tit span').text('刪除資料');
 	$('.modify-tit').data('type','dcard');
 	var html = ``;
@@ -409,7 +417,7 @@ function connectWallet(){
 				if(text=='未連接錢包'){
 					window.location.href = 'connectWallet.html';
 				}else{
-					tips('已連接');
+					// tips('已連接');
 				}
 				
 			}else{
