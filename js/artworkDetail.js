@@ -545,6 +545,7 @@ $(function () {
 			$('.payment-page-right-btn button').addClass('can');
 			if ($('.busd-tip').text() == '餘額不足') {
 				$('.payment-page-right-btn button').text('充值');
+				document.getElementById("balanceBtn").disabled = false
 			} else {
 				$('.payment-page-right-btn button').text('立即付款  >');
 			}
