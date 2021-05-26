@@ -26,7 +26,8 @@ function logIn(data,url){
 			console.log(res)
 			if(res.code==0){
 				if(res.data.verified==1){
-					document.cookie="islogin=true";
+					// document.cookie="islogin=true";
+					setcookieff("islogin=true");
 					success('登入成功',1800);
 					setTimeout(function(){
 						if(url!=''){

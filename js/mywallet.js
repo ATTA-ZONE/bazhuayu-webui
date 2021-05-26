@@ -206,7 +206,8 @@ $(function () {
 
 
 										if (window.ethereum && window.ethereum.isConnected()) {
-											document.cookie = "isConnect=true";
+											// document.cookie = "isConnect=true";
+											setcookieff("isConnect=true");
 										}
 
 										setTimeout(function () {
@@ -269,7 +270,8 @@ $(function () {
 				success: function (res) {
 					if (res.code == 0) {
 						success('删除成功', 1800);
-						document.cookie = "isConnect=false";
+						// document.cookie = "isConnect=false";
+						setcookieff("isConnect=false");
 						setTimeout(function () {
 							window.location.reload();
 						}, 1800)
