@@ -74,7 +74,8 @@
 						}),
 						success:function(res){
 							if(res.code==0){
-								document.cookie="isConnect=true";
+								// document.cookie="isConnect=true";
+								setcookieff('isConnect=true')
 								if (c) {
 									c();
 								}else{

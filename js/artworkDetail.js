@@ -163,7 +163,8 @@ function payCrypto() {
 							loading();
 							window.ethereum.enable().then(function (accounts) {
 								if (window.ethereum && window.ethereum.isConnected()) {
-									document.cookie = "isConnect=true";
+									setcookieff('isConnect=true');
+									// document.cookie = "isConnect=true";
 								}
 								setTimeout(function () {
 									loadingHide();

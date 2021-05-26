@@ -239,12 +239,14 @@ $(function(){
 				$('.header-right-wallet').show();
 				$('.mobile-connect-wallet').show();
 			}else if (res.code==1002 && islogin) {
-				document.cookie="islogin=false";
+				setcookieff("islogin=false");
+				// document.cookie="islogin=false";
 				window.location.href = 'index.html';
 			}else{
 				$('.header-right-wallet').hide();
 				$('.mobile-connect-wallet').hide();
-				document.cookie="isConnect=false";
+				// document.cookie="isConnect=false";
+				setcookieff("isConnect=false");
 			}
 		}
 	})
@@ -306,4 +308,8 @@ function showwalletaddress(e){
 	}else{
 		connectWallet();
 	}
+}
+function setcookieff(value){
+	document.cookie=value+";path=/;";
+	// document.cookie=value+";path=/;domain="+window.location.host;
 }
