@@ -17,7 +17,7 @@ Frames.init({
 			border: "none",
 			background: "#282828",
 			fontSize: "14px",
-			opacity: "0.4",
+			// opacity: "0.4",
 			color: "#fff",
 		}
 	}
@@ -54,30 +54,46 @@ Frames.addEventHandler(
   Frames.Events.FRAME_VALIDATION_CHANGED,
   onValidationChanged
 );
+var errorList = ["card-number","expiry-date","cvv"]
 function onValidationChanged(event) {
   var e = event.element;
-
-  if (event.isValid || event.isEmpty) {
-    if (e === "card-number" && !event.isEmpty) {
-      showPaymentMethodIcon();
-    }
-    setDefaultIcon(e);
-    clearErrorIcon(e);
-    clearErrorMessage(e);
+  console.log(event);
+	clearErrorMessage(e);
+  if (event.isValid && !event.isEmpty) {
   } else {
-    if (e === "card-number") {
-      clearPaymentMethodIcon();
-    }
-    setDefaultErrorIcon(e);
-    setErrorIcon(e);
     setErrorMessage(e);
   }
 }
+// function onValidationChanged(event) {
+//   var e = event.element;
+
+//   if (event.isValid || event.isEmpty) {
+//     if (e === "card-number" && !event.isEmpty) {
+//       // showPaymentMethodIcon();
+//     }
+//     // setDefaultIcon(e);
+//     // clearErrorIcon(e);
+//     clearErrorMessage(e);
+//   } else {
+//     if (e === "card-number") {
+//       // clearPaymentMethodIcon();
+//     }
+//     // setDefaultErrorIcon(e);
+//     // setErrorIcon(e);
+//     setErrorMessage(e);
+//   }
+// }
 
 function clearErrorMessage(el) {
-  var selector = ".error-message__" + el;
-  var message = document.querySelector(selector);
-  message.textContent = "";
+  // var selector = ".error-message__" + el;
+  // var message = document.querySelector(selector);
+  // message.textContent = "";
+  console.log(el);
+	errorList.forEach(function(item){
+		var selector = ".error-message__" + item;
+		var message = document.querySelector(selector);
+		message.textContent = "";
+	})
 }
 
 function clearErrorIcon(el) {
@@ -198,10 +214,10 @@ function paymentMethodChanged(event) {
   let container = document.querySelector(".icon-container.payment-method");
 
   if (!pm) {
-    clearPaymentMethodIcon(container);
+    // clearPaymentMethodIcon(container);
   } else {
-    clearErrorIcon("card-number");
-    showPaymentMethodIcon(container, pm);
+    // clearErrorIcon("card-number");
+    // showPaymentMethodIcon(container, pm);
   }
 }
 
