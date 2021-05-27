@@ -2399,6 +2399,8 @@ html {
 }
 
 .my-assets-right-creator-edition {
+	word-wrap: break-word;
+    word-break: break-all;
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
@@ -2487,6 +2489,7 @@ html {
 .claim-tip {
 	color: #9567FF;
 	margin-top: 5px;
+	word-break: break-all;
 }
 
 .my-assets-right-btn .claim {
@@ -2496,9 +2499,14 @@ html {
 	text-align: center;
 }
 
+.finish-nft {
+	background: transparent !important;
+	border: 1px solid #fff;
+}
+
 .my-assets-right-btn .eth {
 	background: #5A5A5A;
-	color: #141414;
+	color: #fff;
 	width: 49%;
 	flex-direction: column;
 	line-height: 18px;
@@ -3490,8 +3498,8 @@ html {
 	line-height: 110%;
 	color: #FFFFFF;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-	padding-bottom: 32px;
-	margin-bottom: 32px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 	text-align: left;
 }
 
@@ -3500,8 +3508,8 @@ html {
 	margin: auto;
 	padding: 0;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-	padding-bottom: 32px;
-	margin-bottom: 32px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .hsycms-model .nth-con .nth-con-tip {
