@@ -264,6 +264,11 @@ function deleteCard(){
 }
 
 function deleteWallet(){
+	var payForm = document.getElementById("modify-ipt-form");
+	payForm.style.display = "none";
+	var modifyForm = document.getElementById("modify-btn-form");
+	modifyForm.style.display = "block";
+	$('.modify-ipt-form').addClass('modify-ipt');
 	$('.modify-tit span').html('刪除資料');
 	$('.modify-tit').data('type','dwallet');
 	var html = ``;
