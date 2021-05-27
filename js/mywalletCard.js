@@ -7,8 +7,8 @@ Frames.init({
 	publicKey:'pk_a154d2a3-6b40-4401-a12c-dba288e68957',
 	localization: {
 	    cardNumberPlaceholder: "卡號",
-	    expiryMonthPlaceholder: "XX",
-	    expiryYearPlaceholder: "XX",
+	    expiryMonthPlaceholder: "MM",
+	    expiryYearPlaceholder: "YY",
 	    cvvPlaceholder: "CVV",
 	},
 	style:{
@@ -23,6 +23,24 @@ Frames.init({
 	}
 });
 
+var logos = generateLogos();
+function generateLogos() {
+  var logos = {};
+  logos["card-number"] = {
+    src: "card",
+    alt: "card number logo",
+  };
+  logos["expiry-date"] = {
+    src: "exp-date",
+    alt: "expiry date logo",
+  };
+  logos["cvv"] = {
+    src: "cvv",
+    alt: "cvv logo",
+  };
+  return logos;
+}
+
 var errors = {};
 errors["card-number"] = "請輸入有效的卡號";
 errors["expiry-date"] = "請輸入有效的到期日期";
@@ -32,26 +50,56 @@ Frames.addEventHandler(
   Frames.Events.FRAME_VALIDATION_CHANGED,
   onValidationChanged
 );
-
-var errorList = ["card-number","expiry-date","cvv"]
+var errList = ['card-number','expiry-date','cvv'];
 function onValidationChanged(event) {
   var e = event.element;
-  console.log(event);
-	clearErrorMessage(e);
-  // 移动端首次修改校验的是cvv，此处需要做过滤
+	errList.forEach(element => {
+		setDefaultIcon(element);
+		clearErrorIcon(element);
+		clearErrorMessage(element);
+	});
   if (event.isValid || event.isEmpty) {
+    if (e === "card-number" && !event.isEmpty) {
+      showPaymentMethodIcon();
+    }
   } else {
+    if (e === "card-number") {
+      clearPaymentMethodIcon();
+    }
+    setDefaultErrorIcon(e);
+    setErrorIcon(e);
     setErrorMessage(e);
   }
 }
 
 function clearErrorMessage(el) {
-	console.log(el);
-	errorList.forEach(function(item){
-		var selector = ".error-message__" + item;
-		var message = document.querySelector(selector);
-		message.textContent = "";
-	})
+  var selector = ".error-message__" + el;
+  var message = document.querySelector(selector);
+  message.textContent = "";
+}
+
+function clearErrorIcon(el) {
+  var logo = document.getElementById("icon-" + el + "-error");
+  logo.style.removeProperty("display");
+}
+
+function showPaymentMethodIcon(parent, pm) {
+  if (parent) parent.classList.add("show");
+
+  var logo = document.getElementById("logo-payment-method");
+  if (pm) {
+    var name = pm.toLowerCase();
+    logo.setAttribute("src", "images/card-icons/" + name + ".svg");
+    logo.setAttribute("alt", pm || "payment method");
+  }
+  logo.style.removeProperty("display");
+}
+
+function clearPaymentMethodIcon(parent) {
+  if (parent) parent.classList.remove("show");
+
+  var logo = document.getElementById("logo-payment-method");
+  logo.style.setProperty("display", "none");
 }
 
 function setErrorMessage(el) {
@@ -60,6 +108,24 @@ function setErrorMessage(el) {
   message.textContent = errors[el];
 }
 
+function setDefaultIcon(el) {
+  var selector = "icon-" + el;
+  var logo = document.getElementById(selector);
+  logo.setAttribute("src", "images/card-icons/" + logos[el].src + ".svg");
+  logo.setAttribute("alt", logos[el].alt);
+}
+
+function setDefaultErrorIcon(el) {
+  var selector = "icon-" + el;
+  var logo = document.getElementById(selector);
+  logo.setAttribute("src", "images/card-icons/" + logos[el].src + "-error.svg");
+  logo.setAttribute("alt", logos[el].alt);
+}
+
+function setErrorIcon(el) {
+  var logo = document.getElementById("icon-" + el + "-error");
+  logo.style.setProperty("display", "block");
+}
 
 Frames.addEventHandler(
   Frames.Events.CARD_VALIDATION_CHANGED,
@@ -67,7 +133,8 @@ Frames.addEventHandler(
 );
 function cardValidationChanged() {
   payButton.disabled = true;
-    payButton.disabled = !Frames.isCardValid();
+  
+	payButton.disabled = !Frames.isCardValid();
 }
 
 Frames.addEventHandler(
@@ -83,7 +150,6 @@ $('#pay-button').click(function(){
 });
 Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, onCardTokenized);
 function onCardTokenized(event) {
-  console.log(event);
   var data = {
 		cardNo:event.bin + '********' + event.last4,//信用卡号码
     monthLimit:event.expiry_month,//月份
@@ -105,9 +171,24 @@ function onCardTokenized(event) {
 	});
 }
 
+Frames.addEventHandler(
+  Frames.Events.PAYMENT_METHOD_CHANGED,
+  paymentMethodChanged
+);
+function paymentMethodChanged(event) {
+  var pm = event.paymentMethod;
+  let container = document.querySelector(".icon-container.payment-method");
+
+  if (!pm) {
+    clearPaymentMethodIcon(container);
+  } else {
+    clearErrorIcon("card-number");
+    showPaymentMethodIcon(container, pm);
+  }
+}
+
 form.addEventListener("submit", onSubmit);
 function onSubmit(event) {
-  console.log(event);
   event.preventDefault();
   Frames.submitCard();
 }
