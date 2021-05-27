@@ -68,6 +68,16 @@ function toggleBanner(obj){
 	
 	progress(5000);
 }
+function togglepwd() {
+	var value = $('.newPwd').val().trim()
+	var regExp = /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/
+	if (regExp.test(value)) {
+		$('.password-icon1').attr('src', './images/pass.png')
+	} else if (value.length > 8) {
+		$('.password-icon1').attr('src', './images/refuse.png')
+		tips('密碼至少8位，請至少包含一個大寫字母和一個小寫字母')
+	}
+}
 
 // 
 function progressToggle(obj){
@@ -350,8 +360,10 @@ function changePwd(){
 				</div>
 				<div class="input-position">
 					<div class="modify-ipt-tit">新密碼</div>
-					<input class="modify-ipt-pwd newPwd" type="password" placeholder="輸入新密碼" />
+					<input class="modify-ipt-pwd newPwd" type="password" placeholder="輸入新密碼" oninput="togglepwd()"/>
+					<img class="password-icon1" style="top:58px;" src="./images/refuse.png">
 					<div class="pwdMessage newPwd-message">密碼長度不少於6比特</div>
+					<div class="pswrule">密碼至少8位，請至少包含一個大寫字母和一個小寫字母</div>
 				</div>
 				<div class="input-position">
 					<div class="modify-ipt-tit">重複新密碼</div>

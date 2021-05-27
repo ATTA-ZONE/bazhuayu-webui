@@ -303,7 +303,7 @@ $(function(){
 
 })
 function showwalletaddress(e){
-	if (e.target.textContent == "已連接錢包") {
+	if ($('.header-right-wallet .modify-tc-pc').text() == "已連接錢包" || $('.mobile-connect-wallet .modify-tc-pc').text() == "已連接錢包") {
 		window.location.href  = 'showwallet.html';
 	}else{
 		connectWallet();
