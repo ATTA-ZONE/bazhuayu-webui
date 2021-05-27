@@ -8,17 +8,30 @@ var app = new Vue({
 			pageSize: 9,
 			showMoreInfo: -1,
 			selectedNftName:'',
-			selectedNft: null
+			selectedNft: null,
+			walletId: ''
 		}
 	},
 	created() {
 		this.isConnect = getCookie('isConnect') == 'false' ? false : true
+		this.getAccount()
 	},
 	mounted() {
 		this.getAssetsList()
 	},
 	
 	methods: {
+		getAccount(){
+			let self = this
+			$.ajax({
+				url:base_url+'/v2/user/wallet/info',
+				success:function(res){
+					if(res.code==0){
+						self.walletId = res.data.address;
+					}
+				}
+			})
+		},
 		getNftStatus(item) {
 			let finishNft = true
 			item.mintList.filter(data=>{
