@@ -18,7 +18,7 @@ Frames.init({
 			border: "none",
 			background: "#282828",
 			fontSize: "14px",
-			// opacity: "0.4",
+			opacity: "0.4",
 			color: "#fff",
 		}
 	}
@@ -55,14 +55,24 @@ Frames.addEventHandler(
   Frames.Events.FRAME_VALIDATION_CHANGED,
   onValidationChanged
 );
-var errorList = ["card-number","expiry-date","cvv"]
+var errList = ['card-number','expiry-date','cvv'];
 function onValidationChanged(event) {
   var e = event.element;
-  console.log(event);
-	clearErrorMessage(e);
-  // 移动端首次修改校验的是cvv，此处需要做过滤
+	errList.forEach(element => {
+		setDefaultIcon(element);
+		clearErrorIcon(element);
+		clearErrorMessage(element);
+	});
   if (event.isValid || event.isEmpty) {
+    if (e === "card-number" && !event.isEmpty) {
+      showPaymentMethodIcon();
+    }
   } else {
+    if (e === "card-number") {
+      clearPaymentMethodIcon();
+    }
+    setDefaultErrorIcon(e);
+    setErrorIcon(e);
     setErrorMessage(e);
   }
 }
@@ -71,31 +81,25 @@ function onValidationChanged(event) {
 
 //   if (event.isValid || event.isEmpty) {
 //     if (e === "card-number" && !event.isEmpty) {
-//       // showPaymentMethodIcon();
+//       showPaymentMethodIcon();
 //     }
-//     // setDefaultIcon(e);
-//     // clearErrorIcon(e);
+//     setDefaultIcon(e);
+//     clearErrorIcon(e);
 //     clearErrorMessage(e);
 //   } else {
 //     if (e === "card-number") {
-//       // clearPaymentMethodIcon();
+//       clearPaymentMethodIcon();
 //     }
-//     // setDefaultErrorIcon(e);
-//     // setErrorIcon(e);
+//     setDefaultErrorIcon(e);
+//     setErrorIcon(e);
 //     setErrorMessage(e);
 //   }
 // }
 
 function clearErrorMessage(el) {
-  // var selector = ".error-message__" + el;
-  // var message = document.querySelector(selector);
-  // message.textContent = "";
-  console.log(el);
-	errorList.forEach(function(item){
-		var selector = ".error-message__" + item;
-		var message = document.querySelector(selector);
-		message.textContent = "";
-	})
+  var selector = ".error-message__" + el;
+  var message = document.querySelector(selector);
+  message.textContent = "";
 }
 
 function clearErrorIcon(el) {
@@ -182,9 +186,10 @@ function onCardTokenized(event) {
 	var saveCard = $('#save').prop('checked');
 	var ctoken = event.token;
 	var useLast = false;
+  var id = window.location.search.substring(1).split('=')[1];
 	var data = {
 		// orderNo,
-    configCommodityId:id,buyCount:selectarr.length,
+    configCommodityId:id,buyCount:window.$selectarr.length,  
     connectStatus:getCookie('isConnect'),
 		saveCard,
 		ctoken,
@@ -216,10 +221,10 @@ function paymentMethodChanged(event) {
   let container = document.querySelector(".icon-container.payment-method");
 
   if (!pm) {
-    // clearPaymentMethodIcon(container);
+    clearPaymentMethodIcon(container);
   } else {
-    // clearErrorIcon("card-number");
-    // showPaymentMethodIcon(container, pm);
+    clearErrorIcon("card-number");
+    showPaymentMethodIcon(container, pm);
   }
 }
 

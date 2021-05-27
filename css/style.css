@@ -3149,8 +3149,8 @@ html {
 }
 
 .modify-btn .add {
-	background: #9567FF;
-	color: #fff;
+	background: #9567FF !important;
+	color: #fff !important;
 }
 
 .modify-btn .delete {
