@@ -109,14 +109,14 @@
 								:class="['claim', getNftStatus(item) != '等待自動鑄造BSC NFT中'? 'finish-nft':'']">{{getNftStatus(item)}}
 							</a>
 							<div class="claim-tip" 
-								v-if="!isConnect">(請先連接您的錢包)
+								v-if="!isConnect && getNftStatus(item) != 'BSC NFT 鑄造結束'">(請先連接您的錢包)
 							</div>
 							<div class="claim-tip" 
 								v-if="isConnect && getBuildingBsc(item.mintList).length > 0">當前正在鑄造：第{{getBuildingBsc(item.mintList).join('、')}} 版
 							</div>
 							<div class="claim-tip" 
 								@click="showSelectedNft(item)" 
-								v-if="isConnect && getBuildedBsc(item.mintList).length > 0">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})
+								v-if="getBuildedBsc(item.mintList).length > 0">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})
 							</div>
 						</div>
 
