@@ -4,6 +4,7 @@ var form = document.getElementById("payment-form");
 
 // Frames.init("pk_test_8ac41c0d-fbcc-4ae3-a771-31ea533a2beb");
 Frames.init({
+	// publicKey:'pk_test_7cabb2f1-609e-4581-918f-0f2c304989be',
 	publicKey:'pk_a154d2a3-6b40-4401-a12c-dba288e68957',
 	localization: {
 	    cardNumberPlaceholder: "卡號",
@@ -54,16 +55,18 @@ Frames.addEventHandler(
   Frames.Events.FRAME_VALIDATION_CHANGED,
   onValidationChanged
 );
+var errList = ['card-number','expiry-date','cvv'];
 function onValidationChanged(event) {
   var e = event.element;
-
+	errList.forEach(element => {
+		setDefaultIcon(element);
+		clearErrorIcon(element);
+		clearErrorMessage(element);
+	});
   if (event.isValid || event.isEmpty) {
     if (e === "card-number" && !event.isEmpty) {
       showPaymentMethodIcon();
     }
-    setDefaultIcon(e);
-    clearErrorIcon(e);
-    clearErrorMessage(e);
   } else {
     if (e === "card-number") {
       clearPaymentMethodIcon();
@@ -73,6 +76,25 @@ function onValidationChanged(event) {
     setErrorMessage(e);
   }
 }
+// function onValidationChanged(event) {
+//   var e = event.element;
+
+//   if (event.isValid || event.isEmpty) {
+//     if (e === "card-number" && !event.isEmpty) {
+//       showPaymentMethodIcon();
+//     }
+//     setDefaultIcon(e);
+//     clearErrorIcon(e);
+//     clearErrorMessage(e);
+//   } else {
+//     if (e === "card-number") {
+//       clearPaymentMethodIcon();
+//     }
+//     setDefaultErrorIcon(e);
+//     setErrorIcon(e);
+//     setErrorMessage(e);
+//   }
+// }
 
 function clearErrorMessage(el) {
   var selector = ".error-message__" + el;
@@ -164,9 +186,10 @@ function onCardTokenized(event) {
 	var saveCard = $('#save').prop('checked');
 	var ctoken = event.token;
 	var useLast = false;
+  var id = window.location.search.substring(1).split('=')[1];
 	var data = {
 		// orderNo,
-    configCommodityId:id,buyCount:selectarr.length,
+    configCommodityId:id,buyCount:window.$selectarr.length,  
     connectStatus:getCookie('isConnect'),
 		saveCard,
 		ctoken,
