@@ -19,6 +19,38 @@ var app = new Vue({
 	},
 	
 	methods: {
+		getNftStatus(item) {
+			let finishNft = true
+			item.mintList.filter(data=>{
+				if (data.status == 0 || data.status == 1) {
+					finishNft = false
+				}
+			})
+			if (finishNft) {
+				return 'BSC NFT 鑄造結束'
+			} else {
+				if (this.isConnect) {
+					return 'BSC NFT鑄造中 ( 约7天完成 )'
+				} else {
+					return '等待自動鑄造BSC NFT中'
+				}
+			}
+		},
+		conneAssetsctWallet(str) {
+			if (str == 'BSC NFT 鑄造結束') {
+				return false
+			} else {
+				if (this.isConnect) {
+					setTimeout(function () {
+						hsycms.alert('model1')
+					}, 50)
+				} else {
+					setTimeout(function () {
+						hsycms.alert('model2');
+					}, 50)
+				}
+			}
+		},
 		showSelectedNft(item){
 			this.selectedNftName=item.name
 			this.selectedNft= this.getBuildedBsc(item.mintList)  
@@ -50,15 +82,6 @@ var app = new Vue({
 				}
 			})
 			return arr
-		},
-		mangeStatus(list) {
-			let status = 0
-			list.filter(item => {
-				if (item.status > status) {
-					status = item.status
-				}
-			})
-			return status
 		},
 		getIntroduce(item,content, str) {
 			if (content === 'desc') {
@@ -115,18 +138,6 @@ var app = new Vue({
 					}
 				}
 			})
-		},
-		
-		conneAssetsctWallet() {
-			if (getCookie('isConnect') == 'true') {
-				setTimeout(function () {
-					hsycms.alert('model1')
-				}, 50)
-			} else {
-				setTimeout(function () {
-					hsycms.alert('model2');
-				}, 50)
-			}
 		}
 	}
 });
