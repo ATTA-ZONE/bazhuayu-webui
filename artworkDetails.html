@@ -192,9 +192,8 @@
 				</div>
 				<div class="details-right-price flex"><span class="cur order-price-hdk hkdPrice">HK$0 </span> <span
 						style="margin-right: 20px;">/</span> <span class="order-price-busd busdPrice" style="opacity: 1;">BUSD 0
-					</span>
-				</div>
-				<div class="details-right-btn flex payment-btn-pc" @click="toPay">立即購買 -></div>
+					</span></div>
+				<div class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay">立即購買 -></div>
 				<div class="details-right-time flex"><span>銷售結束於：</span><span class="details-right-time-djs">01 : 05 : 32</span>
 				</div>
 				<div class="details-right-des order-introduce">
@@ -243,8 +242,7 @@
 						</div>
 						<div class="payment-page-right-pay flex">
 							<span v-for="(item, index) in payTabs" :key="index" :class="selectedPayMethod == index? 'cur':''"
-								@click="togglePayMethod(index)">{{item}}
-							</span>
+								@click="togglePayMethod(index)">{{item}}</span>
 						</div>
 						<div class="payment-page-right-total">
 							<p>這是待付款，您的付款金額為：</p>
@@ -266,46 +264,46 @@
 										<div class="icon-container">
 											<img id="icon-card-number-error" src="images/card-icons/error.svg" />
 										</div>
+									</div>
 
-										<div class="date-and-code">
-											<div>
-												<div class="input-container expiry-date">
-													<div class="icon-container">
-														<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
-													</div>
-													<div class="expiry-date-frame"></div>
-													<div class="icon-container">
-														<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
-													</div>
+									<div class="date-and-code">
+										<div>
+											<div class="input-container expiry-date">
+												<div class="icon-container">
+													<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
+												</div>
+												<div class="expiry-date-frame"></div>
+												<div class="icon-container">
+													<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
 												</div>
 											</div>
+										</div>
 
-											<div>
-												<div class="input-container cvv">
-													<div class="icon-container">
-														<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
-													</div>
-													<div class="cvv-frame"></div>
-													<div class="icon-container">
-														<img id="icon-cvv-error" src="images/card-icons/error.svg" />
-													</div>
+										<div>
+											<div class="input-container cvv">
+												<div class="icon-container">
+													<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
+												</div>
+												<div class="cvv-frame"></div>
+												<div class="icon-container">
+													<img id="icon-cvv-error" src="images/card-icons/error.svg" />
 												</div>
 											</div>
 										</div>
 									</div>
+								</div>
 									<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
 									<div style="color: #FF1313;
-										display: flex;
-										align-items: center;
-										margin-top: 10px;"><input id="savetips" type="checkbox" /><span>由於您購買的是數字作品，一經售出概不退換</span>
-									</div>
+								display: flex;
+								align-items: center;
+								margin-top: 10px;"><input id="savetips" type="checkbox" /><span>由於您購買的是數字作品，一經售出概不退換</span></div>
+
 									<div>
 										<div class="pay-button"><button id="pay-button" disabled="">立即付款 ></button></div>
 										<span class="error-message error-message__card-number"></span>
 										<span class="error-message error-message__expiry-date"></span>
 										<span class="error-message error-message__cvv"></span>
 									</div>
-								</div>
 							</form>
 						</div>
 						<div class="payment-page-right-busd none">
@@ -385,10 +383,10 @@
 	<div class="tips"></div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./js/artworkDetail.js" type="text/javascript" charset="utf-8"></script>
 
 <script src="https://cdn.checkout.com/js/framesv2.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/frames.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="./js/artworkDetail.js" type="text/javascript" charset="utf-8"></script>
 
 </html>

@@ -56,7 +56,6 @@ Frames.addEventHandler(
 );
 var errList = ['card-number','expiry-date','cvv'];
 function onValidationChanged(event) {
-	console.log(event);
   var e = event.element;
 	errList.forEach(element => {
 		setDefaultIcon(element);
@@ -171,6 +170,7 @@ function onCardTokenizationFailed(error) {
 }
 
 $('.pay-button').click(function(){
+  console.log('7887946546789');
 	loading();
 });
 Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, onCardTokenized);
@@ -186,9 +186,12 @@ function onCardTokenized(event) {
 	var saveCard = $('#save').prop('checked');
 	var ctoken = event.token;
 	var useLast = false;
+  var id = window.location.search.substring(1).split('=')[1];
+  
+  console.log(event,window.$vm);
 	var data = {
 		// orderNo,
-    configCommodityId:id,buyCount:selectarr.length,
+    configCommodityId:id,buyCount:window.$selectarr.length,  
     connectStatus:getCookie('isConnect'),
 		saveCard,
 		ctoken,

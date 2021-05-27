@@ -3,7 +3,7 @@ var app = new Vue({
 	data: function () {
 		return {
 			id: '',
-			prev: -1,
+			prev: -1, 
 			success_status: -1,
 			walletType: '',
 			maxbannum: 0,
@@ -206,6 +206,7 @@ var app = new Vue({
 						var systemTime = res.data.systemTime; //当前时间
 						var geshi = res.data.primaryPic.substr(res.data.primaryPic.lastIndexOf('.') + 1);
 						self.selectarr.push(res.data.edition);
+						window.$selectarr = self.selectarr;
 						self.maxbannum = res.data.endEdition;
 						self.hkdPrice = res.data.hkdPrice;
 						self.busdPrice = res.data.price;
