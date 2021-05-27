@@ -52,7 +52,6 @@ Frames.addEventHandler(
 );
 var errList = ['card-number','expiry-date','cvv'];
 function onValidationChanged(event) {
-	console.log(event);
   var e = event.element;
 	errList.forEach(element => {
 		setDefaultIcon(element);
@@ -147,12 +146,10 @@ function onCardTokenizationFailed(error) {
 }
 
 $('#pay-button').click(function(){
-  console.log(89898989);
 	loading();
 });
 Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, onCardTokenized);
 function onCardTokenized(event) {
-  console.log(event);
   var data = {
 		cardNo:event.bin + '********' + event.last4,//信用卡号码
     monthLimit:event.expiry_month,//月份
