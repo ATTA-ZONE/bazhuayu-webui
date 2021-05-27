@@ -3498,8 +3498,8 @@ html {
 	line-height: 110%;
 	color: #FFFFFF;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-	padding-bottom: 32px;
-	margin-bottom: 32px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 	text-align: left;
 }
 
@@ -3508,8 +3508,8 @@ html {
 	margin: auto;
 	padding: 0;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-	padding-bottom: 32px;
-	margin-bottom: 32px;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .hsycms-model .nth-con .nth-con-tip {
