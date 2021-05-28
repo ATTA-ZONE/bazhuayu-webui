@@ -47,13 +47,17 @@
 			word-break: break-word;
 		}
 		tr .first {
-			width: 140px;
+			width: 150px;
 		}
 		tr .second {
-			width: 50px;
+			width: 100px;
 		}
 		tr .third {
-			flex: 1;
+			width: 180px;
+			margin-right: 20px;
+		}
+		tr .fourth {
+			width: 260px;
 		}
 		.bsc-table tr {
 			display: flex;
@@ -114,11 +118,11 @@
 							<div class="claim-tip" 
 								v-if="isConnect && getBuildingBsc(item.mintList).length > 0">當前正在鑄造：第{{getBuildingBsc(item.mintList).join('、')}} 版
 							</div>
+							<div class="claim-tip" v-if="isConnect && getBuildingBsc(item.mintList).length > 0">当前NFT接收地址: {{walletId}}</div>
 							<div class="claim-tip" 
 								@click="showSelectedNft(item)" 
 								v-if="getBuildedBsc(item.mintList).length > 0">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})
 							</div>
-							<div class="claim-tip" v-if="isConnect && getBuildingBsc(item.mintList).length > 0">当前NFT接收地址: {{walletId}}</div>
 						</div>
 
 						<a class="flex eth"><div>鑄造ETH NFT</div><div>(功能準備中)</div></a>						
@@ -166,22 +170,41 @@
 	</div>
 	<!-- 已铸造nft -->
 	<div class="hsycms-model-mask" onclick="hsycms.closeAll()" id="mask-model3"></div>
-	<div class="hsycms-model hsycms-model-model ntf" id="model3">
+	<div class="hsycms-model hsycms-model-model ntf" id="model3" style="width: 800px;">
 		<div class="ntf-close" onclick="hsycms.closeAll()"><img src="./images/Close.png"></div>
-		<div class="hscysm-model-title nth-tit">已鑄造NFT</div>
-		<div class="hsycms-model-content nth-con">
+		<div class="hscysm-model-title nth-tit" style="width: 90%; text-align: center;">已鑄造NFT</div>
+		<div class="hsycms-model-content nth-con" style="width: 90%;">
 			<table class="bsc-table">
 				<tr>
 					<th class="first">商品名稱</th>
 					<th class="second">版數</th>
-					<th class="third">鑄造憑證</th>
+					<th class="third">NFT接收地址</th>
+					<th class="fourth">鑄造憑證</th>
 				</tr>
 				<tr v-for="(itm,index) in selectedNft" :key="index">
 					<td class="first">{{selectedNftName}}</td>
 					<td class="second">{{itm.edition}}</td>
-					<td class="third">{{itm.transactionHash}}</td>
+					<td class="third">{{walletId}}</td>
+					<td class="fourth">{{itm.transactionHash}}</td>
 				</tr>
 			</table>
+			<div class="mint-wrap">
+				<div class="flex mint-wrap-title">
+					<span>商品名稱</span>
+					<span>版數</span>
+				</div>
+				<div class="building-nft" v-for="(itm,index) in selectedNft" :key="index">
+					<div class="flex mint-wrap-edition">
+						<span>{{selectedNftName}}</span>
+						<span>{{itm.edition}}</span>
+					</div>
+					<div class="address-wrap">
+						<div class="min-address">NFT接收地址: {{walletId}}</div>
+						<div>鑄造憑證: {{itm.transactionHash}}</div>
+					</div>
+					<div class="mint-line"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- foot -->

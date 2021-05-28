@@ -48,7 +48,7 @@ function mangeWalletCharge(res, accounts) {
 
 $(function () {
 
-
+	var web3 = getEth();
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
 		success: function (res) {
