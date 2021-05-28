@@ -333,5 +333,5 @@ $(".metamask").click(function (e) {
 
 });
 $(".connectWalletpage .modify-btn-active,.connectWalletpage .modify-close").click(function(){
-	window.location.href = document.referrer;
+	window.location.href = 'index.html';
 })
