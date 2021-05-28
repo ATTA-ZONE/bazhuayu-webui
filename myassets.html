@@ -47,16 +47,17 @@
 			word-break: break-word;
 		}
 		tr .first {
-			width: 140px;
+			width: 150px;
 		}
 		tr .second {
-			width: 50px;
+			width: 100px;
 		}
 		tr .third {
-			width: 160px;
+			width: 180px;
+			margin-right: 20px;
 		}
 		tr .fourth {
-			width: 210px;
+			width: 260px;
 		}
 		.bsc-table tr {
 			display: flex;
@@ -187,6 +188,23 @@
 					<td class="fourth">{{itm.transactionHash}}</td>
 				</tr>
 			</table>
+			<div class="mint-wrap">
+				<div class="flex mint-wrap-title">
+					<span>Collection name</span>
+					<span>Edition</span>
+				</div>
+				<div class="building-nft" v-for="(itm,index) in selectedNft" :key="index">
+					<div class="flex mint-wrap-edition">
+						<span>{{selectedNftName}}</span>
+						<span>{{itm.edition}}</span>
+					</div>
+					<div class="address-wrap">
+						<div class="min-address">Address: {{walletId}}</div>
+						<div>Transaction: {{itm.transactionHash}}</div>
+					</div>
+					<div class="mint-line"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- foot -->
