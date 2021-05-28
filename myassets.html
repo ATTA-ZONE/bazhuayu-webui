@@ -118,6 +118,7 @@
 								@click="showSelectedNft(item)" 
 								v-if="getBuildedBsc(item.mintList).length > 0">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})
 							</div>
+							<div class="claim-tip" v-if="isConnect && getBuildingBsc(item.mintList).length > 0">当前NFT接收地址: {{walletId}}</div>
 						</div>
 
 						<a class="flex eth"><div>鑄造ETH NFT</div><div>(功能準備中)</div></a>						
@@ -148,6 +149,7 @@
 		<div class="ntf-close" onclick="hsycms.closeAll()"><img src="./images/Close.png"></div>
 		<div class="hsycms-model-content nth-con model-style">
 			<div class="nth-con-tip">您的NFT正在鑄造中<br/>請耐心等待</div>
+			<div class="nth-con-tip">当前NFT接收地址: {{walletId}}</div>
 		</div>
 		<div class="nth-btn"><button type="button" onclick="hsycms.closeAll()">確認</button></div>
 	</div>
