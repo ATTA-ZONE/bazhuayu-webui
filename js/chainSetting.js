@@ -66,10 +66,6 @@ var RPCSetting =
 
         }
 
-
-
-apiKey = '9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27'
-
 c_auction = {
     'proxy': '',
     'abi': c_auction_abi,
