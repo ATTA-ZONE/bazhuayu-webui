@@ -2,6 +2,7 @@ function mangeWalletCharge(res, accounts) {
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		var web3 = getEth();
+		console.log(web3);
 		var contract = new web3.Contract(abi, address);
 		var amount = $('.modify-ipt input').val().trim();
 				if (amount == '') {
@@ -48,7 +49,9 @@ function mangeWalletCharge(res, accounts) {
 
 $(function () {
 
-
+	var web3 = getEth();
+	console.log(web3);
+	console.log(8888888888888);
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
 		success: function (res) {
