@@ -104,11 +104,22 @@
 								:href="item.attachment">下載原始文件副本</a></div>
 					</div>
 					<div class="my-assets-right-btn flex">
-						<div v-if="!isConnect" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim">等待自動鑄造BSC NFT中</a><div class="claim-tip">(請先連接您的錢包)</div></div>
-
-						<div v-if="isConnect && mangeStatus(item.mintList) == 1" class="flex my-assets-claim-wrap"><a @click="conneAssetsctWallet" class="claim claim-miting">BSC NFT鑄造中 ( 约7天完成 )</a><div class="claim-tip">當前正在鑄造：第{{getBuildingBsc(item.mintList).join(',')}}</div><div class="claim-tip" v-if="getBuildedBsc(item.mintList).length > 0" @click="showSelectedNft(item)">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
-
-						<div v-if="isConnect && mangeStatus(item.mintList) == 2" class="flex my-assets-claim-wrap"><a class="claim claim-miting">BSC NFT 鑄造結束</a><div class="claim-tip" @click="showSelectedNft(item)">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})</div></div>
+						<div class="flex my-assets-claim-wrap">
+							<a @click="conneAssetsctWallet(getNftStatus(item))" 
+								:class="['claim', getNftStatus(item) != '等待自動鑄造BSC NFT中'? 'finish-nft':'']">{{getNftStatus(item)}}
+							</a>
+							<div class="claim-tip" 
+								v-if="!isConnect && getNftStatus(item) != 'BSC NFT 鑄造結束'">(請先連接您的錢包)
+							</div>
+							<div class="claim-tip" 
+								v-if="isConnect && getBuildingBsc(item.mintList).length > 0">當前正在鑄造：第{{getBuildingBsc(item.mintList).join('、')}} 版
+							</div>
+							<div class="claim-tip" 
+								@click="showSelectedNft(item)" 
+								v-if="getBuildedBsc(item.mintList).length > 0">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})
+							</div>
+							<div class="claim-tip" v-if="isConnect && getBuildingBsc(item.mintList).length > 0">当前NFT接收地址: {{walletId}}</div>
+						</div>
 
 						<a class="flex eth"><div>鑄造ETH NFT</div><div>(功能準備中)</div></a>						
 					</div>
@@ -138,6 +149,7 @@
 		<div class="ntf-close" onclick="hsycms.closeAll()"><img src="./images/Close.png"></div>
 		<div class="hsycms-model-content nth-con model-style">
 			<div class="nth-con-tip">您的NFT正在鑄造中<br/>請耐心等待</div>
+			<div class="nth-con-tip">当前NFT接收地址: {{walletId}}</div>
 		</div>
 		<div class="nth-btn"><button type="button" onclick="hsycms.closeAll()">確認</button></div>
 	</div>
