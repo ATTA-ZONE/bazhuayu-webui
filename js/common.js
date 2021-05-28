@@ -313,7 +313,7 @@ $(function(){
 		}
 	})
 
-
+	
 
 })
 function showwalletaddress(e){
