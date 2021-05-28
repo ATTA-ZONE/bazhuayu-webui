@@ -170,10 +170,10 @@
 	</div>
 	<!-- 已铸造nft -->
 	<div class="hsycms-model-mask" onclick="hsycms.closeAll()" id="mask-model3"></div>
-	<div class="hsycms-model hsycms-model-model ntf" id="model3">
+	<div class="hsycms-model hsycms-model-model ntf" id="model3" style="width: 800px;">
 		<div class="ntf-close" onclick="hsycms.closeAll()"><img src="./images/Close.png"></div>
-		<div class="hscysm-model-title nth-tit" style="width: 550px; text-align: center;">已鑄造NFT</div>
-		<div class="hsycms-model-content nth-con" style="width: 550px !important;">
+		<div class="hscysm-model-title nth-tit" style="width: 90%; text-align: center;">已鑄造NFT</div>
+		<div class="hsycms-model-content nth-con" style="width: 90%;">
 			<table class="bsc-table">
 				<tr>
 					<th class="first">商品名稱</th>
@@ -190,8 +190,8 @@
 			</table>
 			<div class="mint-wrap">
 				<div class="flex mint-wrap-title">
-					<span>Collection name</span>
-					<span>Edition</span>
+					<span>商品名稱</span>
+					<span>版數</span>
 				</div>
 				<div class="building-nft" v-for="(itm,index) in selectedNft" :key="index">
 					<div class="flex mint-wrap-edition">
@@ -199,8 +199,8 @@
 						<span>{{itm.edition}}</span>
 					</div>
 					<div class="address-wrap">
-						<div class="min-address">Address: {{walletId}}</div>
-						<div>Transaction: {{itm.transactionHash}}</div>
+						<div class="min-address">NFT接收地址: {{walletId}}</div>
+						<div>鑄造憑證: {{itm.transactionHash}}</div>
 					</div>
 					<div class="mint-line"></div>
 				</div>
