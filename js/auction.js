@@ -93,149 +93,152 @@ function changwWalletId(accounts) {
 	}
 }
 
-function initialization() {
-    var web3 = getWeb3();
-    var chainId = '';
-    ethereum.request({ method: 'eth_chainId' })
-        .then(function (res) {
-            chainId = web3.utils.hexToNumber(res);
+async function initialization() {
+	if (cookie(CHAIN.WALLET.__wallet__)) {
+		// await CHAIN.WALLET.enable();
+		var web3 = new Web3(CHAIN.WALLET.provider());
+		CHAIN.WALLET.chainId()
+			.then(function (res) {
+				var chainId = res;
+				var auctionAddress = contractSetting[aunction_contract][chainId].address;
+				// 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+				var auctionABI = contractSetting[aunction_contract][abi];
+			
+				auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
+			
+				
+				var tokenTypeId = 0;
+				if (chainId == 97) {
+					tokenTypeId = 80000003; // 测试环境
+				} else if (chainId == 56) {
+					tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
+				} else {
+					tokenTypeId = 0;
+				}
+			
+			
+				//获取 tokenId 的 下一个 竞价的 至少 要大于 的 值
+				auctionContractInstance.methods.getNextMinimalBid(tokenTypeId).call()
+					.then(function (res) {
+						res = web3.utils.fromWei(res, 'ether');
+						$('.bid-right-btn span').data('price', res);
+						$('.bid-right-btn span font').text(res);
+					});
+			
+			
+				//获取 拍卖的 详情，包括 时间参数，最高价     等设定
+				auctionContractInstance.methods._auctions(tokenTypeId).call()
+					.then(function (res) {
+						var tokenTopBid = web3.utils.fromWei(res.tokenTopBid, 'ether');
+						$('.bid-right-status-current span:nth-child(2)').text('BUSD ' + tokenTopBid);
+			
+						var currentTime = Date.now(); //当前时间  ms
+						var startTime = parseInt(res.startTime) * 1000; //拍卖开始时间  ms
+						var minLastPeriod = parseInt(res.minLastPeriod) * 1000; //拍卖持续时间  ms
+						var tokenLastBidTime = parseInt(res.tokenLastBidTime) * 1000; //最高竞价者 的竞价时间 ms
+						var callBackPeriod = parseInt(res.callBackPeriod) * 1000; //每有一次新竞价的 续命 时间 ms
+						var endTime = startTime + minLastPeriod;
+						var html = ``;
+			
+						auctionContractInstance.methods.auctionOpenBid(tokenTypeId).call()
+							.then(function (key) {
+								// if(minLastPeriod - (tokenLastBidTime + callBackPeriod) < 0 && key){
+								// 	endTime = endTime + callBackPeriod;
+								// }
+			
+								if (currentTime < startTime) { //未开始
+									$('#make_offer').data('sign', '3');
+									var time = formatDuring(startTime - currentTime);
+									html += `<span>拍賣開始時間：</span><span data-time="0">` + time + `</span>`;
+									var ksTime = setInterval(function () {
+										var js = formatDuring(startTime - Date.now());
+										$('.bid-right-status-time span:nth-child(2)').text(js);
+										if (startTime <= Date.now()) {
+											clearInterval(ksTime);
+										}
+									}, 1000);
+			
+								} else if (currentTime >= startTime && currentTime <= endTime) {
+									$('#make_offer').data('sign', '1');
+									var time = formatDuring(endTime - currentTime);
+									html += `<span>拍賣剩餘時間：</span><span data-time="1">` + time + `</span>`;
+			
+									var syTime = setInterval(function () {
+										var js = formatDuring(endTime - Date.now());
+										$('.bid-right-status-time span:nth-child(2)').text(js);
+										if (endTime <= Date.now()) {
+											clearInterval(syTime);
+										}
+									}, 1000);
+			
+								} else {
+									html += `<span>拍賣剩餘時間：</span><span data-time="2">競標結束</span>`;
+									$('.bid-right-btn span').hide();
+									$('#make_offer').hide();
+			
+								}
+			
+								$('.bid-right-status-time').html(html);
+								loadingHide();
+							})
+			
+					});
+			
+				$.ajax({
+					url: scansite_base_url + '/api?module=logs&action=getLogs&address=' + auctionAddress.toString() + '&topic0=0x19421268847f42dd61705778018ddfc43bcdce8517e7a630acb12f122c709481&apikey=' + scansite_apiKey,
+					success: function (res) {
+						var bidData = res.result;
+						var html = ``;
+						var newData = [];
+						for (var i = 0; i < bidData.length; i++) {
+							newData.unshift(bidData[i]);
+						};
+			
+						$('.bids-list-tit font').text(bidData.length);
+			
+						$.each(newData, function (i, v) {
+							var unixTimestamp = web3.utils.hexToNumber(v.timeStamp) * 1000;
+							unixTimestamp = new Date(unixTimestamp);
+							unixTimestamp = unixTimestamp.toLocaleString();
+							var price = web3.utils.fromWei(v.data, 'ether');
+			
+							var u_add = v.topics[1].split('000000000000000000000000').join('');
+							html += `<li class="flex">
+											<div class="bids-list-person flex">
+												<div class="bids-list-person-name">By ` + u_add + `</div>
+											</div>
+											<div class="bids-list-time">` + unixTimestamp + `</div>
+											<div class="bids-list-busd">$BUSD <span>` + price + `</span></div>
+										</li>`;
+			
+						});
+			
+						$('.bids-list ul').html(html);
+			
+					}
+				});
+			
+			
+				//获取 tokenId 下  竞价 数量
+				// contract.methods.getBidsLength(tokenTypeId).call()
+				// .then(function(res){
+				// 	$('.bids-list-tit span').val(res);
+				// });
+			
+				userBidInfo();
 
-            if (chainId != targetChainId) {
-                changeNetwork(targetChainId);
-            }
-        
-            var auctionAddress = c_auction[chainId].address;
-            // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
-        	var auctionABI = c_auction.abi;
-        
-        	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
-        
-            
-            var tokenTypeId = 0;
-        	if (chainId == 97) {
-        		tokenTypeId = 80000003; // 测试环境
-        	} else if (chainId == 56) {
-        		tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
-        	} else {
-        		tokenTypeId = 0;
-        	}
-        
-        
-        	//获取 tokenId 的 下一个 竞价的 至少 要大于 的 值
-        	auctionContractInstance.methods.getNextMinimalBid(tokenTypeId).call()
-        		.then(function (res) {
-        			res = getWeb3().utils.fromWei(res, 'ether');
-        			$('.bid-right-btn span').data('price', res);
-        			$('.bid-right-btn span font').text(res);
-        		});
-        
-        
-        	//获取 拍卖的 详情，包括 时间参数，最高价     等设定
-        	auctionContractInstance.methods._auctions(tokenTypeId).call()
-        		.then(function (res) {
-        			var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
-        			$('.bid-right-status-current span:nth-child(2)').text('BUSD ' + tokenTopBid);
-        
-        			var currentTime = Date.now(); //当前时间  ms
-        			var startTime = parseInt(res.startTime) * 1000; //拍卖开始时间  ms
-        			var minLastPeriod = parseInt(res.minLastPeriod) * 1000; //拍卖持续时间  ms
-        			var tokenLastBidTime = parseInt(res.tokenLastBidTime) * 1000; //最高竞价者 的竞价时间 ms
-        			var callBackPeriod = parseInt(res.callBackPeriod) * 1000; //每有一次新竞价的 续命 时间 ms
-        			var endTime = startTime + minLastPeriod;
-        			var html = ``;
-        
-        			auctionContractInstance.methods.auctionOpenBid(tokenTypeId).call()
-        				.then(function (key) {
-        					// if(minLastPeriod - (tokenLastBidTime + callBackPeriod) < 0 && key){
-        					// 	endTime = endTime + callBackPeriod;
-        					// }
-        
-        					if (currentTime < startTime) { //未开始
-        						$('#make_offer').data('sign', '3');
-        						var time = formatDuring(startTime - currentTime);
-        						html += `<span>拍賣開始時間：</span><span data-time="0">` + time + `</span>`;
-        						var ksTime = setInterval(function () {
-        							var js = formatDuring(startTime - Date.now());
-        							$('.bid-right-status-time span:nth-child(2)').text(js);
-        							if (startTime <= Date.now()) {
-        								clearInterval(ksTime);
-        							}
-        						}, 1000);
-        
-        					} else if (currentTime >= startTime && currentTime <= endTime) {
-        						$('#make_offer').data('sign', '1');
-        						var time = formatDuring(endTime - currentTime);
-        						html += `<span>拍賣剩餘時間：</span><span data-time="1">` + time + `</span>`;
-        
-        						var syTime = setInterval(function () {
-        							var js = formatDuring(endTime - Date.now());
-        							$('.bid-right-status-time span:nth-child(2)').text(js);
-        							if (endTime <= Date.now()) {
-        								clearInterval(syTime);
-        							}
-        						}, 1000);
-        
-        					} else {
-        						html += `<span>拍賣剩餘時間：</span><span data-time="2">競標結束</span>`;
-        						$('.bid-right-btn span').hide();
-        						$('#make_offer').hide();
-        
-        					}
-        
-        					$('.bid-right-status-time').html(html);
-        					loadingHide();
-        				})
-        
-        		});
-        
-        	$.ajax({
-        		url: scansite_base_url + '/api?module=logs&action=getLogs&address=' + auctionAddress.toString() + '&topic0=0x19421268847f42dd61705778018ddfc43bcdce8517e7a630acb12f122c709481&apikey=' + scansite_apiKey,
-        		success: function (res) {
-        			var bidData = res.result;
-        			var html = ``;
-        			var newData = [];
-        			for (var i = 0; i < bidData.length; i++) {
-        				newData.unshift(bidData[i]);
-        			};
-        
-        			$('.bids-list-tit font').text(bidData.length);
-        
-        			$.each(newData, function (i, v) {
-        				var unixTimestamp = web3.utils.hexToNumber(v.timeStamp) * 1000;
-        				unixTimestamp = new Date(unixTimestamp);
-        				unixTimestamp = unixTimestamp.toLocaleString();
-        				var price = web3.utils.fromWei(v.data, 'ether');
-        
-        				var u_add = v.topics[1].split('000000000000000000000000').join('');
-        				html += `<li class="flex">
-        								<div class="bids-list-person flex">
-        									<div class="bids-list-person-name">By ` + u_add + `</div>
-        								</div>
-        								<div class="bids-list-time">` + unixTimestamp + `</div>
-        								<div class="bids-list-busd">$BUSD <span>` + price + `</span></div>
-        							</li>`;
-        
-        			});
-        
-        			$('.bids-list ul').html(html);
-        
-        		}
-        	});
-        
-        
-        	//获取 tokenId 下  竞价 数量
-        	// contract.methods.getBidsLength(tokenTypeId).call()
-        	// .then(function(res){
-        	// 	$('.bids-list-tit span').val(res);
-        	// });
-        
-        	userBidInfo();
-        });
+				if (chainId != targetChainId) {
+					await CHAIN.WALLET.switchRPCSettings(targetChainId); // 等待它执行完
+				}
+			});
+	} else {
+		window.alert("您尚未綁定錢包，但基於區塊鏈的獨立性，您仍然可以參與競拍\n當前錢包地址: " + targetAddress);
+	}
 }
 
 function userBidInfo() {
     var userAddress = '';
-	ethereum.request({ method: 'eth_accounts' })
+	CHAIN.WALLET.accounts
         .then(function (res) {
             if (res.length > 0) {
                 userAddress = res[0];
