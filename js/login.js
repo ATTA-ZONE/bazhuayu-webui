@@ -24,6 +24,7 @@ function logIn(data,url){
 		data:JSON.stringify(data),
 		success:function(res){
 			console.log(res)
+			alert(JSON.stringify(res));
 			if(res.code==0){
 				if(res.data.verified==1){
 					// document.cookie="islogin=true";
