@@ -16,6 +16,7 @@ function loginconfirm(vtoken){
 
 //登录
 function logIn(data,url){
+	alert(JSON.stringify(data));
 	$.ajax({
 		url:base_url+'/v2/user/login/email',
 		type: 'POST',
