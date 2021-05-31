@@ -1,10 +1,10 @@
 
 //
 var url = window.location.pathname;
-url = url.substring(url.lastIndexOf('/')+1)
+url = url.substring(url.lastIndexOf('/')+1);
 url = url.substring(0,url.indexOf('.'));
 
-// var base_url = 'http://47.118.74.48:8081';
+//var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
 var islogin;
@@ -14,7 +14,7 @@ if (getCookie('islogin') != 'false') {
 	islogin = false;
 }
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
-	base_url = 'http://localhost:8081';
+	base_url = 'http://47.118.74.48:8081';
 	if (window.location.href.indexOf('47.118.74.48:') > -1) {
 		base_url = 'http://47.118.74.48:'+window.location.port;
 	}

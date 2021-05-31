@@ -6,7 +6,7 @@
 			__wallet__:"__wallet__", // 写活 cookie名称
 			provider: function() {
 				var th=W.CHAIN.WALLET;
-				var t=cookie(th.__wallet__),wallet=th[t];
+				var t=getCookie(th.__wallet__),wallet=th[t];
 				if (wallet){
 					return wallet.provider();
 				} else {
@@ -20,7 +20,7 @@
 			// 监听账户变更事件
 			accountsChangedAssign: function(fnc) {
 				var th=W.CHAIN.WALLET;
-				var t=cookie(th.__wallet__),wallet=th[t];
+				var t=getCookie(th.__wallet__),wallet=th[t];
 
 				wallet.__accountsChangedAssign(function(accounts){
 					fnc(accounts);
@@ -29,7 +29,7 @@
 
 			networkChangedAssign: function(fnc) {
 				var th=W.CHAIN.WALLET;
-				var t=cookie(th.__wallet__),wallet=th[t];
+				var t=getCookie(th.__wallet__),wallet=th[t];
 
 				wallet.__networkChangedAssign(function(accounts){
 					fnc(accounts);
@@ -86,7 +86,7 @@
 				window.debug&&console.log('connect', t, wallet);
 				if (wallet) {
 					var res = await wallet.__connectInit();
-					cookie(th.__wallet__, wallet.name);
+					setCookie(th.__wallet__, wallet.name);
 					return res;
 				} else {
 					console.log(t + ' is not supported.')
@@ -98,14 +98,14 @@
 				var t=arguments[0];
 				var th=W.CHAIN.WALLET;
 				if (t=='') {
-					t = cookie(th.__wallet__);
+					t = getCookie(th.__wallet__);
 				}
 				// console.log('__connect', th);
 				var wallet=th[t];
 				window.debug&&console.log('connect', t, wallet);
 				if (wallet) {
-					if (cookie(th.__wallet__)&&(cookie(th.__wallet__)!=t)){
-						var oldWallet = th[cookie(th.__wallet__)];
+					if (getCookie(th.__wallet__)&&(getCookie(th.__wallet__)!=t)){
+						var oldWallet = th[getCookie(th.__wallet__)];
 						await oldWallet.__disconnect();
 					}
 					
@@ -123,7 +123,7 @@
 				var th=W.CHAIN.WALLET;
 				var curId=await th.__chainId();
 				if (chId!=curId) {
-					var t=cookie(th.__wallet__);
+					var t=getCookie(th.__wallet__);
 					var wallet=th[t];
 					var res = await wallet.__switchRPCSettings(chId);
 					return res;
@@ -134,7 +134,7 @@
 				var assetRefer = arguments[0];
 				var th=W.CHAIN.WALLET;
 				var chId= await th.__chainId();
-				var t=cookie(th.__wallet__);
+				var t=getCookie(th.__wallet__);
 				var wallet=th[t];
 				var res = await wallet.__walletWatchAsset(assetRefer, chId);
 				return res;
@@ -142,7 +142,7 @@
 
 			__disconnect: async function() {
 				var th=W.CHAIN.WALLET;
-				var t=cookie(th.__wallet__);
+				var t=getCookie(th.__wallet__);
 				var wallet=th[t];
 				var res = await wallet.__disconnect();
 				return res;
@@ -177,7 +177,7 @@
 					th1.provider().removeAllListeners('chainChanged');
 					th1.provider().on("disconnect", (code, reason) => {
 						console.log('disconnect', code, reason);
-						cookie(th.__wallet__, null);
+						setCookie(th.__wallet__, null);
 					});
 
 					th1.__accountsChangedAssign(function(accounts) { console.log(accounts)});
@@ -222,8 +222,8 @@
 						params: [{ eth_accounts: {} }],
 					});
 
-					if (cookie(th.__wallet__)&&(cookie(th.__wallet__)!=th1.name)){
-						var oldWallet = th[cookie(th.__wallet__)];
+					if (getCookie(th.__wallet__)&&(getCookie(th.__wallet__)!=th1.name)){
+						var oldWallet = th[getCookie(th.__wallet__)];
 						await oldWallet.__disconnect();
 					}
 
@@ -321,7 +321,7 @@
 					th1.provider().on("disconnect", (code, reason) => {
 						console.log('disconnect', code, reason);
 						th1.__provider=null;
-						cookie(th.__wallet__, null);
+						setCookie(th.__wallet__, null);
 					});
 					th1.__accountsChangedAssign(function(accounts) { console.log(accounts)});
 					th1.__networkChangedAssign(function(netVer) { console.log(netVer)});
@@ -375,8 +375,8 @@
 					// console.log('__enable', th);
 				
 					//关闭 metamask如果 老cookie是metamask
-					if (cookie(th.__wallet__)&&(cookie(th.__wallet__)!=th1.name)){
-						var oldWallet = th[cookie(th.__wallet__)];
+					if (getCookie(th.__wallet__)&&(getCookie(th.__wallet__)!=th1.name)){
+						var oldWallet = th[getCookie(th.__wallet__)];
 						await oldWallet.__disconnect();
 					}
 

@@ -94,9 +94,9 @@ function changwWalletId(accounts) {
 }
 
 function initialization() {
-    var web3 = getWeb3();
+    var web3 = new Web3(CHAIN.WALLET.provider());
     var chainId = '';
-    ethereum.request({ method: 'eth_chainId' })
+    CHAIN.WALLET.chainId()
         .then(function (res) {
             chainId = web3.utils.hexToNumber(res);
 
@@ -104,9 +104,9 @@ function initialization() {
                 changeNetwork(targetChainId);
             }
         
-            var auctionAddress = c_auction[chainId].address;
+            var auctionAddress = contractSetting['aunction_contract'][chainId].address;
             // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
-        	var auctionABI = c_auction.abi;
+        	var auctionABI = contractSetting['aunction_contract']['abi'];
         
         	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
         
@@ -124,7 +124,7 @@ function initialization() {
         	//获取 tokenId 的 下一个 竞价的 至少 要大于 的 值
         	auctionContractInstance.methods.getNextMinimalBid(tokenTypeId).call()
         		.then(function (res) {
-        			res = getWeb3().utils.fromWei(res, 'ether');
+        			res =web3.utils.fromWei(res, 'ether');
         			$('.bid-right-btn span').data('price', res);
         			$('.bid-right-btn span font').text(res);
         		});
@@ -133,7 +133,7 @@ function initialization() {
         	//获取 拍卖的 详情，包括 时间参数，最高价     等设定
         	auctionContractInstance.methods._auctions(tokenTypeId).call()
         		.then(function (res) {
-        			var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
+        			var tokenTopBid = web3.utils.fromWei(res.tokenTopBid, 'ether');
         			$('.bid-right-status-current span:nth-child(2)').text('BUSD ' + tokenTopBid);
         
         			var currentTime = Date.now(); //当前时间  ms
@@ -235,7 +235,7 @@ function initialization() {
 
 function userBidInfo() {
     var userAddress = '';
-	ethereum.request({ method: 'eth_accounts' })
+	CHAIN.WALLET.accounts()
         .then(function (res) {
             if (res.length > 0) {
                 userAddress = res[0];
@@ -274,11 +274,11 @@ function userBidInfo() {
         						// $('#make_offer').data('sign','1');
         
         						if (res[0]['price'] >= currentPrice) { //当前用户为最高价
-        							var u_price = getWeb3().utils.fromWei(res[0]['price'], 'ether');
+        							var u_price = web3.utils.fromWei(res[0]['price'], 'ether');
         							html += `<span>您是當前最高出價者  (BUSD ` + u_price + `)</span>`;
         
         						} else {
-        							var u_price = getWeb3().utils.fromWei(res[0]['price'], 'ether');
+        							var u_price = web3.utils.fromWei(res[0]['price'], 'ether');
         							html += `<span style="color:#CB5252;">您上次競標失敗  (BUSD ` + u_price + `)</span>`;
         						}
         
@@ -363,8 +363,8 @@ $.ajax({
 	}
 })
 
-
-if (typeof window.ethereum !== 'undefined') {
+setCookie(CHAIN.WALLET.__wallet__, 'MetaMask');
+if (getCookie(CHAIN.WALLET.__wallet__)) {
 	// $('#make_offer').data('sign','0');
 	loading();
     initialization()
@@ -382,17 +382,17 @@ if (typeof window.ethereum !== 'undefined') {
     	
     // 	timer = setTimeout(func, 1800);
 
-    function networkChangedImplement() {
-	    initialization();
-    }
+    // function networkChangedImplement() {
+	//     initialization();
+    // }
 	
-	networkChangedAssign(networkChangedImplement);
+	// networkChangedAssign(networkChangedImplement);
 
-	function accountsChangedImplement(accounts) {
-		userBidInfo();
-	}
+	// function accountsChangedImplement(accounts) {
+	// 	userBidInfo();
+	// }
 
-	accountsChangedAssign(accountsChangedImplement);
+	// accountsChangedAssign(accountsChangedImplement);
 
 } else {
 	if (getCookie('isConnect') == 'false') {
