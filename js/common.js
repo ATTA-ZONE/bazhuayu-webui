@@ -252,7 +252,7 @@ $(function(){
 	})
 
 	window.ethereum.request({ method: 'eth_accounts'}).then(function(res){
-		if (walletId == res[0]) {
+		if (res.length > 0 && walletId == res[0]) {
 			setTimeout(() => {
 				setcookieff('isConnect=true')
 				$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
@@ -266,7 +266,7 @@ $(function(){
 	})
 	
 	
-	if(getCookie('isConnect')=='true'){
+	if(getCookie('isConnect')=='true' && walletId){
 		setTimeout(function(){
 			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
 			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
