@@ -375,7 +375,7 @@ $.ajax({
 								success:function(res){
 									if(res.code==0){
 										// document.cookie="isConnect=true";
-										setcookieff('isConnect=true')
+										setCookie('isConnect',true)
 										if (c) {
 											c();
 										}else{

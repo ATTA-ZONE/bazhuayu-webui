@@ -286,7 +286,7 @@ $(".metamask").click(function (e) {
 
 			if (window.ethereum && window.ethereum.isConnected()) {
 				// document.cookie = "isConnect=true";
-				setcookieff("isConnect=true");
+				setCookie('isConnect',true);
 			};
 			if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				if (netVer != '97') {

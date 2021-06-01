@@ -139,7 +139,7 @@ var app = new Vue({
 									loading();
 									window.ethereum.enable().then(function (accounts) {
 										if (window.ethereum && window.ethereum.isConnected()) {
-											setcookieff('isConnect=true');
+											setCookie('isConnect',true);
 										}
 										setTimeout(function () {
 											loadingHide();
