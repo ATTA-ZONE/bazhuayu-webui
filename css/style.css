@@ -4056,3 +4056,8 @@ html {
 	text-overflow:ellipsis;
 	white-space: nowrap;
 }
+input,div{
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	user-select:none;  
+}
