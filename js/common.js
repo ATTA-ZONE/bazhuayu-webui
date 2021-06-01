@@ -87,11 +87,11 @@ function walletaddressdelete(){
 }
 
 $(function(){
-	$(".headerpage").load("TC/header.html");
+	$(".headerpage").load("header.html");
 	// $(".headerpage2").load("header2.html");
-	$(".footerpage").load("TC/footer.html");
-	$(".footerpage2").load("TC/footer2.html");
-	$(".tips").load("TC/tips.html");
+	$(".footerpage").load("footer.html");
+	$(".footerpage2").load("footer2.html");
+	$(".tips").load("tips.html");
 	
 	//底部配置信息
 	$.ajax({
