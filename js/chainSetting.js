@@ -95,7 +95,7 @@ c_ERC20_BUSD = {
 };
 
 var contractSetting = {
-    'aunction_contract': {
+    'auction_contract': {
         'proxy': '',
         'interfaceType': '',
         'abi': c_auction_abi,

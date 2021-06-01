@@ -97,11 +97,13 @@
 			__enable: async function() {
 				var t=arguments[0];
 				var th=W.CHAIN.WALLET;
-				if (t=='') {
+				if (t==null) {
 					t = getCookie(th.__wallet__);
 				}
 				// console.log('__connect', th);
 				var wallet=th[t];
+				// console.log(th);
+				// console.log(t);
 				window.debug&&console.log('connect', t, wallet);
 				if (wallet) {
 					if (getCookie(th.__wallet__)&&(getCookie(th.__wallet__)!=t)){
@@ -109,7 +111,7 @@
 						await oldWallet.__disconnect();
 					}
 					
-					cookie(th.__wallet__, wallet.name);
+					setCookie(th.__wallet__, wallet.name);
 
 					var res = await wallet.__enableInit();
 					return res;
@@ -258,7 +260,7 @@
 					}; 
 					var res = await th1.provider().request({
 						method:'wallet_addEthereumChain',
-						params: params_dict
+						params: [params_dict]
 					});
 					return res;
 				},
