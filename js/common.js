@@ -8,13 +8,14 @@ url = url.substring(0,url.indexOf('.'));
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
 var islogin;
+
 if (getCookie('islogin') != 'false') {
 	islogin = true;
 }else{
 	islogin = false;
 }
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
-	base_url = 'http://47.118.74.48:8081';
+	base_url = 'http://localhost:8081';
 	if (window.location.href.indexOf('47.118.74.48:') > -1) {
 		base_url = 'http://47.118.74.48:'+window.location.port;
 	}
@@ -28,20 +29,6 @@ $.ajax({
 	success:function(res){
 	}
 });
-
-
-// $.ajax({
-// 	url:base_url+'/v2/index/index',
-// 	async: false,
-// 	success:function(res){
-// 		if(res.code==0){
-// 			lang = res.data.lang;
-// 		}else{
-			
-// 		}
-// 	}
-// });
-
 
 //询问弹窗
 function logoutConfirm(){
@@ -207,12 +194,12 @@ $(function(){
 				$('.header-right-wallet').show();
 				$('.mobile-connect-wallet').show();
 			}else if (res.code==1002 && islogin) {
-				setCookie('islogin','false');
+				setCookie('islogin',false);
 				window.location.href = 'index.html';
 			}else{
 				$('.header-right-wallet').hide();
 				$('.mobile-connect-wallet').hide();
-				setCookie('isConnect','false');
+				setCookie('isConnect',false);
 			}
 		}
 	})
