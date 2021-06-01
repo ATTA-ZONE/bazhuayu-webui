@@ -1,10 +1,10 @@
 
 //
 var url = window.location.pathname;
-url = url.substring(url.lastIndexOf('/')+1)
+url = url.substring(url.lastIndexOf('/')+1);
 url = url.substring(0,url.indexOf('.'));
 
-// var base_url = 'http://47.118.74.48:8081';
+//var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
 var islogin;
@@ -14,7 +14,7 @@ if (getCookie('islogin') != 'false') {
 	islogin = false;
 }
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
-	base_url = 'http://localhost:8081';
+	base_url = 'http://47.118.74.48:8081';
 	if (window.location.href.indexOf('47.118.74.48:') > -1) {
 		base_url = 'http://47.118.74.48:'+window.location.port;
 	}
@@ -87,11 +87,11 @@ function walletaddressdelete(){
 }
 
 $(function(){
-	$(".headerpage").load("header.html");
+	$(".headerpage").load("TC/header.html");
 	// $(".headerpage2").load("header2.html");
-	$(".footerpage").load("footer.html");
-	$(".footerpage2").load("footer2.html");
-	$(".tips").load("tips.html");
+	$(".footerpage").load("TC/footer.html");
+	$(".footerpage2").load("TC/footer2.html");
+	$(".tips").load("TC/tips.html");
 	
 	//底部配置信息
 	$.ajax({
@@ -267,6 +267,19 @@ $(function(){
 		})
 	}
 
+	window.ethereum.request({ method: 'eth_accounts'}).then(function(res){
+		if (res.length>0 && walletId == res[0]) {
+			setTimeout(() => {
+				setcookieff('isConnect=true')
+				$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
+				$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
+				
+				$('.mobile-connect-wallet,.header-right-wallet').click(function(){
+					window.location.href  = 'showwallet.html';
+				});
+			}, 300);
+		}
+	})
 	
 	
 	if(getCookie('isConnect')=='true'){
