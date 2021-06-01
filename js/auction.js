@@ -402,27 +402,14 @@ $.ajax({
 			})
 	}
 });
-
+setcookieff('__wallet__','MetaMask')
 var walletType = getCookie(CHAIN.WALLET.__wallet__);
 
+
 if (walletType || window.ethereum) {
-	// $('#make_offer').data('sign','0');
 	loading();
     initialization()
     loadingHide()
-	
-    // 	var timer;
-    // 	function func() {
-    // 	    if (window.ethereum.networkVersion) {
-    // 			initialization();
-    // 			loadingHide();
-    // 		} else {
-    // 		    timer = setTimeout(func, 1000);
-    // 		}
-    // 	}
-    	
-    // 	timer = setTimeout(func, 1800);
-
     function networkChangedImplement() {
 	    initialization();
     }
