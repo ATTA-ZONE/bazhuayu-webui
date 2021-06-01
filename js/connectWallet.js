@@ -1,307 +1,36 @@
-function getWeb3() {
-	return new Web3(window.ethereum); // web3js就是你需要的web3实例
-}
-
-function getEth() {
-	return getWeb3().eth;
-}
-
-
-var abi = [{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [{
-				"indexed": true,
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "Approval",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [{
-				"indexed": true,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "Transfer",
-		"type": "event"
-	},
-	{
-		"inputs": [{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			}
-		],
-		"name": "allowance",
-		"outputs": [{
-			"internalType": "uint256",
-			"name": "",
-			"type": "uint256"
-		}],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "approve",
-		"outputs": [{
-			"internalType": "bool",
-			"name": "",
-			"type": "bool"
-		}],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [{
-			"internalType": "address",
-			"name": "account",
-			"type": "address"
-		}],
-		"name": "balanceOf",
-		"outputs": [{
-			"internalType": "uint256",
-			"name": "",
-			"type": "uint256"
-		}],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "decimals",
-		"outputs": [{
-			"internalType": "uint8",
-			"name": "",
-			"type": "uint8"
-		}],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "subtractedValue",
-				"type": "uint256"
-			}
-		],
-		"name": "decreaseAllowance",
-		"outputs": [{
-			"internalType": "bool",
-			"name": "",
-			"type": "bool"
-		}],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "addedValue",
-				"type": "uint256"
-			}
-		],
-		"name": "increaseAllowance",
-		"outputs": [{
-			"internalType": "bool",
-			"name": "",
-			"type": "bool"
-		}],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "name",
-		"outputs": [{
-			"internalType": "string",
-			"name": "",
-			"type": "string"
-		}],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "symbol",
-		"outputs": [{
-			"internalType": "string",
-			"name": "",
-			"type": "string"
-		}],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "totalSupply",
-		"outputs": [{
-			"internalType": "uint256",
-			"name": "",
-			"type": "uint256"
-		}],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [{
-				"internalType": "address",
-				"name": "recipient",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "transfer",
-		"outputs": [{
-			"internalType": "bool",
-			"name": "",
-			"type": "bool"
-		}],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "recipient",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "transferFrom",
-		"outputs": [{
-			"internalType": "bool",
-			"name": "",
-			"type": "bool"
-		}],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	}
-]
-
-if (typeof window.ethereum !== 'undefined') {
-	var walletId = ethereum.selectedAddress,
-		ethWei = 0.01;
-	var netVer = window.ethereum.networkVersion;
-	
-	var address = ''
-	if (window.location.href.indexOf('bazhuayu.io') == -1) {
-		address = c_ERC20_BUSD[97].address; //测试
-	} else {
-		address = c_ERC20_BUSD[56].address; //正式
-	}
-
-	// 监听账户变更事件
-	ethereum.on('accountsChanged', function (accounts) {
-		if (accounts.length > 0) walletId = accounts[0];
-	});
-
+// link successful
+function linksuccessful(walletId) {
+	$('.modify-tit span').text('您成功登記了一個錢包');
+	var html = ``;
+	html += `<div class="modify-ipt-add">
+				<div class="modify-ipt-tit">`+(walletId==null?'請連接錢包':'錢包地址：'+walletId)+`</div>
+			</div>`;
+			
+	$('.modify-ipt').html(html);
+	$('.modify-tips').html(`<span class="modify-tips-content">請註意：您購買的NFT資產只會發放至當前登記的錢包</span>`);
+	$('.modify-btn-tips').html(`<span class="modify-btn-tips-content">（ 如果您想使用其他錢包，請點擊右上角“已連接錢包”進行更換 ）</span>`);
+	$('.modify-btn-active').addClass('add');
+	$('.modify-btn-active').removeClass('delete');
+	$('.modify-btn-active').text('知道了');
+	$('.cancel').hide();
+	$('.modify').fadeIn();
 }
 
 
-
-// 请求钱包授权，并得到当前使用的钱包地址，ES6
-$(".metamask").click(function (e) {
-	
-	if (typeof window.ethereum !== 'undefined') {
-
-		window.ethereum.request({
-			method: 'wallet_requestPermissions',
-			params: [{ eth_accounts: {} }],
-		  }).then(function () {
-			loading();
-
-			if (window.ethereum && window.ethereum.isConnected()) {
-				// document.cookie = "isConnect=true";
-				setCookie('isConnect',true);
-			};
-			if (window.location.href.indexOf('bazhuayu.io') == -1) {
-				if (netVer != '97') {
-					changeNetwork(97)
-				}
-			} else if (netVer != '56') {
-				changeNetwork(56)
-			}
-			window.ethereum.request({ method: 'eth_accounts'}).then(function(accounts){
-				walletId = accounts[0];
+function connectInit(walletname) {
+	CHAIN.WALLET.connect(walletname)
+		.then(function (accounts) {
+			if (accounts) {
+				loading();
+				if (CHAIN.WALLET.isConnected(walletname)) {
+					// document.cookie = "isConnect=true";
+					setCookie('isConnect',true);
+				};
 				var data = {
 					address: accounts[0],
 					walletType: 'METAMASK'
 				}
-	
+		
 				$.ajax({
 					url: base_url + '/v2/user/wallet/bind',
 					type: 'POST',
@@ -309,29 +38,44 @@ $(".metamask").click(function (e) {
 					dataType: 'json',
 					data: JSON.stringify(data),
 					success: function (res) {
+						if (res.code == 0) {
+							loadingHide();
+							linksuccessful(accounts[0]);
+						} else {
+							loadingHide();
+							window.alert('未登錄，請登入');
+						}
+					},
+					error: function (res) {
 						loadingHide();
-						linksuccessful();
+						window.alert('網絡錯誤，無法獲取賬戶信息');
 					}
-				});	
-			})
-
-			
-
-
-
-		}).catch(function (reason) {
-			
+				});
+			} else {
+				window.alert('無法獲取錢包信息');
+			}
 		})
+		.catch(function (reason) {
+		})
+}
 
 
+// 请求钱包授权，并得到当前使用的钱包地址，ES6
+$(".metamask").click(function (e) {
+	
+	if (typeof window.ethereum !== 'undefined') {
+		connectInit('MetaMask');
 	} else {
 		// 处理用户没安装的情况， 比如显示一个消息
 		// 告诉他们要安装 MetaMask 来使用我们的应用
 		alert('請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。');
 	}
-
-
 });
+
+$("#walletColletBtn").click(function (e) {
+	connectInit('WalletConnect');
+});
+
 $(".connectWalletpage .modify-btn-active,.connectWalletpage .modify-close").click(function(){
 	window.location.href = 'index.html';
 })
