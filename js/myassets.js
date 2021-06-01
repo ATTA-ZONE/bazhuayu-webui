@@ -12,6 +12,9 @@ var app = new Vue({
 			walletId: ''
 		}
 	},
+	components: {
+		'hello': httpVueLoader('hello.vue')
+	},
 	created() {
 		this.isConnect = getCookie('isConnect') == 'false' ? false : true
 		this.getAccount()
