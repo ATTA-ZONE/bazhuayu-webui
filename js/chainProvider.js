@@ -1,12 +1,15 @@
 //var a={};
+setCookie('_wallet_','MetaMask')
+
 !function(W){
 	W.CHAIN={
 		VERSION:'20210406',
 		WALLET:{
-			__wallet__:"__wallet__", // 写活 cookie名称
+			__wallet__:"_wallet_", // 写活 cookie名称
 			provider: function() {
 				var th=W.CHAIN.WALLET;
-				var t=getCookie(th.__wallet__),wallet=th[t];
+				var t=getCookie(th.__wallet__)
+				var wallet=th[t];
 				if (wallet){
 					return wallet.provider();
 				} else {

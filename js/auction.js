@@ -402,7 +402,7 @@ $.ajax({
 			})
 	}
 });
-setcookieff('__wallet__','MetaMask')
+
 var walletType = getCookie(CHAIN.WALLET.__wallet__);
 
 

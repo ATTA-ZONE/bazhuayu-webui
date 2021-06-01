@@ -108,39 +108,7 @@ $(function(){
 			$(".code-pic").attr("src",qrPath);
 		},
 		
-	})
-	
-	
-	// if(url=='index'){
-	// 	setTimeout(function(){
-	// 		$('.header-left ul li').removeClass('current');
-	// 		$('.header-left ul li:nth-child(1)').addClass('current');
-	// 	})
-	// }else if(url=='artwork' || url=='artworkDetails'){
-	// 	setTimeout(function(){
-	// 		$('.header-left ul li').removeClass('current');
-	// 		$('.header-left ul li:nth-child(2)').addClass('current');
-	// 	})
-	// }else if(url=='auction'){
-	// 	setTimeout(function(){
-	// 		$('.header-left ul li').removeClass('current');
-	// 		$('.header-left ul li:nth-child(3)').addClass('current');
-	// 	})
-	// }else{
-	// 	setTimeout(function(){
-	// 		$('.header-left ul li').removeClass('current');
-	// 	},10)
-	// }
-	
-	// setTimeout(function(){
-	// 	if(lang=='TC'){
-	// 		$('.language-en').addClass('none');
-	// 		$('.language-tc').removeClass('none');
-	// 	}
-	// },100)
-	
-	
-	
+	})	
 	//
 	$('.bzy-d-head-right input').on('focus',function(){
 		$(this).parent().css('border','1px solid #9567FF');
