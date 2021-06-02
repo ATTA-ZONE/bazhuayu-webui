@@ -32,7 +32,10 @@
             <span>{{ item.claimType }}</span>
             <span class="desc-info-edtion">{{ item.editions }}版</span>
           </div>
-          <div class="desc-info">{{ item.transactionHash }}</div>
+          <div class="desc-info">
+            <div>接收地址由： 0xC2C747E0F7004F9E8817Db2ca4997657a7746928</div>
+            <div>更改為：<span class="desc-info-address">0xf2102117f279d9c30ffa4149d6670d349cb721af</span> </div>
+          </div>
         </div>
       </div>
     </div>
@@ -70,6 +73,9 @@ module.exports = {
 <style lang="css">
   .history-items {
     font-size: 20px;
+  }
+  .desc-info-address {
+    color: #9567FF
   }
   .history-title {
     display: flex;
