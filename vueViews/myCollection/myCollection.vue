@@ -41,7 +41,7 @@
           </div>
           <div class="my-assets-right-btn flex">
             <div class="flex my-assets-claim-wrap">
-              <a @click="conneAssetsctWallet(getNftStatus(item))" class="bsc-nft">鑄造BSC NFT</a>
+              <a @click="conneAssetsctWallet('start')" class="bsc-nft">鑄造BSC NFT</a>
             </div>
             <a class="flex eth">
               <div>鑄造ETH NFT</div>
@@ -139,7 +139,7 @@
         </div>
       </div>
       <div class="flex bsc-btn" style="justify-content: center">
-        <a @click="conneAssetsctWallet(getNftStatus(item))" class="bsc-nft">開始鑄造</a>
+        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft">開始鑄造</a>
       </div>
     </div>
     <!-- foot -->
@@ -299,24 +299,24 @@ module.exports = {
         },
       });
     },
-    getNftStatus(item) {
-      console.log(item);
-      let finishNft = true;
-      item.mintList.filter((data) => {
-        if (data.status == 0 || data.status == 1) {
-          finishNft = false;
-        }
-      });
-      if (finishNft) {
-        return "BSC NFT 鑄造結束";
-      } else {
-        if (this.isConnect) {
-          return "BSC NFT鑄造中 ( 约7天完成 )";
-        } else {
-          return "等待自動鑄造BSC NFT中";
-        }
-      }
-    },
+    // getNftStatus(item) {
+    //   console.log(item);
+    //   let finishNft = true;
+    //   item.mintList.filter((data) => {
+    //     if (data.status == 0 || data.status == 1) {
+    //       finishNft = false;
+    //     }
+    //   });
+    //   if (finishNft) {
+    //     return "BSC NFT 鑄造結束";
+    //   } else {
+    //     if (this.isConnect) {
+    //       return "BSC NFT鑄造中 ( 约7天完成 )";
+    //     } else {
+    //       return "等待自動鑄造BSC NFT中";
+    //     }
+    //   }
+    // },
     getBuildedBsc(list) {
       let arr = [];
       list.filter((item) => {
