@@ -327,6 +327,39 @@ function linksuccessful(){
 	$('.modify').fadeIn();
 }
 
+function editnftaddress(){
+	$('.modify-tit span').text('修改BSC NFT接收地址');
+	var html = ``;
+	html += `<div class="modify-ipt-add">
+				<div class="modify-ipt-tit dqaddress">當前接收地址：<span>`+walletId+`</span></div>
+				<div class="modify-ipt-tit newaddress">新接收地址：<input type="text" value=`+walletId+`></div>
+			</div>`;
+			
+	$('.modify-ipt').html(html);
+	$('.modify-tips').html(`<span class="modify-tips-content">提示：一旦鑄造完成，則不可修改地址。如需查看該NFT，需連接新接收地址才可查看</span>`);
+	$('.modify-btn-active').addClass('add');
+	$('.modify-btn-active').removeClass('delete');
+	$('.modify-btn-active').text('確認修改');
+	$('.cancel').hide();
+	$('.modify').fadeIn();
+}
+function zhuanyiaddress(){
+	$('.modify-tit span').text('轉移Token 13 of 150 至新錢包');
+	var html = ``;
+	html += `<div class="modify-ipt-add">
+				<div class="modify-ipt-tit dqaddress">當前所在錢包地址：<span>`+walletId+`</span></div>
+				<div class="modify-ipt-tit newaddress2">轉移至：<input type="text" value=`+walletId+`></div>
+			</div>`;
+			
+	$('.modify-ipt').html(html);
+	$('.modify-tips').html(`<span class="modify-tips-content">提示：轉移至新錢包后，需連接新錢包才可在“我的NFT”中查看</span>`);
+	$('.modify-btn-active').addClass('add');
+	$('.modify-btn-active').removeClass('delete');
+	$('.modify-btn-active').text('確認轉移');
+	$('.cancel').hide();
+	$('.modify').fadeIn();
+}
+
 //change email
 function changeEmail(){
 	// $('.modify-tit span').text('Change Email');

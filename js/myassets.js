@@ -1,7 +1,8 @@
 var app = new Vue({
 	el: '#app',
 	components: {
-		'hello': httpVueLoader('hello.vue')
+		'hello': httpVueLoader('hello.vue'),
+		'mynft': httpVueLoader('mynft.vue')
 	},
 	data(){
 		return {

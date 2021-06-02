@@ -103,7 +103,8 @@
 				<div v-if="selectedTab == idx" class="active-tab"></div>
 			</div>
 		</div>
-		<hello></hello>
+		<hello v-if="selectedTab == 0"></hello>
+		<mynft v-if="selectedTab == 1"></mynft>
 		
 	</div>
 </body>
