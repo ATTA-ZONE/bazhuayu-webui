@@ -35,13 +35,14 @@
               <a class="flex download" :download="item.attachment" :href="item.attachment">下載原始文件副本</a>
             </div>
             <p class="version-number">當前持有可鑄造版號：</p>
-            <p class="version-number-list">
-              <font style="color: #9567ff">17、18、19</font>版
+            <p class="version-number-list" v-if="item.totalEditionList && item.totalEditionList.length">
+              <font style="color: #9567ff">{{getAllBsc(item.totalEditionList).join(',')}}</font>版
             </p>
+            <p class="version-number-list" v-else>暫無</p>
           </div>
           <div class="my-assets-right-btn flex">
             <div class="flex my-assets-claim-wrap">
-              <a @click="conneAssetsctWallet(getNftStatus(item))" class="bsc-nft">鑄造BSC NFT</a>
+              <a @click="conneAssetsctWallet(item.totalEditionList,'start')" class="bsc-nft">鑄造BSC NFT</a>
             </div>
             <a class="flex eth">
               <div>鑄造ETH NFT</div>
@@ -105,16 +106,16 @@
           </tr>
           <tr v-for="(itm, index) in selectedList" class="selected-list" :key="index">
             <td style="font-size: 18px; padding-left: 17px" class="first">
-              {{ itm.a }}
+              <span>{{ itm.name }}</span>
               <div>
-                <input id="input" type="checkbox" v-model="itm.textCheck" />
-                <label for="input">
-                  <img v-show="itm.textCheck" src="./images/Vector.png" alt=""/>
+                <input :id="itm.name" type="checkbox" v-model="itm.checked" />
+                <label :for="itm.name">
+                  <img v-show="itm.checked" src="./images/Vector.png" alt=""/>
                 </label>
               </div>
             </td>
             <td class="" style="width: 426px">
-              <input type="text" v-model="itm.b" />
+              <input type="text" v-model="itm.number" />
             </td>
           </tr>
         </table>
@@ -125,26 +126,30 @@
           </div>
           <div class="building-nft" v-for="(itm, index) in selectedList" :key="index">
             <div class="flex mint-wrap-edition">
-              <span>{{ itm.a }}
+              <span>{{ itm.name }}
                 <div>
-                  <input id="input" type="checkbox" v-model="itm.textCheck" />
-                  <label for="input">
-                    <img v-show="itm.textCheck" src="./images/Vector.png" alt=""/>
+                  <input :id="itm.name" type="checkbox" v-model="itm.checked" />
+                  <label :for="itm.name">
+                    <img v-show="itm.checked" src="./images/Vector.png" alt=""/>
                   </label>
                 </div>
               </span>
-              <span><input type="text" v-model="itm.b" /></span>
+              <span><input type="text" v-model="itm.number" /></span>
             </div>
           </div>
         </div>
       </div>
       <div class="flex bsc-btn" style="justify-content: center">
-        <a @click="conneAssetsctWallet(getNftStatus(item))" class="bsc-nft">開始鑄造</a>
+        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft">開始鑄造</a>
       </div>
     </div>
     <!-- foot -->
     <div class="footerpage2"></div>
-    <div class="tips"></div>
+    <!--提示弹窗-->
+    <div class="hsycms-model-mask" id="mask-tips"></div>
+    <div class="hsycms-model hsycms-model-tips" id="tips">
+      <div class="hsycms-model-text"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -160,123 +165,7 @@ module.exports = {
       selectedNft: null,
       walletId: "",
       textCheck: "",
-      selectedList: [
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-      ],
+      selectedList: [],
     };
   },
   created() {
@@ -299,64 +188,74 @@ module.exports = {
         },
       });
     },
-    getNftStatus(item) {
-      console.log(item);
-      let finishNft = true;
-      item.mintList.filter((data) => {
-        if (data.status == 0 || data.status == 1) {
-          finishNft = false;
-        }
-      });
-      if (finishNft) {
-        return "BSC NFT 鑄造結束";
-      } else {
+    getAllBsc(list) {//去重
+      let arr = _.uniq(list);
+      return arr;
+    },
+    conneAssetsctWallet(data,str) {//可铸造，类型
+      if (str == "start") {//开弹框
+        this.selectedList = [];
         if (this.isConnect) {
-          return "BSC NFT鑄造中 ( 约7天完成 )";
-        } else {
-          return "等待自動鑄造BSC NFT中";
-        }
-      }
-    },
-    getBuildedBsc(list) {
-      let arr = [];
-      list.filter((item) => {
-        if (item.status == 2) {
-          arr.push(item);
-        }
-      });
-      return arr;
-    },
-    getBuildingBsc(list) {
-      let arr = [];
-      list.filter((item) => {
-        if (item.status == 1) {
-          arr.push(item.edition);
-        }
-      });
-      return arr;
-    },
-    getAllBsc(list) {
-      let arr = [];
-      list.filter((item) => {
-        if (arr.indexOf(item.edition)) {
-          arr.push(item.edition);
-        }
-      });
-      return arr;
-    },
-    conneAssetsctWallet(str) {
-      console.log(str);
-      if (str == "BSC NFT 鑄造結束") {
-        return false;
-      } else {
-        if (this.isConnect) {
-          setTimeout(function () {
-            hsycms.alert("model1");
-          }, 50);
+          if(data && data.length){
+            var selectedList = this.getAllBsc(data);
+            selectedList.forEach(item=>{
+              console.log(item);
+              var data = {
+                checked:false,
+                number:this.walletId,
+                name:item
+              }
+              console.log(data);
+              this.selectedList.push(data);
+            })
+            setTimeout(function () {
+              hsycms.alert("model3");
+            }, 50);
+          }else{
+            tips('暫無可鑄造版號！');
+            return;
+          }
         } else {
           setTimeout(function () {
             hsycms.alert("model2");
           }, 50);
+        }
+      } else {//调接口
+        console.log(this.selectedList);
+				loading();
+        var checkData = [];
+        this.selectedList.forEach(item=>{
+          if(item.checked){
+            checkData.push({
+              edition:item.name,
+              address:item.number
+            })
+          }
+        })
+        if(checkData && checkData.length){
+          $.ajax({
+						type:"POST",
+						url:"/v2/mint/mint/batchClaim",
+						contentType: 'application/json',
+						dataType: 'json',
+						data:JSON.stringify({
+							mintList:checkData
+						}),
+						success:function(res){
+							loadingHide();
+              if(res.code == 0){
+                hsycms.closeAll();
+							  window.location.reload()
+              }else{
+                tips(res.message);
+                return;
+              }
+						}
+					})
+        }else{
+					loadingHide();
+          tips('請勾選需要鑄造的版號！');
+          return;
         }
       }
     },
@@ -398,12 +297,6 @@ module.exports = {
     getFormat(item) {
       return item.primaryPic.substr(item.primaryPic.lastIndexOf(".") + 1);
     },
-    formatDuring(mss) {
-      var hours = parseInt(mss / (1000 * 60 * 60));
-      var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = parseInt((mss % (1000 * 60)) / 1000);
-      return hours + ":" + minutes + ":" + seconds;
-    },
     getAssetsList() {
       var self = this;
       $.ajax({
@@ -414,7 +307,7 @@ module.exports = {
         },
         success: function (res) {
           if (res.code == 0) {
-            self.assetsList = res.data.pageResult;
+            self.assetsList = res.data.pageResult; 
           }
         },
       });

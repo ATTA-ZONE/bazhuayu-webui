@@ -69,6 +69,7 @@ tr .fourth {
   opacity: 1;
 }
 #myCollection .bsc-nft{
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -97,7 +98,7 @@ tr .fourth {
   border:  2px solid #ccc;/*改变复选框的边框颜色也可以不要边框*/
   border-radius: 2px;
   top: -32px;
-  left: 11px;
+  left: 0px;
 }
 #myCollection input[type=checkbox]{
 	visibility: hidden;
@@ -135,6 +136,16 @@ tr .fourth {
   font-size: 18px;
   line-height: 46px;
   margin-top: 32px;
+}
+#myCollection .selected-list td span{
+  width: 35px;
+}
+#myCollection .selected-list td div{
+  position: relative;
+  width: 70px;
+}
+#myCollection .selected-list td div input{
+  width: 100%;
 }
 #myCollection .selected-list td input{
   width: 420px;

@@ -1,7 +1,6 @@
 var app = new Vue({
 	el: '#app',
 	components: {
-		'hello': httpVueLoader('hello.vue'),
 		'mynft': httpVueLoader('mynft.vue'),
 		'history': httpVueLoader('history.vue'),
 		'myCollection': httpVueLoader('./vueViews/myCollection/myCollection.vue')
