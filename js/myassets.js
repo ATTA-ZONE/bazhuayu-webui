@@ -3,7 +3,8 @@ var app = new Vue({
 	components: {
 		'hello': httpVueLoader('hello.vue'),
 		'mynft': httpVueLoader('mynft.vue'),
-		'history': httpVueLoader('history.vue')
+		'history': httpVueLoader('history.vue'),
+		'myCollection': httpVueLoader('./vueViews/myCollection/myCollection.vue')
 	},
 	data(){
 		return {

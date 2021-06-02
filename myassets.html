@@ -43,9 +43,11 @@
 				<div v-if="selectedTab == idx" class="active-tab"></div>
 			</div>
 		</div>
-		<hello v-if="selectedTab == 0"></hello>
+		<!-- <hello v-if="selectedTab == 0"></hello> -->
+		<my-collection v-if="selectedTab == 0"></my-collection>
 		<mynft v-if="selectedTab == 1"></mynft>
 		<history v-if="selectedTab == 2"></history>
+		
 		
 	</div>
 </body>
