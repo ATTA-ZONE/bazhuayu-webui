@@ -40,9 +40,9 @@
 				<div class="tablistbox">
 					<p class="titlebox flex between">
 						<span>當前持有({{listdata.length}}):</span>
-						<img src="./images/arrow.png" alt="">
+						<img src="./images/arrow.png" alt="" :class="item.ishide ? 'ishide' : ''" @click="changeishide(item.ishide)">
 					</p>
-					<div class="listbox">
+					<div class="listbox" v-if="!item.ishide">
 						<div class="everydatabox" v-for="(item,index) in listdata" :key="index">
 							<p class="tit">
 								<span>Token ID :  {{item.id}}  of {{item.num}}</span>
@@ -99,6 +99,8 @@
 </template>
 
 <script>
+const { log }=require("node:util")
+
 module.exports = {
   name: 'mynft',
   data: function () {
@@ -115,7 +117,8 @@ module.exports = {
 				{id : "13",num : "150",qkl : "Binance",status : '1',address : "0xC2C747E0F7004F9E8817Db2ca4997657a7746928"},
 				{id : "14",num : "150",qkl : "Binance",status : '2',address : "0xC2C747E0F7004F9E8817Db2ca4997657a7746928"},
 				{id : "15",num : "150",qkl : "Binance",status : '2',address : "0xC2C747E0F7004F9E8817Db2ca4997657a7746928"},
-			]
+			],
+			// ishide : true
 		}
 	},
 	
@@ -139,46 +142,6 @@ module.exports = {
 				}
 			})
 		},
-		// getNftStatus(item) {
-		// 	let finishNft = true
-		// 	item.mintList.filter(data=>{
-		// 		if (data.status == 0 || data.status == 1) {
-		// 			finishNft = false
-		// 		}
-		// 	})
-		// 	if (finishNft) {
-		// 		return 'BSC NFT 鑄造結束'
-		// 	} else {
-		// 		if (this.isConnect) {
-		// 			return 'BSC NFT鑄造中 ( 约7天完成 )'
-		// 		} else {
-		// 			return '等待自動鑄造BSC NFT中'
-		// 		}
-		// 	}
-		// },
-		// showSelectedNft(item){
-		// 	this.selectedNftName=item.name
-		// 	this.selectedNft= this.getBuildedBsc(item.mintList)  
-		// 	hsycms.alert('model3')
-		// },
-		// getBuildedBsc(list){
-		// 	let arr = []
-		// 	list.filter(item => {
-		// 		if (item.status == 2) {
-		// 			arr.push(item)
-		// 		}
-		// 	})
-		// 	return arr
-		// },
-		// getBuildingBsc(list){
-		// 	let arr = []
-		// 	list.filter(item => {
-		// 		if (item.status == 1) {
-		// 			arr.push(item.edition)
-		// 		}
-		// 	})
-		// 	return arr
-		// },
 		getAllBsc(list){
 			let arr = []
 			list.filter(item => {
@@ -223,12 +186,6 @@ module.exports = {
 		getFormat(item) {
 			return item.primaryPic.substr(item.primaryPic.lastIndexOf('.') + 1)
 		},
-		// formatDuring(mss) {
-		// 	var hours = parseInt(mss / (1000 * 60 * 60));
-		// 	var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-		// 	var seconds = parseInt((mss % (1000 * 60)) / 1000);
-		// 	return hours + ":" + minutes + ":" + seconds;
-		// },
 		getAssetsList() {
 			var self = this
 			$.ajax({
@@ -244,9 +201,13 @@ module.exports = {
 				}
 			})
 		},
-    nftConnect() {
-      window.location.href = 'connectWallet.html';
-    }
+		changeishide(bool){
+			debugger
+			console.log(bool);
+		},
+		nftConnect() {
+			window.location.href = 'connectWallet.html';
+		}
 	}
 }
 </script>
@@ -370,6 +331,9 @@ module.exports = {
 	margin: auto;
 	border: 1px solid #FFFFFF;
 	display: none;
+}
+.ishide{
+	transform: rotate(180deg);
 }
 @media only screen and (max-width: 992px){
 	.mobilflex{
