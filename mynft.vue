@@ -40,7 +40,7 @@
 				<div class="tablistbox">
 					<p class="titlebox flex between">
 						<span>當前持有({{listdata.length}}):</span>
-						<img src="./images/arrow.png" alt="" :class="item.ishide ? 'ishide' : ''" @click="changeishide(item.ishide)">
+						<img src="./images/arrow.png" alt="" :class="item.ishide ? 'ishide' : ''" @click="changeishide(item)">
 					</p>
 					<div class="listbox" v-if="!item.ishide">
 						<div class="everydatabox" v-for="(item,index) in listdata" :key="index">
@@ -144,11 +144,13 @@ module.exports = {
 		},
 		getAllBsc(list){
 			let arr = []
-			list.filter(item => {
-				if (arr.indexOf(item.edition)) {
-					arr.push(item.edition)
-				}
-			})
+			if (list && list.length) {
+				list.filter(item => {
+					if (arr.indexOf(item.edition)) {
+						arr.push(item.edition)
+					}
+				})
+			}
 			return arr
 		},
 		getIntroduce(item,content, str) {
