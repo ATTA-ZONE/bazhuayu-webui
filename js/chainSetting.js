@@ -126,7 +126,7 @@ var contractSetting = {
             }
     },
     'atta_ERC721': {
-        'proxy': None,
+        'proxy': '',
         'abi': c_ERC721_abi,
         56:
             {

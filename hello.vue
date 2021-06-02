@@ -180,11 +180,13 @@ module.exports = {
 		},
 		getNftStatus(item) {
 			let finishNft = true
-			item.mintList.filter(data=>{
-				if (data.status == 0 || data.status == 1) {
-					finishNft = false
-				}
-			})
+			if (item.mintList && item.mintList.length>0) {
+				item.mintList.filter(data=>{
+					if (data.status == 0 || data.status == 1) {
+						finishNft = false
+					}
+				})
+			}
 			if (finishNft) {
 				return 'BSC NFT 鑄造結束'
 			} else {
@@ -217,29 +219,35 @@ module.exports = {
 		},
 		getBuildedBsc(list){
 			let arr = []
-			list.filter(item => {
-				if (item.status == 2) {
-					arr.push(item)
-				}
-			})
+			if(list && list.length>0){
+				list.filter(item => {
+					if (item.status == 2) {
+						arr.push(item)
+					}
+				})
+			}
 			return arr
 		},
 		getBuildingBsc(list){
 			let arr = []
-			list.filter(item => {
-				if (item.status == 1) {
-					arr.push(item.edition)
-				}
-			})
+			if(list && list.length>0){
+				list.filter(item => {
+					if (item.status == 1) {
+						arr.push(item.edition)
+					}
+				})
+			}
 			return arr
 		},
 		getAllBsc(list){
 			let arr = []
-			list.filter(item => {
-				if (arr.indexOf(item.edition)) {
-					arr.push(item.edition)
-				}
-			})
+			if(list && list.length>0){
+				list.filter(item => {
+					if (arr.indexOf(item.edition)) {
+						arr.push(item.edition)
+					}
+				})
+			}
 			return arr
 		},
 		getIntroduce(item,content, str) {
