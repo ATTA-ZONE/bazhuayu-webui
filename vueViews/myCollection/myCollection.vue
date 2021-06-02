@@ -106,7 +106,7 @@
           </tr>
           <tr v-for="(itm, index) in selectedList" class="selected-list" :key="index">
             <td style="font-size: 18px; padding-left: 17px" class="first">
-              {{ itm.name }}
+              <span>{{ itm.name }}</span>
               <div>
                 <input id="input" type="checkbox" v-model="itm.checked" />
                 <label for="input">
@@ -188,62 +188,42 @@ module.exports = {
         },
       });
     },
-    // getNftStatus(item) {
-    //   console.log(item);
-    //   let finishNft = true;
-    //   item.mintList.filter((data) => {
-    //     if (data.status == 0 || data.status == 1) {
-    //       finishNft = false;
+    // getBuildedBsc(list) {
+    //   let arr = [];
+    //   list.filter((item) => {
+    //     if (item.status == 2) {
+    //       arr.push(item);
     //     }
     //   });
-    //   if (finishNft) {
-    //     return "BSC NFT 鑄造結束";
-    //   } else {
-    //     if (this.isConnect) {
-    //       return "BSC NFT鑄造中 ( 约7天完成 )";
-    //     } else {
-    //       return "等待自動鑄造BSC NFT中";
-    //     }
-    //   }
+    //   return arr;
     // },
-    getBuildedBsc(list) {
-      let arr = [];
-      list.filter((item) => {
-        if (item.status == 2) {
-          arr.push(item);
-        }
-      });
-      return arr;
-    },
-    getBuildingBsc(list) {
-      let arr = [];
-      list.filter((item) => {
-        if (item.status == 1) {
-          arr.push(item.edition);
-        }
-      });
-      return arr;
-    },
+    // getBuildingBsc(list) {
+    //   let arr = [];
+    //   list.filter((item) => {
+    //     if (item.status == 1) {
+    //       arr.push(item.edition);
+    //     }
+    //   });
+    //   return arr;
+    // },
     getAllBsc(list) {//去重
-      let arr = [];
-      list.filter((item) => {
-        if (arr.indexOf(item)) {
-          arr.push(item);
-        }
-      });
+      let arr = _.uniq(data);
       return arr;
     },
     conneAssetsctWallet(data,str) {//可铸造，类型
+      this.selectedList = [];
       if (str == "start") {//开弹框
         if (this.isConnect) {
           if(data && data.length){
             var selectedList = this.getAllBsc(data);
             selectedList.forEach(item=>{
+              console.log(item);
               var data = {
                 checked:false,
                 number:this.walletId,
                 name:item
               }
+              console.log(data);
               this.selectedList.push(data);
             })
             setTimeout(function () {
@@ -335,12 +315,12 @@ module.exports = {
     getFormat(item) {
       return item.primaryPic.substr(item.primaryPic.lastIndexOf(".") + 1);
     },
-    formatDuring(mss) {
-      var hours = parseInt(mss / (1000 * 60 * 60));
-      var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = parseInt((mss % (1000 * 60)) / 1000);
-      return hours + ":" + minutes + ":" + seconds;
-    },
+    // formatDuring(mss) {
+    //   var hours = parseInt(mss / (1000 * 60 * 60));
+    //   var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
+    //   var seconds = parseInt((mss % (1000 * 60)) / 1000);
+    //   return hours + ":" + minutes + ":" + seconds;
+    // },
     getAssetsList() {
       var self = this;
       $.ajax({
