@@ -309,23 +309,7 @@ function changeName(){
 	$('.modify-btn-active').text('儲存');
 	// $('.modify').fadeIn();
 }
-// link successful
-function linksuccessful(){
-	$('.modify-tit span').text('您成功登記了一個錢包');
-	var html = ``;
-	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">`+(walletId==null?'請連接錢包':'錢包地址：'+walletId)+`</div>
-			</div>`;
-			
-	$('.modify-ipt').html(html);
-	$('.modify-tips').html(`<span class="modify-tips-content">請註意：您購買的NFT資產只會發放至當前登記的錢包</span>`);
-	$('.modify-btn-tips').html(`<span class="modify-btn-tips-content">（ 如果您想使用其他錢包，請點擊右上角“已連接錢包”進行更換 ）</span>`);
-	$('.modify-btn-active').addClass('add');
-	$('.modify-btn-active').removeClass('delete');
-	$('.modify-btn-active').text('知道了');
-	$('.cancel').hide();
-	$('.modify').fadeIn();
-}
+
 
 function editnftaddress(){
 	$('.modify-tit span').text('修改BSC NFT接收地址');

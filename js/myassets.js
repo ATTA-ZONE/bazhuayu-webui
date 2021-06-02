@@ -2,7 +2,8 @@ var app = new Vue({
 	el: '#app',
 	components: {
 		'hello': httpVueLoader('hello.vue'),
-		'mynft': httpVueLoader('mynft.vue')
+		'mynft': httpVueLoader('mynft.vue'),
+		'history': httpVueLoader('history.vue')
 	},
 	data(){
 		return {
@@ -15,5 +16,4 @@ var app = new Vue({
 			this.selectedTab = idx
 		}
 	}
-	
 });
