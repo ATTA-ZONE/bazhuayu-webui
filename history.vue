@@ -25,7 +25,7 @@
             <span>{{ item.claimType }}</span>
             <span class="desc-info-edtion">{{ item.editions }}版</span>
           </div>
-          <div class="desc-info">
+          <div class="desc-address">
             <div>接收地址由： 0xC2C747E0F7004F9E8817Db2ca4997657a7746928</div>
             <div>
               更改為：
@@ -46,7 +46,7 @@
             <span>{{ item.claimType || 'BSC' }}</span>
             <span class="desc-info-edtion">{{ item.editions || '17' }}版</span>
           </div>
-          <div class="desc-info">
+          <div class="desc-address">
             <div>原地址：{{item.from}}</div>
             <div>
               已轉移至地址：
@@ -68,13 +68,25 @@ module.exports = {
     };
   },
   created() {
-    this.getHistory();
-    this.getNftHistory()
+    let self = this
+    self.getHistory();
+    self.getNftHistory()
+    self.resizeWindow()
+    window.onresize = function () {
+      self.resizeWindow()
+    }
   },
   
   methods: {
     toggleFilters() {
       this.showFilters = !this.showFilters;
+    },
+    resizeWindow(){
+      if ($('body').width() < 992) {
+        this.showFilters = true
+      } else {
+        this.showFilters = false
+      }
     },
     getHistory() {
       let self = this;
@@ -107,10 +119,52 @@ module.exports = {
         }
       })
     }
-  },
+  }
 };
 </script>
 <style>
+  @media only screen and (max-width: 992px){
+    .history-items {
+      font-size: 12px !important;
+      display: inline-block;
+    }
+    .filter-items, .filter-items li {
+      display: inline-block;
+    }
+    .filter-items {
+      font-size: 14px;
+      opacity: 0.8;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-left: 18%;
+      line-height: 1;
+      display: inline-flex;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .filter-wrap {
+      font-size: 16px !important;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .filter-control {
+      display: inline-block;
+    }
+    .filter-control img {
+      display: none;
+    }
+    .history-desc {
+      display: block !important;
+    }
+    .desc-info {
+      display: flex;
+      justify-content: space-between;
+    }
+    .desc-address {
+      margin-top: 6px;
+    }
+  }
 .history-items {
   font-size: 16px;
 }
@@ -136,7 +190,7 @@ module.exports = {
 }
 .desc-info-edtion {
   margin-left: 40px;
-  max-width: 400px;
+  max-width: 34%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -154,11 +208,10 @@ module.exports = {
 }
 .filter-items {
   font-size: 14px;
-  position: absolute;
-  top: 50px;
-  left: 0;
   opacity: 0.8;
   cursor: pointer;
+  margin-top: 10px;
+  line-height: 1;
 }
 .filter-control {
   display: inline-block;
