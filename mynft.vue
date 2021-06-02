@@ -82,9 +82,6 @@
 				<div class="modify-form">
 					<div class="modify-tit flex" data-type="name"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
 					<div class="modify-ipt"></div>
-					<div class="modify-tips">
-						<span class="modify-tips-content" v-if="tipscon && status == 1">{{tipscon}}</span>
-					</div>
 					<div class="modify-btn flex">
 						<button class="add modify-btn-active" type="button"></button>
 						<button class="cancel" type="button" onclick="cancel()">取消</button>
@@ -355,9 +352,11 @@ module.exports = {
 }
 .newaddress input{
 	width: 75%;
+	text-indent: 12px;
 }
 .newaddress2 input{
 	width: 83%;
+	text-indent: 12px;
 }
 .horizontalline{
 	width: 122px;
@@ -416,6 +415,9 @@ module.exports = {
 	.kxbor{
 		margin-top: 28px;
 	}
+	.newaddress input,.newaddress2 input{
+		text-indent: 12px !important;
+	}
 }
 @media only screen and (max-width:768px){
 	.mobilflex{
@@ -460,6 +462,9 @@ module.exports = {
 	}
 	.kxbor{
 		margin-top: 28px;
+	}
+	.newaddress input,.newaddress2 input{
+		text-indent: 12px !important;
 	}
 }
 </style>
