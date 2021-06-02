@@ -220,21 +220,6 @@ $(function(){
 			}
 		})
 	}
-
-	window.ethereum.request({ method: 'eth_accounts'}).then(function(res){
-		if (res.length>0 && walletId == res[0]) {
-			setTimeout(() => {
-				setCookie('isConnect',true)
-				$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
-				$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
-				
-				$('.mobile-connect-wallet,.header-right-wallet').click(function(){
-					window.location.href  = 'showwallet.html';
-				});
-			}, 300);
-		}
-	})
-	
 	
 	if(getCookie('isConnect')=='true'){
 		setTimeout(function(){
