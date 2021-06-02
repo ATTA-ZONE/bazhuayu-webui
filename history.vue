@@ -1,0 +1,123 @@
+<template>
+  <div class="history-container">
+    <div class="filter-wrap">
+      <div class="filter-control" @click="toggleFilters">
+        <span>全部</span>
+        <img
+          :class="showFilters ? 'roate' : ''"
+          src="./images/selectMore.png"
+        />
+      </div>
+      <ul v-if="showFilters" class="filter-items">
+        <li>鑄造記錄</li>
+        <li>地址修改記錄</li>
+        <li>轉移記錄</li>
+      </ul>
+    </div>
+    <div class="history-items">
+      <div
+        class="history-item"
+        v-for="(item, index) in historyData.mintRecords"
+        :key="index"
+      >
+        <div class="history-title">
+          <div class="title-info">
+            <span>LOG{{ index }}</span>
+            <span class="title-info-name">{{ item.name }}</span>
+          </div>
+          <div class="title-time">{{ item.mintTime }}</div>
+        </div>
+        <div class="history-desc">
+          <div class="desc-info">
+            <span>{{ item.claimType }}</span>
+            <span class="desc-info-edtion">{{ item.editions }}版</span>
+          </div>
+          <div class="desc-info">{{ item.transactionHash }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+module.exports = {
+  data() {
+    return {
+      showFilters: false,
+      historyData: {},
+    };
+  },
+  created() {
+    this.getHistory();
+  },
+  methods: {
+    toggleFilters() {
+      this.showFilters = !this.showFilters;
+    },
+    getHistory() {
+      let self = this;
+      $.ajax({
+        url: base_url + "/v2/user/nft/records",
+        success: function (res) {
+          if (res.code == 0) {
+            self.historyData = res.data;
+          }
+        },
+      });
+    },
+  },
+};
+</script>
+<style lang="css">
+  .history-items {
+    font-size: 20px;
+  }
+  .history-title {
+    display: flex;
+    margin-top: 37px;
+    padding: 0 10px;
+    justify-content: space-between;
+  }
+  .title-info-name {
+    margin-left: 15px;
+  }
+  .history-desc {
+    background-color: #222;
+    padding: 10px;
+    margin-top: 8px;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+  }
+  .desc-info-edtion {
+    margin-left: 40px;
+    max-width: 400px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+.roate {
+  transform: rotate(180deg);
+}
+.filter-wrap {
+  font-size: 22px;
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+.filter-items {
+  font-size: 14px;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.filter-control {
+  display: inline-block;
+}
+.filter-items li {
+  margin-bottom: 10px !important;
+}
+</style>

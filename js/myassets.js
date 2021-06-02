@@ -1,7 +1,8 @@
 var app = new Vue({
 	el: '#app',
 	components: {
-		'hello': httpVueLoader('hello.vue')
+		'hello': httpVueLoader('hello.vue'),
+		'history': httpVueLoader('history.vue')
 	},
 	data(){
 		return {
@@ -14,5 +15,4 @@ var app = new Vue({
 			this.selectedTab = idx
 		}
 	}
-	
 });
