@@ -42,67 +42,83 @@
   </div>
 </template>
 <script>
-module.exports = {
-  data() {
-    return {
-      showFilters: false,
-      historyData: {},
-    };
-  },
-  created() {
-    this.getHistory();
-  },
-  methods: {
-    toggleFilters() {
-      this.showFilters = !this.showFilters;
+  module.exports =  {
+    data() {
+      return {
+        showFilters: false,
+        historyData: {},
+      };
     },
-    getHistory() {
-      let self = this;
-      $.ajax({
-        url: base_url + "/v2/user/nft/records",
-        success: function (res) {
-          if (res.code == 0) {
-            self.historyData = res.data;
+    created() {
+      //this.getHistory();
+      //this.getNftHistory()
+    },
+    methods: {
+      toggleFilters() {
+        this.showFilters = !this.showFilters;
+      },
+      getHistory() {
+        let self = this;
+        $.ajax({
+          url: base_url + "/v2/user/nft/records",
+          success: function (res) {
+            if (res.code == 0) {
+              self.historyData = res.data;
+            }
+          },
+        });
+      },
+      getNftHistory(){
+        let self = this
+        var web3 = new Web3(CHAIN.WALLET.provider());
+        var chainId = '';
+        CHAIN.WALLET.chainId().then(function (res) {
+          chainId = web3.utils.hexToNumber(res);    
+          if (chainId != targetChainId) {
+            CHAIN.WALLET.switchRPCSettings(targetChainId);
           }
-        },
-      });
+          auctionAddress = contractSetting['atta_ERC721'][chainId].address;
+          $.ajax({
+            url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address='+ walletId +'&sort=asc'
+          })
+        }
+      }
     },
-  },
-};
+  };
 </script>
-<style lang="css">
-  .history-items {
-    font-size: 20px;
-  }
-  .desc-info-address {
-    color: #9567FF
-  }
-  .history-title {
-    display: flex;
-    margin-top: 37px;
-    padding: 0 10px;
-    justify-content: space-between;
-  }
-  .title-info-name {
-    margin-left: 15px;
-  }
-  .history-desc {
-    background-color: #222;
-    padding: 10px;
-    margin-top: 8px;
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-  }
-  .desc-info-edtion {
-    margin-left: 40px;
-    max-width: 400px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    display: inline-block;
-    vertical-align: bottom;
-  }
+<style>
+.history-items {
+  font-size: 16px;
+}
+.desc-info-address {
+  color: #9567ff;
+}
+.history-title {
+  display: flex;
+  margin-top: 37px;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+.title-info-name {
+  margin-left: 15px;
+}
+.history-desc {
+  background-color: #222;
+  padding: 20px;
+  margin-top: 8px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
+.desc-info-edtion {
+  margin-left: 40px;
+  max-width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: bottom;
+}
 .roate {
   transform: rotate(180deg);
 }
