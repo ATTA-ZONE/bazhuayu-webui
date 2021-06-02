@@ -8,6 +8,7 @@ url = url.substring(0,url.indexOf('.'));
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
 var islogin;
+var walletId = ''
 
 if (getCookie('islogin') != 'false') {
 	islogin = true;
