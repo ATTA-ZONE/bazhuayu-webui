@@ -35,13 +35,14 @@
               <a class="flex download" :download="item.attachment" :href="item.attachment">下載原始文件副本</a>
             </div>
             <p class="version-number">當前持有可鑄造版號：</p>
-            <p class="version-number-list">
-              <font style="color: #9567ff">17、18、19</font>版
+            <p class="version-number-list" v-if="item.totalEditionList && item.totalEditionList.length">
+              <font style="color: #9567ff">{{getAllBsc(item.totalEditionList).join(',')}}</font>版
             </p>
+            <p class="version-number-list" v-else>暫無</p>
           </div>
           <div class="my-assets-right-btn flex">
             <div class="flex my-assets-claim-wrap">
-              <a @click="conneAssetsctWallet('start')" class="bsc-nft">鑄造BSC NFT</a>
+              <a @click="conneAssetsctWallet(item.totalEditionList,'start')" class="bsc-nft">鑄造BSC NFT</a>
             </div>
             <a class="flex eth">
               <div>鑄造ETH NFT</div>
@@ -105,16 +106,16 @@
           </tr>
           <tr v-for="(itm, index) in selectedList" class="selected-list" :key="index">
             <td style="font-size: 18px; padding-left: 17px" class="first">
-              {{ itm.a }}
+              {{ itm.name }}
               <div>
-                <input id="input" type="checkbox" v-model="itm.textCheck" />
+                <input id="input" type="checkbox" v-model="itm.checked" />
                 <label for="input">
-                  <img v-show="itm.textCheck" src="./images/Vector.png" alt=""/>
+                  <img v-show="itm.checked" src="./images/Vector.png" alt=""/>
                 </label>
               </div>
             </td>
             <td class="" style="width: 426px">
-              <input type="text" v-model="itm.b" />
+              <input type="text" v-model="itm.number" />
             </td>
           </tr>
         </table>
@@ -125,15 +126,15 @@
           </div>
           <div class="building-nft" v-for="(itm, index) in selectedList" :key="index">
             <div class="flex mint-wrap-edition">
-              <span>{{ itm.a }}
+              <span>{{ itm.name }}
                 <div>
-                  <input id="input" type="checkbox" v-model="itm.textCheck" />
+                  <input id="input" type="checkbox" v-model="itm.checked" />
                   <label for="input">
-                    <img v-show="itm.textCheck" src="./images/Vector.png" alt=""/>
+                    <img v-show="itm.checked" src="./images/Vector.png" alt=""/>
                   </label>
                 </div>
               </span>
-              <span><input type="text" v-model="itm.b" /></span>
+              <span><input type="text" v-model="itm.number" /></span>
             </div>
           </div>
         </div>
@@ -144,7 +145,11 @@
     </div>
     <!-- foot -->
     <div class="footerpage2"></div>
-    <div class="tips"></div>
+    <!--提示弹窗-->
+    <div class="hsycms-model-mask" id="mask-tips"></div>
+    <div class="hsycms-model hsycms-model-tips" id="tips">
+      <div class="hsycms-model-text"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -160,123 +165,7 @@ module.exports = {
       selectedNft: null,
       walletId: "",
       textCheck: "",
-      selectedList: [
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-        {
-          a: 12,
-          b: "0xC2C747E0F7004F9E8817Db2ca4997657a7746928",
-          textCheck: "",
-        },
-      ],
+      selectedList: [],
     };
   },
   created() {
@@ -335,28 +224,76 @@ module.exports = {
       });
       return arr;
     },
-    getAllBsc(list) {
+    getAllBsc(list) {//去重
       let arr = [];
       list.filter((item) => {
-        if (arr.indexOf(item.edition)) {
-          arr.push(item.edition);
+        if (arr.indexOf(item)) {
+          arr.push(item);
         }
       });
       return arr;
     },
-    conneAssetsctWallet(str) {
-      console.log(str);
-      if (str == "BSC NFT 鑄造結束") {
-        return false;
-      } else {
+    conneAssetsctWallet(data,str) {//可铸造，类型
+      if (str == "start") {//开弹框
         if (this.isConnect) {
-          setTimeout(function () {
-            hsycms.alert("model1");
-          }, 50);
+          if(data && data.length){
+            var selectedList = this.getAllBsc(data);
+            selectedList.forEach(item=>{
+              var data = {
+                checked:false,
+                number:this.walletId,
+                name:item
+              }
+              this.selectedList.push(data);
+            })
+            setTimeout(function () {
+              hsycms.alert("model3");
+            }, 50);
+          }else{
+            tips('暫無可鑄造版號！');
+            return;
+          }
         } else {
           setTimeout(function () {
             hsycms.alert("model2");
           }, 50);
+        }
+      } else {//调接口
+        console.log(this.selectedList);
+				loading();
+        var checkData = [];
+        this.selectedList.forEach(item=>{
+          if(item.checked){
+            checkData.push({
+              edition:item.name,
+              address:item.number
+            })
+          }
+        })
+        if(checkData && checkData.length){
+          $.ajax({
+						type:"POST",
+						url:"/v2/mint/mint/batchClaim",
+						contentType: 'application/json',
+						dataType: 'json',
+						data:JSON.stringify({
+							mintList:checkData
+						}),
+						success:function(res){
+							loadingHide();
+              if(res.code == 0){
+                hsycms.closeAll();
+							  window.location.reload()
+              }else{
+                tips(res.message);
+                return;
+              }
+						}
+					})
+        }else{
+					loadingHide();
+          tips('請勾選需要鑄造的版號！');
+          return;
         }
       }
     },
