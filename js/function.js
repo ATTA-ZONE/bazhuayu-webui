@@ -324,6 +324,7 @@ function editnftaddress(){
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
 	$('.modify-btn-active').text('確認修改');
+	$('.modify-btn-active').attr('data-type',1);
 	$('.cancel').hide();
 	$('.modify').fadeIn();
 }
@@ -340,6 +341,7 @@ function zhuanyiaddress(){
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
 	$('.modify-btn-active').text('確認轉移');
+	$('.modify-btn-active').attr('data-type',2);
 	$('.cancel').hide();
 	$('.modify').fadeIn();
 }

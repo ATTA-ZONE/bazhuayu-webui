@@ -40,7 +40,7 @@
 				<div class="tablistbox">
 					<p class="titlebox flex between">
 						<span>當前持有({{listdata.length}}):</span>
-						<img src="./images/arrow.png" alt="" :class="item.ishide ? 'ishide' : ''" @click="changeishide(item)">
+						<img src="./images/arrow.png" alt="" :class="item.ishide ? 'ishide' : ''" @click="changeishide(item.ishide,idx)">
 					</p>
 					<div class="listbox" v-if="!item.ishide">
 						<div class="everydatabox" v-for="(item,index) in listdata" :key="index">
@@ -83,7 +83,7 @@
 					<div class="modify-tit flex" data-type="name"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
 					<div class="modify-ipt"></div>
 					<div class="modify-btn flex">
-						<button class="add modify-btn-active" type="button"></button>
+						<button class="add modify-btn-active" type="button" @click="editzyclick($event)"></button>
 						<button class="cancel" type="button" onclick="cancel()">取消</button>
 						<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
 					</div>
@@ -91,15 +91,20 @@
 				</div>
 			</div>
 		</div>
+		<!--提示弹窗-->
+		<div class="hsycms-model-mask"></div>
+		<div class="hsycms-model hsycms-model-tips">
+			<div class="hsycms-model-text"></div>
+		</div>
 		<!-- foot -->
 		<div class="footerpage2"></div>
 
-		<div class="tips"></div>
+		<!-- <div class="tips"></div> -->
+		
   </div>
 </template>
 
 <script>
-const { log }=require("node:util")
 
 module.exports = {
   name: 'mynft',
@@ -118,16 +123,18 @@ module.exports = {
 				{id : "14",num : "150",qkl : "Binance",status : '2',address : "0xC2C747E0F7004F9E8817Db2ca4997657a7746928"},
 				{id : "15",num : "150",qkl : "Binance",status : '2',address : "0xC2C747E0F7004F9E8817Db2ca4997657a7746928"},
 			],
-			// ishide : true
+			tokenarr : []
 		}
 	},
 	
 	created() {
 		this.isConnect = getCookie('isConnect') == 'false' ? false : true
 		this.getAccount()
+		this.geteveryqkl()
 	},
 	mounted() {
-		this.getAssetsList()
+		this.getAssetsList();
+		this.geteveryqkl();
 	},
 	
 	methods: {
@@ -139,6 +146,57 @@ module.exports = {
 					if(res.code==0){
 						self.walletId = res.data.address;
 					}
+				}
+			})
+		},
+		geteveryqkl(){
+			let self = this
+			var targetChainId = '';
+			var scansite_base_url = '';
+			
+			if (window.location.href.indexOf('bazhuayu.io') == -1) {
+				targetChainId = 97;
+				scansite_base_url = 'https://api-testnet.bscscan.com'
+			} else {
+				targetChainId = 56;
+				scansite_base_url = 'https://api.bscscan.com'
+			}
+			auctionAddress = contractSetting['atta_ERC721'][targetChainId].address;
+			$.ajax({
+				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + window.walletId + '&sort=asc',
+				success: function(res) {
+					let nftData = res.result;
+					let obj = {},arr = [],tokenarr = [];
+					console.log(nftData);
+					for (let i = 0; i < nftData.length; i++) {
+						if (!obj[nftData[i].tokenID]) {
+							obj[nftData[i].tokenID] = true;
+							arr.push({tokenID : nftData[i].tokenID,listdata :  [nftData[i]],tojia : 0,fromjian : 0});
+						}else{
+							arr.forEach(item => {
+								if (item.tokenID == nftData[i].tokenID) {
+									item.listdata.push(nftData[i]);
+								}
+							});
+						}
+					}
+					arr.forEach(item => {
+						item.listdata.forEach(json => {
+							if (json.to.toUpperCase() == window.walletId.toUpperCase()) {
+								item.tojia += 1 ;
+							}
+							if (json.from.toUpperCase() == window.walletId.toUpperCase()) {
+								item.fromjian -= 1 ;
+							}
+						});
+						item.jsnum = item.tojia + item.fromjian;
+						if (item.jsnum == 1) {
+							tokenarr.push(item.tokenID)
+						}
+					});
+					console.log(arr);
+					console.log(tokenarr);
+					self.tokenarr = tokenarr;
 				}
 			})
 		},
@@ -203,12 +261,20 @@ module.exports = {
 				}
 			})
 		},
-		changeishide(bool){
-			debugger
-			console.log(bool);
+		changeishide(bool,index){
+			let obj = this.assetsList.records[index];
+			obj.ishide = !bool;
+			this.$set(this.assetsList.records,index,obj);
 		},
 		nftConnect() {
 			window.location.href = 'connectWallet.html';
+		},
+		editzyclick(e){
+			let newaddress = $('.newaddress input').val();
+			console.log(e.target.dataset.type,!newaddress);
+			if (!newaddress) {
+				tips("不可以为空~");
+			}
 		}
 	}
 }
@@ -385,7 +451,7 @@ module.exports = {
 		text-indent: 12px !important;
 	}
 }
-@media only screen and (max-width:768px){
+/* @media only screen and (max-width:768px){
 	.mobilflex{
 		flex-direction: column;
 		margin-bottom: 50px;
@@ -432,5 +498,5 @@ module.exports = {
 	.newaddress input,.newaddress2 input{
 		text-indent: 12px !important;
 	}
-}
+} */
 </style>
