@@ -332,7 +332,7 @@ $('#make_offer').click(function () {
 	var sign = $(this).data('sign');
 	var status = $(this).data('status');
 	if (sign == 0) {
-		tips('未登入/錢包連接已失效');
+		window.alert('未登入/錢包連接已失效');
 	} else {
 		if (status == 1) {
 			var price = $('.bid-right-btn span font').text().trim();
@@ -340,7 +340,7 @@ $('#make_offer').click(function () {
 		} else if (status == 2) {
 			window.location.href = 'myassets.html';
 		} else if (status == 0) {
-			tips('拍賣未開始');
+			window.alert('拍賣未開始');
 		} else if (sign == 4) {
 			// if (getCookie('isConnect') == 'false') {
 			var html = `<div>請先安裝MetaMask/或者使用WalletConnect，以保證拍賣功能的使用</div>
@@ -387,7 +387,7 @@ $.ajax({
 								}
 							});
 						} else {
-							tips("請註意，當前錢包鏈接與默認賬戶錢包地址不同，默認錢包地址：" + res.data.address);
+							window.alert("請註意，當前錢包鏈接與默認賬戶錢包地址不同，默認錢包地址：" + res.data.address);
 						};
 
 						$('#make_offer').data('sign', 1);
@@ -424,5 +424,5 @@ if (walletType || window.ethereum) {
 
 } else { 
 	$('#make_offer').data('sign', 0);
-	window.confirm('錢包連接已失效，請重新連接錢包');
+	window.alert('錢包連接已失效，請重新連接錢包');
 }

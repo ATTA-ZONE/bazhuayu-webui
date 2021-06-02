@@ -124,6 +124,21 @@ var contractSetting = {
                 'decimals': 18,
                 'address': '0xe9e7cea3dedca5984780bafc599bd69add087d56',
             }
+    },
+    'atta_ERC721': {
+        'proxy': None,
+        'abi': c_ERC721_abi,
+        56:
+            {
+                'owner_id': 17,
+                'address': '0x2400714597e7B850e31e09eC71f0A1e48780d4f2'
+            },
+        97:
+            {
+                'owner_id': 1,
+                'address': '0x790575dcE4E68e5e3c4508DB0293EE2A9ab890a7'
+            },
+        
     }
 }
 
