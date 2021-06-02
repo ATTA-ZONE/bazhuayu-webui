@@ -713,6 +713,70 @@
 	.newstyle-name{
 		display: block;
 	}
+	#myCollection .hsycms-model.hsycms-model-model.ntf{
+		width: 100% !important;
+		max-width: 100% !important;
+		height: 100% !important;
+		max-height: 100% !important;
+		padding: 20px !important;
+	} 
+	div#myCollection .hsycms-model .nth-tit{
+		width: 100% !important;
+		text-align: left !important;
+		font-size: 22px;
+		line-height: 24px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	}
+	div#myCollection .hsycms-model .nth-con{
+		width: 100% !important;
+		max-width: 100% !important;
+		border-bottom: 0;
+		max-height: calc(100% - 150px);
+	}
+	div#myCollection .mint-wrap-title span:nth-child(1),div#myCollection .mint-wrap-edition span:nth-child(1){
+		width: 20%;
+	}div#myCollection .mint-wrap-edition span:nth-child(2){
+		width: 80%;
+	}
+	div#myCollection .mint-wrap-title span{
+		font-size: 14px;
+	}
+	div#myCollection .mint-wrap-title{
+		justify-content: flex-start;
+	}
+	div#myCollection .building-nft span{
+		font-size: 14px;
+		display: flex;
+		align-items: center;
+	}
+	div#myCollection .mint-wrap-edition span label{
+		width: 15px;
+		height: 15px;
+		top: -10px;
+		left: 10px;
+	}
+	div#myCollection .mint-wrap-edition span label img{
+		width: 15px;
+		height: 15px;
+	}
+	div#myCollection .mint-wrap-edition span input{
+		width: 100%;
+		background-color: #282828;
+		border: 0;
+		padding: 10px;
+		font-size: 10px;
+		color: rgba(255, 255, 255, 0.4);
+	}
+	.bsc-btn{
+		position: absolute;
+		bottom: 45px;
+		left: 0;
+		width: 100%;
+	}
+	#myCollection .bsc-nft{
+		width: 100% !important;
+		/* margin: 0 20px; */
+	}
 }
 
 @media only screen and (max-width:768px){
@@ -1124,5 +1188,72 @@
 	}
 	.newstyle-name{
 		display: block;
+	}
+	#myCollection .hsycms-model.hsycms-model-model.ntf{
+		width: 100% !important;
+		max-width: 100% !important;
+		height: 100% !important;
+		max-height: 100% !important;
+		padding: 20px !important;
+	} 
+	div#myCollection .hsycms-model .nth-tit{
+		width: 100% !important;
+		text-align: left !important;
+		font-size: 22px;
+		line-height: 24px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+	}
+	div#myCollection .hsycms-model .nth-con{
+		width: 100% !important;
+		max-width: 100% !important;
+		border-bottom: 0;
+		max-height: calc(100% - 150px);
+	}
+	div#myCollection .mint-wrap-title span:nth-child(1),div#myCollection .mint-wrap-edition span:nth-child(1){
+		width: 20%;
+	}div#myCollection .mint-wrap-edition span:nth-child(2){
+		width: 80%;
+	}
+	div#myCollection .mint-wrap-title span{
+		font-size: 14px;
+	}
+	div#myCollection .mint-wrap-title{
+		justify-content: flex-start;
+	}
+	div#myCollection .building-nft span{
+		font-size: 14px;
+		display: flex;
+		align-items: center;
+	}
+	div#myCollection .mint-wrap-edition span label{
+		width: 15px;
+		height: 15px;
+		top: -10px;
+		left: 10px;
+	}
+	div#myCollection .mint-wrap-edition span label img{
+		width: 15px;
+		height: 15px;
+	}
+	div#myCollection .mint-wrap-edition span input{
+		width: 100%;
+		background-color: #282828;
+		border: 0;
+		padding: 10px;
+		font-size: 10px;
+		color: rgba(255, 255, 255, 0.4);
+	}
+	.bsc-btn{
+		position: absolute;
+		bottom: 45px;
+		left: 0;
+		width: 100%;
+	}
+	#myCollection .bsc-nft{
+		width: 100% !important;
+		/* margin: 0 20px; */
+	}
+	div#myCollection .mint-wrap{
+		height: calc(100% - 80px);;
 	}
 }
