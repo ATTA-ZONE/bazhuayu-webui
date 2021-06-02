@@ -141,6 +141,7 @@ tr .fourth {
   width: 35px;
 }
 #myCollection .selected-list td div{
+  position: relative;
   width: 70px;
 }
 #myCollection .selected-list td div input{

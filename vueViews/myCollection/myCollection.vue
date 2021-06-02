@@ -108,8 +108,8 @@
             <td style="font-size: 18px; padding-left: 17px" class="first">
               <span>{{ itm.name }}</span>
               <div>
-                <input id="input" type="checkbox" v-model="itm.checked" />
-                <label for="input">
+                <input :id="itm.name" type="checkbox" v-model="itm.checked" />
+                <label :for="itm.name">
                   <img v-show="itm.checked" src="./images/Vector.png" alt=""/>
                 </label>
               </div>
@@ -128,8 +128,8 @@
             <div class="flex mint-wrap-edition">
               <span>{{ itm.name }}
                 <div>
-                  <input id="input" type="checkbox" v-model="itm.checked" />
-                  <label for="input">
+                  <input :id="itm.name" type="checkbox" v-model="itm.checked" />
+                  <label :for="itm.name">
                     <img v-show="itm.checked" src="./images/Vector.png" alt=""/>
                   </label>
                 </div>
@@ -188,31 +188,13 @@ module.exports = {
         },
       });
     },
-    // getBuildedBsc(list) {
-    //   let arr = [];
-    //   list.filter((item) => {
-    //     if (item.status == 2) {
-    //       arr.push(item);
-    //     }
-    //   });
-    //   return arr;
-    // },
-    // getBuildingBsc(list) {
-    //   let arr = [];
-    //   list.filter((item) => {
-    //     if (item.status == 1) {
-    //       arr.push(item.edition);
-    //     }
-    //   });
-    //   return arr;
-    // },
     getAllBsc(list) {//去重
-      let arr = _.uniq(data);
+      let arr = _.uniq(list);
       return arr;
     },
     conneAssetsctWallet(data,str) {//可铸造，类型
-      this.selectedList = [];
       if (str == "start") {//开弹框
+        this.selectedList = [];
         if (this.isConnect) {
           if(data && data.length){
             var selectedList = this.getAllBsc(data);
@@ -315,12 +297,6 @@ module.exports = {
     getFormat(item) {
       return item.primaryPic.substr(item.primaryPic.lastIndexOf(".") + 1);
     },
-    // formatDuring(mss) {
-    //   var hours = parseInt(mss / (1000 * 60 * 60));
-    //   var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-    //   var seconds = parseInt((mss % (1000 * 60)) / 1000);
-    //   return hours + ":" + minutes + ":" + seconds;
-    // },
     getAssetsList() {
       var self = this;
       $.ajax({
@@ -331,7 +307,7 @@ module.exports = {
         },
         success: function (res) {
           if (res.code == 0) {
-            self.assetsList = res.data.pageResult;
+            self.assetsList = res.data.pageResult; 
           }
         },
       });
