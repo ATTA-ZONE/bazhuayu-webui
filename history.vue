@@ -34,6 +34,27 @@
           </div>
         </div>
       </div>
+      <div class="history-item" v-for="(item, index) in nftData" :key="'_'+index">
+        <div class="history-title">
+          <div class="title-info">
+            <span class="title-info-name">{{ item.name || 'aaaaa'}}</span>
+          </div>
+          <div class="title-time">{{ item.mintTime || '2021-05-31 13:32:17' }}</div>
+        </div>
+        <div class="history-desc">
+          <div class="desc-info">
+            <span>{{ item.claimType || 'BSC' }}</span>
+            <span class="desc-info-edtion">{{ item.editions || '17' }}版</span>
+          </div>
+          <div class="desc-info">
+            <div>原地址：{{item.from}}</div>
+            <div>
+              已轉移至地址：
+              <span class="desc-info-address">{{item.to}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,14 +64,14 @@ module.exports = {
     return {
       showFilters: false,
       historyData: {},
+      nftData: {}
     };
   },
   created() {
     this.getHistory();
-  },
-  mounted(){
     this.getNftHistory()
   },
+  
   methods: {
     toggleFilters() {
       this.showFilters = !this.showFilters;
@@ -68,31 +89,22 @@ module.exports = {
     },
     getNftHistory() {
       let self = this
-      var chainId = '';
       var targetChainId = '';
-      var scansite_apiKey = '';
       var scansite_base_url = '';
       
       if (window.location.href.indexOf('bazhuayu.io') == -1) {
         targetChainId = 97;
-        scansite_apiKey = ''
         scansite_base_url = 'https://api-testnet.bscscan.com'
       } else {
         targetChainId = 56;
-        scansite_apiKey = '9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27';
         scansite_base_url = 'https://api.bscscan.com'
       }
-      console.log(window);
-      var web3 = new Web3(window.CHAIN.WALLET.provider());
-      window.CHAIN.WALLET.chainId().then(function(res) {
-        chainId = web3.utils.hexToNumber(res);
-        if (chainId != targetChainId) {
-          window.CHAIN.WALLET.switchRPCSettings(targetChainId);
+      auctionAddress = contractSetting['atta_ERC721'][targetChainId].address;
+      $.ajax({
+        url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + window.walletId + '&sort=asc',
+        success: function(res) {
+          self.nftData = res.result
         }
-        auctionAddress = contractSetting['atta_ERC721'][chainId].address;
-        $.ajax({
-          url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + walletId + '&sort=asc'
-        })
       })
     }
   },
