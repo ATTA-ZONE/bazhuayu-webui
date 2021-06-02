@@ -74,7 +74,7 @@ tr .fourth {
   justify-content: center;
   align-items: center;
   padding: 8px 20px;
-  width: 201px;
+  /* width: 201px; */
   height: 48px;
   background: #9567FF;
   border-radius: 2px;
