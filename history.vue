@@ -146,7 +146,7 @@ module.exports = {
 			)
     },
     setFilter(idx) {
-      this.showFilter = [String(idx)]
+      this.showFilter = [String(idx + 1)]
     },
     toggleFilters() {
       this.showFilter = ['1', '2', '3']
