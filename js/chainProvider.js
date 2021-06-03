@@ -225,10 +225,12 @@
 					var th=W.CHAIN.WALLET;
 					var th1=W.CHAIN.WALLET.MetaMask;
 					// console.log('__enable', th);
-					var res = await th1.provider().request({
+					await th1.provider().request({
 						method: 'wallet_requestPermissions',
 						params: [{ eth_accounts: {} }],
 					});
+
+					var res = await th.__accounts();
 
 					if (getCookie(th.__wallet__)&&(getCookie(th.__wallet__)!=th1.name)){
 						var oldWallet = th[getCookie(th.__wallet__)];
