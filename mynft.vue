@@ -272,10 +272,15 @@ module.exports = {
 		editzyclick(e){
 			let newaddress = $('.newaddress input').val();
 			let newaddress2 = $('.newaddress2 input').val();
+			let web3 = new Web3(CHAIN.WALLET.provider());
 			let obj = JSON.parse(e.target.dataset.type);
 			console.log(e.target.dataset.type,!newaddress);
 			if (!newaddress && obj.status == 1 || !newaddress2 && obj.status == 2) {
 				tips("不可以為空~");
+				return;
+			}
+			if (!web3.utils.isAddress(newaddress) || !web3.utils.isAddress(newaddress2)) {
+				tips("请输入合法地址");
 				return;
 			}
 			if (obj.status == 1) {
