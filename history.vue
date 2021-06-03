@@ -10,7 +10,7 @@
       </ul>
     </div>
     <div class="history-items">
-      <div v-if="showFilter.indexOf('1') > -1">
+      <div v-if="showFilter.indexOf('2') > -1">
         <div class="history-item" v-for="(item, index) in historyData.editRecords" :key="index">
           <div class="history-title">
             <div class="title-info">
@@ -34,7 +34,7 @@
           </div>
         </div>
       </div>
-      <div v-if="showFilter.indexOf('2') > -1">
+      <div v-if="showFilter.indexOf('1') > -1">
         <div class="history-item" v-for="(item, index) in historyData.mintRecords" :key="index">
           <div class="history-title">
             <div class="title-info">
