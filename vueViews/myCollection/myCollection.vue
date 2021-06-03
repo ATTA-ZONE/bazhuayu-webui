@@ -193,6 +193,9 @@ module.exports = {
       let arr = _.uniq(list);
       return arr;
     },
+		nftConnect() {
+			window.location.href = 'connectWallet.html';
+		},
     conneAssetsctWallet(data,str) {//可铸造，类型
       if (str == "start") {//开弹框
         this.selectedList = [];
