@@ -37,25 +37,25 @@
 						
 					</div>
 				</div>
-				<div class="tablistbox">
+				<div class="tablistbox" v-if="item.mintList && item.mintList.length">
 					<p class="titlebox flex between">
-						<span>當前持有({{listdata.length}}):</span>
+						<span>當前持有({{item.mintList.length}}):</span>
 						<img src="./images/arrow.png" alt="" :class="item.ishide ? 'ishide' : ''" @click="changeishide(item.ishide,idx)">
 					</p>
 					<div class="listbox" v-if="!item.ishide">
-						<div class="everydatabox" v-for="(item,index) in listdata" :key="index">
+						<div class="everydatabox" v-for="(json,index) in item.mintList" :key="index">
 							<p class="tit">
-								<span>Token ID :  {{item.id}}  of {{item.num}}</span>
-								<span style="margin-left: 50px;">區塊鏈： {{item.qkl}}</span>
+								<span>Token ID :  {{json.edition}}  of {{item.endEdition}}</span>
+								<span style="margin-left: 50px;">區塊鏈： Binance</span>
 							</p>
 							<div class="inputbox flex between">
 								<div class="srkbox">
-									<input type="text" readonly :value="item.status == 1 ? '接收地址: '+item.address : '當前所在錢包: '+item.address">
-									<button v-if="item.status == 1" onclick="editnftaddress()">修改</button>
-									<span v-if="item.status == 1" class="clickedit" onclick="editnftaddress()">點擊修改地址</span>
+									<input type="text" readonly :value="json.status == 1 ? '接收地址: '+ (json.receiver ? json.receiver : '暫無接收地址') : '當前所在錢包: '+walletId">
+									<button v-if="json.status == 1" :data-json="JSON.stringify(json)" onclick="editnftaddress(event)">修改</button>
+									<span v-if="json.status == 1" :data-json="JSON.stringify(json)" class="clickedit" onclick="editnftaddress(event)">點擊修改地址</span>
 								</div>
-								<button class="ntfbtn kxbor" v-if="item.status == 1">鑄造中</button>
-								<button class="ntfbtn" v-if="item.status == 2" onclick="zhuanyiaddress()">轉移</button>
+								<button class="ntfbtn kxbor" v-if="json.status == 1">鑄造中</button>
+								<button class="ntfbtn" v-if="json.status == 2" :data-endedition="item.endEdition" :data-json="JSON.stringify(json)" onclick="zhuanyiaddress(event)">轉移</button>
 							</div>
 							<div class="horizontalline"></div>
 						</div>
@@ -92,9 +92,9 @@
 			</div>
 		</div>
 		<!--提示弹窗-->
-		<div class="hsycms-model-mask"></div>
-		<div class="hsycms-model hsycms-model-tips">
-			<div class="hsycms-model-text"></div>
+		<div class="hsycms-model-mask" id="mask-tips"></div>
+			<div class="hsycms-model hsycms-model-tips" id="tips">
+			<div class="hsycms-model-text">这里是提示内容</div>
 		</div>
 		<!-- foot -->
 		<div class="footerpage2"></div>
@@ -129,23 +129,23 @@ module.exports = {
 	
 	created() {
 		this.isConnect = getCookie('isConnect') == 'false' ? false : true
-		this.getAccount()
-		this.geteveryqkl()
+		// this.getAccount()
 	},
 	mounted() {
-		this.getAssetsList();
-		this.geteveryqkl();
+		this.getAccount()
+		// this.geteveryqkl();
 	},
 	
 	methods: {
 		getAccount(){
-			let self = this
-			$.ajax({
-				url:base_url+'/v2/user/wallet/info',
-				success:function(res){
-					if(res.code==0){
-						self.walletId = res.data.address;
-					}
+			let self = this;
+			CHAIN.WALLET.enable()
+			.then(res=>{
+				if (res && res.length) {
+					self.walletId = res[0];
+					self.geteveryqkl();
+				}else{
+					self.getAssetsList([]);
 				}
 			})
 		},
@@ -163,7 +163,7 @@ module.exports = {
 			}
 			auctionAddress = contractSetting['atta_ERC721'][targetChainId].address;
 			$.ajax({
-				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + window.walletId + '&sort=asc',
+				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + this.walletId + '&sort=asc',
 				success: function(res) {
 					let nftData = res.result;
 					let obj = {},arr = [],tokenarr = [];
@@ -197,6 +197,7 @@ module.exports = {
 					console.log(arr);
 					console.log(tokenarr);
 					self.tokenarr = tokenarr;
+					self.getAssetsList(tokenarr);
 				}
 			})
 		},
@@ -227,7 +228,7 @@ module.exports = {
 		},
 		getMoreList() {
 			this.current += 1
-			this.getAssetsList()
+			this.getAssetsList(this.tokenarr);
 			
 		},
 		getCookie(cookieName) {
@@ -246,14 +247,18 @@ module.exports = {
 		getFormat(item) {
 			return item.primaryPic.substr(item.primaryPic.lastIndexOf('.') + 1)
 		},
-		getAssetsList() {
+		getAssetsList(arr) {
 			var self = this
 			$.ajax({
-				url: base_url + '/v2/user/commodity/list',
-				data: {
-					current: this.current,
-					pageSize: this.pageSize
-				},
+				url: base_url + '/v2/user/nft/list',
+				type: 'POST',
+				contentType: 'application/json',
+				dataType: 'json',
+				data:JSON.stringify({
+					current: self.current,
+					pageSize: self.pageSize,
+					tokenIds : arr
+				}),
 				success: function (res) {
 					if (res.code == 0) {
 						self.assetsList = res.data.pageResult
@@ -271,10 +276,80 @@ module.exports = {
 		},
 		editzyclick(e){
 			let newaddress = $('.newaddress input').val();
+			let newaddress2 = $('.newaddress2 input').val();
+			let obj = JSON.parse(e.target.dataset.type);
 			console.log(e.target.dataset.type,!newaddress);
-			if (!newaddress) {
-				tips("不可以为空~");
+			if (!newaddress && obj.status == 1 || !newaddress2 && obj.status == 2) {
+				tips("不可以為空~");
+				return;
 			}
+			if (obj.status == 1) {
+				// 确认修改
+				this.editajax(newaddress,obj);
+			}
+			if (obj.status == 2) {
+				// 确认转移
+				this.zyajax(newaddress2,obj);
+			}
+		},
+		editajax(newaddress,obj){
+			var self = this
+			$.ajax({
+				url: base_url + '/v2/mint/mint/updateAddress',
+				type: 'POST',
+				contentType: 'application/json',
+				dataType: 'json',
+				data:JSON.stringify({
+					instanceId:obj.instanceId,
+					currentAddress: obj.receiver,
+					newAddress : newaddress
+				}),
+				success: function (res) {
+					if (res.code == 0) {
+						tips("修改成功");
+						setTimeout(function(){
+							cancelMobile();
+							self.geteveryqkl();
+						},1800);
+						
+					}
+				}
+			})
+		},
+		zyajax(newaddress,obj){
+			var self = this
+			var web3 = new Web3(CHAIN.WALLET.provider());
+			console.log(obj);
+			var chainId = '';
+			CHAIN.WALLET.chainId()
+				.then(function (res) {
+					chainId = web3.utils.hexToNumber(res);  
+					if (chainId != targetChainId) {
+						CHAIN.WALLET.switchRPCSettings(targetChainId);
+					}
+					// var netVer = netVers[0];
+					ERC721Address = contractSetting['atta_ERC721'][chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+					var ERC721ABI = contractSetting['atta_ERC721']['abi'];
+					
+					ERC721ContractInstance = new web3.eth.Contract(ERC721ABI, ERC721Address);        
+					// busdAddress 供外界使用
+					
+					ERC721ContractInstance.methods.safeTransferFrom(this.walletId,newaddress,obj.tokenId).send({ 
+						from: this.walletId
+					})
+					.then(function (res) {
+						console.log(res);
+						tips("轉移操作已完成~");
+						self.geteveryqkl();
+					});
+					setTimeout(() => {
+						tips("您的NFT轉移操作已完成，請到相應錢包內確認噢~");
+						setTimeout(function(){
+							cancelMobile();
+						},1800);
+					}, 1000);
+				});    
+
 		}
 	}
 }

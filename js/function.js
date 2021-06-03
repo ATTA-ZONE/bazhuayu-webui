@@ -311,11 +311,12 @@ function changeName(){
 }
 
 
-function editnftaddress(){
+function editnftaddress(e){
+	let obj = JSON.parse(e.target.dataset.json);
 	$('.modify-tit span').text('修改BSC NFT接收地址');
 	var html = ``;
 	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit dqaddress">當前接收地址：<span>`+walletId+`</span></div>
+				<div class="modify-ipt-tit dqaddress">當前接收地址：<span>`+(obj.receiver ? obj.receiver : "暫無接收地址")+`</span></div>
 				<div class="modify-ipt-tit newaddress">新接收地址：<input type="text" value=`+walletId+`></div>
 			</div>`;
 			
@@ -324,12 +325,14 @@ function editnftaddress(){
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
 	$('.modify-btn-active').text('確認修改');
-	$('.modify-btn-active').attr('data-type',1);
+	$('.modify-btn-active').attr('data-type',e.target.dataset.json);
 	$('.cancel').hide();
 	$('.modify').fadeIn();
 }
-function zhuanyiaddress(){
-	$('.modify-tit span').text('轉移Token 13 of 150 至新錢包');
+function zhuanyiaddress(e){
+	let obj = JSON.parse(e.target.dataset.json);
+	let endedition = JSON.parse(e.target.dataset.endedition);
+	$('.modify-tit span').text(`轉移Token `+obj.edition+` of `+endedition+` 至新錢包`);
 	var html = ``;
 	html += `<div class="modify-ipt-add">
 				<div class="modify-ipt-tit dqaddress">當前所在錢包地址：<span>`+walletId+`</span></div>
@@ -341,7 +344,7 @@ function zhuanyiaddress(){
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
 	$('.modify-btn-active').text('確認轉移');
-	$('.modify-btn-active').attr('data-type',2);
+	$('.modify-btn-active').attr('data-type',e.target.dataset.json);
 	$('.cancel').hide();
 	$('.modify').fadeIn();
 }

@@ -1,7 +1,7 @@
 
 
 !function(W){
-	if (getCookie('_wallet_')=='') {
+	if (!getCookie('_wallet_')) {
 		setCookie('_wallet_','MetaMask')
 	};
 	W.CHAIN={
