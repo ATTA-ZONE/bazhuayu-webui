@@ -17,12 +17,12 @@
               <span>LOG{{ index }}</span>
               <span class="title-info-name">{{ item.name }}</span>
             </div>
-            <div class="title-time">{{ item.mintTime }}</div>
+            <div class="title-time">{{ item.createTime }}</div>
           </div>
           <div class="history-desc">
             <div class="desc-info">
               <span>{{ item.claimType }}</span>
-              <span class="desc-info-edtion">{{ item.editions }}版</span>
+              <span class="desc-info-edtion">{{ item.edition }}版</span>
             </div>
             <div class="desc-address">
               <div>接收地址由：{{item.fromAddress}}</div>
@@ -290,11 +290,8 @@ module.exports = {
 .desc-info-edtion {
   margin-left: 40px;
   max-width: 34%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 .roate {
   transform: rotate(180deg);
