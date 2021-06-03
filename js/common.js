@@ -152,7 +152,7 @@ $(function(){
 								
 								<span onclick="window.location.href = 'myaccount.html'">我的帳戶</span>
 								<span onclick="window.location.href = 'myorders.html'">我的訂單</span>
-								<span onclick="window.location.href = 'myassets.html'">我的藏品</span>
+								<span onclick="window.location.href = 'myassets.html'">我的資產</span>
 								<span onclick="window.location.href = 'mywallet.html'">我的錢包</span>
 								<span class="logout" onclick="logoutConfirm()">登出</span>
 							</div>`;

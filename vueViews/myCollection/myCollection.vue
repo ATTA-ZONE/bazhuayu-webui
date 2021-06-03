@@ -79,7 +79,7 @@
       <div class="hsycms-model-content nth-con">
         <div class="nth-con-tip">為了接收您的NFT,您需要先連接錢包。</div>
         <div class="nth-con-tip" style="color: #9567ff">
-          如果您不熟悉加密貨幣錢包,請單擊此處
+          如果您不熟悉加密貨幣錢包,請單擊此處。
         </div>
       </div>
       <div class="nth-btn">
@@ -140,7 +140,7 @@
         </div>
       </div>
       <div class="flex bsc-btn" style="justify-content: center">
-        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft">開始鑄造</a>
+        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft madia-btn">開始鑄造</a>
       </div>
     </div>
     <!-- foot -->
@@ -212,7 +212,7 @@ module.exports = {
               hsycms.alert("model3");
             }, 50);
           }else{
-            tips('暫無可鑄造版號！');
+            tips('當前無可鑄造版號');
             return;
           }
         } else {

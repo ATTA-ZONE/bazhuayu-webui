@@ -775,7 +775,9 @@
 	}
 	#myCollection .bsc-nft{
 		width: 100% !important;
-		/* margin: 0 20px; */
+	}
+	.madia-btn{
+		margin: 0 20px;
 	}
 }
 
@@ -1211,8 +1213,12 @@
 	}
 	div#myCollection .mint-wrap-title span:nth-child(1),div#myCollection .mint-wrap-edition span:nth-child(1){
 		width: 20%;
-	}div#myCollection .mint-wrap-edition span:nth-child(2){
+	}
+	div#myCollection .mint-wrap-title span:nth-child(2),div#myCollection .mint-wrap-edition span:nth-child(2){
 		width: 80%;
+	}
+	div#myCollection .mint-wrap-title span:nth-child(1){
+		padding-right: 6px;
 	}
 	div#myCollection .mint-wrap-title span{
 		font-size: 14px;
@@ -1251,7 +1257,9 @@
 	}
 	#myCollection .bsc-nft{
 		width: 100% !important;
-		/* margin: 0 20px; */
+	}
+	.madia-btn{
+		margin: 0 20px;
 	}
 	div#myCollection .mint-wrap{
 		height: calc(100% - 80px);;
