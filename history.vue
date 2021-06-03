@@ -10,19 +10,19 @@
       </ul>
     </div>
     <div class="history-items">
-      <div v-if="showFilter.indexOf('1') > -1">
+      <div v-if="showFilter.indexOf('2') > -1">
         <div class="history-item" v-for="(item, index) in historyData.editRecords" :key="index">
           <div class="history-title">
             <div class="title-info">
               <span>LOG{{ index }}</span>
               <span class="title-info-name">{{ item.name }}</span>
             </div>
-            <div class="title-time">{{ item.mintTime }}</div>
+            <div class="title-time">{{ item.createTime }}</div>
           </div>
           <div class="history-desc">
             <div class="desc-info">
               <span>{{ item.claimType }}</span>
-              <span class="desc-info-edtion">{{ item.editions }}版</span>
+              <span class="desc-info-edtion">{{ item.edition }}版</span>
             </div>
             <div class="desc-address">
               <div>接收地址由：{{item.fromAddress}}</div>
@@ -34,7 +34,7 @@
           </div>
         </div>
       </div>
-      <div v-if="showFilter.indexOf('2') > -1">
+      <div v-if="showFilter.indexOf('1') > -1">
         <div class="history-item" v-for="(item, index) in historyData.mintRecords" :key="index">
           <div class="history-title">
             <div class="title-info">
@@ -146,7 +146,7 @@ module.exports = {
 			)
     },
     setFilter(idx) {
-      this.showFilter = [String(idx)]
+      this.showFilter = [String(idx + 1)]
     },
     toggleFilters() {
       this.showFilter = ['1', '2', '3']
@@ -220,6 +220,7 @@ module.exports = {
   .history-items {
     font-size: 12px !important;
   }
+  
   .filter-items,
   .filter-items li {
     display: inline-block;
@@ -257,6 +258,9 @@ module.exports = {
   .desc-address {
     margin-top: 6px;
   }
+  .desc-info-edtion {
+    max-width: 36% !important;
+  }
 }
 
 .recoverRequest, .recoverRequest:hover {
@@ -289,12 +293,9 @@ module.exports = {
 }
 .desc-info-edtion {
   margin-left: 40px;
-  max-width: 34%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  max-width: 400px;
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 .roate {
   transform: rotate(180deg);
