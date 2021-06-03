@@ -6,51 +6,80 @@
         <img :class="showFilters ? 'roate' : ''" src="./images/selectMore.png" />
       </div>
       <ul v-if="showFilters" class="filter-items">
-        <li>鑄造記錄</li>
-        <li>地址修改記錄</li>
-        <li>轉移記錄</li>
+        <li @click="setFilter(idx)" v-for="(itm,idx) in filTags" :key="'#' + idx">{{ itm }}</li>
       </ul>
     </div>
     <div class="history-items">
-      <div class="history-item" v-for="(item, index) in historyData.mintRecords" :key="index">
-        <div class="history-title">
-          <div class="title-info">
-            <span>LOG{{ index }}</span>
-            <span class="title-info-name">{{ item.name }}</span>
+      <div v-if="showFilter.indexOf('1') > -1">
+        <div class="history-item" v-for="(item, index) in historyData.editRecords" :key="index">
+          <div class="history-title">
+            <div class="title-info">
+              <span>LOG{{ index }}</span>
+              <span class="title-info-name">{{ item.name }}</span>
+            </div>
+            <div class="title-time">{{ item.mintTime }}</div>
           </div>
-          <div class="title-time">{{ item.mintTime }}</div>
-        </div>
-        <div class="history-desc">
-          <div class="desc-info">
-            <span>{{ item.claimType }}</span>
-            <span class="desc-info-edtion">{{ item.editions }}版</span>
-          </div>
-          <div class="desc-address">
-            <div>接收地址由： 0xC2C747E0F7004F9E8817Db2ca4997657a7746928</div>
-            <div>
-              更改為：
-              <span class="desc-info-address">0xf2102117f279d9c30ffa4149d6670d349cb721af</span>
+          <div class="history-desc">
+            <div class="desc-info">
+              <span>{{ item.claimType }}</span>
+              <span class="desc-info-edtion">{{ item.editions }}版</span>
+            </div>
+            <div class="desc-address">
+              <div>接收地址由：{{item.fromAddress}}</div>
+              <div>
+                更改為：
+                <span class="desc-info-address">{{item.toAddress}}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="history-item" v-for="(item, index) in nftData" :key="'_'+index">
-        <div class="history-title">
-          <div class="title-info">
-            <span class="title-info-name">{{ item.name || 'aaaaa'}}</span>
+      <div v-if="showFilter.indexOf('2') > -1">
+        <div class="history-item" v-for="(item, index) in historyData.mintRecords" :key="index">
+          <div class="history-title">
+            <div class="title-info">
+              <span>LOG{{ index }}</span>
+              <span class="title-info-name">{{ item.name }}</span>
+            </div>
+            <div class="title-time">{{ item.mintTime }}</div>
           </div>
-          <div class="title-time">{{ item.mintTime || '2021-05-31 13:32:17' }}</div>
+          <div class="history-desc">
+            <div class="desc-info">
+              <span>{{ item.claimType }}</span>
+              <span class="desc-info-edtion">{{ item.editions }}版</span>
+            </div>
+            <div class="desc-address" v-if="item.status == 1">
+              <div>開始鑄造 <a class="recoverRequest">[撤回鑄造申請]</a> </div>
+            </div>
+            <div class="desc-address" v-if="item.status == 2">
+              <div>鑄造完畢，請在“我的NFT”頁面查看</div>
+              <div>
+                Transaction hash：
+                <span class="desc-info-address">{{item.transactionHash}}</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="history-desc">
-          <div class="desc-info">
-            <span>{{ item.claimType || 'BSC' }}</span>
-            <span class="desc-info-edtion">{{ item.editions || '17' }}版</span>
+      </div>
+      <div v-if="showFilter.indexOf('3') > -1">
+        <div class="history-item" v-for="(item, index) in nftData" :key="'_' + index">
+          <div class="history-title">
+            <div class="title-info">
+              <span class="title-info-name">{{ item.name || 'aaaaa' }}</span>
+            </div>
+            <div class="title-time">{{ timeFormat(item.timeStamp) }}</div>
           </div>
-          <div class="desc-address">
-            <div>原地址：{{item.from}}</div>
-            <div>
-              已轉移至地址：
-              <span class="desc-info-address">{{item.to}}</span>
+          <div class="history-desc">
+            <div class="desc-info">
+              <span>{{ item.claimType || 'BSC' }}</span>
+              <span class="desc-info-edtion">{{ item.editions || '17' }}版</span>
+            </div>
+            <div class="desc-address">
+              <div>原地址：{{ item.from }}</div>
+              <div>
+                已轉移至地址：
+                <span class="desc-info-address">{{ item.to }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -64,7 +93,11 @@ module.exports = {
     return {
       showFilters: false,
       historyData: {},
-      nftData: {}
+      nftData: {},
+      showFilter: ['1', '2', '3'],
+      filTags: ['鑄造記錄',
+        '地址修改記錄',
+        '轉移記錄']
     };
   },
   created() {
@@ -72,16 +105,20 @@ module.exports = {
     self.getHistory();
     self.getNftHistory()
     self.resizeWindow()
-    window.onresize = function () {
+    window.onresize = function() {
       self.resizeWindow()
     }
   },
-  
+
   methods: {
+    setFilter(idx) {
+      this.showFilter = [String(idx)]
+    },
     toggleFilters() {
+      this.showFilter = ['1', '2', '3']
       this.showFilters = !this.showFilters;
     },
-    resizeWindow(){
+    resizeWindow() {
       if ($('body').width() < 992) {
         this.showFilters = true
       } else {
@@ -99,11 +136,21 @@ module.exports = {
         },
       });
     },
+    timeFormat(str) {
+      var date = new Date(str * 1000);
+      Y = date.getFullYear() + '-';
+      M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+      D = date.getDate() + ' ';
+      h = date.getHours() + ':';
+      m = date.getMinutes() + ':';
+      s = date.getSeconds();
+      return (Y + M + D + h + m + s);
+    },
     getNftHistory() {
       let self = this
       var targetChainId = '';
       var scansite_base_url = '';
-      
+
       if (window.location.href.indexOf('bazhuayu.io') == -1) {
         targetChainId = 97;
         scansite_base_url = 'https://api-testnet.bscscan.com'
@@ -123,48 +170,54 @@ module.exports = {
 };
 </script>
 <style>
-  @media only screen and (max-width: 992px){
-    .history-items {
-      font-size: 12px !important;
-      display: inline-block;
-    }
-    .filter-items, .filter-items li {
-      display: inline-block;
-    }
-    .filter-items {
-      font-size: 14px;
-      opacity: 0.8;
-      cursor: pointer;
-      margin-top: 10px;
-      margin-left: 18%;
-      line-height: 1;
-      display: inline-flex;
-      flex: 1;
-      justify-content: space-between;
-    }
-    .filter-wrap {
-      font-size: 16px !important;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .filter-control {
-      display: inline-block;
-    }
-    .filter-control img {
-      display: none;
-    }
-    .history-desc {
-      display: block !important;
-    }
-    .desc-info {
-      display: flex;
-      justify-content: space-between;
-    }
-    .desc-address {
-      margin-top: 6px;
-    }
+@media only screen and (max-width: 992px) {
+  .history-items {
+    font-size: 12px !important;
   }
+  .filter-items,
+  .filter-items li {
+    display: inline-block;
+  }
+  .filter-items {
+    font-size: 14px;
+    opacity: 0.8;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 18%;
+    line-height: 1;
+    display: inline-flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+  .filter-wrap {
+    font-size: 16px !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .filter-control {
+    display: inline-block;
+  }
+  .filter-control img {
+    display: none;
+  }
+  .history-desc {
+    display: block !important;
+  }
+  .desc-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  .desc-address {
+    margin-top: 6px;
+  }
+}
+
+.recoverRequest, .recoverRequest:hover {
+  color: #FF1313;
+  cursor: pointer;
+}
+
 .history-items {
   font-size: 16px;
 }
