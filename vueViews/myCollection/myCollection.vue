@@ -42,7 +42,7 @@
           </div>
           <div class="my-assets-right-btn flex">
             <div class="flex my-assets-claim-wrap">
-              <a @click="conneAssetsctWallet(item.totalEditionList,'start')" class="bsc-nft">鑄造BSC NFT</a>
+              <a @click="conneAssetsctWallet(item,'start')" class="bsc-nft">鑄造BSC NFT</a>
             </div>
             <a class="flex eth">
               <div>鑄造ETH NFT</div>
@@ -166,6 +166,7 @@ module.exports = {
       walletId: "",
       textCheck: "",
       selectedList: [],
+      basicId:''
     };
   },
   created() {
@@ -195,9 +196,11 @@ module.exports = {
     conneAssetsctWallet(data,str) {//可铸造，类型
       if (str == "start") {//开弹框
         this.selectedList = [];
+        this.basicId = '';
         if (this.isConnect) {
-          if(data && data.length){
-            var selectedList = this.getAllBsc(data);
+          if(data.totalEditionList && data.totalEditionList.length){
+            var selectedList = this.getAllBsc(data.totalEditionList);
+            this.basicId = data.basicId;
             selectedList.forEach(item=>{
               console.log(item);
               var data = {
@@ -205,7 +208,6 @@ module.exports = {
                 number:this.walletId,
                 name:item
               }
-              console.log(data);
               this.selectedList.push(data);
             })
             setTimeout(function () {
@@ -239,16 +241,18 @@ module.exports = {
 						contentType: 'application/json',
 						dataType: 'json',
 						data:JSON.stringify({
-							mintList:checkData
+							mintList:checkData,
+              basicId:this.basicId
 						}),
 						success:function(res){
 							loadingHide();
               if(res.code == 0){
-                hsycms.closeAll();
-                tips('已提交鑄造申請，請在“我的NFT”頁面查看！');
+                setTimeout(()=>{
+                  tips('已提交鑄造申請，請在“我的NFT”頁面查看！');
+                },500)
 							  setTimeout(()=>{
                   window.location.reload()
-                },1000)
+                },1500)
               }else{
                 tips(res.message);
                 return;
