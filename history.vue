@@ -49,7 +49,7 @@
               <span class="desc-info-edtion">{{ item.editions }}版</span>
             </div>
             <div class="desc-address" v-if="item.status == 1">
-              <div>開始鑄造 <a class="recoverRequest">[撤回鑄造申請]</a> </div>
+              <div>開始鑄造 <a @click="cancelNft(item.mintFlow)" class="recoverRequest">[撤回鑄造申請]</a> </div>
             </div>
             <div class="desc-address" v-if="item.status == 2">
               <div>鑄造完畢，請在“我的NFT”頁面查看</div>
@@ -65,14 +65,14 @@
         <div class="history-item" v-for="(item, index) in nftData" :key="'_' + index">
           <div class="history-title">
             <div class="title-info">
-              <span class="title-info-name">{{ item.name || 'aaaaa' }}</span>
+              <span class="title-info-name">{{ item.name }}</span>
             </div>
             <div class="title-time">{{ timeFormat(item.timeStamp) }}</div>
           </div>
           <div class="history-desc">
             <div class="desc-info">
               <span>{{ item.claimType || 'BSC' }}</span>
-              <span class="desc-info-edtion">{{ item.editions || '17' }}版</span>
+              <span class="desc-info-edtion">{{ item.edition }}版</span>
             </div>
             <div class="desc-address">
               <div>原地址：{{ item.from }}</div>
@@ -111,6 +111,40 @@ module.exports = {
   },
 
   methods: {
+    cancelNftRequest(id) {
+      if (id) {
+        let self = this
+        $.ajax({
+          url: base_url + '/v2/mint/mint/cancelMintingRequest',
+          type: 'POST',
+          contentType: 'application/json',
+          dataType: 'json',
+          data:JSON.stringify({
+            mintFlow: id
+          }),
+          success: function (res) {
+            if (res.code == 0) {
+              self.getHistory();
+              hsycms.success('success', '撤回成功');
+            }
+          }
+        })
+      }
+    },
+    cancelNft(id){
+      let self = this
+      hsycms.confirm('confirm', '你確定要[撤回鑄造申請]嗎？',
+				function (res) {
+          hsycms.success('success','確認');
+          setTimeout(function(){
+            self.cancelNftRequest(id)
+          },1500)
+				},
+				function (res) {
+					hsycms.error('error', '取消');
+				},
+			)
+    },
     setFilter(idx) {
       this.showFilter = [String(idx)]
     },
@@ -163,6 +197,18 @@ module.exports = {
         url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + window.walletId + '&sort=asc',
         success: function(res) {
           self.nftData = res.result
+          if (self.nftData) {
+            for (let i = 0; i < self.nftData.length; i++) {
+              $.ajax({
+                url: base_url + '/v2/commodity/edition_basic_id',
+                data: {tokenTypeId: self.nftData[i].tokenID},
+                success: function (itm) {
+                  self.$set(self.nftData[i], 'name', itm.data.name)
+                  self.$set(self.nftData[i], 'edition', itm.data.edition)
+                }
+              })
+            }
+          }
         }
       })
     }
