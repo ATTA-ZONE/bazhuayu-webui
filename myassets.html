@@ -14,208 +14,43 @@
 	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css" />
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 	<link rel="stylesheet" type="text/css" href="./css/media.css" />
+	<link rel="stylesheet" type="text/css" href="./css/myasset.css" />
+	<link rel="stylesheet" type="text/css" href="./css/myCollection.css" />
 	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/web3-provider.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/loadsh.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod">
+	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod">
 	</script>
 	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<style>
-		.model-style {
-			text-align: center;
-			border-bottom: none !important;
-			padding-bottom: 4px !important;
-		}
-		
-		.bsc-table {
-			color: #fff;
-			width: 100%;
-			display: block;
-			overflow-x: hidden;
-		}
-		tbody {
-			width: 100%;
-		}
-		.bsc-table td {
-			display: inline-block;
-			overflow: hidden;
-			word-break: break-word;
-		}
-		tr .first {
-			width: 150px;
-		}
-		tr .second {
-			width: 100px;
-		}
-		tr .third {
-			width: 180px;
-			margin-right: 20px;
-		}
-		tr .fourth {
-			width: 260px;
-		}
-		.bsc-table tr {
-			display: flex;
-			line-height:22px;
-		}
-		[v-cloak] {
-			display: none;
-		}
-	</style>
+	<script src="./js/httpVueLoader.js"></script>
 </head>
-
 <body>
 	<!-- head -->
 	<div class="headerpage"></div>
-
-	<div class="bzy-title center-80"><span class="language-tc">我的藏品</span></div>
-
+	<div class="bzy-title center-80"><span class="language-tc">我的資產</span></div>
 	<div class="my-assets center-80" id="app" v-cloak>
-		<ul v-if="assetsList.records && assetsList.records.length > 0">
-			<li class="flex" v-for="(item,idx) in assetsList.records" :key="idx">
-				<div class="my-assets-left" v-if="getFormat(item) == 'mp4'">
-					<video style="width:100%;" autoplay="autoplay" loop="loop" :src=" item.primaryPic" muted="muted"></video>
-					<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" :src="item.primaryPic"
-						muted="muted"></video>
-				</div>
-				<div class="my-assets-left" v-else>
-					<img :src="item.primaryPic" />
-					<img class="mohu" :src="item.primaryPic" />
-				</div>
-				<div class="my-assets-right">
-					<div class="my-assets-right-tit">{{item.name}}</div>
-					<div class="my-assets-right-creator flex">
-						<div class="details-right-creator-img"><img src="./images/t8.png"></div>
-						<span>@ATTA</span>
-						<div class="my-assets-right-creator-edition">當前持有第<font style="color:#9567FF">{{getAllBsc(item.mintList).join(',')}}</font>版，共{{item.endEdition}}版</div>
-					</div>
-					<div class="details-right-des-tit">商品描述</div>
-					<div class="details-right-des" v-html="getIntroduce(item,'desc','暫無介紹')">
-					</div>
-					<div class="details-right-additional">
-						<p class="details-right-additional-show" @click="toggleMoreInfo(idx)">更多信息 <span>+</span>
-						</p>
-						<p class="details-right-additional-more order-content" v-if="showMoreInfo==idx" v-html="getIntroduce(item,'detail','暫無更多資訊')">
-						</p>
-					</div>
-					<div class="my-assets-right-price">
-						<div class="flex my-assets-right-download"><a class="flex download" :download="item.attachment"
-								:href="item.attachment">下載原始文件副本</a></div>
-					</div>
-					<div class="my-assets-right-btn flex">
-						<div class="flex my-assets-claim-wrap">
-							<a @click="conneAssetsctWallet(getNftStatus(item))" 
-								:class="['claim', getNftStatus(item) != '等待自動鑄造BSC NFT中'? 'finish-nft':'']">{{getNftStatus(item)}}
-							</a>
-							<div class="claim-tip" 
-								v-if="!isConnect && getNftStatus(item) != 'BSC NFT 鑄造結束'">(請先連接您的錢包)
-							</div>
-							<div class="claim-tip" 
-								v-if="isConnect && getBuildingBsc(item.mintList).length > 0">當前正在鑄造：第{{getBuildingBsc(item.mintList).join('、')}} 版
-							</div>
-							<div class="claim-tip" v-if="isConnect && getBuildingBsc(item.mintList).length > 0">当前NFT接收地址: {{walletId}}</div>
-							<div class="claim-tip" 
-								@click="showSelectedNft(item)" 
-								v-if="getBuildedBsc(item.mintList).length > 0">查看已鑄造NFT({{getBuildedBsc(item.mintList).length}})
-							</div>
-						</div>
-
-						<a class="flex eth"><div>鑄造ETH NFT</div><div>(功能準備中)</div></a>						
-					</div>
-					<div class="my-assets-right-address flex">
-						<div class="my-assets-right-addres-eth"><a target="_blank"></a></div>
-					</div>
-				</div>
-			</li>
-		</ul>
-		<ul v-else style="padding-top: 100px;">
-			<li class="flex nothing">
-				<div>暫無藏品記錄</div>
-			</li>
-		</ul>
-		<div class="bzy-e-more" v-if="assetsList.total > 9">
-			<div class="flex assets-list-load" @click="getMoreList">
-				<span class="language-tc">加载更多</span>
-				<img src="./images/next.png">
-				<img src="./images/xiala2.png">
+		<div class="tabs-wrap">
+			<div v-for="(item,idx) in tabs" :key="idx" @click="toggleTab(item, idx)">
+				<span>{{item}}</span>
+				<div v-if="selectedTab == idx" class="active-tab"></div>
 			</div>
 		</div>
-	
-
-	<!-- nft 钱包已连接-->
-	<div class="hsycms-model-mask" onclick="hsycms.closeAll()" id="mask-model1"></div>
-	<div class="hsycms-model hsycms-model-model ntf" id="model1">
-		<div class="ntf-close" onclick="hsycms.closeAll()"><img src="./images/Close.png"></div>
-		<div class="hsycms-model-content nth-con model-style">
-			<div class="nth-con-tip">您的NFT正在鑄造中<br/>請耐心等待</div>
-			<div class="nth-con-tip">当前NFT接收地址: {{walletId}}</div>
-		</div>
-		<div class="nth-btn"><button type="button" onclick="hsycms.closeAll()">確認</button></div>
+		<!-- <hello v-if="selectedTab == 0"></hello> -->
+		<my-collection v-if="selectedTab == 0"></my-collection>
+		<mynft v-if="selectedTab == 1"></mynft>
+		<history v-if="selectedTab == 2"></history>
+		<div class="tips"></div>
 	</div>
-	<!-- ntf 钱包未连接 -->
-	<div class="hsycms-model-mask" onclick="hsycms.closeAll()" id="mask-model2"></div>
-	<div class="hsycms-model hsycms-model-model ntf" id="model2">
-		<div class="ntf-close" onclick="hsycms.closeAll()"><img src="./images/Close.png"></div>
-		<div class="hscysm-model-title nth-tit">您需要連接錢包</div>
-		<div class="hsycms-model-content nth-con">
-			<div class="nth-con-tip">為了接收您的NFT,您需要先連接錢包。</div>
-			<div class="nth-con-tip" style="color: #9567FF;">如果您不熟悉加密貨幣錢包,請單擊此處</div>
-		</div>
-		<div class="nth-btn"><button type="button" onclick="nftConnect()">立即連接</button></div>
-	</div>
-	<!-- 已铸造nft -->
-	<div class="hsycms-model-mask" onclick="hsycms.closeAll()" id="mask-model3"></div>
-	<div class="hsycms-model hsycms-model-model ntf" id="model3" style="width: 800px;">
-		<div class="ntf-close" onclick="hsycms.closeAll()"><img src="./images/Close.png"></div>
-		<div class="hscysm-model-title nth-tit" style="width: 90%; text-align: center;">已鑄造NFT</div>
-		<div class="hsycms-model-content nth-con" style="width: 90%;">
-			<table class="bsc-table">
-				<tr>
-					<th class="first">商品名稱</th>
-					<th class="second">版數</th>
-					<th class="third">NFT接收地址</th>
-					<th class="fourth">鑄造憑證</th>
-				</tr>
-				<tr v-for="(itm,index) in selectedNft" :key="index">
-					<td class="first">{{selectedNftName}}</td>
-					<td class="second">{{itm.edition}}</td>
-					<td class="third">{{walletId}}</td>
-					<td class="fourth">{{itm.transactionHash}}</td>
-				</tr>
-			</table>
-			<div class="mint-wrap">
-				<div class="flex mint-wrap-title">
-					<span>商品名稱</span>
-					<span>版數</span>
-				</div>
-				<div class="building-nft" v-for="(itm,index) in selectedNft" :key="index">
-					<div class="flex mint-wrap-edition">
-						<span>{{selectedNftName}}</span>
-						<span>{{itm.edition}}</span>
-					</div>
-					<div class="address-wrap">
-						<div class="min-address">NFT接收地址: {{walletId}}</div>
-						<div>鑄造憑證: {{itm.transactionHash}}</div>
-					</div>
-					<div class="mint-line"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- foot -->
-	<div class="footerpage2"></div>
-
-	<div class="tips"></div>
-</div>
 </body>
 <script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/chainCommon.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/myassets.js" type="text/javascript" charset="utf-8"></script>
-
 </html>

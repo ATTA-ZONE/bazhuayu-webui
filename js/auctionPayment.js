@@ -19,7 +19,7 @@ function bindWallet(targetAddress) {
 		                
 			            if (window.confirm(hintMessage)) {
 			                var data = {
-			                    address: accounts[0],
+			                    address: targetAddress,
 			                    walletType: 'METAMASK'
 		                    };
 
@@ -72,25 +72,25 @@ $.ajax({
 
 
 function initialization() {
-    var web3 = getWeb3();
+    var web3 = new Web3(CHAIN.WALLET.provider());
     var chainId = '';
-    ethereum.request({ method: 'eth_chainId' })
+	CHAIN.WALLET.chainId()
         .then(function (res) {
             chainId = web3.utils.hexToNumber(res);    
         	// var netVer = netVers[0];
         	if (chainId != targetChainId) {
-                changeNetwork(targetChainId);
+				CHAIN.WALLET.switchRPCSettings(targetChainId);
             }
         
         
         	// var netVer = netVers[0];
-        	auctionAddress = c_auction[chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
-        	var auctionABI = c_auction.abi;
+        	auctionAddress = contractSetting['auction_contract'][chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+        	var auctionABI = contractSetting['auction_contract']['abi'];
         	
         	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);        
         	// busdAddress 供外界使用
-        	var busdAddress = c_ERC20_BUSD[chainId].address;
-        	var busdABI = c_ERC20_BUSD.abi;
+        	var busdAddress = contractSetting['busd_ERC20'][chainId].address;
+        	var busdABI = contractSetting['busd_ERC20']['abi'];
         	
         	busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);        
             userBidInfo();
@@ -104,7 +104,7 @@ function initialization() {
         //获取 拍卖的 详情，包括 时间参数，最高价 等设定
             auctionContractInstance.methods._auctions(tokenTypeId).call()
         	    .then(function (res) {
-        		    var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
+        		    var tokenTopBid = web3.utils.fromWei(res.tokenTopBid, 'ether');
         		    $('.info-busd span').text(tokenTopBid);
         	    });
         });    
@@ -112,14 +112,14 @@ function initialization() {
 
 function userBidInfo() {
     var userAddress = '';
-    ethereum.request({ method: 'eth_accounts' })
+    CHAIN.WALLET.accounts()
         .then(function (res) {
             if (res.length > 0) {
                 userAddress = res[0];
             }
         
         
-            if (userAddress != 0) {
+            if (userAddress != '') {
         //检测用户绑定钱包 是否 与系统内记录的一致，并且提供快速 替换绑定的 方法
                 bindWallet(userAddress);
                 
@@ -143,8 +143,10 @@ function userBidInfo() {
 
 
 
+var walletType = getCookie(CHAIN.WALLET.__wallet__);
+
 //是否连接钱包
-if (typeof window.ethereum !== 'undefined') {
+if (walletType || window.ethereum) {
 	// $('#make_offer').data('sign','0');
 	initialization();
 	
@@ -152,7 +154,7 @@ if (typeof window.ethereum !== 'undefined') {
 	    initialization();
     }
 	
-	networkChangedAssign(networkChangedImplement);
+	CHAIN.WALLET.networkChangedAssign(networkChangedImplement);
 
 // 	var userAddress = '';
 // 	ethereum.request({ method: 'eth_accounts' })
@@ -165,19 +167,15 @@ if (typeof window.ethereum !== 'undefined') {
 		userBidInfo();
 	}
 
-	accountsChangedAssign(accountsChangedImplement);
+	CHAIN.WALLET.accountsChangedAssign(accountsChangedImplement);
 } else {
-	if (getCookie('isConnect') == 'false') {
-		var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
-					<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
-		alert(html);
-	}
+	window.confirm('錢包連接已失效，請重新連接錢包');
 }
 
 
 //连接钱包
 $('#connectWallet').click(function () {
-	window.ethereum.enable().then(function (accounts) {
+	CHAIN.WALLET.enable().then(function (accounts) {
 	    var userAddress = '';
         if (accounts.length > 0) {
             userAddress = accounts[0];
@@ -231,9 +229,9 @@ $('#pay_now').click(function () {
 		//是否授权
 		busdContractInstance.methods.allowance(self_address, auctionAddress).call()
 			.then(function (res) {
-
+				var web3 = new Web3(CHAIN.WALLET.provider())
 				if (res < Number(price)) {
-					var num = getWeb3().utils.toWei('999999999999999', 'ether');
+					var num = web3.utils.toWei('999999999999999', 'ether');
 					//发起授权
 					loading();
 					busdContractInstance.methods.approve(address, num).send({
@@ -245,7 +243,7 @@ $('#pay_now').click(function () {
 									from: self_address
 								})
 								.then(function (res) {
-									var price = getWeb3().utils.fromWei(res.events.Bid.returnValues.price, 'ether');
+									var price = web3.utils.fromWei(res.events.Bid.returnValues.price, 'ether');
 									loadingHide();
 									success('競價成功', 1800);
 									setTimeout(function () {
@@ -271,7 +269,7 @@ $('#pay_now').click(function () {
 							from: self_address
 						})
 						.then(function (res) {
-							var price = getWeb3().utils.fromWei(res.events.Bid.returnValues.price, 'ether');
+							var price = web3.utils.fromWei(res.events.Bid.returnValues.price, 'ether');
 							loadingHide();
 							success('競價成功', 1800);
 							setTimeout(function () {
@@ -285,7 +283,7 @@ $('#pay_now').click(function () {
 								$('.bid-payment-right-btn button').hide();
 							}, 1800)
 						})
-						.catch(function(error) {
+						.catch(function(err) {
 							loadingHide();
 							error('競價失敗！',1800);
 						})

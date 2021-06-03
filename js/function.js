@@ -309,20 +309,42 @@ function changeName(){
 	$('.modify-btn-active').text('儲存');
 	// $('.modify').fadeIn();
 }
-// link successful
-function linksuccessful(){
-	$('.modify-tit span').text('您成功登記了一個錢包');
+
+
+function editnftaddress(e){
+	let obj = JSON.parse(e.target.dataset.json);
+	$('.modify-tit span').text('修改BSC NFT接收地址');
 	var html = ``;
 	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">`+(walletId==null?'請連接錢包':'錢包地址：'+walletId)+`</div>
+				<div class="modify-ipt-tit dqaddress">當前接收地址：<span>`+(obj.receiver ? obj.receiver : "暫無接收地址")+`</span></div>
+				<div class="modify-ipt-tit newaddress">新接收地址：<input type="text" value=`+walletId+`></div>
 			</div>`;
 			
 	$('.modify-ipt').html(html);
-	$('.modify-tips').html(`<span class="modify-tips-content">請註意：您購買的NFT資產只會發放至當前登記的錢包</span>`);
-	$('.modify-btn-tips').html(`<span class="modify-btn-tips-content">（ 如果您想使用其他錢包，請點擊右上角“已連接錢包”進行更換 ）</span>`);
+	$('.modify-tips').html(`<span class="modify-tips-content">提示：一旦鑄造完成，則不可修改地址。如需查看該NFT，需連接新接收地址才可查看</span>`);
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
-	$('.modify-btn-active').text('知道了');
+	$('.modify-btn-active').text('確認修改');
+	$('.modify-btn-active').attr('data-type',e.target.dataset.json);
+	$('.cancel').hide();
+	$('.modify').fadeIn();
+}
+function zhuanyiaddress(e){
+	let obj = JSON.parse(e.target.dataset.json);
+	let endedition = JSON.parse(e.target.dataset.endedition);
+	$('.modify-tit span').text(`轉移Token `+obj.edition+` of `+endedition+` 至新錢包`);
+	var html = ``;
+	html += `<div class="modify-ipt-add">
+				<div class="modify-ipt-tit dqaddress">當前所在錢包地址：<span>`+walletId+`</span></div>
+				<div class="modify-ipt-tit newaddress2">轉移至：<input type="text" value=`+walletId+`></div>
+			</div>`;
+			
+	$('.modify-ipt').html(html);
+	$('.modify-tips').html(`<span class="modify-tips-content">提示：轉移至新錢包后，需連接新錢包才可在“我的NFT”中查看</span>`);
+	$('.modify-btn-active').addClass('add');
+	$('.modify-btn-active').removeClass('delete');
+	$('.modify-btn-active').text('確認轉移');
+	$('.modify-btn-active').attr('data-type',e.target.dataset.json);
 	$('.cancel').hide();
 	$('.modify').fadeIn();
 }
@@ -465,7 +487,7 @@ function setCookie(name, value) {
 	var Days = 30;
 	var exp = new Date();
 	exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-	document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+	document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ';path=/;';
 }
 
 

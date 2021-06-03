@@ -1,12 +1,17 @@
-//var a={};
+
+
 !function(W){
+	if (!getCookie('_wallet_')) {
+		setCookie('_wallet_','MetaMask')
+	};
 	W.CHAIN={
 		VERSION:'20210406',
 		WALLET:{
-			__wallet__:"__wallet__", // 写活 cookie名称
+			__wallet__:"_wallet_", // 写活 cookie名称
 			provider: function() {
 				var th=W.CHAIN.WALLET;
-				var t=cookie(th.__wallet__),wallet=th[t];
+				var t=getCookie(th.__wallet__)
+				var wallet=th[t];
 				if (wallet){
 					return wallet.provider();
 				} else {
@@ -20,7 +25,7 @@
 			// 监听账户变更事件
 			accountsChangedAssign: function(fnc) {
 				var th=W.CHAIN.WALLET;
-				var t=cookie(th.__wallet__),wallet=th[t];
+				var t=getCookie(th.__wallet__),wallet=th[t];
 
 				wallet.__accountsChangedAssign(function(accounts){
 					fnc(accounts);
@@ -29,7 +34,7 @@
 
 			networkChangedAssign: function(fnc) {
 				var th=W.CHAIN.WALLET;
-				var t=cookie(th.__wallet__),wallet=th[t];
+				var t=getCookie(th.__wallet__),wallet=th[t];
 
 				wallet.__networkChangedAssign(function(accounts){
 					fnc(accounts);
@@ -86,7 +91,7 @@
 				window.debug&&console.log('connect', t, wallet);
 				if (wallet) {
 					var res = await wallet.__connectInit();
-					cookie(th.__wallet__, wallet.name);
+					setCookie(th.__wallet__, wallet.name);
 					return res;
 				} else {
 					console.log(t + ' is not supported.')
@@ -97,19 +102,21 @@
 			__enable: async function() {
 				var t=arguments[0];
 				var th=W.CHAIN.WALLET;
-				if (t=='') {
-					t = cookie(th.__wallet__);
+				if (t==null) {
+					t = getCookie(th.__wallet__);
 				}
 				// console.log('__connect', th);
 				var wallet=th[t];
+				// console.log(th);
+				// console.log(t);
 				window.debug&&console.log('connect', t, wallet);
 				if (wallet) {
-					if (cookie(th.__wallet__)&&(cookie(th.__wallet__)!=t)){
-						var oldWallet = th[cookie(th.__wallet__)];
+					if (getCookie(th.__wallet__)&&(getCookie(th.__wallet__)!=t)){
+						var oldWallet = th[getCookie(th.__wallet__)];
 						await oldWallet.__disconnect();
 					}
 					
-					cookie(th.__wallet__, wallet.name);
+					setCookie(th.__wallet__, wallet.name);
 
 					var res = await wallet.__enableInit();
 					return res;
@@ -123,7 +130,7 @@
 				var th=W.CHAIN.WALLET;
 				var curId=await th.__chainId();
 				if (chId!=curId) {
-					var t=cookie(th.__wallet__);
+					var t=getCookie(th.__wallet__);
 					var wallet=th[t];
 					var res = await wallet.__switchRPCSettings(chId);
 					return res;
@@ -134,7 +141,7 @@
 				var assetRefer = arguments[0];
 				var th=W.CHAIN.WALLET;
 				var chId= await th.__chainId();
-				var t=cookie(th.__wallet__);
+				var t=getCookie(th.__wallet__);
 				var wallet=th[t];
 				var res = await wallet.__walletWatchAsset(assetRefer, chId);
 				return res;
@@ -142,7 +149,7 @@
 
 			__disconnect: async function() {
 				var th=W.CHAIN.WALLET;
-				var t=cookie(th.__wallet__);
+				var t=getCookie(th.__wallet__);
 				var wallet=th[t];
 				var res = await wallet.__disconnect();
 				return res;
@@ -177,7 +184,7 @@
 					th1.provider().removeAllListeners('chainChanged');
 					th1.provider().on("disconnect", (code, reason) => {
 						console.log('disconnect', code, reason);
-						cookie(th.__wallet__, null);
+						setCookie(th.__wallet__, '');
 					});
 
 					th1.__accountsChangedAssign(function(accounts) { console.log(accounts)});
@@ -215,6 +222,7 @@
 				},
 
 				__connectInit: async function() {
+					var th=W.CHAIN.WALLET;
 					var th1=W.CHAIN.WALLET.MetaMask;
 					// console.log('__enable', th);
 					var res = await th1.provider().request({
@@ -222,8 +230,8 @@
 						params: [{ eth_accounts: {} }],
 					});
 
-					if (cookie(th.__wallet__)&&(cookie(th.__wallet__)!=th1.name)){
-						var oldWallet = th[cookie(th.__wallet__)];
+					if (getCookie(th.__wallet__)&&(getCookie(th.__wallet__)!=th1.name)){
+						var oldWallet = th[getCookie(th.__wallet__)];
 						await oldWallet.__disconnect();
 					}
 
@@ -258,7 +266,7 @@
 					}; 
 					var res = await th1.provider().request({
 						method:'wallet_addEthereumChain',
-						params: params_dict
+						params: [params_dict]
 					});
 					return res;
 				},
@@ -290,7 +298,7 @@
 
 				__disconnect: async function() {
 					var th=W.CHAIN.WALLET;
-					cookie(th.__wallet__, null);
+					setCookie(th.__wallet__, '');
 					//console.log('__disconnect', 'MetaMask');
 				}
 
@@ -320,8 +328,8 @@
 					th1.provider().removeAllListeners('chainChanged');
 					th1.provider().on("disconnect", (code, reason) => {
 						console.log('disconnect', code, reason);
-						th1.__provider=null;
-						cookie(th.__wallet__, null);
+						//th1.__provider=null;
+						setCookie(th.__wallet__, '');
 					});
 					th1.__accountsChangedAssign(function(accounts) { console.log(accounts)});
 					th1.__networkChangedAssign(function(netVer) { console.log(netVer)});
@@ -371,21 +379,23 @@
 				},
 
 				__connectInit: async function() {
+					var th=W.CHAIN.WALLET;
 					var th1=W.CHAIN.WALLET.WalletConnect;
-					// console.log('__enable', th);
+					console.log('__connectInit1', th1.__provider);
 				
-					//关闭 metamask如果 老cookie是metamask
-					if (cookie(th.__wallet__)&&(cookie(th.__wallet__)!=th1.name)){
-						var oldWallet = th[cookie(th.__wallet__)];
-						await oldWallet.__disconnect();
+					if (th1.provider()&&th1.__provider.connector.connected==true) {
+						await th1.__disconnect();
 					}
 
-					if (th1.__provider&&th1.__provider.connector.connected==true) {
-						await th1.__disconnect();
+					if (getCookie(th.__wallet__)){
+						console.log('__connectInit2', th1.__provider);
+						var oldWallet = th[getCookie(th.__wallet__)];
+						await oldWallet.__disconnect();
 					}
 
 					var res = await th1.__enable();
 					th1.__initListener();
+					console.log('__connectInit3', th1.__provider);
 
 					return res;
 				},
@@ -395,12 +405,12 @@
 				__enable: async function() {
 					var th1=W.CHAIN.WALLET.WalletConnect;
 
-					if (th1.__provider&&th1.__provider.connector.connected==false) {
-						th1.__provider = null;
+					if (th1.provider()&&th1.__provider.connector.connected==false) {
+						await th1.__disconnect();
 					}
 
 					th1.provider().chainId=null;
-					// console.log('__enable', th);
+					console.log('__enable', th1.__provider);
 					var res = await th1.provider().enable();
 					return res;
 				},
@@ -452,8 +462,13 @@
 				},
 
 				__disconnect: async function() {
+					//var th=W.CHAIN.WALLET;
 					var th1=W.CHAIN.WALLET.WalletConnect;
-					await th1.__provider.disconnect();
+					//setCookie(th.__wallet__, '')
+					if (th1.provider()) {
+						await th1.provider().disconnect();
+						//th1.__provider = null;
+					}
 				}
 			},
 		},
