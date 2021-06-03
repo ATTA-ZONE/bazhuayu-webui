@@ -247,11 +247,12 @@ module.exports = {
 						success:function(res){
 							loadingHide();
               if(res.code == 0){
-                hsycms.closeAll();
-                tips('已提交鑄造申請，請在“我的NFT”頁面查看！');
+                setTimeout(()=>{
+                  tips('已提交鑄造申請，請在“我的NFT”頁面查看！');
+                },500)
 							  setTimeout(()=>{
                   window.location.reload()
-                },1000)
+                },1500)
               }else{
                 tips(res.message);
                 return;
