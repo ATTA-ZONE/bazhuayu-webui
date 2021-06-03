@@ -245,7 +245,10 @@ module.exports = {
 							loadingHide();
               if(res.code == 0){
                 hsycms.closeAll();
-							  window.location.reload()
+                tips('已提交鑄造申請，請在“我的NFT”頁面查看！');
+							  setTimeout(()=>{
+                  window.location.reload()
+                },1000)
               }else{
                 tips(res.message);
                 return;
