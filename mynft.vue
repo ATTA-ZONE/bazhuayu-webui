@@ -17,8 +17,7 @@
 						<div class="my-assets-right-creator flex">
 							<div class="details-right-creator-img"><img src="./images/t8.png"></div>
 							<span>@ATTA</span>
-							<div class="my-assets-right-creator-edition">當前持有第<font style="color:#9567FF">
-									{{getAllBsc(item.mintList).join(',')}}</font>版，共{{item.endEdition}}版</div>
+							<div class="my-assets-right-creator-edition">共{{item.endEdition}}版</div>
 						</div>
 						<div class="details-right-des-tit">商品描述</div>
 						<div class="details-right-des" v-html="getIntroduce(item,'desc','暫無介紹')">
@@ -82,6 +81,7 @@
 				<div class="modify-form">
 					<div class="modify-tit flex" data-type="name"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
 					<div class="modify-ipt"></div>
+					<div class="modify-tips"></div>
 					<div class="modify-btn flex">
 						<button class="add modify-btn-active" type="button" @click="editzyclick($event)"></button>
 						<button class="cancel" type="button" onclick="cancel()">取消</button>
@@ -118,11 +118,6 @@ module.exports = {
 			selectedNftName:'',
 			selectedNft: null,
 			walletId: '',
-			listdata : [
-				{id : "13",num : "150",qkl : "Binance",status : '1',address : "0xC2C747E0F7004F9E8817Db2ca4997657a7746928"},
-				{id : "14",num : "150",qkl : "Binance",status : '2',address : "0xC2C747E0F7004F9E8817Db2ca4997657a7746928"},
-				{id : "15",num : "150",qkl : "Binance",status : '2',address : "0xC2C747E0F7004F9E8817Db2ca4997657a7746928"},
-			],
 			tokenarr : []
 		}
 	},
