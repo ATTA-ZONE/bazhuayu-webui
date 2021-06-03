@@ -42,7 +42,7 @@
           </div>
           <div class="my-assets-right-btn flex">
             <div class="flex my-assets-claim-wrap">
-              <a @click="conneAssetsctWallet(item.totalEditionList,'start')" class="bsc-nft">鑄造BSC NFT</a>
+              <a @click="conneAssetsctWallet(item,'start')" class="bsc-nft">鑄造BSC NFT</a>
             </div>
             <a class="flex eth">
               <div>鑄造ETH NFT</div>
@@ -79,11 +79,11 @@
       <div class="hsycms-model-content nth-con">
         <div class="nth-con-tip">為了接收您的NFT,您需要先連接錢包。</div>
         <div class="nth-con-tip" style="color: #9567ff">
-          如果您不熟悉加密貨幣錢包,請單擊此處
+          如果您不熟悉加密貨幣錢包,請單擊此處。
         </div>
       </div>
       <div class="nth-btn">
-        <button type="button" onclick="nftConnect()">立即連接</button>
+        <button type="button" @click="nftConnect()">立即連接</button>
       </div>
     </div>
     <!-- 铸造nft -->
@@ -140,7 +140,7 @@
         </div>
       </div>
       <div class="flex bsc-btn" style="justify-content: center">
-        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft">開始鑄造</a>
+        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft madia-btn">開始鑄造</a>
       </div>
     </div>
     <!-- foot -->
@@ -166,6 +166,7 @@ module.exports = {
       walletId: "",
       textCheck: "",
       selectedList: [],
+      basicId:''
     };
   },
   created() {
@@ -192,12 +193,17 @@ module.exports = {
       let arr = _.uniq(list);
       return arr;
     },
+		nftConnect() {
+			window.location.href = 'connectWallet.html';
+		},
     conneAssetsctWallet(data,str) {//可铸造，类型
       if (str == "start") {//开弹框
         this.selectedList = [];
+        this.basicId = '';
         if (this.isConnect) {
-          if(data && data.length){
-            var selectedList = this.getAllBsc(data);
+          if(data.totalEditionList && data.totalEditionList.length){
+            var selectedList = this.getAllBsc(data.totalEditionList);
+            this.basicId = data.basicId;
             selectedList.forEach(item=>{
               console.log(item);
               var data = {
@@ -205,14 +211,13 @@ module.exports = {
                 number:this.walletId,
                 name:item
               }
-              console.log(data);
               this.selectedList.push(data);
             })
             setTimeout(function () {
               hsycms.alert("model3");
             }, 50);
           }else{
-            tips('暫無可鑄造版號！');
+            tips('當前無可鑄造版號');
             return;
           }
         } else {
@@ -239,13 +244,18 @@ module.exports = {
 						contentType: 'application/json',
 						dataType: 'json',
 						data:JSON.stringify({
-							mintList:checkData
+							mintList:checkData,
+              basicId:this.basicId
 						}),
 						success:function(res){
 							loadingHide();
               if(res.code == 0){
-                hsycms.closeAll();
-							  window.location.reload()
+                setTimeout(()=>{
+                  tips('已提交鑄造申請，請在“我的NFT”頁面查看！');
+                },500)
+							  setTimeout(()=>{
+                  window.location.reload()
+                },1500)
               }else{
                 tips(res.message);
                 return;
