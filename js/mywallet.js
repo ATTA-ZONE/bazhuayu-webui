@@ -48,7 +48,7 @@ function mangeWalletCharge(res, accounts) {
 
 $(function () {
 
-	var web3 = getEth();
+	var web3 = new Web3(CHAIN.WALLET.provider());
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
 		success: function (res) {
@@ -104,16 +104,8 @@ $(function () {
 		}
 	});
 
-
-
-	var web3 = getEth();
-	var contract = new web3.Contract(abi, address);
+	var web3 = new Web3(CHAIN.WALLET.provider());
 	
-	CHAIN.WALLET.WalletConnect.events();
-	
-	
-
-
 	//发送交易请求
 	$('.modify-btn-active').click(function (e) {
 		var tit = $('.modify-tit').data('type');
@@ -186,7 +178,7 @@ $(function () {
 					amount = '0';
 				}
 
-				var num = getWeb3().utils.toWei(amount, 'ether');
+				var num = web3.utils.toWei(amount, 'ether');
 
 				if (typeof window.ethereum !== 'undefined') {
 
