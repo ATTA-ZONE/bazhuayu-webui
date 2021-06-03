@@ -83,7 +83,7 @@
         </div>
       </div>
       <div class="nth-btn">
-        <button type="button" onclick="nftConnect()">立即連接</button>
+        <button type="button" @click="nftConnect()">立即連接</button>
       </div>
     </div>
     <!-- 铸造nft -->
