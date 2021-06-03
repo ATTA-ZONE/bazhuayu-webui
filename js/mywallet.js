@@ -2,18 +2,29 @@ function mangeWalletCharge(res, accounts) {
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		var web3 = new Web3(CHAIN.WALLET.provider());
-		var contract = new web3.Contract(abi, address);
+
+		var chainId = '';
+	CHAIN.WALLET.chainId()
+        .then(function (res) {
+            chainId = web3.utils.hexToNumber(res); 
+						
+						
+		// busdAddress 供外界使用
+		var busdAddress = contractSetting['busd_ERC20'][chainId].address;
+		var busdABI = contractSetting['busd_ERC20']['abi'];
+		
+		busdContractInstance = new web3.eth.Contract(busdABI, busdAddress); 
 		var amount = $('.modify-ipt input').val().trim();
 				if (amount == '') {
 					amount = '0';
 				}
-		var num = getWeb3().utils.toWei(amount, 'ether');
-		contract.methods.balanceOf(accounts[0]).call() //查询余额
+		var num = web3.utils.toWei(amount, 'ether');
+		busdContractInstance.methods.balanceOf(accounts[0]).call() //查询余额
 			.then(function (res) {
 
 				if (Number(res) >= Number(num)) {
 					setTimeout(function () {
-						contract.methods.transfer(cwallet, num).send({ //转账
+						busdContractInstance.methods.transfer(cwallet, num).send({ //转账
 								from: accounts[0]
 							})
 							.on('transactionHash', function (hash) {
@@ -38,6 +49,9 @@ function mangeWalletCharge(res, accounts) {
 
 				}
 			});
+
+
+				})
 
 	} else {
 
