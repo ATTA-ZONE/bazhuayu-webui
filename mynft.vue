@@ -279,7 +279,7 @@ module.exports = {
 				tips("不可以為空~");
 				return;
 			}
-			if (!web3.utils.isAddress(newaddress) || !web3.utils.isAddress(newaddress2)) {
+			if (!web3.utils.isAddress(newaddress) && obj.status == 1 || !web3.utils.isAddress(newaddress2) && obj.status == 2) {
 				tips("请输入合法地址");
 				return;
 			}
