@@ -220,6 +220,7 @@ module.exports = {
   .history-items {
     font-size: 12px !important;
   }
+  
   .filter-items,
   .filter-items li {
     display: inline-block;
@@ -257,6 +258,9 @@ module.exports = {
   .desc-address {
     margin-top: 6px;
   }
+  .desc-info-edtion {
+    max-width: 36% !important;
+  }
 }
 
 .recoverRequest, .recoverRequest:hover {
@@ -289,7 +293,7 @@ module.exports = {
 }
 .desc-info-edtion {
   margin-left: 40px;
-  max-width: 34%;
+  max-width: 400px;
   display: inline-block;
   vertical-align: middle;
 }
