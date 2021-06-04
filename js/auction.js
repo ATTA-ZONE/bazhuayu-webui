@@ -342,10 +342,12 @@ $('#make_offer').click(function () {
 		} else if (status == 0) {
 			window.alert('拍賣未開始');
 		} else if (sign == 4) {
-			// if (getCookie('isConnect') == 'false') {
-			var html = `<div>請先安裝MetaMask/或者使用WalletConnect，以保證拍賣功能的使用</div>
-						<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
-			alert(html);
+			let bool = false;
+			if (bool) {
+				var html = `<div>請先安裝MetaMask/或者使用WalletConnect，以保證拍賣功能的使用</div>
+							<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
+				alert(html);
+			}
 		}
 	}
 });
@@ -386,8 +388,8 @@ $.ajax({
 									}
 								}
 							});
-						} else {
-							window.alert("請註意，當前錢包鏈接與默認賬戶錢包地址不同，默認錢包地址：" + res.data.address);
+						} else if (userAddress != res.data.address){
+							window.alert("當前連接錢包地址為：" + res.data.address+"\n"+"當前頁面的競拍記錄以當前連接的錢包為準，如果您使用了其他錢包參與競拍，可以切換至其他錢包查看競拍記錄。");
 						};
 
 						$('#make_offer').data('sign', 1);
