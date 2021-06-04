@@ -91,7 +91,7 @@ $(function(){
 			var qrPath1=res.data.qrPath;
 			var qrPath = JSON.parse(qrPath1)[0];			
 			$(".weiboUrl").attr("href",weiboUrl);
-			$(".twitterUrl").attr("href",twitterUrl);
+			// $(".twitterUrl").attr("href",twitterUrl);
 			$(".telegramUrl").attr("href",telegramUrl);
 			$(".code-pic").attr("src",qrPath);
 		},
