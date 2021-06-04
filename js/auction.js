@@ -342,10 +342,12 @@ $('#make_offer').click(function () {
 		} else if (status == 0) {
 			window.alert('拍賣未開始');
 		} else if (sign == 4) {
-			// if (getCookie('isConnect') == 'false') {
-			var html = `<div>請先安裝MetaMask/或者使用WalletConnect，以保證拍賣功能的使用</div>
-						<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
-			alert(html);
+			let bool = false;
+			if (bool) {
+				var html = `<div>請先安裝MetaMask/或者使用WalletConnect，以保證拍賣功能的使用</div>
+							<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
+				alert(html);
+			}
 		}
 	}
 });
