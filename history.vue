@@ -197,7 +197,7 @@ module.exports = {
       }
       auctionAddress = contractSetting['atta_ERC721'][targetChainId].address;
       $.ajax({
-        url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + window.walletId + '&sort=asc',
+        url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + window.walletId + '&sort=desc',
         success: function(res) {
           self.nftData = res.result
           if (self.nftData) {
