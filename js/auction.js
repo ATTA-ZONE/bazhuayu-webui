@@ -389,7 +389,7 @@ $.ajax({
 								}
 							});
 						} else {
-							window.alert("請註意，當前錢包鏈接與默認賬戶錢包地址不同，默認錢包地址：" + res.data.address);
+							// window.alert("請註意，當前錢包鏈接與默認賬戶錢包地址不同，默認錢包地址：" + res.data.address);
 						};
 
 						$('#make_offer').data('sign', 1);
