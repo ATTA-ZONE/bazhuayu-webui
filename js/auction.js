@@ -388,8 +388,8 @@ $.ajax({
 									}
 								}
 							});
-						} else {
-							// window.alert("請註意，當前錢包鏈接與默認賬戶錢包地址不同，默認錢包地址：" + res.data.address);
+						} else if (userAddress != res.data.address){
+							window.alert("當前連接錢包地址為：" + res.data.address+"\n"+"當前頁面的競拍記錄以當前連接的錢包為準，如果您使用了其他錢包參與競拍，可以切換至其他錢包查看競拍記錄。");
 						};
 
 						$('#make_offer').data('sign', 1);
