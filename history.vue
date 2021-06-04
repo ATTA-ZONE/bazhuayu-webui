@@ -14,7 +14,6 @@
         <div class="history-item" v-for="(item, index) in historyData.editRecords" :key="index">
           <div class="history-title">
             <div class="title-info">
-              <span>LOG{{ index }}</span>
               <span class="title-info-name">{{ item.name }}</span>
             </div>
             <div class="title-time">{{ item.createTime }}</div>
@@ -38,7 +37,6 @@
         <div class="history-item" v-for="(item, index) in historyData.mintRecords" :key="index">
           <div class="history-title">
             <div class="title-info">
-              <span>LOG{{ index }}</span>
               <span class="title-info-name">{{ item.name }}</span>
             </div>
             <div class="title-time">{{ item.mintTime }}</div>
@@ -274,6 +272,9 @@ module.exports = {
 .history-items {
   font-size: 16px;
 }
+.desc-address {
+  width: 500px;
+}
 .desc-info-address {
   color: #9567ff;
 }
@@ -299,7 +300,7 @@ module.exports = {
 }
 .desc-info-edtion {
   margin-left: 40px;
-  max-width: 400px;
+  width: 290px;
   display: inline-block;
   vertical-align: middle;
 }
