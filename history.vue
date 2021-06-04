@@ -6,7 +6,7 @@
         <img :class="showFilters ? 'roate' : ''" src="./images/selectMore.png" />
       </div>
       <ul v-if="showFilters" class="filter-items">
-        <li @click="setFilter(idx)" v-for="(itm,idx) in filTags" :key="'#' + idx">{{ itm }}</li>
+        <li @click="setFilter(idx)" :class="selectedFilterTag == idx? 'selected-tag':''" v-for="(itm,idx) in filTags" :key="'#' + idx">{{ itm }}</li>
       </ul>
     </div>
     <div class="history-items">
@@ -97,7 +97,8 @@ module.exports = {
       showFilter: ['1', '2', '3'],
       filTags: ['鑄造記錄',
         '地址修改記錄',
-        '轉移記錄']
+        '轉移記錄'],
+      selectedFilterTag: -1
     };
   },
   created() {
@@ -147,9 +148,11 @@ module.exports = {
     },
     setFilter(idx) {
       this.showFilter = [String(idx + 1)]
+      this.selectedFilterTag = idx
     },
     toggleFilters() {
       this.showFilter = ['1', '2', '3']
+      this.selectedFilterTag = -1
       this.showFilters = !this.showFilters;
     },
     resizeWindow() {
@@ -273,6 +276,9 @@ module.exports = {
 }
 .desc-info-address {
   color: #9567ff;
+}
+.selected-tag {
+  color: #9567ff !important;
 }
 .history-title {
   display: flex;
