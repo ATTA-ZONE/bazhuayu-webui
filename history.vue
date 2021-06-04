@@ -6,7 +6,12 @@
         <img :class="showFilters ? 'roate' : ''" src="./images/selectMore.png" />
       </div>
       <ul v-if="showFilters" class="filter-items">
-        <li @click="setFilter(idx)" :class="selectedFilterTag == idx? 'selected-tag':''" v-for="(itm,idx) in filTags" :key="'#' + idx">{{ itm }}</li>
+        <li
+          @click="setFilter(idx)"
+          :class="selectedFilterTag == idx ? 'selected-tag' : ''"
+          v-for="(itm,idx) in filTags"
+          :key="'#' + idx"
+        >{{ itm }}</li>
       </ul>
     </div>
     <div class="history-items">
@@ -24,10 +29,10 @@
               <span class="desc-info-edtion">{{ item.edition }}版</span>
             </div>
             <div class="desc-address">
-              <div>接收地址由：{{item.fromAddress}}</div>
+              <div>接收地址由：{{ item.fromAddress }}</div>
               <div>
                 更改為：
-                <span class="desc-info-address">{{item.toAddress}}</span>
+                <span class="desc-info-address">{{ item.toAddress }}</span>
               </div>
             </div>
           </div>
@@ -47,13 +52,16 @@
               <span class="desc-info-edtion">{{ item.editions }}版</span>
             </div>
             <div class="desc-address" v-if="item.status == 1">
-              <div>開始鑄造 <a @click="cancelNft(item.mintFlow)" class="recoverRequest">[撤回鑄造申請]</a> </div>
+              <div>
+                開始鑄造
+                <a @click="cancelNft(item.mintFlow)" class="recoverRequest">[撤回鑄造申請]</a>
+              </div>
             </div>
             <div class="desc-address" v-if="item.status == 2">
               <div>鑄造完畢，請在“我的NFT”頁面查看</div>
               <div>
                 Transaction hash：
-                <span class="desc-info-address">{{item.transactionHash}}</span>
+                <span class="desc-info-address">{{ item.transactionHash }}</span>
               </div>
             </div>
           </div>
@@ -91,7 +99,7 @@ module.exports = {
     return {
       showFilters: false,
       historyData: {},
-      nftData: {},
+      nftData: [],
       showFilter: ['1', '2', '3'],
       filTags: ['鑄造記錄',
         '地址修改記錄',
@@ -118,10 +126,10 @@ module.exports = {
           type: 'POST',
           contentType: 'application/json',
           dataType: 'json',
-          data:JSON.stringify({
+          data: JSON.stringify({
             mintFlow: id
           }),
-          success: function (res) {
+          success: function(res) {
             if (res.code == 0) {
               self.getHistory();
               hsycms.success('success', '撤回成功');
@@ -130,19 +138,19 @@ module.exports = {
         })
       }
     },
-    cancelNft(id){
+    cancelNft(id) {
       let self = this
       hsycms.confirm('confirm', '你確定要[撤回鑄造申請]嗎？',
-				function (res) {
-          hsycms.success('success','確認');
-          setTimeout(function(){
+        function(res) {
+          hsycms.success('success', '確認');
+          setTimeout(function() {
             self.cancelNftRequest(id)
-          },1500)
-				},
-				function (res) {
-					hsycms.error('error', '取消');
-				},
-			)
+          }, 1500)
+        },
+        function(res) {
+          hsycms.error('error', '取消');
+        },
+      )
     },
     setFilter(idx) {
       this.showFilter = [String(idx + 1)]
@@ -197,13 +205,13 @@ module.exports = {
       $.ajax({
         url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + window.walletId + '&sort=desc',
         success: function(res) {
-          self.nftData = res.result
-          if (self.nftData) {
+          if (res.status == '1') {
+            self.nftData = res.result
             for (let i = 0; i < self.nftData.length; i++) {
               $.ajax({
                 url: base_url + '/v2/commodity/edition_basic_id',
-                data: {tokenTypeId: self.nftData[i].tokenID},
-                success: function (itm) {
+                data: { tokenTypeId: self.nftData[i].tokenID },
+                success: function(itm) {
                   self.$set(self.nftData[i], 'name', itm.data.name)
                   self.$set(self.nftData[i], 'edition', itm.data.edition)
                 }
@@ -221,7 +229,7 @@ module.exports = {
   .history-items {
     font-size: 12px !important;
   }
-  
+
   .filter-items,
   .filter-items li {
     display: inline-block;
@@ -264,8 +272,9 @@ module.exports = {
   }
 }
 
-.recoverRequest, .recoverRequest:hover {
-  color: #FF1313;
+.recoverRequest,
+.recoverRequest:hover {
+  color: #ff1313;
   cursor: pointer;
 }
 
