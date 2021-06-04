@@ -94,19 +94,23 @@ function changwWalletId(accounts) {
 }
 
 function initialization() {
-    var web3 = getWeb3();
+	if (walletType) {
+    	var web3 = new Web3(CHAIN.WALLET.provider());
+	} else if (window.ethereum) {
+		var web3 = new Web3(window.ethereum);
+	}
     var chainId = '';
-    ethereum.request({ method: 'eth_chainId' })
+    CHAIN.WALLET.chainId()
         .then(function (res) {
             chainId = web3.utils.hexToNumber(res);
 
             if (chainId != targetChainId) {
-                changeNetwork(targetChainId);
+                CHAIN.WALLET.switchRPCSettings(targetChainId);
             }
         
-            var auctionAddress = c_auction[chainId].address;
+            var auctionAddress = contractSetting['auction_contract'][chainId].address;
             // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
-        	var auctionABI = c_auction.abi;
+        	var auctionABI = contractSetting['auction_contract']['abi'];
         
         	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
         
@@ -124,7 +128,7 @@ function initialization() {
         	//获取 tokenId 的 下一个 竞价的 至少 要大于 的 值
         	auctionContractInstance.methods.getNextMinimalBid(tokenTypeId).call()
         		.then(function (res) {
-        			res = getWeb3().utils.fromWei(res, 'ether');
+        			res =web3.utils.fromWei(res, 'ether');
         			$('.bid-right-btn span').data('price', res);
         			$('.bid-right-btn span font').text(res);
         		});
@@ -133,7 +137,7 @@ function initialization() {
         	//获取 拍卖的 详情，包括 时间参数，最高价     等设定
         	auctionContractInstance.methods._auctions(tokenTypeId).call()
         		.then(function (res) {
-        			var tokenTopBid = getWeb3().utils.fromWei(res.tokenTopBid, 'ether');
+        			var tokenTopBid = web3.utils.fromWei(res.tokenTopBid, 'ether');
         			$('.bid-right-status-current span:nth-child(2)').text('BUSD ' + tokenTopBid);
         
         			var currentTime = Date.now(); //当前时间  ms
@@ -146,12 +150,12 @@ function initialization() {
         
         			auctionContractInstance.methods.auctionOpenBid(tokenTypeId).call()
         				.then(function (key) {
-        					// if(minLastPeriod - (tokenLastBidTime + callBackPeriod) < 0 && key){
-        					// 	endTime = endTime + callBackPeriod;
-        					// }
+        					if(minLastPeriod - (tokenLastBidTime + callBackPeriod) < 0 && key){
+        						endTime = endTime + callBackPeriod;
+        					}
         
         					if (currentTime < startTime) { //未开始
-        						$('#make_offer').data('sign', '3');
+        						$('#make_offer').data('status', '0');
         						var time = formatDuring(startTime - currentTime);
         						html += `<span>拍賣開始時間：</span><span data-time="0">` + time + `</span>`;
         						var ksTime = setInterval(function () {
@@ -163,7 +167,7 @@ function initialization() {
         						}, 1000);
         
         					} else if (currentTime >= startTime && currentTime <= endTime) {
-        						$('#make_offer').data('sign', '1');
+        						$('#make_offer').data('status', '1');
         						var time = formatDuring(endTime - currentTime);
         						html += `<span>拍賣剩餘時間：</span><span data-time="1">` + time + `</span>`;
         
@@ -183,7 +187,7 @@ function initialization() {
         					}
         
         					$('.bid-right-status-time').html(html);
-        					loadingHide();
+        					//loadingHide();
         				})
         
         		});
@@ -235,14 +239,14 @@ function initialization() {
 
 function userBidInfo() {
     var userAddress = '';
-	ethereum.request({ method: 'eth_accounts' })
+	CHAIN.WALLET.accounts()
         .then(function (res) {
             if (res.length > 0) {
                 userAddress = res[0];
             }
 	
         	//获取users 对于 所有 竞拍 下的 所有 竞价
-        	if (userAddress != 0) {
+        	if (userAddress != '') {
         		auctionContractInstance.methods.getUserBids(userAddress).call()
         			.then(function (res) {
         				if (!res || res.length < 1) {
@@ -259,7 +263,7 @@ function userBidInfo() {
         						if (res[0]['price'] >= currentPrice) { //当前用户为最高价
         							html += `<span style="color:#9567FF;">恭喜！ 您是出價最高者！</span>`;
         							$('.bid-right-btn span').hide();
-        							$('#make_offer').data('sign', '2');
+        							$('#make_offer').data('status', '2');
         							$('#make_offer').text('去我的資產查看');
         						}
         						// else{
@@ -274,11 +278,11 @@ function userBidInfo() {
         						// $('#make_offer').data('sign','1');
         
         						if (res[0]['price'] >= currentPrice) { //当前用户为最高价
-        							var u_price = getWeb3().utils.fromWei(res[0]['price'], 'ether');
+        							var u_price = web3.utils.fromWei(res[0]['price'], 'ether');
         							html += `<span>您是當前最高出價者  (BUSD ` + u_price + `)</span>`;
         
         						} else {
-        							var u_price = getWeb3().utils.fromWei(res[0]['price'], 'ether');
+        							var u_price = web3.utils.fromWei(res[0]['price'], 'ether');
         							html += `<span style="color:#CB5252;">您上次競標失敗  (BUSD ` + u_price + `)</span>`;
         						}
         
@@ -290,6 +294,9 @@ function userBidInfo() {
         
         	} else {
         		$('.bid-right-tip').html('');
+				$('.bid-right-tip').data('address', '0');
+				$('#make_offer').data('sign', 0);
+				//window.confirm('錢包連接已失效，請重新連接錢包');
         	}
         });
 }
@@ -323,18 +330,20 @@ $.ajax({
 
 $('#make_offer').click(function () {
 	var sign = $(this).data('sign');
+	var status = $(this).data('status');
 	if (sign == 0) {
-		tips('未登入，請登入');
-	} else if (sign == 1) {
-		var price = $('.bid-right-btn span font').text().trim();
-		window.location.href = 'auctionPayment.html?bid=' + price;
-	} else if (sign == 2) {
-		window.location.href = 'myassets.html';
-	} else if (sign == 3) {
-		tips('拍賣未開始');
-	} else if (sign == 4) {
-		if (getCookie('isConnect') == 'false') {
-			var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
+		window.alert('未登入/錢包連接已失效');
+	} else {
+		if (status == 1) {
+			var price = $('.bid-right-btn span font').text().trim();
+			window.location.href = 'auctionPayment.html?bid=' + price;
+		} else if (status == 2) {
+			window.location.href = 'myassets.html';
+		} else if (status == 0) {
+			window.alert('拍賣未開始');
+		} else if (sign == 4) {
+			// if (getCookie('isConnect') == 'false') {
+			var html = `<div>請先安裝MetaMask/或者使用WalletConnect，以保證拍賣功能的使用</div>
 						<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
 			alert(html);
 		}
@@ -346,59 +355,74 @@ $.ajax({
 	url: '/v2/user/wallet/info',
 	async: false,
 	success: function (res) {
-		if (res.code == 0) {
-			if (res.data.address == null || res.data.address == '') {
-				$('.bid-right-tip').data('address', '0');
-			} else {
-				$('.bid-right-tip').data('address', res.data.address)
-			}
+		var userAddress = '';
+		CHAIN.WALLET.accounts()
+        	.then(function (accounts) {
+            	if (accounts.length > 0) {
+                	userAddress = accounts[0];
+					$('.bid-right-tip').data('address', userAddress);	
+					if (res.code == 0) {  //1002
+						if (res.data.address == null || res.data.address == '') {
+							$.ajax({
+								url:'/v2/user/wallet/bind',
+								type:'POST',
+								contentType:'application/json',
+								dataType:'json',
+								data:JSON.stringify({
+									address:userAddress,
+									walletType:'TOKEN POCKET'
+								}),
+								success:function(res){
+									if(res.code==0){
+										// document.cookie="isConnect=true";
+										setCookie('isConnect',true)
+										if (c) {
+											c();
+										}else{
+											window.location.href = document.referrer;
+										}
+									}else{
+										tips(res.message)
+									}
+								}
+							});
+						} else {
+							window.alert("請註意，當前錢包鏈接與默認賬戶錢包地址不同，默認錢包地址：" + res.data.address);
+						};
 
-			$('#make_offer').data('sign', 1);
-
-		} else {
-			$('.bid-right-tip').data('address', '0');
-			$('#make_offer').data('sign', 0);
-			// tips('未登入，請登入');
-		}
+						$('#make_offer').data('sign', 1);
+					} else {
+						$('#make_offer').data('sign', 0);
+					}
+				} else {
+					$('.bid-right-tip').data('address', '0');
+					$('#make_offer').data('sign', 0);
+					// tips('未登入，請登入');
+				}
+			})
 	}
-})
+});
+
+var walletType = getCookie(CHAIN.WALLET.__wallet__);
 
 
-if (typeof window.ethereum !== 'undefined') {
-	// $('#make_offer').data('sign','0');
+if (walletType || window.ethereum) {
 	loading();
     initialization()
     loadingHide()
-	
-    // 	var timer;
-    // 	function func() {
-    // 	    if (window.ethereum.networkVersion) {
-    // 			initialization();
-    // 			loadingHide();
-    // 		} else {
-    // 		    timer = setTimeout(func, 1000);
-    // 		}
-    // 	}
-    	
-    // 	timer = setTimeout(func, 1800);
-
     function networkChangedImplement() {
 	    initialization();
     }
 	
-	networkChangedAssign(networkChangedImplement);
+	CHAIN.WALLET.networkChangedAssign(networkChangedImplement);
 
 	function accountsChangedImplement(accounts) {
 		userBidInfo();
 	}
 
-	accountsChangedAssign(accountsChangedImplement);
+	CHAIN.WALLET.accountsChangedAssign(accountsChangedImplement);
 
-} else {
-	if (getCookie('isConnect') == 'false') {
-		$('#make_offer').data('sign', '4');
-		var html = `<div>請先安裝MetaMask，以保證拍賣功能的使用</div>
-					<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
-		alert(html);
-	}
+} else { 
+	$('#make_offer').data('sign', 0);
+	window.alert('錢包連接已失效，請重新連接錢包');
 }
