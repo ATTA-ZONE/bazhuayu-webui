@@ -41,10 +41,20 @@ function connectInit(walletname) {
 						if (res.code == 0) {
 							loadingHide();
 							linksuccessful(accounts[0]);
+						} else if (res.code == 2001){
+							loadingHide();
+							window.alert('該錢包已被綁定占有, 請更換錢包');
+						} else if (res.code == 1011){
+							loadingHide();
+							window.alert('郵箱未驗證');
+						} else if (res.code == 1002){
+							loadingHide();
+							window.alert('登錄已失效，請重新登錄');
 						} else {
 							loadingHide();
-							window.alert('未登錄，請登入');
+							window.alert('系統錯誤');
 						}
+
 					},
 					error: function (res) {
 						loadingHide();
