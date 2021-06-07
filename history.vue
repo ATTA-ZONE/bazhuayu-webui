@@ -36,6 +36,7 @@
               </div>
             </div>
           </div>
+          <div class="history-line"></div>
         </div>
       </div>
       <div v-if="showFilter.indexOf('1') > -1">
@@ -65,6 +66,7 @@
               </div>
             </div>
           </div>
+          <div class="history-line"></div>
         </div>
       </div>
       <div v-if="showFilter.indexOf('3') > -1">
@@ -88,6 +90,7 @@
               </div>
             </div>
           </div>
+          <div class="history-line"></div>
         </div>
       </div>
     </div>
@@ -276,6 +279,13 @@ module.exports = {
   align-items: center;
 }
 
+.history-line {
+  width: 60%;
+  height: 1px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 20px auto;
+}
+
 .recoverRequest,
 .recoverRequest:hover {
   color: #ff1313;
@@ -296,7 +306,7 @@ module.exports = {
 }
 .history-title {
   display: flex;
-  margin-top: 37px;
+  margin-top: 10px;
   padding: 0 20px;
   justify-content: space-between;
 }
@@ -324,7 +334,7 @@ module.exports = {
   font-size: 22px;
   position: relative;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 .filter-items {
   font-size: 14px;
