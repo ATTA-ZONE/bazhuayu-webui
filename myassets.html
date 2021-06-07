@@ -32,19 +32,21 @@
 </head>
 <body>
 	<!-- head -->
-	<div class="headerpage"></div>
-	<div class="bzy-title center-80"><span class="language-tc">我的資產</span></div>
-	<div class="my-assets center-80" id="app" v-cloak>
-		<div class="tabs-wrap">
-			<div v-for="(item,idx) in tabs" :key="idx" @click="toggleTab(item, idx)">
-				<span>{{item}}</span>
-				<div v-if="selectedTab == idx" class="active-tab"></div>
+	<div>
+		<div class="headerpage"></div>
+		<div class="bzy-title center-80"><span class="language-tc">我的資產</span></div>
+		<div class="my-assets center-80" id="app" v-cloak>
+			<div class="tabs-wrap">
+				<div v-for="(item,idx) in tabs" :key="idx" @click="toggleTab(item, idx)">
+					<span>{{item}}</span>
+					<div v-if="selectedTab == idx" class="active-tab"></div>
+				</div>
 			</div>
+			<!-- <hello v-if="selectedTab == 0"></hello> -->
+			<my-collection v-if="selectedTab == 0"></my-collection>
+			<mynft v-if="selectedTab == 1"></mynft>
+			<history v-if="selectedTab == 2"></history>
 		</div>
-		<!-- <hello v-if="selectedTab == 0"></hello> -->
-		<my-collection v-if="selectedTab == 0"></my-collection>
-		<mynft v-if="selectedTab == 1"></mynft>
-		<history v-if="selectedTab == 2"></history>
 		<div class="tips"></div>
 	</div>
 </body>
