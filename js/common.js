@@ -204,18 +204,18 @@ function updateWalletStatus() {
 			if(res.code==0){
 				walletId = res.data.address;
 				CHAIN.WALLET.accounts()
-					.then(function(res){
-						if (walletId && res) {
-							if (walletId == res[0]) {
+					.then(function(account){
+						if (walletId && account.length) {
+							if (walletId == account[0]) {
 								displayWalletStatus(0);
 							} else {
 								displayWalletStatus(1);
 							}
 						} else if (walletId) {
 							displayWalletStatus(2);
-						} else if (res) {
+						} else if (account.length) {
 							var data = {
-								address: res[0],
+								address: account[0],
 								walletType: 'METAMASK'
 							}
 
@@ -225,15 +225,15 @@ function updateWalletStatus() {
 								contentType: 'application/json',
 								dataType: 'json',
 								data: JSON.stringify(data),
-								success: function (res) {
-									if (res.code == 0) {
+								success: function (res1) {
+									if (res1.code == 0) {
 										displayWalletStatus(0);
 									} else {
 										displayWalletStatus(1);
 									}
 			
 								},
-								error: function (res) {
+								error: function (res1) {
 									setCookie('isConnect', false);
 									displayWalletStatus(1);
 									window.alert('網絡錯誤，無法獲取賬戶信息');
