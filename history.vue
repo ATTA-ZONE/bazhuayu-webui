@@ -261,7 +261,6 @@ module.exports = {
     display: block !important;
   }
   .desc-info {
-    display: flex;
     justify-content: space-between;
   }
   .desc-address {
@@ -270,6 +269,11 @@ module.exports = {
   .desc-info-edtion {
     max-width: 36% !important;
   }
+}
+
+.desc-info {
+  display: flex;
+  align-items: center;
 }
 
 .recoverRequest,
