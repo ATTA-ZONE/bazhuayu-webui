@@ -140,7 +140,7 @@
         </div>
       </div>
       <div class="flex bsc-btn" style="justify-content: center">
-        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft madia-btn">開始鑄造</a>
+        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft madia-btn start-zz">開始鑄造</a>
       </div>
     </div>
     <!-- foot -->
