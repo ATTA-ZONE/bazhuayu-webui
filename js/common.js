@@ -214,6 +214,11 @@ function updateWalletStatus() {
 						} else if (walletId) {
 							displayWalletStatus(2);
 						} else if (res) {
+							var data = {
+								address: res[0],
+								walletType: 'METAMASK'
+							}
+
 							$.ajax({
 								url: base_url + '/v2/user/wallet/bind',
 								type: 'POST',
