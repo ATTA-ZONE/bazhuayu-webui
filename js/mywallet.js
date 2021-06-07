@@ -4,54 +4,54 @@ function mangeWalletCharge(res, accounts) {
 		var web3 = new Web3(CHAIN.WALLET.provider());
 
 		var chainId = '';
-	CHAIN.WALLET.chainId()
-        .then(function (res) {
-            chainId = web3.utils.hexToNumber(res); 
-						
-						
-		// busdAddress 供外界使用
-		var busdAddress = contractSetting['busd_ERC20'][chainId].address;
-		var busdABI = contractSetting['busd_ERC20']['abi'];
-		
-		busdContractInstance = new web3.eth.Contract(busdABI, busdAddress); 
-		var amount = $('.modify-ipt input').val().trim();
-				if (amount == '') {
-					amount = '0';
-				}
-		var num = web3.utils.toWei(amount, 'ether');
-		busdContractInstance.methods.balanceOf(accounts[0]).call() //查询余额
+		CHAIN.WALLET.chainId()
 			.then(function (res) {
+				chainId = web3.utils.hexToNumber(res); 
+							
+							
+			// busdAddress 供外界使用
+			var busdAddress = contractSetting['busd_ERC20'][chainId].address;
+			var busdABI = contractSetting['busd_ERC20']['abi'];
+			
+			busdContractInstance = new web3.eth.Contract(busdABI, busdAddress); 
+			var amount = $('.modify-ipt input').val().trim();
+					if (amount == '') {
+						amount = '0';
+					}
+			var num = web3.utils.toWei(amount, 'ether');
+			busdContractInstance.methods.balanceOf(accounts[0]).call() //查询余额
+				.then(function (res) {
 
-				if (Number(res) >= Number(num)) {
-					setTimeout(function () {
-						busdContractInstance.methods.transfer(cwallet, num).send({ //转账
-								from: accounts[0]
-							})
-							.on('transactionHash', function (hash) {
-								console.log(['hash', hash]);
-								success('充值成功', 1800);
-								setTimeout(function () {
-									tips('預計10秒內到賬');
-
+					if (Number(res) >= Number(num)) {
+						setTimeout(function () {
+							busdContractInstance.methods.transfer(cwallet, num).send({ //转账
+									from: accounts[0]
+								})
+								.on('transactionHash', function (hash) {
+									console.log(['hash', hash]);
+									success('充值成功', 1800);
 									setTimeout(function () {
-										window.location.reload();
-									}, 1500)
-								}, 1800);
-							}).on('receipt', function (receipt) {
-								// console.log(['receipt',receipt])
-							}).on('error', function (err) {
-								// console.log(['error',err])
-							});
-					}, 500)
-				} else {
+										tips('預計10秒內到賬');
 
-					tips('餘額不足');
+										setTimeout(function () {
+											window.location.reload();
+										}, 1500)
+									}, 1800);
+								}).on('receipt', function (receipt) {
+									// console.log(['receipt',receipt])
+								}).on('error', function (err) {
+									// console.log(['error',err])
+								});
+						}, 500)
+					} else {
 
-				}
-			});
+						tips('餘額不足');
+
+					}
+				});
 
 
-				})
+		})
 
 	} else {
 
@@ -130,62 +130,7 @@ $(function () {
 			
 			// console.log(wallet_type)
 			
-			if (wallet_type == 'wallectconnect') {
-				
-				var provider = CHAIN.WALLET.WalletConnect.provider();
-				var address_p = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
-				const web3_p = new Web3(provider);
-				var contract_p = new web3_p.eth.Contract(abi, address_p);
-				
-				var amount = $('.modify-ipt input').val().trim();
-				if (amount == '') {
-					tips('請輸入充值金額');
-					return;
-				}
-				var num = getWeb3().utils.toWei(amount, 'ether');
-				
-				var isWalletConnect = localStorage.getItem('walletconnect');				
-				if(isWalletConnect){
-					CHAIN.WALLET.WalletConnect.provider().enable()
-					.then(function (res) {
-						loading();
-						
-						$.ajax({
-							url:base_url+'/v2/user/wallet/simpleInfo',
-							success:function(response){								
-								contract_p.methods.transfer(response.data.cwallet, num).send({     //转账
-									from:response.data.address
-								})
-								.on('transactionHash', function(hash){
-									loadingHide();
-									success('充值成功',1800);
-									setTimeout(function(){
-										tips('預計10秒內到賬');
-									
-										setTimeout(function(){
-											window.location.reload();
-										},1500)
-									},1800);
-								}).on('receipt', function(receipt){
-									loadingHide();
-								}).on('error',function(err){
-									loadingHide();
-									error('充值失敗',1800);
-									setTimeout(function(){
-										window.location.reload();
-									},1800);
-								});
-								
-							}
-						});
-						
-					});
-					
-				}else{
-					tips('請連接錢包');
-				}
-				var dd = CHAIN.WALLET.WalletConnect.isConnected();
-			} else if (wallet_type == 'metamask') {
+			if (wallet_type) {
 
 				var amount = $('.modify-ipt input').val().trim();
 				if (amount == '') {

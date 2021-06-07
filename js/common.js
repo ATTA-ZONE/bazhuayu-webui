@@ -15,6 +15,7 @@ if (getCookie('islogin') != 'false') {
 }else{
 	islogin = false;
 }
+
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	base_url = 'http://localhost:8081';
 	if (window.location.href.indexOf('47.118.74.48:') > -1) {
@@ -184,97 +185,111 @@ $(function(){
 			$('.header-dl').html(html);
 		}
 	});
-	
-	
+
+	updateWalletStatus()
+})
+
+function updateWalletStatus() {
+	$('.header-right-wallet').html('<img src="./images/point-loading.gif" style="width:6px; margin-right:5px;"><span>錢包連接中</span>');
+	$('.mobile-connect-wallet').html('<img src="./images/point-loading.gif" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" onclick="connectWallet()" href="javascript:void(0);">錢包連接中</a>');
+	$('.header-right-wallet').show();
+	$('.mobile-connect-wallet').show();
+
+	console.log(1111111111111111111111);
 	//查看钱包是否链接
 	$.ajax({
 		url:base_url+'/v2/user/wallet/info',
 		success:function(res){
+			console.log(2222222222222222);
 			if(res.code==0){
 				walletId = res.data.address;
-				$('.header-right-wallet').show();
-				$('.mobile-connect-wallet').show();
-			}else if (res.code==1002 && islogin) {
+				CHAIN.WALLET.accounts()
+					.then(function(res){
+						debugger;
+						if (walletId && res) {
+							if (walletId == res[0]) {
+								displayWalletStatus(0);
+							} else {
+								displayWalletStatus(1);
+							}
+						} else if (walletId) {
+							displayWalletStatus(2);
+						} else if (res) {
+							$.ajax({
+								url: base_url + '/v2/user/wallet/bind',
+								type: 'POST',
+								contentType: 'application/json',
+								dataType: 'json',
+								data: JSON.stringify(data),
+								success: function (res) {
+									if (res.code == 0) {
+										displayWalletStatus(0);
+									} else {
+										displayWalletStatus(1);
+									}
+			
+								},
+								error: function (res) {
+									setCookie('isConnect', false);
+									displayWalletStatus(1);
+									window.alert('網絡錯誤，無法獲取賬戶信息');
+								}
+							});
+						} else {
+							setCookie('isConnect',false);
+							displayWalletStatus(2);
+						}
+					})
+			} else if (res.code==1002 && islogin) {
+				debugger;
 				setCookie('islogin',false);
 				window.location.href = 'index.html';
 			}else{
+				debugger;
 				$('.header-right-wallet').hide();
 				$('.mobile-connect-wallet').hide();
 				setCookie('isConnect',false);
 			}
 		}
 	})
+}
+CHAIN.WALLET.accountsChangedAssign(updateWalletStatus);
 
-	if (window.ethereum) {
-		window.ethereum.request({ method: 'eth_accounts'}).then(function(res){
-			if (walletId == res[0]) {
-				setTimeout(() => {
-					setCookie('isConnect',true)
-					$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
-					$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
-					
-					$('.mobile-connect-wallet,.header-right-wallet').click(function(){
-						window.location.href  = 'showwallet.html';
-					});
-				}, 300);
-			}
-		})
-	}
-	
-	if(getCookie('isConnect')=='true'){
-		setTimeout(function(){
-			$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
-		},200)
-		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
-			window.location.href  = 'showwallet.html';
-		})
-	}else{
-		setTimeout(function(){
-			$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span>未連接錢包</span>');
-			$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a>');
-		},200)
-	
-	}
-	
-	
-	
-	$.ajax({
-		url:base_url+'/v2/user/wallet/info',
-		async:false,
-		success:function(res){
-			if(res.code==0){
-				if(res.data.walletType=="TOKEN POCKET"){
-					CHAIN.WALLET.WalletConnect.events();
-					var t = setInterval(function(){
-						var walletconnect = localStorage.getItem('walletconnect');
-						var cookie = getCookie('isConnect');
-						if(walletconnect==null){
-							clearInterval(t);
-							isWalletConnect = false;
-							$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span>未連接錢包</span>');
-							$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a>');
-						}
-					},200)
-				}
-			}
-			
-		}
-	})
-
-	$('.header-right-wallet').click(function(e){
-		if (e.target.textContent == "已連接錢包") {
-			window.location.href  = 'showwallet.html';
-		}
-	})
-
-	
-
-})
 function showwalletaddress(e){
-	if ($('.header-right-wallet .modify-tc-pc').text() == "已連接錢包" || $('.mobile-connect-wallet .modify-tc-pc').text() == "已連接錢包") {
-		window.location.href  = 'showwallet.html';
-	}else{
+	if ($('.header-right-wallet .modify-tc-pc').text() == "未連接錢包" || $('.mobile-connect-wallet .modify-tc-pc').text() == "未連接錢包") {
 		connectWallet();
+	}else{
+		window.location.href  = 'showwallet.html';
 	}
 }
+
+function displayWalletStatus(status){
+	if (status==0) {
+		// 钱包与 绑定钱包 相同
+		setCookie('isConnect',true);
+		$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
+		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');		
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
+		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');		
+		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
+			showwalletaddress();
+		});
+	} else if (status==1) {
+		// 钱包与 绑定钱包 不同/未绑定
+		setCookie('isConnect',true);
+		$('.header-right-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">錢包未綁定</span><p class="walletIdshow">'+ walletId +'</p>');
+		$('.mobile-connect-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">錢包未綁定</a><p class="walletIdshow">'+ walletId +'</p>');
+		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
+			showwalletaddress();
+		});
+	} else if (status==2) {
+		// 钱包 未授权
+		setCookie('isConnect', false);
+		$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span>未連接錢包</span>');
+		$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" href="javascript:void(0);">未連接錢包</a>');
+		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
+			showwalletaddress();
+		});
+	}
+}
+

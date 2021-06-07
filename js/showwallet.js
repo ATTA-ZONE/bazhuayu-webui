@@ -2,10 +2,10 @@ var app = new Vue({
 	el: '#app',
 	data: function () {
 		return {
-			wallettitle  : "當前錢包地址如下：",
+			wallettitle  : "當前綁定錢包地址如下：",
 			isshowicon : false,
 			walletIdvue:'',
-			tipscon:"當前購買的所有NFT資產將會發送至以上錢包地址",
+			tipscon:"當前購買的所有NFT資產將會默認發送至以上錢包地址",
 			btn1name:"更換",
 			btn2name:"刪除",
 			btn3name:"取消",
