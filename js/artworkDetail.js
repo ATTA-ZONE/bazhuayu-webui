@@ -3,7 +3,7 @@ var app = new Vue({
 	data: function () {
 		return {
 			id: '',
-			prev: -1, 
+			prev: -1,
 			success_status: -1,
 			walletType: '',
 			maxbannum: 0,
@@ -15,7 +15,8 @@ var app = new Vue({
 			oneUserCountLimit: 0,
 			onceCountLimit: 0,
 			payTabs: ['信用卡', '餘額支付', '錢包支付'],
-			selectedPayMethod: 0
+			selectedPayMethod: 0,
+			basicId: 0
 		}
 	},
 	created() {
@@ -56,6 +57,7 @@ var app = new Vue({
 	},
 	methods: {
 		payCrypto() {
+			let self = this
 			if ($('#cryptoBtn').text() == '去我的資產核對') {
 				window.location.href = 'myassets.html';
 				return false
@@ -63,6 +65,17 @@ var app = new Vue({
 			if ($('#cryptoBtn').text() == '請先連接錢包  ->') {
 				window.open('connectWallet.html');
 				return false
+			}
+			if ($('#cryptoBtn').text() == '立即付款  ->') {
+				$.ajax({
+					url: base_url + '/v2/commodity/tokenLimit',
+					data: {
+						basicId: self.basicId
+					},
+					success: function (res) {
+						self.getOnSellToken(res.data.tokenLimit)
+					}
+				})
 			}
 			// 需要检测 用户 是否 已经授权 足够 金额 使用权限
 			// busd.methods.approve/ allowance
@@ -81,6 +94,31 @@ var app = new Vue({
 			// 与后端沟通
 
 		},
+		getOnSellToken(arr) {
+			if (arr && arr.length > 0) {
+				var targetChainId = '';
+				if (window.location.href.indexOf('bazhuayu.io') == -1) {
+					targetChainId = 97;
+				} else {
+					targetChainId = 56;
+				}
+				var web3 = new Web3(CHAIN.WALLET.provider());
+				var chainId = '';
+				CHAIN.WALLET.chainId()
+					.then(function (res) {
+						chainId = web3.utils.hexToNumber(res);
+						if (chainId != targetChainId) {
+							CHAIN.WALLET.switchRPCSettings(targetChainId);
+						}
+						auctionAddress = contractSetting['vending_machine'][chainId].address; //网络切换
+						var auctionABI = contractSetting['vending_machine']['abi'];
+						auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
+						auctionContractInstance.methods.getOnSellToken().call().then(res=>{
+							console.log(res);
+						})
+					});
+			}
+		},
 		getComditInfo() {
 			//商品详情业加载
 			let self = this
@@ -91,6 +129,7 @@ var app = new Vue({
 				},
 				success: function (res) {
 					if (res.code == 0) {
+						self.basicId = res.data.basicId
 						var content = res.data.content;
 						var saleStartTimeMillis = res.data.saleStartTimeMillis; //开始销售时间
 						var saleEndTimeMillis = res.data.saleEndTimeMillis; //销售结束时间
@@ -318,7 +357,7 @@ var app = new Vue({
 				}
 			})
 		},
-		
+
 		initMediaCss() {
 			var mobile_width = $(window).width();
 			if (mobile_width <= 992) {
@@ -331,7 +370,7 @@ var app = new Vue({
 			}
 		},
 		//Additional Infomation 
-		showDetailInfo () {
+		showDetailInfo() {
 			var ele = $('.details-right-additional-show')
 			var status = ele.data('status');
 			if (status == 0) {
