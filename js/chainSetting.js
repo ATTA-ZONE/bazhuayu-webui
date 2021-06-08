@@ -139,6 +139,20 @@ var contractSetting = {
                 'address': '0x790575dcE4E68e5e3c4508DB0293EE2A9ab890a7'
             },
         
+    },
+    'vending_machine': {
+        'proxy': '',
+        'abi': c_vendingMachine_abi,
+        56:
+            {
+                'owner_id': '',
+                'address': ''
+            },
+        97:
+            {
+                'owner_id': 1,
+                'address': '0x5dE6ed56ED3Eba9769e3768F31966634386F18B1'
+            },
     }
 }
 

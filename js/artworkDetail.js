@@ -65,9 +65,20 @@ var app = new Vue({
 				return false
 			}
 			// 需要检测 用户 是否 已经授权 足够 金额 使用权限
+			// busd.methods.approve/ allowance
+
 			// 需要添加 和链上 售卖合约交互的 代码
+			// vendingmachine.methods.safeBuyToken/safeBatchBuyToken
+			// vendingmachine.methods.getOnSellToken/getOnSellTokenInfo
+			// vendingmachine.methods.getPrice
+			// vendingmachine.methods.queryMinTokenId
+			// vendingmachine.methods.queryMaxTokenId
+
 			// 需要检测 告知用户 负责购买的钱包地址
+			// CHAIN.WALLET.accounts() 和 wallet/info 接口
+
 			// 需要与后端 查询 对应的应该 购买的 tokenTypeId
+			// 与后端沟通
 
 		},
 		getComditInfo() {
