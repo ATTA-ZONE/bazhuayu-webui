@@ -16,7 +16,8 @@ var app = new Vue({
 			onceCountLimit: 0,
 			payTabs: ['信用卡', '餘額支付', '錢包支付'],
 			selectedPayMethod: 0,
-			basicId: 0
+			basicId: 0,
+			visiable: []
 		}
 	},
 	created() {
@@ -94,8 +95,9 @@ var app = new Vue({
 			// 与后端沟通
 
 		},
-		getOnSellToken(arr) {
-			if (arr && arr.length > 0) {
+		getOnSellToken(tokens) {
+			let self = this
+			if (tokens && tokens.length > 0) {
 				var targetChainId = '';
 				if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					targetChainId = 97;
@@ -113,8 +115,20 @@ var app = new Vue({
 						auctionAddress = contractSetting['vending_machine'][chainId].address; //网络切换
 						var auctionABI = contractSetting['vending_machine']['abi'];
 						auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
-						auctionContractInstance.methods.getOnSellToken().call().then(res=>{
-							console.log(res);
+						auctionContractInstance.methods.getOnSellToken().call().then(arr=>{
+							console.log(arr);
+							for (let i = 0; i < arr.length; i++) {
+								for (let j = 0; j < tokens.length; j++) {
+									if (arr[i] >= tokens[j].startTokenId && arr[i] <= tokens[j].endTokenId) {
+										self.visiable.push(arr[i])
+									}
+								}
+							}
+							if (self.selectarr.length > self.visiable.length) {
+								tips('已達到最大購買數量');
+								return false
+							}
+							auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0,self.selectarr.length))
 						})
 					});
 			}
