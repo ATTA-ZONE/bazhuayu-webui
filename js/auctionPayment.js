@@ -232,7 +232,7 @@ $('#pay_now').click(function () {
 					var num = web3.utils.toWei('999999999999999', 'ether');
 					//发起授权
 					loading();
-					busdContractInstance.methods.approve(address, num).send({
+					busdContractInstance.methods.approve(auctionAddress, num).send({
 							from: self_address
 						})
 						.then(function (res) {
