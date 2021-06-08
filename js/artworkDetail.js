@@ -61,7 +61,7 @@ var app = new Vue({
 				return false
 			}
 			if ($('#cryptoBtn').text() == '請先連接錢包  ->') {
-				window.open('mywallet.html');
+				window.open('connectWallet.html');
 				return false
 			}
 			// 需要检测 用户 是否 已经授权 足够 金额 使用权限
@@ -425,29 +425,26 @@ var app = new Vue({
 			if (text == 2) {
 				$('.payment-page-right-btn').hide();
 				$('.payment-page-right-crypto').show();
-				if (getCookie('isConnect') != true) {
+				if (getCookie('isConnect') != 'true') {
 					$('#cryptoBtn').text('請先連接錢包  ->')
 					$('#cryptoBtn').attr('disabled', false)
 				} else {
 					$('#cryptoBtn').text('立即付款  ->')
-					$('#cryptoBtn').attr('disabled', true)
+					$('#cryptoBtn').attr('disabled', false)
 				}
 				$('.payment-page-right-balance').hide()
-				$('#cryptoBtn').text('錢包支付功能準備中...')
-				$('#cryptoBtn').attr('disabled', true)
 				$('.payment-page-right-crypto button').addClass('can');
 				if ($('.busd-tip').text() == '餘額不足') {
 					$('.payment-page-right-btn button').text('充值');
 				} else {
 					$('.payment-page-right-btn button').text('立即付款 >');
 				}
-				$('.payment-page-right-total').hide();
+				$('.payment-page-right-total').show();
 				$('.order-price .order-price-hdk').hide();
 				$('.order-price .order-price-busd').show();
 				$('.payment-page-right-select').hide();
 				$('.payment-page-right-busd').hide();
 				$('.wallet-payment-desc').show();
-				$('.wallet-payment-desc').text('錢包直連支付功能準備中...');
 			}
 		}
 	}
