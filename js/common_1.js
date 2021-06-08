@@ -8,7 +8,7 @@ url = url.substring(0,url.indexOf('.'));
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
 var islogin;
-var walletId = ''
+var walletId = '';
 
 if (getCookie('islogin') != 'false') {
 	islogin = true;
@@ -287,8 +287,8 @@ function displayWalletStatus(status){
 	} else if (status==2) {
 		// 钱包 未授权
 		setCookie('isConnect', false);
-		$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span>未連接錢包</span>');
-		$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" href="javascript:void(0);">未連接錢包</a>');
+		$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">未連接錢包</span>');
+		$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">未連接錢包</a>');
 		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
 			showwalletaddress();
 		});
