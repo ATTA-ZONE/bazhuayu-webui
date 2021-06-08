@@ -17,7 +17,12 @@ var app = new Vue({
 			payTabs: ['信用卡', '餘額支付', '錢包支付'],
 			selectedPayMethod: 0,
 			basicId: 0,
-			visiable: []
+			visiable: [],
+			auctionAddress: '',
+			auctionContractInstance: null,
+			userAddress: '',
+			tokenLimits: [],
+			chainId: ''
 		}
 	},
 	created() {
@@ -55,6 +60,7 @@ var app = new Vue({
 		}
 		$('.payment-page-right-balance').hide()
 		self.getComditInfo()
+		self.initAddress()
 	},
 	methods: {
 		payCrypto() {
@@ -74,64 +80,90 @@ var app = new Vue({
 						basicId: self.basicId
 					},
 					success: function (res) {
-						self.getOnSellToken(res.data.tokenLimit)
+						self.tokenLimits = res.data.tokenLimit
+						self.authUser()
 					}
 				})
 			}
-			// 需要检测 用户 是否 已经授权 足够 金额 使用权限
-			// busd.methods.approve/ allowance
-
-			// 需要添加 和链上 售卖合约交互的 代码
-			// vendingmachine.methods.safeBuyToken/safeBatchBuyToken
-			// vendingmachine.methods.getOnSellToken/getOnSellTokenInfo
-			// vendingmachine.methods.getPrice
-			// vendingmachine.methods.queryMinTokenId
-			// vendingmachine.methods.queryMaxTokenId
-
-			// 需要检测 告知用户 负责购买的钱包地址
-			// CHAIN.WALLET.accounts() 和 wallet/info 接口
-
-			// 需要与后端 查询 对应的应该 购买的 tokenTypeId
-			// 与后端沟通
-
 		},
-		getOnSellToken(tokens) {
+		authUser() {
 			let self = this
-			if (tokens && tokens.length > 0) {
-				var targetChainId = '';
-				if (window.location.href.indexOf('bazhuayu.io') == -1) {
-					targetChainId = 97;
-				} else {
-					targetChainId = 56;
-				}
-				var web3 = new Web3(CHAIN.WALLET.provider());
-				var chainId = '';
-				CHAIN.WALLET.chainId()
-					.then(function (res) {
-						chainId = web3.utils.hexToNumber(res);
-						if (chainId != targetChainId) {
-							CHAIN.WALLET.switchRPCSettings(targetChainId);
-						}
-						auctionAddress = contractSetting['vending_machine'][chainId].address; //网络切换
-						var auctionABI = contractSetting['vending_machine']['abi'];
-						auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
-						auctionContractInstance.methods.getOnSellToken().call().then(arr=>{
-							console.log(arr);
-							for (let i = 0; i < arr.length; i++) {
-								for (let j = 0; j < tokens.length; j++) {
-									if (arr[i] >= tokens[j].startTokenId && arr[i] <= tokens[j].endTokenId) {
-										self.visiable.push(arr[i])
-									}
-								}
-							}
-							if (self.selectarr.length > self.visiable.length) {
-								tips('已達到最大購買數量');
-								return false
-							}
-							auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0,self.selectarr.length))
-						})
-					});
+			var web3 = new Web3(CHAIN.WALLET.provider());
+			var busdAddress = contractSetting['busd_ERC20'][self.chainId].address;
+			var busdABI = contractSetting['busd_ERC20']['abi'];
+			var busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
+			busdContractInstance.methods.allowance(self.userAddress, self.auctionAddress).call()
+				.then(function (res) {
+					var web3 = new Web3(CHAIN.WALLET.provider())
+					if (res < Number(self.busdPrice)) {
+						var num = web3.utils.toWei('999999999999999', 'ether');
+						//发起授权
+						busdContractInstance.methods.approve(self.auctionAddress, num).send({
+								from: self.userAddress
+							})
+							.then(function () {
+								self.getOnSellToken()
+							});
+					} else {
+						self.getOnSellToken()
+					}
+				})
+		},
+		initAddress() {
+			let self = this
+			var targetChainId = '';
+			if (window.location.href.indexOf('bazhuayu.io') == -1) {
+				targetChainId = 97;
+			} else {
+				targetChainId = 56;
 			}
+			var web3 = new Web3(CHAIN.WALLET.provider());
+			CHAIN.WALLET.accounts()
+				.then(function (accounts) {
+					self.userAddress = accounts[0]
+				})
+			CHAIN.WALLET.chainId()
+				.then(function (res) {
+					self.chainId = web3.utils.hexToNumber(res);
+					if (self.chainId != targetChainId) {
+						CHAIN.WALLET.switchRPCSettings(targetChainId);
+					}
+					self.auctionAddress = contractSetting['vending_machine'][self.chainId].address; //网络切换
+					var auctionABI = contractSetting['vending_machine']['abi'];
+					self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
+				})
+		},
+		getOnSellToken() {
+			let self = this
+			self.auctionContractInstance.methods.getOnSellToken().call().then(arr => {
+				for (let i = 0; i < arr.length; i++) {
+					for (let j = 0; j < self.tokenLimits.length; j++) {
+						if (arr[i] >= self.tokenLimits[j].startTokenId && arr[i] <= self.tokenLimits[j].endTokenId) {
+							self.visiable.push(arr[i])
+						}
+					}
+				}
+				if (self.selectarr.length > self.visiable.length) {
+					tips('已達到最大購買數量');
+					return false
+				}
+				CHAIN.WALLET.accounts()
+					.then(function (accounts) {
+						self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr.length)).send({
+							from: accounts[0]
+						}).on('transactionHash', function (hash) {
+							console.log(['hash', hash]);
+							success('充值成功', 1800);
+							setTimeout(function () {
+								tips('預計10秒內到賬');
+
+								setTimeout(function () {
+									window.location.reload();
+								}, 1500)
+							}, 1800);
+						})
+					})
+			})
 		},
 		getComditInfo() {
 			//商品详情业加载
