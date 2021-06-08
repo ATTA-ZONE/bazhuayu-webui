@@ -195,24 +195,22 @@ function updateWalletStatus() {
 	$('.header-right-wallet').show();
 	$('.mobile-connect-wallet').show();
 
-	console.log(1111111111111111111111);
 	//查看钱包是否链接
 	$.ajax({
 		url:base_url+'/v2/user/wallet/info',
 		success:function(res){
-			console.log(2222222222222222);
 			if(res.code==0){
 				walletId = res.data.address;
 				CHAIN.WALLET.accounts()
 					.then(function(account){
 						if (walletId && account.length) {
 							if (walletId == account[0]) {
-								displayWalletStatus(0);
+								displayWalletStatus(0, account);
 							} else {
-								displayWalletStatus(1);
+								displayWalletStatus(1, account);
 							}
 						} else if (walletId) {
-							displayWalletStatus(2);
+							displayWalletStatus(2, account);
 						} else if (account.length) {
 							var data = {
 								address: account[0],
@@ -227,21 +225,21 @@ function updateWalletStatus() {
 								data: JSON.stringify(data),
 								success: function (res1) {
 									if (res1.code == 0) {
-										displayWalletStatus(0);
+										displayWalletStatus(0, account);
 									} else {
-										displayWalletStatus(1);
+										displayWalletStatus(1, account);
 									}
 			
 								},
 								error: function (res1) {
 									setCookie('isConnect', false);
-									displayWalletStatus(1);
+									displayWalletStatus(1, account);
 									window.alert('網絡錯誤，無法獲取賬戶信息');
 								}
 							});
 						} else {
 							setCookie('isConnect',false);
-							displayWalletStatus(2);
+							displayWalletStatus(2, account);
 						}
 					})
 			} else if (res.code==1002 && islogin) {
@@ -265,22 +263,22 @@ function showwalletaddress(e){
 	}
 }
 
-function displayWalletStatus(status){
+function displayWalletStatus(status, account){
 	if (status==0) {
 		// 钱包与 绑定钱包 相同
 		setCookie('isConnect',true);
-		$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
-		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');		
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
-		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');		
+		$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ account[0] +'</p>');
+		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ account[0] +'</p>');		
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ account[0] +'</p>');
+		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ account[0] +'</p>');		
 		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
 			showwalletaddress();
 		});
 	} else if (status==1) {
 		// 钱包与 绑定钱包 不同/未绑定
 		setCookie('isConnect',true);
-		$('.header-right-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">未綁定錢包</span><p class="walletIdshow">'+ walletId +'</p>');
-		$('.mobile-connect-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">未綁定錢包</a><p class="walletIdshow">'+ walletId +'</p>');
+		$('.header-right-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">未綁定錢包</span><p class="walletIdshow">'+ account[0] +'</p>');
+		$('.mobile-connect-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">未綁定錢包</a><p class="walletIdshow">'+ account[0] +'</p>');
 		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
 			showwalletaddress();
 		});
