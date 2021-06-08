@@ -221,7 +221,7 @@ var app = new Vue({
 				ele.webkitRequestFullScreen();
 			}
 		},
-		changenum(e, type) {
+		changenum(type) {
 			let self = this
 			let str = '';
 			if (type == 1) {
