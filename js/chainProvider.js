@@ -76,7 +76,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					var res =  await th.provider().request({ method: 'eth_accounts'});		
 				} else {
 					console.log('InitWallet:',t);
-					var res =  await th.provider().enable();
+					var res =  await th.enable();
 				}
 
 				// console.log('__isUnlocked', th);
@@ -98,7 +98,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					return res;
 				} else {
 					console.log('InitWallet:',t);
-					var res =  await th.provider().enable();
+					var res =  await th.enable();
 					return res;
 				}
 				// console.log('__accounts', th);
@@ -117,7 +117,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					return res;
 				} else {
 					console.log('InitWallet:',t);
-					await th.provider().enable();
+					await th.enable();
 					var res =  await th.provider().request({ method: 'eth_chainId'});
 					if (typeof(res)=='string') {res=Web3.utils.hexToNumber(res);}
 					return res;
@@ -161,7 +161,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 						await oldWallet.__disconnect();
 					}
 					
-					setCookie(th.__wallet__, wallet.name);
+					//setCookie(th.__wallet__, wallet.name);
 
 					var res = await wallet.__enableInit();
 					return res;
@@ -358,8 +358,14 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					var th1=W.CHAIN.WALLET.WalletConnect;
 					var res = '';
 					try {
-						res = await th1.__enable();
-						th1.__initListener();
+
+						if (th1.provider()&&th1.__provider.connector.connected==false) {
+							await th1.__disconnect();
+							res = [];
+						} else {
+							res = await th1.__enable();
+							th1.__initListener();
+						}
 					} catch(err){
 						console.log(err);
 						th1.__provider = null;
@@ -430,14 +436,18 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					var th1=W.CHAIN.WALLET.WalletConnect;
 					console.log('__connectInit1', th1.__provider);
 				
-					if (th1.provider()&&th1.__provider.connector.connected==true) {
-						await th1.__disconnect();
-					}
+					// if (th1.provider()&&th1.__provider.connector.connected==true) {
+					// 	await th1.__disconnect();
+					// }
 
 					if (getCookie(th.__wallet__)){
 						console.log('__connectInit2', th1.__provider);
 						var oldWallet = th[getCookie(th.__wallet__)];
 						await oldWallet.__disconnect();
+					}
+
+					if (th1.provider()) {
+						await th1.__disconnect();
 					}
 
 					var res = await th1.__enable();
@@ -451,10 +461,6 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				//enable: CHAIN.WALLET._errorHandleWrapper(CHAIN.WALLET.__enable),
 				__enable: async function() {
 					var th1=W.CHAIN.WALLET.WalletConnect;
-
-					if (th1.provider()&&th1.__provider.connector.connected==false) {
-						await th1.__disconnect();
-					}
 
 					th1.provider().chainId=targetChainId;
 					console.log('__enable', th1.__provider);
@@ -514,7 +520,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					//setCookie(th.__wallet__, '')
 					if (th1.provider()) {
 						await th1.provider().disconnect();
-						//th1.__provider = null;
+						th1.__provider = null;
 					}
 				}
 			},
@@ -539,6 +545,14 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	// W.CHAIN.WALLET.WalletConnect.walletWatchAsset = W.CHAIN.WALLET._errorHandleWrapper(W.CHAIN.WALLET.MetaMask.__walletWatchAsset);  // 无效
 	// W.CHAIN.WALLET.WalletConnect.enable = W.CHAIN.WALLET._errorHandleWrapper(W.CHAIN.WALLET.WalletConnect.__enable);
 	// W.CHAIN.WALLET.WalletConnect.disconnect = W.CHAIN.WALLET._errorHandleWrapper(W.CHAIN.WALLET.WalletConnect.__disconnect);
+
+	var th=W.CHAIN.WALLET;
+	var t=getCookie(th.__wallet__);
+	if (t=='WalletConnect' && (th.provider().connector.connected==false)) {
+		console.log('Lost WalletConnect');
+		setCookie(th.__wallet__, 'MetaMask');
+	} else {
+	}
 }(window);
 //a.CHAIN.WALLET.connect('WalletConnect').then(function(res){console.log(res)}); 
 
