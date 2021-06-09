@@ -157,22 +157,18 @@ function addFund(){
 		$('.modify-ipt-form').addClass('modify-ipt');
 		$('.modify-tit span').text('充值');
 		$('.modify-tit').data('type','add');
-		$.ajax({
-			url:base_url+'/v2/user/wallet/info',
-			success:function(res){
-				if(res.code==0){
-					var html = ``;
-					html += `<div class="modify-ipt-add">
-								<div class="modify-ipt-tit">`+(res.data.address==null?'請連接錢包':'From '+res.data.address)+`</div>
-								<input type="text" placeholder="輸入金額" />
-							</div>`;
-							
-					$('.modify-ipt').html(html);
-					$('.modify-btn-active').addClass('add');
-					$('.modify-btn-active').removeClass('delete');
-					$('.modify-btn-active').text('立即充值');
-				}
-			}
+		CHAIN.WALLET.accounts()
+		.then(function(account){
+			var html = ``;
+			html += `<div class="modify-ipt-add">
+						<div class="modify-ipt-tit">`+(account.length == 0?'請連接錢包':'From '+account[0])+`</div>
+						<input type="text" placeholder="輸入金額" />
+					</div>`;
+					
+			$('.modify-ipt').html(html);
+			$('.modify-btn-active').addClass('add');
+			$('.modify-btn-active').removeClass('delete');
+			$('.modify-btn-active').text('立即充值');
 		})
 	}
 }

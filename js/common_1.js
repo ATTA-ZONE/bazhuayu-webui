@@ -212,7 +212,7 @@ function updateWalletStatus() {
 						} else if (walletId) {
 							displayWalletStatus(2, account);
 						} else if (account.length) {
-							var hintMessage = "您的賬戶未綁定錢包，是否綁定當前錢包？\n當前錢包地址: " + accounts[0] + " \n賬戶綁定地址: " + res.data.address;
+							var hintMessage = "您的賬戶未綁定錢包，是否綁定當前錢包？\n當前錢包地址: " + account[0] + " \n賬戶綁定地址: " + res.data.address;
 							if (window.confirm(hintMessage)) {
 								var data = {
 									address: account[0],
