@@ -4,11 +4,11 @@ var scansite_base_url = '';
 
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
     targetChainId = 97;
-    scansite_apiKey = ''
+    scansite_apiKey = '9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27'
     scansite_base_url = 'https://api-testnet.bscscan.com'
 } else {
     targetChainId = 56;
-    scansite_apiKey = '9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27';
+    scansite_apiKey = '';
     scansite_base_url = 'https://api.bscscan.com'
 }
 

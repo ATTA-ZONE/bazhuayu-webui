@@ -106,6 +106,7 @@ function initialization() {
 
             if (chainId != targetChainId) {
                 CHAIN.WALLET.switchRPCSettings(targetChainId);
+				// 建议替换成 导航栏 内 切换网络提示
             }
         
             var auctionAddress = contractSetting['auction_contract'][chainId].address;
