@@ -79,14 +79,14 @@
 				<div class="modify-ipt contentbox" v-if="isshowicon">
 					<img src="./images/WalletConnect.png" alt="">
 					<span class="walletname">WalletConnect：</span>
-					<span class="modify-ipt-tit addressfs">{{walletIdvue}}</span>
-					<div class="h5showaddress">{{walletIdvue}}</div>
+					<span class="modify-ipt-tit addressfs">{{walletIdvue ? walletIdvue : 'null'}}</span>
+					<div class="h5showaddress">{{walletIdvue ? walletIdvue : 'null'}}</div>
 				</div>
 				<div class="modify-ipt contentbox" v-else>
 					<img src="./images/Metamask.png" alt="">
 					<span class="walletname">Metamask：</span>
-					<span class="modify-ipt-tit addressfs">{{walletIdvue}}</span>
-					<div class="h5showaddress">{{walletIdvue}}</div>
+					<span class="modify-ipt-tit addressfs">{{walletIdvue ? walletIdvue : 'null'}}</span>
+					<div class="h5showaddress">{{walletIdvue ? walletIdvue : 'null'}}</div>
 				</div>
 				<div class="modify-tips">
 					<span class="modify-tips-content" v-if="tipscon && status == 1">{{tipscon}}</span>

@@ -212,36 +212,37 @@ function updateWalletStatus() {
 						} else if (walletId) {
 							displayWalletStatus(2, account);
 						} else if (account.length) {
-							var hintMessage = "您的賬戶未綁定錢包，是否綁定當前錢包？\n當前錢包地址: " + account[0] + " \n賬戶綁定地址: " + res.data.address;
-							if (window.confirm(hintMessage)) {
-								var data = {
-									address: account[0],
-									walletType: 'METAMASK'
-								}
+							displayWalletStatus(1, account);
+							// var hintMessage = "您的賬戶未綁定錢包，是否綁定當前錢包？\n當前錢包地址: " + account[0] + " \n賬戶綁定地址: " + res.data.address;
+							// if (window.confirm(hintMessage)) {
+							// 	var data = {
+							// 		address: account[0],
+							// 		walletType: 'METAMASK'
+							// 	}
 
-								$.ajax({
-									url: base_url + '/v2/user/wallet/bind',
-									type: 'POST',
-									contentType: 'application/json',
-									dataType: 'json',
-									data: JSON.stringify(data),
-									success: function (res1) {
-										if (res1.code == 0) {
-											displayWalletStatus(0, account);
-										} else {
-											displayWalletStatus(1, account);
-										}
+							// 	$.ajax({
+							// 		url: base_url + '/v2/user/wallet/bind',
+							// 		type: 'POST',
+							// 		contentType: 'application/json',
+							// 		dataType: 'json',
+							// 		data: JSON.stringify(data),
+							// 		success: function (res1) {
+							// 			if (res1.code == 0) {
+							// 				displayWalletStatus(0, account);
+							// 			} else {
+							// 				displayWalletStatus(1, account);
+							// 			}
 				
-									},
-									error: function (res1) {
-										setCookie('isConnect', false);
-										displayWalletStatus(1, account);
-										window.alert('網絡錯誤，無法獲取賬戶信息');
-									}
-								});
-							} else {
-								displayWalletStatus(2, account);
-							}
+							// 		},
+							// 		error: function (res1) {
+							// 			setCookie('isConnect', false);
+							// 			displayWalletStatus(1, account);
+							// 			window.alert('網絡錯誤，無法獲取賬戶信息');
+							// 		}
+							// 	});
+							// } else {
+							// 	displayWalletStatus(2, account);
+							// }
 						} else {
 							setCookie('isConnect',false);
 							displayWalletStatus(2, account);
