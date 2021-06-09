@@ -469,7 +469,8 @@ var app = new Vue({
 						}
 					})
 				} else if (value == '充值') {
-					window.open('mywallet.html');
+					// window.open('mywallet.html');
+					window.location.href = 'mywallet.html?isframe=true';
 				} else if (value == '去我的資產核對') {
 					window.location.href = 'myassets.html';
 				}

@@ -37,7 +37,9 @@ function safeCharge(res, accounts) {
 					window.alert('網絡錯誤，無法獲取賬戶信息');
 				}
 			})
-		} else {}
+		} else {
+			loadingHide();
+		}
 	} else {
 		loadingHide();
 		_charge(res, accounts);
@@ -78,7 +80,8 @@ function _charge(res, accounts) {
 											tips('請耐心等待');
 
 											setTimeout(function () {
-												window.location.reload();
+												panduan();
+												// window.location.reload();
 											}, 1500)
 										}, 1800);
 									}).on('receipt', function (receipt) {
@@ -90,7 +93,6 @@ function _charge(res, accounts) {
 						} else {
 
 							tips('餘額不足');
-
 						}
 					});
 
@@ -100,7 +102,6 @@ function _charge(res, accounts) {
 }
 
 $(function () {
-
 	var web3 = new Web3(CHAIN.WALLET.provider());
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
@@ -137,6 +138,7 @@ $(function () {
 					$('.metamask-wallet').hide();
 					$('.connect-wallet-nothing').show();
 					$('.walletconnect-wallet .wallet-address').text('---');
+					$(".nowallet-wallet").show();
 				}
 			} else {
 				$(".nowallet-wallet").show();
@@ -248,4 +250,18 @@ $(function () {
 					})
 		}
 	});
+
+	var url = window.location.search;
+	url = url.substring(url.lastIndexOf('?')+1);
+	if (url == "isframe=true") {
+		addFund();
+		$('.modify').fadeIn();
+	}
 })
+function  panduan() {
+	var url = window.location.search;
+	url = url.substring(url.lastIndexOf('?')+1);
+	if (url == "isframe=true") {
+		window.location.search = "";
+	}
+}
