@@ -70,14 +70,15 @@ function _charge(res, accounts) {
 
 						if (Number(res2) >= Number(num)) {
 							setTimeout(function () {
+								success('充值已發起,期間請勿更換錢包防止誤充', 3000);
 								busdContractInstance.methods.transfer(cwallet, num).send({ //转账
 										from: accounts[0]
 									})
 									.on('transactionHash', function (hash) {
 										console.log(['hash', hash]);
-										success('充值已發起,期間請勿更換錢包防止誤充', 1800);
+										//success('充值已發起,期間請勿更換錢包防止誤充', 1800);
 										setTimeout(function () {
-											tips('請耐心等待');
+											tips('充值已成功');
 
 											setTimeout(function () {
 												panduan();
