@@ -135,6 +135,9 @@ var app = new Vue({
 		},
 		getOnSellToken() {
 			let self = this
+			if (!self.tokenLimits) {
+				return false
+			}
 			self.auctionContractInstance.methods.getOnSellToken().call().then(arr => {
 				for (let i = 0; i < arr.length; i++) {
 					for (let j = 0; j < self.tokenLimits.length; j++) {
@@ -152,8 +155,7 @@ var app = new Vue({
 						self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr.length)).send({
 							from: accounts[0]
 						}).on('transactionHash', function (hash) {
-							console.log(['hash', hash]);
-							success('充值成功', 1800);
+							success('购买成功', 1800);
 							setTimeout(function () {
 								tips('預計10秒內到賬');
 
