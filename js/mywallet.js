@@ -137,6 +137,7 @@ $(function () {
 					$('.metamask-wallet').hide();
 					$('.connect-wallet-nothing').show();
 					$('.walletconnect-wallet .wallet-address').text('---');
+					$(".nowallet-wallet").show();
 				}
 			} else {
 				$(".nowallet-wallet").show();
