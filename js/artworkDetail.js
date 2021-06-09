@@ -469,7 +469,11 @@ var app = new Vue({
 						}
 					})
 				} else if (value == '充值') {
-					window.open('mywallet.html');
+					// window.open('mywallet.html');
+					window.location.href='mywallet.html';
+					setTimeout(() => {
+						alert("1111");
+					}, 300);
 				} else if (value == '去我的資產核對') {
 					window.location.href = 'myassets.html';
 				}
