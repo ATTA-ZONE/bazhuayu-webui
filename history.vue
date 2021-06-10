@@ -88,6 +88,10 @@
                 已轉移至地址：
                 <span class="desc-info-address">{{ item.to }}</span>
               </div>
+              <div>
+                Transaction hash：
+                <span class="desc-info-address">{{ item.hash }}</span>
+              </div>
             </div>
           </div>
           <div class="history-line"></div>
@@ -296,7 +300,7 @@ module.exports = {
   font-size: 16px;
 }
 .desc-address {
-  width: 500px;
+  width: 550px;
 }
 .desc-info-address {
   color: #9567ff;
