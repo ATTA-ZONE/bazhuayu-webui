@@ -244,7 +244,6 @@ function updateWalletStatus() {
 							// 	displayWalletStatus(2, account);
 							// }
 						} else {
-							setCookie('isConnect',false);
 							displayWalletStatus(2, account);
 						}
 					})
