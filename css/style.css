@@ -3106,7 +3106,7 @@ html {
 }
 .copybtn{
 	position: absolute;
-	right: 0;
+	right: -8px;
 	bottom: 0;
 	cursor: pointer;
 }
