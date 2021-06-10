@@ -80,6 +80,7 @@ var app = new Vue({
 						basicId: self.basicId
 					},
 					success: function (res) {
+						loading();
 						self.tokenLimits = res.data.tokenLimit
 						self.authUser()
 					}
@@ -94,19 +95,27 @@ var app = new Vue({
 			var busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
 			busdContractInstance.methods.allowance(self.userAddress, self.auctionAddress).call()
 				.then(function (res) {
-					var web3 = new Web3(CHAIN.WALLET.provider())
-					if (res < Number(self.busdPrice)) {
-						var num = web3.utils.toWei('999999999999999', 'ether');
-						//发起授权
-						busdContractInstance.methods.approve(self.auctionAddress, num).send({
-								from: self.userAddress
-							})
-							.then(function () {
+					loadingHide()
+					busdContractInstance.methods.balanceOf(self.userAddress).call().then(balancePrice =>{
+						console.log(web3.utils.fromWei(balancePrice, 'ether'));
+						console.log(self.busdPrice);
+						if (web3.utils.fromWei(balancePrice, 'ether') < Number(self.busdPrice)) {
+							tips('钱包余额不足');
+						} else {
+							if (res < Number(self.busdPrice)) {
+								var num = web3.utils.toWei('999999999999999', 'ether');
+								//发起授权
+								busdContractInstance.methods.approve(self.auctionAddress, num).send({
+										from: self.userAddress
+									})
+									.then(function () {
+										self.getOnSellToken()
+									});
+							} else {
 								self.getOnSellToken()
-							});
-					} else {
-						self.getOnSellToken()
-					}
+							}
+						}
+					})
 				})
 		},
 		initAddress() {
@@ -124,11 +133,10 @@ var app = new Vue({
 				})
 			CHAIN.WALLET.chainId()
 				.then(function (res) {
+					let id = ''
 					self.chainId = web3.utils.hexToNumber(res);
-					if (self.chainId != targetChainId) {
-						CHAIN.WALLET.switchRPCSettings(targetChainId);
-					}
-					self.auctionAddress = contractSetting['vending_machine'][self.chainId].address; //网络切换
+					id = web3.utils.hexToNumber(res);
+					self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
 					var auctionABI = contractSetting['vending_machine']['abi'];
 					self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
 				})
@@ -158,7 +166,6 @@ var app = new Vue({
 							success('购买成功', 1800);
 							setTimeout(function () {
 								tips('預計10秒內到賬');
-
 								setTimeout(function () {
 									window.location.reload();
 								}, 1500)

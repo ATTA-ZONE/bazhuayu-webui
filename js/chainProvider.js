@@ -305,8 +305,8 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 						chainId: RPCSetting[chainId]['CHAIN_ID_HEX'],
 						chainName: RPCSetting[chainId]['CHAIN_NAME'],
 						nativeCurrency:{
-							name: RPCSetting[chainId]['symbol'],
-							symbol: RPCSetting[chainId]['symbol'],
+							name: RPCSetting[chainId]['SYMBOL'],
+							symbol: RPCSetting[chainId]['SYMBOL'],
 							decimals: 18},
 							rpcUrls: [RPCSetting[chainId]['RPC_URL']],
 							blockExplorerUrls:[RPCSetting[chainId]['ETHERSCAN_URL']]
