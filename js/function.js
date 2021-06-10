@@ -161,7 +161,7 @@ function addFund(){
 		.then(function(account){
 			var html = ``;
 			html += `<div class="modify-ipt-add">
-						<div class="modify-ipt-tit">`+(account.length == 0?'請連接錢包':'From '+account[0])+`</div>
+						<div class="modify-ipt-tit" id="testcopy">`+(account.length == 0?'請連接錢包':'From '+account[0])+`<img class="copybtn" src="./images/copyicon.png" onclick="copyaddressbtn()"/></div>
 						<input type="text" placeholder="輸入金額" />
 					</div>`;
 					
