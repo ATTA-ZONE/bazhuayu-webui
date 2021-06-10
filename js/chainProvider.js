@@ -419,8 +419,8 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 						th1.__provider = new WalletConnectProvider({ 
 							rpc:{
 								1: RPCSetting[1]['RPC_URL'],
-								3: RPCSetting[1]['RPC_URL'],
-								4: RPCSetting[1]['RPC_URL'],
+								3: RPCSetting[3]['RPC_URL'],
+								4: RPCSetting[4]['RPC_URL'],
 								56: RPCSetting[56]['RPC_URL'],
 								97: RPCSetting[97]['RPC_URL'],
 								128: RPCSetting[128]['RPC_URL'],
@@ -446,9 +446,10 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 						await oldWallet.__disconnect();
 					}
 
-					if (th1.provider()) {
-						await th1.__disconnect();
-					}
+					await th1.__disconnect();
+
+					console.log('__connectInit2.5', th1.__provider);
+					
 
 					var res = await th1.__enable();
 					th1.__initListener();
@@ -517,11 +518,11 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				__disconnect: async function() {
 					//var th=W.CHAIN.WALLET;
 					var th1=W.CHAIN.WALLET.WalletConnect;
-					//setCookie(th.__wallet__, '')
-					if (th1.provider()) {
-						await th1.provider().disconnect();
-						th1.__provider = null;
-					}
+					// setCookie(th.__wallet__, '');
+					th1.provider().disconnect();
+					// await th1.provider().disconnect();
+					th1.__provider = null;
+					
 				}
 			},
 		},
