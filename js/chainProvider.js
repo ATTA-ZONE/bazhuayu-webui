@@ -519,7 +519,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					//var th=W.CHAIN.WALLET;
 					var th1=W.CHAIN.WALLET.WalletConnect;
 					// setCookie(th.__wallet__, '');
-					th1.provider().disconnect();
+					await th1.provider().disconnect();
 					// await th1.provider().disconnect();
 					th1.__provider = null;
 					
