@@ -18,6 +18,15 @@ function linksuccessful(walletId) {
 
 
 function connectInit(walletname) {
+	CHAIN.WALLET.disconnect();
+
+    var sleep = function(time) {
+        var startTime = new Date().getTime() + parseInt(time, 10);
+        while(new Date().getTime() < startTime) {}
+    };
+
+    sleep(1000); // 延时函数，单位ms
+
 	CHAIN.WALLET.connect(walletname)
 		.then(function (accounts) {
 			if (accounts) {
