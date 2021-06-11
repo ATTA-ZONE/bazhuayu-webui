@@ -1,4 +1,11 @@
 //banner progress
+var chEnText;
+// 语言类型默认中文
+var languageType = 'ch';
+$.getJSON("js/chEnText.json",function(res){
+	console.log(res);
+	chEnText = res;
+})
 var t1,t2,t3,t4;
 function progress(second){
 	t1 = setInterval(function(){

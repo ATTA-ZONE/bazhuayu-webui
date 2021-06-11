@@ -1,3 +1,5 @@
+var mywalletText = chEnText.mywallet[languageType];
+console.log(mywalletText);
 function safeCharge(res, accounts) {
 	loading();
 	if (res.data.address != accounts[0]) {
@@ -103,6 +105,7 @@ function _charge(res, accounts) {
 }
 
 $(function () {
+	console.log(chEnText);
 	var web3 = new Web3(CHAIN.WALLET.provider());
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
