@@ -1,5 +1,9 @@
 //banner progress
 var chEnText;
+// 定义全局的html文案变量
+var chEnTextHtml;
+// 定义全局的html最外层的id
+var htmlId = "app";
 // 语言类型默认中文
 var languageType = 'en';
 $.getJSON("js/chEnText.json",function(res){

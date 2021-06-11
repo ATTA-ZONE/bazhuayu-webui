@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<script src="./js/es6Proxy.js"></script>
+<body>
+  <div id="app">
+    姓名：{{name}}
+    <br> 年龄：{{age}}
+  </div>
+</body>
+<script>
+  let el = document.getElementById('app');
+  let template = el.innerHTML;
+  let _data = {
+    name: '_BuzzLy',
+    age: 25
+  };
+  let data = new Proxy(_data, {
+    set:function(obj, name, value) {
+      obj[name] = value;
+      render();
+    }
+  });
+  
+  render();
+
+  function render() {
+    el.innerHTML = template.replace(/\{\{\w+\}\}/g, function(str) {
+      str = str.substring(2, str.length - 2);
+      return _data[str];
+    });
+  }
+</script>
+</html>
