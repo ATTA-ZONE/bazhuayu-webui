@@ -411,10 +411,10 @@ var chEnText = {
       "tips04":"修改成功"
     },
     "en":{
-      "tips01":"密碼不能為空",
-      "tips02":"密碼長度不能低於8",
-      "tips03":"兩次密碼不相等",
-      "tips04":"修改成功"
+      "tips01":"Password can not be empty",
+      "tips02":"Password length cannot be less than 8",
+      "tips03":"The two passwords are not equal",
+      "tips04":"Successfully modified"
     }
   },
   "showwallet":{

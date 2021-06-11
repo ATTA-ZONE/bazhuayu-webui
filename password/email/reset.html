@@ -41,24 +41,24 @@
 	
 </head>
 <body>
-	<div class="sign flex">
+	<div class="sign flex" id="resetpage">
 		<div class="sign-container flex">
 			<div class="sign-form">
 				<div class="sign-close"><a href="index.html"><img src="../../images/Close.png" ></a></div>
-				<div class="sign-tit">設置密碼</div>
+				<div class="sign-tit">{{title}}</div>
 				<div class="sign-tip"></div>
 				<div class="sign-input">
 					<p>
-						<label for="pwd">輸入新密碼</label>
-						<input id="pwd" type="password" placeholder="輸入新密碼" />
+						<label for="pwd">{{psw01}}</label>
+						<input id="pwd" type="password" placeholder="{{psw01}}" />
 					</p>
 					<p>
-						<label for="newPwd">重複新密碼</label>
-						<input id="newPwd" type="password" placeholder="重複新密碼" />
+						<label for="newPwd">{{psw02}}</label>
+						<input id="newPwd" type="password" placeholder="{{psw02}}" />
 					</p>
 				</div>
 				<div class="sign-btn flex">
-					<p class="sign-btn-register"><button type="button" data-click="0">確認</button></p>
+					<p class="sign-btn-register"><button type="button" data-click="0">{{subbtn}}</button></p>
 				</div>
 			</div>
 		</div>
@@ -73,7 +73,7 @@
 				<polyline class="hsycms-alert-svggou" fill="none" stroke="#ffffff" stroke-width="2.5" points="14,25 23,34 36,18" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 		</div>
-		<div class="hsycms-model-text">注册成功</div>
+		<div class="hsycms-model-text">{{zcsuccess}}</div>
 	</div>
 	
 	<!--提示弹窗-->
@@ -84,6 +84,26 @@
 	<!-- <div class="tips"></div> -->
 	
 </body>
-<!-- <script src="./js/signup.js" type="text/javascript" charset="utf-8"></script> -->
+<script>
+	chEnTextHtml = {
+		"ch":{
+			title : "設置密碼",
+			psw01 :"輸入新密碼",
+			psw02 :"重複新密碼",
+			subbtn : "確認",
+			zcsuccess : "注册成功"
+		},
+		"en":{
+			title : "Password Setting",
+			psw01 :"New password",
+			psw02 :"Repeat your new password",
+			subbtn : "Submit",
+			zcsuccess : "registration success"
+		}
+	}
+	languageType = "ch";
+	htmlId = "resetpage";
+</script>
+<script src="./js/renderHtml.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../js/reset.js" type="text/javascript" charset="utf-8"></script>
 </html>
