@@ -208,8 +208,7 @@ function getTypeList(){
 				$('.bzy-d-head-left-mobile-list ul').append(html_mobile);
 			}
 		}
-	})
-	
+	})	
 }
 
 
@@ -224,8 +223,6 @@ function typeToggle(obj){
 	$('.bzy-e-list').html('');
 	getArtworkList(1,9,'',typeId);
 }
-
-
 
 $(function(){
 	var current = 1;

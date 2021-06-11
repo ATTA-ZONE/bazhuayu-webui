@@ -81,6 +81,7 @@ var app = new Vue({
 					},
 					success: function (res) {
 						loading();
+						$('#cryptoBtn').attr('disabled', true)
 						self.tokenLimits = res.data.tokenLimit
 						self.authUser()
 					}
@@ -97,10 +98,9 @@ var app = new Vue({
 				.then(function (res) {
 					loadingHide()
 					busdContractInstance.methods.balanceOf(self.userAddress).call().then(balancePrice =>{
-						console.log(web3.utils.fromWei(balancePrice, 'ether'));
-						console.log(self.busdPrice);
 						if (web3.utils.fromWei(balancePrice, 'ether') < Number(self.busdPrice)) {
 							tips('钱包余额不足');
+							$('#cryptoBtn').attr('disabled', false)
 						} else {
 							if (res < Number(self.busdPrice)) {
 								var num = web3.utils.toWei('999999999999999', 'ether');
@@ -156,6 +156,7 @@ var app = new Vue({
 				}
 				if (self.selectarr.length > self.visiable.length) {
 					tips('已達到最大購買數量');
+					$('#cryptoBtn').attr('disabled', false)
 					return false
 				}
 				CHAIN.WALLET.accounts()
@@ -166,6 +167,7 @@ var app = new Vue({
 							success('购买成功', 1800);
 							setTimeout(function () {
 								tips('預計10秒內到賬');
+								$('#cryptoBtn').attr('disabled', false)
 								setTimeout(function () {
 									window.location.reload();
 								}, 1500)
