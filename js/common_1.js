@@ -185,7 +185,33 @@ $(function(){
 			$('.header-dl').html(html);
 		}
 	});
+	$.ajax({
+		url:base_url + "/v2/commodity/channel/list",
+		success : function (res) {
+			if (res.code==0) {
+				let data = res.data.types;
+				let html = `<li class="${url == 'index' ? 'current' : ''}"><a class="language-tc" href="index.html">首頁</a></li>`;
+				data.forEach(item => {
+					html += `<li class="${window.location.search == '?id='+item.id ? 'current' : ''}"><a class="language-tc" href="artwork.html?id=`+item.id+`">${item.name}</a></li>`
+				});
+				html += `<li class="${url == 'auction' ? 'current' : ''}"><a class="language-tc" href="auction.html">拍賣</a></li>`;
+				$('.nav-header').html(html);
+				
+				let html_h5 = `<li><a class="language-tc" href="index.html">首頁</a></li>`;
+				data.forEach(item => {
+					html_h5 += `<li><a class="language-tc" href="artwork.html?id=`+item.id+`">${item.name}</a></li>`;
+				});
+				html_h5 += `<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a></li>
+							<li class="switchlanguage_mobile">
+								<a href="/mobile/en/index.html">EN</a>
+								<span style="margin: 0 16px;">|</span>
+								<a href="/mobile/tc/index.html">繁</a>
+							</li>`;
+				$('.moblic_h5_navbox').html(html_h5);
+			}
 
+		}
+	})
 	updateWalletStatus()
 })
 

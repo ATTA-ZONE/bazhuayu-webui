@@ -180,9 +180,9 @@ function getArtworkList(current,pageSize,name,typeId){
 
 // 获取类型
 function getTypeList(){
-	
+	let id = window.location.search.split("=")[1];
 	$.ajax({
-		url:base_url+'/v2/commodity/type/list',
+		url:base_url+`/v2/commodity/type/list?channelId=${id}`,
 		success:function(res){
 			if(res.code==0){
 				var html_pc = ``;

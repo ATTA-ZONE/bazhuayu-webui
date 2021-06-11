@@ -34,19 +34,13 @@
 			<a class="header-left-logo" href="index.html"><img src="images/Brand.png" ></a>
 			<ul class="nav-header flex">
 				<li><a class="language-tc" href="index.html">首頁</a></li>
-				<li class="current"><a class="language-tc" href="artwork.html">明星藏品</a></li>
-				<!--<li><a>Creator</a></li>-->
 				<li><a class="language-tc" href="auction.html">拍賣</a></li>
 			</ul>
 		</div>
 		<div class="header-right flex">
 			<div class="header-dl flex"></div>
 			<a class="header-right-wallet" href="javascript:void(0);" onclick="connectWallet()"></a>
-			<p class="switchlanguagebox">
-				<a href="/mobile/en/artwork.html">EN</a>
-				<span style="margin: 0 16px;">|</span>
-				<a href="/mobile/tc/artwork.html">繁</a>
-			</p>
+			<p class="switchlanguagebox"></p>
 			<!-- <div class="header-right-lan flex"><a href="/mobile/en/index.html">EN</a><span></span><a href="/mobile/tc/index.html">繁</a></div> -->
 		</div>
 		<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png" ></div>
@@ -60,16 +54,10 @@
 				<img class="menu-close" src="./images/Close.png" onclick="menuHide()" >
 			</div>
 			<!-- <div class="menu-list-con-meail none"></div> -->
-			<ul>
+			<ul class="moblic_h5_navbox">
 				<li><a class="language-tc" href="index.html">首頁</a></li>
-				<li><a class="language-tc" href="artwork.html">明星藏品</a></li>
-				<li><a class="language-tc" href="auction.html">拍賣</a></li>
 				<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a></li>
-				<li class="switchlanguage_mobile">
-					<a href="/mobile/en/artwork.html">EN</a>
-					<span style="margin: 0 16px;">|</span>
-					<a href="/mobile/tc/artwork.html">繁</a>
-				</li>
+				<li class="switchlanguage_mobile"></li>
 			</ul>
 			<!-- <div class="menu-list-con-tit-lan flex">
 				<a href="/mobile/en/index.html">EN</a>
@@ -140,5 +128,16 @@
 	<div class="tips"></div>
 </body>
 <script src="./js/artwork.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	let html = "",html_mobile = "";
+	html += `<a href='/mobile/en/artwork.html${window.location.search}'>EN</a>
+			<span style="margin: 0 16px;">|</span>
+			<a href='/mobile/tc/artwork.html${window.location.search}'>繁</a>`;
+	$(".switchlanguagebox").html(html);
+	html_mobile += `<a href='/mobile/en/artwork.html${window.location.search}'>EN</a>
+					<span style="margin: 0 16px;">|</span>
+					<a href='/mobile/tc/artwork.html${window.location.search}'>繁</a>`;
+	$(".switchlanguage_mobile").html(html_mobile);
+</script>
 
 </html>
