@@ -447,14 +447,14 @@ var chEnText = {
       "tips05":"郵箱格式不正確"
     },
     "en":{
-      "verificationEmail":"去驗證郵箱",
-      "suc":"成功",
-      "cancel":"取消",
-      "tips01":"密码请输入一致",
-      "tips02":"該郵箱已被注册，但未驗證",
-      "tips03":"該郵箱已被注册，請嘗試換一個郵箱",
-      "tips04":"當前禁止註冊",
-      "tips05":"郵箱格式不正確"
+      "verificationEmail":"To verify email",
+      "suc":"success",
+      "cancel":"cancel",
+      "tips01":"Please input the same password",
+      "tips02":"The mailbox is registered but not verified",
+      "tips03":"The mailbox has been registered. Please try another mailbox",
+      "tips04":"Registration is currently prohibited",
+      "tips05":"The mailbox format is incorrect"
     }
   },
   "upload":{
