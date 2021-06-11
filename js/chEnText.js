@@ -244,11 +244,11 @@ var chEnText = {
   "forgotPassword":{
     "ch":{
       "verificationCode":"驗證已發送到郵箱",
-      "emailErr":"驗證已發送到郵箱"
+      "emailErr":"郵箱格式錯誤"
     },
     "en":{
-      "verificationCode":"驗證已發送到郵箱",
-      "emailErr":"驗證已發送到郵箱"
+      "verificationCode":"Verification sent to mailbox",
+      "emailErr":"Email format error"
     } 
   },
   "frames":{
