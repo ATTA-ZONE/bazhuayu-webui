@@ -361,12 +361,12 @@ var chEnText = {
       "dataErr":"郵箱或密碼不能為空"
     },
     "en":{
-      "emailMgs":"該郵箱已被注册，但未驗證，去驗證郵箱",
-      "confirm":"確認",
-      "cancel":"取消",
-      "logSuc":"登入成功",
-      "logErr":"郵箱或密碼錯誤",
-      "dataErr":"郵箱或密碼不能為空"
+      "emailMgs":"The mailbox has been registered but not verified. Please verify the mailbox",
+      "confirm":"Confirmation",
+      "cancel":"cancel",
+      "logSuc":"Login successful",
+      "logErr":"Email or password error",
+      "dataErr":"Email or password cannot be empty"
     }
   },
   "myaccount":{
