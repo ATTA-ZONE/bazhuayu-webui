@@ -101,7 +101,9 @@ function getArtworkList(current,pageSize,name,typeId){
 										<div><img src="./images/t8.png"></div>
 										<span>@ATTA</span>
 									</div>
-									<div class="bzy-e-list-info-btn flex">立即購買  -></div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">立即購買  -></span>
+									</div>
 								</div>
 							</a>
 						</li>`;
@@ -120,7 +122,10 @@ function getArtworkList(current,pageSize,name,typeId){
 										<div><img src="./images/t8.png" ></div>
 										<span>@ATTA</span>
 									</div>
-									<div class="bzy-e-list-info-btn flex">立即購買  -></div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">立即購買  -></span>
+										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">拍賣未開始</span>
+									</div>
 								</div>
 							</a>
 						</li>`;
@@ -141,7 +146,10 @@ function getArtworkList(current,pageSize,name,typeId){
 										<div><img src="./images/t8.png" ></div>
 										<span>@ATTA</span>
 									</div>
-									<div class="bzy-e-list-info-btn flex">立即購買  -></div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">立即購買  -></span>
+										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">拍賣中</span>
+									</div>
 								</div>
 							</a>
 						</li>`;
@@ -158,7 +166,10 @@ function getArtworkList(current,pageSize,name,typeId){
 										<div><img src="./images/t8.png" ></div>
 										<span>@ATTA</span>
 									</div>
-									<div class="bzy-e-list-info-btn flex">立即購買  -></div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">立即購買  -></span>
+										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">拍賣已結束</span>
+									</div>
 								</div>
 							</a>
 						</li>`;
