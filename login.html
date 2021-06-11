@@ -31,19 +31,19 @@
 				<div class="tc-login-left flex"><img src="./images/Asset6.png" ></div>
 				<div class="tc-login-right flex">
 					<div class="tc-login-right-form">
-						<div class="form-tit flex"><span class="language-tc">{{chEnText[languageType].title}}</span><img class="none" src="./images/Close.png" onclick="tcHide()"></div>
+						<div class="form-tit flex"><span class="language-tc">{{title}}</span><img class="none" src="./images/Close.png" onclick="tcHide()"></div>
 						<div class="form-ipt">
 							<div class="form-ipt-email flex"><img src="./images/Email.png" ><input id="email" type="text" :placeholder="chEnText[languageType].title" /></div>
 							<div class="form-ipt-pwd flex"><img src="./images/Key.png" ><input id="pwd" type="password" :placeholder="chEnText[languageType].psw" /></div>
 						</div>
 						<div class="form-btn flex">
-							<a href="javascript:void(0);" class="form-btn-signin flex"><span type="button">{{chEnText[languageType].title}}</span></a>
+							<a href="javascript:void(0);" class="form-btn-signin flex"><span type="button">{{title}}</span></a>
 							<!--<a href="" class="form-btn-google flex"><img src="./images/Google.png" ><span type="button">Continue with Google</span></a>
 							<a href="" class="form-btn-facebook flex"><img src="./images/Facebook.png" ><span type="button">Continue with Facebook</span></a>-->
 						</div>
 						<div class="form-tip">
-							<div class="form-tip-forget"><a href="forgotPassword.html" style="color: rgba(255,255,255,0.7);">{{chEnText[languageType].wjpsw}}</a></div>
-							<div class="form-tip-account flex"><span>{{chEnText[languageType].nozh}}</span><a href="signup.html">{{chEnText[languageType].zczh}}</a></div>
+							<div class="form-tip-forget"><a href="forgotPassword.html" style="color: rgba(255,255,255,0.7);">{{wjpsw}}</a></div>
+							<div class="form-tip-account flex"><span>{{nozh}}</span><a href="signup.html">{{zczh}}</a></div>
 						</div>
 					</div>
 				</div>
@@ -56,41 +56,27 @@
 	<div class="tips"></div>
 	
 </body>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-	var app = new Vue({
-	el: '#loginpage',
-	data(){
-		return {
-			languageType:'en',
-			chEnText:{
-				"ch":{
-					title : "登入",
-					emil :"電子信箱地址*",
-					psw : "密碼*",
-					wjpsw : "忘記密碼？",
-					nozh : "還沒有帳號？",
-					zczh : "註冊新賬號"
-				},
-				"en":{
-					title : "Log in",
-					emil :"E-mail address*",
-					psw : "Password*",
-					wjpsw : "Forgot password？",
-					nozh : "Don't have an account?",
-					zczh : "Sign up now"
-				}
-			}
-		}
-	},
-	created(){
-		this.languageType = localStorage.getItem('languageType')?localStorage.getItem('languageType'):'en';
-		if(this.languageType == "en"){
-			document.title = "Log in"
-		}else{
-			document.title = "登入"
+	chEnTextHtml = {
+		"ch":{
+			title : "登入",
+			emil :"電子信箱地址*",
+			psw : "密碼*",
+			wjpsw : "忘記密碼？",
+			nozh : "還沒有帳號？",
+			zczh : "註冊新賬號"
+		},
+		"en":{
+			title : "Log in",
+			emil :"E-mail address*",
+			psw : "Password*",
+			wjpsw : "Forgot password？",
+			nozh : "Don't have an account?",
+			zczh : "Sign up now"
 		}
 	}
-});
+	languageType = "ch";
+	htmlId = "loginpage";
 </script>
+<script src="./js/renderHtml.js" type="text/javascript" charset="utf-8"></script>
 </html>
