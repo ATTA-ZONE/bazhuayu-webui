@@ -1,7 +1,7 @@
 //banner progress
 var chEnText;
 // 语言类型默认中文
-var languageType = 'ch';
+var languageType = 'en';
 $.getJSON("js/chEnText.json",function(res){
 	console.log(res);
 	chEnText = res;
