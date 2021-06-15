@@ -157,7 +157,7 @@ $(function(){
 					}
 				})
 
-	$('body').append('<div class="bsc-tips" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:9999;color:#fff;background: #9567FF;border-radius: 10px;white-space: nowrap;padding:10px 20px;">Your wallet is connected to the [variable: current blockchain net]. To use BSC on Bazhuayu,please switch to <a onclick="changenetwork()">bsc-dataseed1.ninicoin.io</a><img onclick="closeBsc" style="width: 20px;vertical-align: bottom;" src="./images/Close.png" /></div>')
+	$('body').append('<div class="bsc-tips" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:9999;color:#fff;background: #9567FF;border-radius: 10px;white-space: nowrap;padding:10px 20px;">Your wallet is connected to the [variable: current blockchain net]. To use BSC on Bazhuayu,please switch to <a onclick="changenetwork()">bsc-dataseed1.ninicoin.io</a><img onclick="closeBsc()" style="width: 20px;vertical-align: bottom;" src="./images/Close.png" /></div>')
 	
 	
 	
