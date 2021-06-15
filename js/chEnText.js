@@ -102,7 +102,8 @@ var chEnText = {
       "sellOut":"已售罄",
       "purchaseNow":"立即購買",
       "preSale":"預售",
-      "salesClosed":"銷售已結束"
+      "salesClosed":"銷售已結束",
+      "auction":"拍賣中",
     },
     "EN":{
       "noResult":"There is nothing here",
@@ -110,7 +111,8 @@ var chEnText = {
       "sellOut":"Sold out",
       "preSale":"Pre-sale",
       "purchaseNow":"Purchase Now",
-      "salesClosed":"Sold out"
+      "salesClosed":"Sold out",
+      "auction":"拍賣中"
     }
   },
   "auction":{
