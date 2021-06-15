@@ -276,7 +276,7 @@ module.exports = {
               hsycms.alert("model3");
             }, 50);
           }else{
-            tips(this.chEnTextHtml[lang].dqwmintbanhao);
+            tips(this.chEnTextHtml[this.lang].dqwmintbanhao);
             return;
           }
         } else {
@@ -310,7 +310,7 @@ module.exports = {
 							loadingHide();
               if(res.code == 0){
                 setTimeout(()=>{
-                  tips('已提交鑄造申請，請在“我的NFT”頁面查看！');
+                  tips(this.chEnTextHtml[this.lang].tipsjs1);
                 },500)
 							  setTimeout(()=>{
                   window.location.reload()
