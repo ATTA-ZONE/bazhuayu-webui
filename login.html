@@ -87,16 +87,14 @@
 	},
 	created() {
 		let self = this;
-		this.lang = getCookie("lang")?getCookie("lang"):'TC';	
-		if(this.lang == 'TC'){
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';
 		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
 		if(this.languageType == 'TC'){
 			document.title = '登入';
 		}else{
 			document.title = 'LOGIN IN';
 		}
-	},
-	methods: {}
+	}
 })
 </script>
 </html>
