@@ -74,6 +74,19 @@ function walletaddressdelete(){
 }
 
 $(function(){
+	// 中英文切换
+	$(".language-change-en").click(function(){
+		console.log(888888888888);
+		setCookie('languageType','en');
+		window.reload();
+	})
+	$(".language-change-ch").click(function(){
+		console.log(888888888888);
+		setCookie('languageType','ch');
+		window.reload();
+	})
+
+	
 	$(".headerpage").load("header.html");
 	// $(".headerpage2").load("header2.html");
 	$(".footerpage").load("footer.html");

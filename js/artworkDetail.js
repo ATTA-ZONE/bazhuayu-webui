@@ -22,11 +22,76 @@ var app = new Vue({
 			auctionContractInstance: null,
 			userAddress: '',
 			tokenLimits: [],
-			chainId: ''
+			chainId: '',
+			// 中英文切换
+			languageType:"ch",
+			chEnTextHtml:{
+				"ch":{
+					home:'首頁',
+					auction:'拍賣',
+					noConnectWallet:"未連接錢包",
+					login:"登入/註冊",
+					myaccount:"我的帳戶",
+					myorders:"我的訂單",
+					myassets:"我的資產",
+					mywallet:"我的錢包",
+					logOut:"登出",
+					version:"第1版，共150版",
+					select:"已選第",
+					versionTxt:"版",
+					price:"单价：",
+					purchaseNow:"立即購買 ->",
+					saleEnds:"銷售結束於：",
+					details:"更多信息",
+					pay:"支付",
+					paid:"您的付款金額為",
+					byCreditCard:"信用卡支付",
+					pendingPayment:"這是待付款，您的付款金額為：",
+					saveFor:"保存以備將來購買",
+					purchasing:"由於您購買的是數字作品，一經售出概不退換",
+					payment:"立即付款",
+					currentUsing:"正在使用",
+					balance:"餘額",
+					notStore:"我們不會儲存您的錢包密鑰，未經您的授權，也無法使用您電子錢包中的貨幣。",
+					regSuc:"注册成功",
+					operationFailed:"操作失败",
+				},
+				"en":{
+					home:'home',
+					auction:'AUCTION',
+					noConnectWallet:"Connect Wallet",
+					login:"Login/Sign up",
+					myaccount:"My Account",
+					myorders:"My Orders",
+					myassets:"My Assets",
+					mywallet:"My Wallet",
+					logOut:"Log out",
+					version:"Edition 1 of 150",
+					select:"Selected",
+					versionTxt:"th edition",
+					price:"Price：",
+					purchaseNow:"Purchase Now ->",
+					saleEnds:"Sale ends at：",
+					details:"Details",
+					pay:"Pay",
+					paid:"Your paid",
+					byCreditCard:"By credit card",
+					pendingPayment:"Your pending payment is：",
+					saveFor:"Save for future purchase",
+					purchasing:"Since you're purchasing a digital creation, all sales are final.",
+					currentUsing:"Current using",
+					payment:"Pay now",
+					balance:"Balance",
+					notStore:"We will not store your wallet key, nor can we use the currency in your wallet without your authorization.",
+					regSuc:"registration success",
+					operationFailed:"operation failed",
+				}
+			}
 		}
 	},
 	created() {
-		let self = this
+		let self = this;
+		this.languageType = getCookie("languageType")?getCookie("languageType"):'ch';
 		self.initMediaCss()
 		var params = window.location.search.substr(1).split('&')
 		var arr = [];

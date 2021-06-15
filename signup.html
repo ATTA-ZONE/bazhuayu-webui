@@ -66,90 +66,107 @@
 	
 </head>
 <body>
-	<div class="sign flex" id="signuppage">
-		<div class="sign-container flex">
-			<div class="sign-form">
-				<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
-				<div class="sign-tit">{{title}}</div>
-				<div class="sign-tip">{{tips}}</div>
-				<div class="sign-input">
-					<p><input id="nickname" type="text" placeholder="{{nickname}}" /></p>
-					<p>
-						<input id="email" type="text" placeholder="{{email}}" />
-						<span class="sign-check-tip"></span>
-					</p>
-					<p style="position: relative;">
-						<input id="pwd" type="password" placeholder="{{psw}}" oninput="judgepsw()"/>
-						<img style="display: none;" class="password-icon1" src="./images/refuse.png" />
-						<span style="display: none;" class="pswerror">{{pswerr}}</span>
-						<span class="sign-warn-check">{{pswrule}}</span>
-					</p>
-					<p>
-						<input id="pwd2" type="password" placeholder="{{pswagrn}}" oninput="judgepsw()"/>
-						<img style="display: none;" class="password-icon2" src="./images/refuse.png" />
-						<span class="sign-check-tip2"></span>
-					</p>
-					<p class="regType"><input id="regType" type="text" name="regType" placeholder="{{yqmcode}}"/></p>
+	<div id="signup">
+		<div class="sign flex" id="signuppage">
+			<div class="sign-container flex">
+				<div class="sign-form">
+					<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
+					<div class="sign-tit">{{chEnTextHtml[languageType].title}}</div>
+					<div class="sign-tip">{{chEnTextHtml[languageType].tips}}</div>
+					<div class="sign-input">
+						<p><input id="nickname" type="text" :placeholder="chEnTextHtml[languageType].nickname" /></p>
+						<p>
+							<input id="email" type="text" :placeholder="chEnTextHtml[languageType].email" />
+							<span class="sign-check-tip"></span>
+						</p>
+						<p style="position: relative;">
+							<input id="pwd" type="password" :placeholder="chEnTextHtml[languageType].psw" oninput="judgepsw()"/>
+							<img style="display: none;" class="password-icon1" src="./images/refuse.png" />
+							<span style="display: none;" class="pswerror">{{chEnTextHtml[languageType].pswerr}}</span>
+							<span class="sign-warn-check">{{chEnTextHtml[languageType].pswrule}}</span>
+						</p>
+						<p>
+							<input id="pwd2" type="password" :placeholder="chEnTextHtml[languageType].pswagrn" oninput="judgepsw()"/>
+							<img style="display: none;" class="password-icon2" src="./images/refuse.png" />
+							<span class="sign-check-tip2"></span>
+						</p>
+						<p class="regType"><input id="regType" type="text" name="regType" :placeholder="chEnTextHtml[languageType].yqmcode"/></p>
+					</div>
+					<div class="sign-btn flex">
+						<p class="sign-btn-register"><button type="button" data-click="0">{{chEnTextHtml[languageType].dj}}</button></p>
+					<!-- 	<p class="sign-btn-or">OR</p> 
+						<p class="sign-btn-facebook"><button type="button">Continue with Facebook</button></p>
+						<p class="sign-btn-google"><button type="button">Continue with Google</button></p> -->
+					</div>
+					<div class="sign-login sign-check">
+						<input type="checkbox" name="checkbox" id="agree">{{chEnTextHtml[languageType].me}}<a href="agreement.html">{{chEnTextHtml[languageType].userrule}}</a>{{chEnTextHtml[languageType].and}}<a href="privacy.html">{{chEnTextHtml[languageType].ysrule}}</a>
+					</div>
+					<div class="sign-login">{{chEnTextHtml[languageType].iszh}}<a href="login.html">{{chEnTextHtml[languageType].login}}</a></div>
 				</div>
-				<div class="sign-btn flex">
-					<p class="sign-btn-register"><button type="button" data-click="0">{{dj}}</button></p>
-				<!-- 	<p class="sign-btn-or">OR</p> 
-					<p class="sign-btn-facebook"><button type="button">Continue with Facebook</button></p>
-					<p class="sign-btn-google"><button type="button">Continue with Google</button></p> -->
-				</div>
-				<div class="sign-login sign-check">
-					<input type="checkbox" name="checkbox" id="agree">{{me}}<a href="agreement.html">{{userrule}}</a>{{and}}<a href="privacy.html">{{ysrule}}</a>
-				</div>
-				<div class="sign-login">{{iszh}}<a href="login.html">{{login}}</a></div>
 			</div>
 		</div>
+		
+		<div class="tips"></div>
 	</div>
 	
-	<div class="tips"></div>
-	
 </body>
-<script>
-	chEnTextHtml = {
-		"ch":{
-			title : "註冊",
-			tips:"開始收集明星NFT數字藏品。",
-			nickname:"您的暱稱（向公眾展示）",
-			email:"電子信箱地址",
-			psw:"密碼",
-			pswerr:"密碼不符合要求",
-			pswrule:"密碼至少8位，請至少包含一個大寫字母和一個小寫字母",
-			pswagrn:"再次輸入密碼",
-			yqmcode:"邀請碼",
-			dj:"登記",
-			me :"我已閱讀並同意",
-			userrule :"《用戶協議》",
-			and :"及",
-			ysrule :"《 隱私政策》",
-			iszh :"您有賬戶？",
-			login :"登 入"
-		},
-		"en":{
-			title : "Register",
-			tips:"Start collecting NFT art pieces now",
-			nickname:"Your Nickname (show on profile)",
-			email:"E-mail address",
-			psw:"Password",
-			pswerr:"Doesn't meet the requirements",
-			pswrule:"At least 8 digits, must contain one upper case letter and one lower case letter",
-			pswagrn:"Re-enter your password",
-			yqmcode:"Invitation Code",
-			dj:"Submit",
-			me :"I have read and agree to",
-			userrule :'"User Agreement"',
-			and :"  and",
-			ysrule :'"Privacy Policy"',
-			iszh :"Already have an account?",
-			login :"Log in now"
-		}
-	}
-	languageType = "ch";
-	htmlId = "signuppage";
-</script>
-<script src="./js/renderHtml.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/signup.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var app = new Vue({
+	el: '#signup',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"ch":{
+					title : "註冊",
+					tips:"開始收集明星NFT數字藏品。",
+					nickname:"您的暱稱（向公眾展示）",
+					email:"電子信箱地址",
+					psw:"密碼",
+					pswerr:"密碼不符合要求",
+					pswrule:"密碼至少8位，請至少包含一個大寫字母和一個小寫字母",
+					pswagrn:"再次輸入密碼",
+					yqmcode:"邀請碼",
+					dj:"登記",
+					me :"我已閱讀並同意",
+					userrule :"《用戶協議》",
+					and :"及",
+					ysrule :"《 隱私政策》",
+					iszh :"您有賬戶？",
+					login :"登 入"
+				},
+				"en":{
+					title : "Register",
+					tips:"Start collecting NFT art pieces now",
+					nickname:"Your Nickname (show on profile)",
+					email:"E-mail address",
+					psw:"Password",
+					pswerr:"Doesn't meet the requirements",
+					pswrule:"At least 8 digits, must contain one upper case letter and one lower case letter",
+					pswagrn:"Re-enter your password",
+					yqmcode:"Invitation Code",
+					dj:"Submit",
+					me :"I have read and agree to",
+					userrule :'"User Agreement"',
+					and :"  and",
+					ysrule :'"Privacy Policy"',
+					iszh :"Already have an account?",
+					login :"Log in now"
+				}
+			},
+			languageType:''
+		}
+	},
+	created() {
+		let self = this;
+		this.languageType = getCookie("languageType")?getCookie("languageType"):'ch';	
+		if(this.languageType == 'ch'){
+			document.title = '註冊';
+		}else{
+			document.title = 'REGISTER';
+		}
+	},
+	methods: {}
+})
+</script>
 </html>
