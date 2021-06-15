@@ -84,7 +84,7 @@ $(function(){
 		window.location.href=window.location.href;
 	})
 
-	languageType = getCookie('lang')?getCookie('lang'):'TC'
+	lang = getCookie('lang')?getCookie('lang'):'TC'
 	
 	$(".headerpage").load("header.html");
 	// $(".headerpage2").load("header2.html");

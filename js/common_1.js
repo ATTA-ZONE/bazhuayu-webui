@@ -68,7 +68,7 @@ function headIconHide(){
 	$('video').removeClass('video-hidden');
 }
 
-languageType = getCookie('lang')?getCookie('lang'):'TC'
+lang = getCookie('lang')?getCookie('lang'):'TC'
 
 function walletaddressreplace(){
 	window.location.href = 'connectWallet.html';
