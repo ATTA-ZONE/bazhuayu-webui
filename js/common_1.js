@@ -67,6 +67,9 @@ function headIconHide(){
 	$('.menu-list2').removeClass('menu-list-show');
 	$('video').removeClass('video-hidden');
 }
+
+languageType = getCookie('lang')?getCookie('lang'):'TC'
+
 function walletaddressreplace(){
 	window.location.href = 'connectWallet.html';
 }
@@ -91,11 +94,11 @@ $(function(){
 	
 	// 中英文切换
 	$(".language-change-en").click(function(){
-		setCookie('languageType','en');
+		setCookie('lang','EN');
 		window.location.href=window.location.href; 
 	})
 	$(".language-change-ch").click(function(){
-		setCookie('languageType','ch');
+		setCookie('lang','TC');
 		window.location.href=window.location.href;
 	})
 	$(".headerpage").load("header.html");

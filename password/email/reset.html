@@ -114,8 +114,8 @@
 	},
 	created() {
 		let self = this;
-		this.languageType = getCookie("languageType")?getCookie("languageType"):'ch';	
-		if(this.languageType == 'ch'){
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
 			document.title = '設置密碼';
 		}else{
 			document.title = 'PASSWORD SETTING';

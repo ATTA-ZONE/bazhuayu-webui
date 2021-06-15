@@ -24,9 +24,9 @@ var app = new Vue({
 			tokenLimits: [],
 			chainId: '',
 			// 中英文切换
-			languageType:"ch",
+			languageType:"",
 			chEnTextHtml:{
-				"ch":{
+				"TC":{
 					home:'首頁',
 					auction:'拍賣',
 					noConnectWallet:"未連接錢包",
@@ -56,7 +56,7 @@ var app = new Vue({
 					regSuc:"注册成功",
 					operationFailed:"操作失败",
 				},
-				"en":{
+				"EN":{
 					home:'home',
 					auction:'AUCTION',
 					noConnectWallet:"Connect Wallet",
@@ -91,7 +91,7 @@ var app = new Vue({
 	},
 	created() {
 		let self = this;
-		this.languageType = getCookie("languageType")?getCookie("languageType"):'ch';
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';
 		self.initMediaCss()
 		var params = window.location.search.substr(1).split('&')
 		var arr = [];

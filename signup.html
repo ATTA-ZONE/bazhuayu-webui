@@ -117,7 +117,7 @@
 	data: function () {
 		return {
 			chEnTextHtml: {
-				"ch":{
+				"TC":{
 					title : "註冊",
 					tips:"開始收集明星NFT數字藏品。",
 					nickname:"您的暱稱（向公眾展示）",
@@ -135,7 +135,7 @@
 					iszh :"您有賬戶？",
 					login :"登 入"
 				},
-				"en":{
+				"EN":{
 					title : "Register",
 					tips:"Start collecting NFT art pieces now",
 					nickname:"Your Nickname (show on profile)",
@@ -159,8 +159,8 @@
 	},
 	created() {
 		let self = this;
-		this.languageType = getCookie("languageType")?getCookie("languageType"):'ch';	
-		if(this.languageType == 'ch'){
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
 			document.title = '註冊';
 		}else{
 			document.title = 'REGISTER';

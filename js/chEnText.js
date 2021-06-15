@@ -1,6 +1,6 @@
 var chEnText = {
   "mywallet":{
-    "ch":{
+    "TC":{
       "walletAddress":"當前綁定錢包地址：",
       "rechargeDataNull":"無法獲取充值信息",
       "httpError":"網絡錯誤，無法獲取賬戶信息",
@@ -19,7 +19,7 @@ var chEnText = {
       "startTopUp":"充值已發起,期間請勿更換錢包防止誤充",
       "rechargeSuc":"充值已成功"
     },
-    "en":{
+    "EN":{
       "walletAddress":"當前綁定錢包地址：",
       "rechargeDataNull":"無法獲取充值信息",
       "httpError":"網絡錯誤，無法獲取賬戶信息",
@@ -40,7 +40,7 @@ var chEnText = {
     }
   },
   "myOrders":{
-    "ch":{
+    "TC":{
       "myWallt":"去我的資產核對",
       "confirm":"確認",
       "cancel":"取消",
@@ -66,51 +66,53 @@ var chEnText = {
       "toAssets":"去我的資產核對",
       "balancePayment":"餘額支付"
     },
-    "en":{
-      "myWallt":"去我的資產核對",
-      "confirm":"確認",
-      "cancel":"取消",
-      "noResults":"暫無搜索結果",
-      "buyDate":"購買日期：",
-      "number":"訂單號 # ",
-      "purchased":"已購第",
-      "version01":"版，共",
-      "version02":"版",
-      "paymentMethod":"支付方式：",
-      "cryptocurrencies":"加密貨幣",
-      "price":"單價：",
-      "purchasePrice":"購買價格 : ",
-      "bankCard":"銀行卡支付",
-      "balanceInsufficient":"餘額不足",
-      "paySuc":"支付成功",
-      "payErr":"支付失敗",
-      "cardAuthorization":"您的信用卡將被立即授權",
-      "recharge":"充值",
-      "payment":"立即付款",
-      "walletImpower":"您的錢包將立即得到授權",
-      "accomplis":"完成",
-      "toAssets":"去我的資產核對",
-      "balancePayment":"餘額支付"
+    "EN":{
+      "myWallt":"Go check my assets",
+      "confirm":"confirm",
+      "cancel":"cancel",
+      "noResults":"There is nothing here",
+      "buyDate":"Purchase time：",
+      "number":"Order number # ",
+      "purchased":"Purchased edition",
+      "version01":" of ",
+      "version02":"",
+      "paymentMethod":"Payment method：",
+      "cryptocurrencies":"Crypto wallet",
+      "price":"Price：",
+      "purchasePrice":"Purchase price: ",
+      "bankCard":"Bank card payment",
+      "balanceInsufficient":"Insufficient balance",
+      "paySuc":"Payment successful",
+      "payErr":"Payment failed",
+      "cardAuthorization":"Your credit card will be authorized immediately",
+      "recharge":"Recharge",
+      "payment":"Immediate payment",
+      "walletImpower":"Your wallet will be authorized immediately",
+      "accomplis":"complete",
+      "toAssets":"Go check my assets",
+      "balancePayment":"Balance payment"
     }
   },
   "artwork":{
-    "ch":{
+    "TC":{
       "noResult":"暫無搜索結果",
       "xdd":"徐冬冬 牛N.X潮玩 NFT限量版",
       "sellOut":"已售罄",
       "purchaseNow":"立即購買",
+      "preSale":"預售",
       "salesClosed":"銷售已結束"
     },
-    "en":{
-      "noResult":"暫無搜索結果",
-      "xdd":"徐冬冬 牛N.X潮玩 NFT限量版",
-      "sellOut":"已售罄",
-      "purchaseNow":"立即購買",
-      "salesClosed":"銷售已結束"
+    "EN":{
+      "noResult":"There is nothing here",
+      "xdd":"Xu Dongdong Ox N.X Designer Toy NFT Limited Edition",
+      "sellOut":"Sold out",
+      "preSale":"Pre-sale",
+      "purchaseNow":"Purchase Now",
+      "salesClosed":"Sold out"
     }
   },
   "auction":{
-    "ch":{
+    "TC":{
       "haveBid":"我的出價",
       "bid":"報價不能低於初始出價",
       "startingPrice":"拍賣開始時間：",
@@ -127,7 +129,7 @@ var chEnText = {
       "address02":"當前頁面的競拍記錄以當前連接的錢包為準，如果您使用了其他錢包參與競拍，可以切換至其他錢包查看競拍記錄。",
       "walletLose":"錢包連接已失效，請重新連接錢包"
     },
-    "en":{
+    "EN":{
       "haveBid":"我的出價",
       "bid":"報價不能低於初始出價",
       "startingPrice":"拍賣開始時間：",
@@ -146,7 +148,7 @@ var chEnText = {
     }
   },
   "auctionPayment":{
-    "ch":{
+    "TC":{
       "walletLose":"錢包連接已失效，請重新連接錢包",
       "hintMessage0101":"您的賬戶未綁定地址，點擊確定會為您自動綁定當前錢包地址\n基於區塊鏈的獨立性，即使不綁定您仍然可以參與競拍\n當前錢包地址: ",
       "hintMessage0102":" \n賬戶綁定地址: null",
@@ -163,7 +165,7 @@ var chEnText = {
       "youPrice":"您的競標價格為",
       "payAddress":"付費地址："
     },
-    "en":{
+    "EN":{
       "walletLose":"錢包連接已失效，請重新連接錢包",
       "hintMessage0101":"您的賬戶未綁定地址，點擊確定會為您自動綁定當前錢包地址\n基於區塊鏈的獨立性，即使不綁定您仍然可以參與競拍\n當前錢包地址: ",
       "hintMessage0102":" \n賬戶綁定地址: null",
@@ -182,7 +184,7 @@ var chEnText = {
     } 
   },
   "common":{
-    "ch":{
+    "TC":{
       "logOutMes":"你確定要登出嗎",
       "suc":"成功",
       "cancel":"取消",
@@ -195,7 +197,7 @@ var chEnText = {
       "connectWallet":"已連接錢包",
       "noConnectWallet":"未連接錢包"
     },
-    "en":{
+    "EN":{
       "logOutMes":"你確定要登出嗎",
       "suc":"成功",
       "cancel":"取消",
@@ -210,7 +212,7 @@ var chEnText = {
     }
   },
   "connectWallet":{
-    "ch":{
+    "TC":{
       "logWtllet":"您成功登記了一個錢包",
       "connectWallet":"請連接錢包",
       "walletAddress":"錢包地址：",
@@ -225,7 +227,7 @@ var chEnText = {
       "unableGet":"無法獲取錢包信息",
       "alert":"請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。"
     },
-    "en":{
+    "EN":{
       "logWtllet":"您成功登記了一個錢包",
       "connectWallet":"請連接錢包",
       "walletAddress":"錢包地址：",
@@ -242,23 +244,23 @@ var chEnText = {
     }
   },
   "forgotPassword":{
-    "ch":{
+    "TC":{
       "verificationCode":"驗證已發送到郵箱",
       "emailErr":"郵箱格式錯誤"
     },
-    "en":{
+    "EN":{
       "verificationCode":"Verification sent to mailbox",
       "emailErr":"Email format error"
     } 
   },
   "frames":{
-    "ch":{
+    "TC":{
       "number":"卡號",
       "validCardNumber":"請輸入有效的卡號",
       "validDate":"請輸入有效的到期日期",
       "validCvv":"請輸入有效的cvv程式碼"
     },
-    "en":{
+    "EN":{
       "number":"卡號",
       "validCardNumber":"請輸入有效的卡號",
       "validDate":"請輸入有效的到期日期",
@@ -266,7 +268,7 @@ var chEnText = {
     }
   },
   "function":{
-    "ch":{
+    "TC":{
       "passWord":"密碼至少8位，請至少包含一個大寫字母和一個小寫字母",
       "recharge":"充值",
       "nowRecharge":"立即充值",
@@ -308,7 +310,7 @@ var chEnText = {
       "noConnectWallet":"未連接錢包",
       "noLog":"未登錄，請登入"
     },
-    "en":{
+    "EN":{
       "passWord":"密碼至少8位，請至少包含一個大寫字母和一個小寫字母",
       "recharge":"充值",
       "nowRecharge":"立即充值",
@@ -352,7 +354,7 @@ var chEnText = {
     }
   },
   "login":{
-    "ch":{
+    "TC":{
       "emailMgs":"該郵箱已被注册，但未驗證，去驗證郵箱",
       "confirm":"確認",
       "cancel":"取消",
@@ -360,7 +362,7 @@ var chEnText = {
       "logErr":"郵箱或密碼錯誤",
       "dataErr":"郵箱或密碼不能為空"
     },
-    "en":{
+    "EN":{
       "emailMgs":"The mailbox has been registered but not verified. Please verify the mailbox",
       "confirm":"Confirmation",
       "cancel":"cancel",
@@ -370,33 +372,33 @@ var chEnText = {
     }
   },
   "myaccount":{
-    "ch":{
+    "TC":{
       "nick":"當前暱稱：",
       "nickUnNull":"昵稱不能為空",
       "editSuc":"修改成功"
     },
-    "en":{
+    "EN":{
       "nick":"當前暱稱：",
       "nickUnNull":"昵稱不能為空",
       "editSuc":"修改成功"
     }
   },
   "myassets":{
-    "ch":{
+    "TC":{
       "tables":["我的藏品","我的NFT","NFT操作記錄"]
     },
-    "en":{
+    "EN":{
       "tables":["我的藏品","我的NFT","NFT操作記錄"]
     }
   },
   "mywalletCard":{
-    "ch":{
+    "TC":{
       "number":"卡號",
       "validCardNumber":"請輸入有效的卡號",
       "validDate":"請輸入有效的到期日期",
       "validCvv":"請輸入有效的cvv程式碼"
     },
-    "en":{
+    "EN":{
       "number":"卡號",
       "validCardNumber":"請輸入有效的卡號",
       "validDate":"請輸入有效的到期日期",
@@ -404,13 +406,13 @@ var chEnText = {
     } 
   },
   "reset":{
-    "ch":{
+    "TC":{
       "tips01":"密碼不能為空",
       "tips02":"密碼長度不能低於8",
       "tips03":"兩次密碼不相等",
       "tips04":"修改成功"
     },
-    "en":{
+    "EN":{
       "tips01":"Password can not be empty",
       "tips02":"Password length cannot be less than 8",
       "tips03":"The two passwords are not equal",
@@ -418,7 +420,7 @@ var chEnText = {
     }
   },
   "showwallet":{
-    "ch":{
+    "TC":{
       "bindWallt":"當前綁定錢包地址如下：",
       "NFTWallt":"當前購買的所有NFT資產將會默認發送至以上錢包地址",
       "change":"更換",
@@ -426,7 +428,7 @@ var chEnText = {
       "cancel":"取消",
       "deleteSuc":"删除成功"
     },
-    "en":{
+    "EN":{
       "bindWallt":"當前綁定錢包地址如下：",
       "NFTWallt":"當前購買的所有NFT資產將會默認發送至以上錢包地址",
       "change":"更換",
@@ -436,7 +438,7 @@ var chEnText = {
     }
   },
   "signup":{
-    "ch":{
+    "TC":{
       "verificationEmail":"去驗證郵箱",
       "suc":"成功",
       "cancel":"取消",
@@ -446,7 +448,7 @@ var chEnText = {
       "tips04":"當前禁止註冊",
       "tips05":"郵箱格式不正確"
     },
-    "en":{
+    "EN":{
       "verificationEmail":"To verify email",
       "suc":"success",
       "cancel":"cancel",
@@ -458,21 +460,21 @@ var chEnText = {
     }
   },
   "upload":{
-    "ch":{
+    "TC":{
       "tips01":"您拖的不是图片！",
       "tips02":"上传大小不能超过2M."
     },
-    "en":{
+    "EN":{
       "tips01":"您拖的不是图片！",
       "tips02":"上传大小不能超过2M."
     }
   },
   "verificationCode":{
-    "ch":{
+    "TC":{
       "tips01":"發送成功",
       "tips02":"注册成功"
     },
-    "en":{
+    "EN":{
       "tips01":"發送成功",
       "tips02":"注册成功"
     }

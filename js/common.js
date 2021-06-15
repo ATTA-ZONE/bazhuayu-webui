@@ -76,16 +76,15 @@ function walletaddressdelete(){
 $(function(){
 	// 中英文切换
 	$(".language-change-en").click(function(){
-		console.log(888888888888);
-		setCookie('languageType','en');
+		setCookie('lang','EN');
 		window.reload();
 	})
 	$(".language-change-ch").click(function(){
-		console.log(888888888888);
-		setCookie('languageType','ch');
+		setCookie('lang','TC');
 		window.reload();
 	})
 
+	languageType = getCookie('lang')?getCookie('lang'):'TC'
 	
 	$(".headerpage").load("header.html");
 	// $(".headerpage2").load("header2.html");

@@ -147,7 +147,7 @@
 	data: function () {
 		return {
 			chEnTextHtml: {
-				"ch":{
+				"TC":{
 					home:'首頁',
 					auction:'拍賣',
 					noConnectWallet:"未連接錢包",
@@ -161,7 +161,7 @@
 					search:"搜索...",
 					moreThan:"加载更多"
 				},
-				"en":{
+				"EN":{
 					home:'home',
 					auction:'AUCTION',
 					noConnectWallet:"Connect Wallet",
@@ -181,8 +181,8 @@
 	},
 	created() {
 		let self = this;
-		this.languageType = getCookie("languageType")?getCookie("languageType"):'ch';	
-		if(this.languageType == 'ch'){
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
 			document.title = '明星藏品';
 		}else{
 			document.title = 'COLLECTIONS';
