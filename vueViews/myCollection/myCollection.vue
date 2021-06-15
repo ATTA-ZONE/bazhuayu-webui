@@ -24,10 +24,9 @@
           <div class="details-right-des-tit">商品描述</div>
           <div class="details-right-des" v-html="getIntroduce(item, 'desc', '暫無介紹')"></div>
           <div class="details-right-additional">
-            <p class="details-right-additional-show" @click="toggleMoreInfo(idx)" >
+            <!-- <p class="details-right-additional-show" @click="toggleMoreInfo(idx)" >
               更多信息 <span>{{ showMoreInfo == idx ? "-" : "+" }}</span>
-              <!-- <img class="minus" src="./images/Plus.png"> -->
-            </p>
+            </p> -->
             <p class="details-right-additional-more order-content" v-if="showMoreInfo == idx" v-html="getIntroduce(item, 'detail', '暫無更多資訊')"></p>
           </div>
           <div class="my-assets-right-price">
