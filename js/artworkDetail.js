@@ -136,7 +136,9 @@ var app = new Vue({
 					let id = ''
 					self.chainId = web3.utils.hexToNumber(res);
 					id = web3.utils.hexToNumber(res);
-					self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
+					if (id == targetChainId) {
+						self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
+					}
 					var auctionABI = contractSetting['vending_machine']['abi'];
 					self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
 				})

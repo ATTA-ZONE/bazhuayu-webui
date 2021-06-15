@@ -9,6 +9,7 @@ url = url.substring(0,url.indexOf('.'));
 var base_url = '';
 var islogin;
 var walletId = '';
+var targetChainId = '';
 
 if (getCookie('islogin') != 'false') {
 	islogin = true;
@@ -18,8 +19,10 @@ if (getCookie('islogin') != 'false') {
 
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	base_url = 'http://localhost:8081';
+	targetChainId = 97;
 	if (window.location.href.indexOf('47.118.74.48:') > -1) {
 		base_url = 'http://47.118.74.48:'+window.location.port;
+		targetChainId = 56;
 	}
 }
 var lang = 'TC';
@@ -74,6 +77,15 @@ function walletaddressdelete(){
 	$('.modify-tips').hide();
 	deleteWallet();
 }
+function closeBsc() {
+	$('.bsc-tips').hide()
+}
+
+function changenetwork() {
+		CHAIN.WALLET.switchRPCSettings(targetChainId).then(()=>{
+			$('.bsc-tips').hide()
+		})
+}
 
 $(function(){
 	$(".headerpage").load("header.html");
@@ -121,6 +133,21 @@ $(function(){
 			$('.modify').addClass('modify-tc-active')
 		})
 	}
+
+			CHAIN.WALLET.chainId()
+				.then(function (res) {
+					var targetChainId = '';
+					if (window.location.href.indexOf('bazhuayu.io') == -1) {
+						targetChainId = 97;
+					} else {
+						targetChainId = 56;
+					}
+					if (res != targetChainId) {
+						$('.bsc-tips').show()
+					}
+				})
+
+	$('body').append('<div class="bsc-tips" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:9999;color:#fff;background: #9567FF;border-radius: 10px;white-space: nowrap;padding:10px 20px;">Your wallet is connected to the [variable: current blockchain net]. To use BSC on Bazhuayu,please switch to <a onclick="changenetwork()">bsc-dataseed1.ninicoin.io</a><img onclick="closeBsc" style="width: 20px;vertical-align: bottom;" src="./images/Close.png" /></div>')
 	
 	
 	
@@ -239,36 +266,6 @@ function updateWalletStatus() {
 							displayWalletStatus(2, account);
 						} else if (account.length) {
 							displayWalletStatus(1, account);
-							// var hintMessage = "您的賬戶未綁定錢包，是否綁定當前錢包？\n當前錢包地址: " + account[0] + " \n賬戶綁定地址: " + res.data.address;
-							// if (window.confirm(hintMessage)) {
-							// 	var data = {
-							// 		address: account[0],
-							// 		walletType: 'METAMASK'
-							// 	}
-
-							// 	$.ajax({
-							// 		url: base_url + '/v2/user/wallet/bind',
-							// 		type: 'POST',
-							// 		contentType: 'application/json',
-							// 		dataType: 'json',
-							// 		data: JSON.stringify(data),
-							// 		success: function (res1) {
-							// 			if (res1.code == 0) {
-							// 				displayWalletStatus(0, account);
-							// 			} else {
-							// 				displayWalletStatus(1, account);
-							// 			}
-				
-							// 		},
-							// 		error: function (res1) {
-							// 			setCookie('isConnect', false);
-							// 			displayWalletStatus(1, account);
-							// 			window.alert('網絡錯誤，無法獲取賬戶信息');
-							// 		}
-							// 	});
-							// } else {
-							// 	displayWalletStatus(2, account);
-							// }
 						} else {
 							displayWalletStatus(2, account);
 						}
