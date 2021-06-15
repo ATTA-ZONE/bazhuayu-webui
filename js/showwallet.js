@@ -57,7 +57,7 @@ var app = new Vue({
 					if (res.code == 0) {
 						success('删除成功', 1800);
 						// document.cookie = "isConnect=false";
-						setcookieff("isConnect=false");
+						setCookie("isConnect",false);
 						setTimeout(function () {
 							window.location.href = 'index.html';
 						}, 1800)

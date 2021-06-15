@@ -1,15 +1,17 @@
 
 //
 var url = window.location.pathname;
-url = url.substring(url.lastIndexOf('/')+1)
+url = url.substring(url.lastIndexOf('/')+1);
 url = url.substring(0,url.indexOf('.'));
 
-// var base_url = 'http://47.118.74.48:8081';
+//var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
 var islogin;
+var walletId = ''
+
 if (getCookie('islogin') != 'false') {
-	islogin = getCookie('islogin');
+	islogin = true;
 }else{
 	islogin = false;
 }
@@ -28,20 +30,6 @@ $.ajax({
 	success:function(res){
 	}
 });
-
-
-// $.ajax({
-// 	url:base_url+'/v2/index/index',
-// 	async: false,
-// 	success:function(res){
-// 		if(res.code==0){
-// 			lang = res.data.lang;
-// 		}else{
-			
-// 		}
-// 	}
-// });
-
 
 //询问弹窗
 function logoutConfirm(){
@@ -103,44 +91,12 @@ $(function(){
 			var qrPath1=res.data.qrPath;
 			var qrPath = JSON.parse(qrPath1)[0];			
 			$(".weiboUrl").attr("href",weiboUrl);
-			$(".twitterUrl").attr("href",twitterUrl);
+			// $(".twitterUrl").attr("href",twitterUrl);
 			$(".telegramUrl").attr("href",telegramUrl);
 			$(".code-pic").attr("src",qrPath);
 		},
 		
-	})
-	
-	
-	// if(url=='index'){
-	// 	setTimeout(function(){
-	// 		$('.header-left ul li').removeClass('current');
-	// 		$('.header-left ul li:nth-child(1)').addClass('current');
-	// 	})
-	// }else if(url=='artwork' || url=='artworkDetails'){
-	// 	setTimeout(function(){
-	// 		$('.header-left ul li').removeClass('current');
-	// 		$('.header-left ul li:nth-child(2)').addClass('current');
-	// 	})
-	// }else if(url=='auction'){
-	// 	setTimeout(function(){
-	// 		$('.header-left ul li').removeClass('current');
-	// 		$('.header-left ul li:nth-child(3)').addClass('current');
-	// 	})
-	// }else{
-	// 	setTimeout(function(){
-	// 		$('.header-left ul li').removeClass('current');
-	// 	},10)
-	// }
-	
-	// setTimeout(function(){
-	// 	if(lang=='TC'){
-	// 		$('.language-en').addClass('none');
-	// 		$('.language-tc').removeClass('none');
-	// 	}
-	// },100)
-	
-	
-	
+	})	
 	//
 	$('.bzy-d-head-right input').on('focus',function(){
 		$(this).parent().css('border','1px solid #9567FF');
@@ -196,7 +152,7 @@ $(function(){
 								
 								<span onclick="window.location.href = 'myaccount.html'">我的帳戶</span>
 								<span onclick="window.location.href = 'myorders.html'">我的訂單</span>
-								<span onclick="window.location.href = 'myassets.html'">我的藏品</span>
+								<span onclick="window.location.href = 'myassets.html'">我的資產</span>
 								<span onclick="window.location.href = 'mywallet.html'">我的錢包</span>
 								<span class="logout" onclick="logoutConfirm()">登出</span>
 							</div>`;
@@ -239,32 +195,31 @@ $(function(){
 				$('.header-right-wallet').show();
 				$('.mobile-connect-wallet').show();
 			}else if (res.code==1002 && islogin) {
-				setcookieff("islogin=false");
-				// document.cookie="islogin=false";
+				setCookie('islogin',false);
 				window.location.href = 'index.html';
 			}else{
 				$('.header-right-wallet').hide();
 				$('.mobile-connect-wallet').hide();
-				// document.cookie="isConnect=false";
-				setcookieff("isConnect=false");
+				setCookie('isConnect',false);
 			}
 		}
 	})
 
-	window.ethereum.request({ method: 'eth_accounts'}).then(function(res){
-		if (walletId == res[0]) {
-			setTimeout(() => {
-				setcookieff('isConnect=true')
-				$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
-				$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
-				
-				$('.mobile-connect-wallet,.header-right-wallet').click(function(){
-					window.location.href  = 'showwallet.html';
-				});
-			}, 300);
-		}
-	})
-	
+	if (window.ethereum) {
+		window.ethereum.request({ method: 'eth_accounts'}).then(function(res){
+			if (walletId == res[0]) {
+				setTimeout(() => {
+					setCookie('isConnect',true)
+					$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ walletId +'</p>');
+					$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ walletId +'</p>');
+					
+					$('.mobile-connect-wallet,.header-right-wallet').click(function(){
+						window.location.href  = 'showwallet.html';
+					});
+				}, 300);
+			}
+		})
+	}
 	
 	if(getCookie('isConnect')=='true'){
 		setTimeout(function(){
@@ -322,8 +277,4 @@ function showwalletaddress(e){
 	}else{
 		connectWallet();
 	}
-}
-function setcookieff(value){
-	document.cookie=value+";path=/;";
-	// document.cookie=value+";path=/;domain="+window.location.host;
 }

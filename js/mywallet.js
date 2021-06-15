@@ -1,19 +1,30 @@
 function mangeWalletCharge(res, accounts) {
 	if (res.data.address == accounts[0]) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
-		var web3 = getEth();
-		var contract = new web3.Contract(abi, address);
+		var web3 = new Web3(CHAIN.WALLET.provider());
+
+		var chainId = '';
+	CHAIN.WALLET.chainId()
+        .then(function (res) {
+            chainId = web3.utils.hexToNumber(res); 
+						
+						
+		// busdAddress 供外界使用
+		var busdAddress = contractSetting['busd_ERC20'][chainId].address;
+		var busdABI = contractSetting['busd_ERC20']['abi'];
+		
+		busdContractInstance = new web3.eth.Contract(busdABI, busdAddress); 
 		var amount = $('.modify-ipt input').val().trim();
 				if (amount == '') {
 					amount = '0';
 				}
-		var num = getWeb3().utils.toWei(amount, 'ether');
-		contract.methods.balanceOf(accounts[0]).call() //查询余额
+		var num = web3.utils.toWei(amount, 'ether');
+		busdContractInstance.methods.balanceOf(accounts[0]).call() //查询余额
 			.then(function (res) {
 
 				if (Number(res) >= Number(num)) {
 					setTimeout(function () {
-						contract.methods.transfer(cwallet, num).send({ //转账
+						busdContractInstance.methods.transfer(cwallet, num).send({ //转账
 								from: accounts[0]
 							})
 							.on('transactionHash', function (hash) {
@@ -39,6 +50,9 @@ function mangeWalletCharge(res, accounts) {
 				}
 			});
 
+
+				})
+
 	} else {
 
 		tips('登入帳戶地址與綁定地址不一致，請切換帳戶或重新綁定');
@@ -48,7 +62,7 @@ function mangeWalletCharge(res, accounts) {
 
 $(function () {
 
-	var web3 = getEth();
+	var web3 = new Web3(CHAIN.WALLET.provider());
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
 		success: function (res) {
@@ -104,16 +118,8 @@ $(function () {
 		}
 	});
 
-
-
-	var web3 = getEth();
-	var contract = new web3.Contract(abi, address);
+	var web3 = new Web3(CHAIN.WALLET.provider());
 	
-	CHAIN.WALLET.WalletConnect.events();
-	
-	
-
-
 	//发送交易请求
 	$('.modify-btn-active').click(function (e) {
 		var tit = $('.modify-tit').data('type');
@@ -186,7 +192,7 @@ $(function () {
 					amount = '0';
 				}
 
-				var num = getWeb3().utils.toWei(amount, 'ether');
+				var num = web3.utils.toWei(amount, 'ether');
 
 				if (typeof window.ethereum !== 'undefined') {
 
@@ -207,7 +213,7 @@ $(function () {
 
 										if (window.ethereum && window.ethereum.isConnected()) {
 											// document.cookie = "isConnect=true";
-											setcookieff("isConnect=true");
+											setCookie('isConnect',true);
 										}
 
 										setTimeout(function () {
@@ -271,7 +277,7 @@ $(function () {
 					if (res.code == 0) {
 						success('删除成功', 1800);
 						// document.cookie = "isConnect=false";
-						setcookieff("isConnect=false");
+						setCookie("isConnect",false);
 						setTimeout(function () {
 							window.location.reload();
 						}, 1800)
