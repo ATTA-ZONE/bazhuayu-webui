@@ -1,5 +1,4 @@
 var mywalletText = chEnText.mywallet[lang];
-console.log(mywalletText);
 function safeCharge(res, accounts) {
 	loading();
 	if (res.data.address != accounts[0]) {
@@ -36,7 +35,7 @@ function safeCharge(res, accounts) {
 				},
 				error: function (res1) {
 					loadingHide();
-					window.alert(mywalletText.unregistered);
+					window.alert(mywalletText.httpError);
 				}
 			})
 		} else {
@@ -105,7 +104,11 @@ function _charge(res, accounts) {
 }
 
 $(function () {
-	console.log(chEnText);
+	if(lang == 'TC'){
+		document.title = "我的錢包"
+	}else{
+		document.title = "Wallet"
+	}
 	var web3 = new Web3(CHAIN.WALLET.provider());
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
@@ -172,7 +175,7 @@ $(function () {
 					}
 				},
 				error: function (res) {
-					window.alert(mywalletText.unregistered);
+					window.alert(mywalletText.httpError);
 				}
 			})	
 		} else if (tit == 'dwallet') {
@@ -182,7 +185,7 @@ $(function () {
 				dataType: 'json',
 				success: function (res) {
 					if (res.code == 0) {
-						success(mywalletText.deleteSuc, 1800);
+						success(mywalletText.httpError, 1800);
 						// document.cookie = "isConnect=false";
 						setCookie("isConnect",false);
 						setTimeout(function () {
@@ -196,15 +199,15 @@ $(function () {
 			var amount = $('.modify-ipt input').val().trim();
 			var ye = $('.usdt-rest').text().split(' ')[0];
 			var text = $('.modify-ipt-tit').text();
-			if (text == mywalletText.connectWallet) {
+			if (text == '請連接錢包') {
 
-				tips(mywalletText.connectWallet);
+				tips('請連接錢包');
 
 			} else {
 				if (amount > ye) {
-					tips(mywalletText.balanceInsufficient);
+					tips('餘額不足');
 				} else if (amount == '') {
-					tips(mywalletText.amountWithdrawal);
+					tips('請填寫提現金額');
 				} else {
 					loading();
 					$.ajax({
@@ -222,13 +225,13 @@ $(function () {
 							if (res.code == 0) {
 								setTimeout(function () {
 									// success('Success',1800);
-									tips(mywalletText.apppleWithdrawal);
+									tips('提款申請已收到，請等待');
 									setTimeout(function () {
 										window.location.reload();
 									}, 2000);
 								}, 1000)
 							} else {
-								error(mywalletText.withdrawalsErr, 1800);
+								error('提款失敗', 1800);
 							}
 						}
 					})
@@ -280,6 +283,6 @@ function copyaddressbtn() {
         document.execCommand('copy');
     }
     transfer.blur();
-	tips(mywalletText.copysuc);
+	tips("複製成功");
     document.body.removeChild(transfer);
 }
