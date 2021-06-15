@@ -1,4 +1,4 @@
-var forgotPasswordText = chEnText.forgotPassword[languageType];
+var forgotPasswordText = chEnText.forgotPassword[lang];
 //邮箱格式验证
 function emailCheck(email){
 	var reg = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;

@@ -1,4 +1,4 @@
-var mywalletText = chEnText.mywallet[languageType];
+var mywalletText = chEnText.mywallet[lang];
 console.log(mywalletText);
 function safeCharge(res, accounts) {
 	loading();

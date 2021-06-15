@@ -1,4 +1,4 @@
-var resetText = chEnText.reset[languageType];
+var resetText = chEnText.reset[lang];
 $(function(){ 
 	
 	var canClick = false;

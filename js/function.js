@@ -5,7 +5,7 @@ var chEnTextHtml;
 // 定义全局的html最外层的id
 var htmlId = "app";
 // 语言类型默认中文
-var languageType = 'TC';
+var lang = 'TC';
 $.getJSON("js/chEnText.json",function(res){
 	console.log(res);
 	chEnText = res;

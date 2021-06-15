@@ -1,4 +1,4 @@
-var signupText = chEnText.signup[languageType];
+var signupText = chEnText.signup[lang];
 // 注册类型
 var type;
 $.ajax({
