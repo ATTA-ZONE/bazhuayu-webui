@@ -1,4 +1,4 @@
-var indexText = chEnText.login[languageType];
+var indexText = chEnText.login[lang];
 function loginconfirm(vtoken){
 	hsycms.confirm('confirm',indexText.emailMgs,
 		function(res){            

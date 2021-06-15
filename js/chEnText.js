@@ -378,9 +378,9 @@ var chEnText = {
       "editSuc":"修改成功"
     },
     "EN":{
-      "nick":"當前暱稱：",
-      "nickUnNull":"昵稱不能為空",
-      "editSuc":"修改成功"
+      "nick":"Current nickname：",
+      "nickUnNull":"Nickname cannot be empty",
+      "editSuc":"Modified successfully"
     }
   },
   "myassets":{
