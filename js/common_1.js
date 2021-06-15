@@ -91,16 +91,17 @@ function changenetwork() {
 }
 
 $(function(){
-	
+
 	// 中英文切换
-	$(".language-change-en").click(function(){
+	$("body").on("click", ".language-change-en", function () {
 		setCookie('lang','EN');
 		window.location.href=window.location.href; 
 	})
-	$(".language-change-ch").click(function(){
+	$("body").on("click", ".language-change-ch", function () {
 		setCookie('lang','TC');
 		window.location.href=window.location.href;
 	})
+
 	$(".headerpage").load("header.html");
 	// $(".headerpage2").load("header2.html");
 	$(".footerpage").load("footer.html");
@@ -252,7 +253,7 @@ $(function(){
 
 		}
 	})
-	updateWalletStatus()
+	updateWalletStatus();
 })
 
 function updateWalletStatus() {
