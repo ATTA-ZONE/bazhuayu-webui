@@ -76,6 +76,16 @@ function walletaddressdelete(){
 }
 
 $(function(){
+	
+	// 中英文切换
+	$(".language-change-en").click(function(){
+		setCookie('languageType','en');
+		window.location.href=window.location.href; 
+	})
+	$(".language-change-ch").click(function(){
+		setCookie('languageType','ch');
+		window.location.href=window.location.href;
+	})
 	$(".headerpage").load("header.html");
 	// $(".headerpage2").load("header2.html");
 	$(".footerpage").load("footer.html");
@@ -203,9 +213,9 @@ $(function(){
 				});
 				html_h5 += `<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a></li>
 							<li class="switchlanguage_mobile">
-								<a href="/mobile/en/index.html">EN</a>
+								<a class="language-change-en">EN</a>
 								<span style="margin: 0 16px;">|</span>
-								<a href="/mobile/tc/index.html">繁</a>
+								<a class="language-change-ch">繁</a>
 							</li>`;
 				$('.moblic_h5_navbox').html(html_h5);
 			}
