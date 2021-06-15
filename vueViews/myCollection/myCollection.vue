@@ -18,34 +18,34 @@
             </div>
             <span>@ATTA</span>
             <div class="my-assets-right-creator-edition">
-              共{{ item.endEdition }}版
+              {{chEnTextHtml[lang].common + item.endEdition + chEnTextHtml[lang].ban}}
             </div>
           </div>
-          <div class="details-right-des-tit">商品描述</div>
-          <div class="details-right-des" v-html="getIntroduce(item, 'desc', '暫無介紹')"></div>
+          <div class="details-right-des-tit">{{chEnTextHtml[lang].productdescription}}</div>
+          <div class="details-right-des" v-html="getIntroduce(item, 'desc', chEnTextHtml[lang].nointroduction)"></div>
           <div class="details-right-additional">
             <!-- <p class="details-right-additional-show" @click="toggleMoreInfo(idx)" >
               更多信息 <span>{{ showMoreInfo == idx ? "-" : "+" }}</span>
             </p> -->
-            <p class="details-right-additional-more order-content" v-if="showMoreInfo == idx" v-html="getIntroduce(item, 'detail', '暫無更多資訊')"></p>
+            <p class="details-right-additional-more order-content" v-if="showMoreInfo == idx" v-html="getIntroduce(item, 'detail', chEnTextHtml[lang].noinformation)"></p>
           </div>
           <div class="my-assets-right-price">
             <div class="flex my-assets-right-download">
-              <a class="flex download" :download="item.attachment" :href="item.attachment">下載原始文件副本</a>
+              <a class="flex download" :download="item.attachment" :href="item.attachment">{{chEnTextHtml[lang].down}}</a>
             </div>
-            <p class="version-number">當前持有可鑄造版號：</p>
+            <p class="version-number">{{chEnTextHtml[lang].currentholdings}}</p>
             <p class="version-number-list" v-if="item.totalEditionList && item.totalEditionList.length">
-              <font style="color: #9567ff">{{getAllBsc(item.totalEditionList).join(',')}}</font>版
+              <font style="color: #9567ff">{{getAllBsc(item.totalEditionList).join(',')}}</font>{{chEnTextHtml[lang].ban2}}
             </p>
-            <p class="version-number-list" v-else>暫無</p>
+            <p class="version-number-list" v-else>{{chEnTextHtml[lang].notyet}}</p>
           </div>
           <div class="my-assets-right-btn flex">
             <div class="flex my-assets-claim-wrap">
-              <a @click="conneAssetsctWallet(item,'start')" class="bsc-nft">鑄造BSC NFT</a>
+              <a @click="conneAssetsctWallet(item,'start')" class="bsc-nft">{{chEnTextHtml[lang].mint}}BSC NFT</a>
             </div>
             <a class="flex eth">
-              <div>鑄造ETH NFT</div>
-              <div>(功能準備中)</div>
+              <div>{{chEnTextHtml[lang].mint}}ETH NFT</div>
+              <div>{{chEnTextHtml[lang].inpreparation}}</div>
             </a>
           </div>
           <div class="my-assets-right-address flex">
@@ -58,12 +58,12 @@
     </ul>
     <ul v-else style="padding-top: 100px">
       <li class="flex nothing">
-        <div>暫無藏品記錄</div>
+        <div>{{chEnTextHtml[lang].norecord}}</div>
       </li>
     </ul>
     <div class="bzy-e-more" v-if="assetsList.total > assetsList.length">
       <div class="flex assets-list-load" @click="getMoreList">
-        <span class="language-tc">加载更多</span>
+        <span class="language-tc">{{chEnTextHtml[lang].more}}</span>
         <img src="./images/next.png" />
         <img src="./images/xiala2.png" />
       </div>
@@ -74,15 +74,15 @@
       <div class="ntf-close" onclick="hsycms.closeAll()">
         <img src="./images/Close.png" />
       </div>
-      <div class="hscysm-model-title nth-tit">您需要連接錢包</div>
+      <div class="hscysm-model-title nth-tit">{{chEnTextHtml[lang].linkwallet}}</div>
       <div class="hsycms-model-content nth-con">
-        <div class="nth-con-tip">為了接收您的NFT,您需要先連接錢包。</div>
+        <div class="nth-con-tip">{{chEnTextHtml[lang].tips1}}</div>
         <div class="nth-con-tip" style="color: #9567ff">
-          如果您不熟悉加密貨幣錢包,請單擊此處。
+          {{chEnTextHtml[lang].tips2}}
         </div>
       </div>
       <div class="nth-btn">
-        <button type="button" @click="nftConnect()">立即連接</button>
+        <button type="button" @click="nftConnect()">{{chEnTextHtml[lang].connectnow}}</button>
       </div>
     </div>
     <!-- 铸造nft -->
@@ -92,15 +92,15 @@
         <img src="./images/Close.png" />
       </div>
       <div class="hscysm-model-title nth-tit" style="width: 90%; text-align: center">
-        鑄造BSC NFT
+        {{chEnTextHtml[lang].mint}}BSC NFT
       </div>
       <div class="hsycms-model-content nth-con" style="width: 550px">
         <table class="bsc-table">
           <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.15);padding-bottom: 10px;">
-            <th class="first" style="padding-left: 17px">版號</th>
+            <th class="first" style="padding-left: 17px">{{chEnTextHtml[lang].banhao}}</th>
             <th class="">
-              接收地址
-              <font style="font-size: 12px" >(默認為當前連接的錢包地址，點擊修改)</font>
+              {{chEnTextHtml[lang].jsaddress}}
+              <font style="font-size: 12px" >{{chEnTextHtml[lang].editaddress}}</font>
             </th>
           </tr>
           <tr v-for="(itm, index) in selectedList" class="selected-list" :key="index">
@@ -120,8 +120,8 @@
         </table>
         <div class="mint-wrap">
           <div class="flex mint-wrap-title">
-            <span>版號</span>
-            <span>接收地址<font style="font-size: 10px">(默認為當前連接的錢包地址，點擊修改)</font></span>
+            <span>{{chEnTextHtml[lang].banhao2}}</span>
+            <span>{{chEnTextHtml[lang].jsaddress2}}<font style="font-size: 10px">{{chEnTextHtml[lang].editaddress2}}</font></span>
           </div>
           <div class="building-nft" v-for="(itm, index) in selectedList" :key="index">
             <div class="flex mint-wrap-edition">
@@ -139,7 +139,7 @@
         </div>
       </div>
       <div class="flex bsc-btn" style="justify-content: center">
-        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft madia-btn start-zz">開始鑄造</a>
+        <a @click="conneAssetsctWallet('ajax')" class="bsc-nft madia-btn start-zz">{{chEnTextHtml[lang].startmint}}</a>
       </div>
     </div>
     <!-- foot -->
@@ -165,12 +165,72 @@ module.exports = {
       walletId: "",
       textCheck: "",
       selectedList: [],
-      basicId:''
+      basicId:'',
+      chEnTextHtml: {
+				"TC":{
+					common : "共",
+          ban : "版",
+          ban2 : "版",
+          productdescription : "商品描述",
+          nointroduction : "暫無介紹",
+          noinformation : "暫無更多資訊",
+          down : "下載原始文件副本",
+          currentholdings : "當前持有可鑄造版號：",
+          notyet : "暫無",
+          mint : "鑄造",
+          inpreparation : "(功能準備中)",
+          norecord : "暫無藏品記錄",
+          more : "加载更多",
+          linkwallet : "您需要連接錢包",
+          tips1 : "為了接收您的NFT,您需要先連接錢包。",
+          tips2 : "如果您不熟悉加密貨幣錢包,請單擊此處。",
+          connectnow : "立即連接",
+          banhao : "版號",
+          jsaddress : "接收地址",
+          editaddress : "(默認為當前連接的錢包地址，點擊修改)",
+          banhao2 : "版號",
+          jsaddress2 : "接收地址",
+          editaddress2 : "(默認為當前連接的錢包地址，點擊修改)",
+          startmint : "開始鑄造",
+          dqwmintbanhao : "當前無可鑄造版號",
+          tipsjs1:"已提交鑄造申請，請在“我的NFT”頁面查看！",
+				},
+				"EN":{
+          common : "Total editions ",
+          ban : "",
+          ban2 : "Edition",
+          productdescription : "Description",
+          nointroduction : "No Introduction",
+          noinformation : "No more information",
+          down : "Download the original copy",
+          currentholdings : "Current mintable editions：",
+          notyet : "Null",
+          mint : "Mint ",
+          inpreparation : "(function coming soon)",
+          norecord : "There's nothing here.",
+          more : "Load More",
+          linkwallet : "Please connect your wallet",
+          tips1 : "You need to connect your wallet first in order to receive NFTs",
+          tips2 : "",
+          connectnow : "Connect now",
+          banhao : "Edition",
+          jsaddress : "Receiving Address",
+          editaddress : "(Click address to edit if need)",
+          banhao2 : "Version Number",
+          jsaddress2 : "Address",
+          editaddress2 : "(The default is the currently connected wallet address, click to modify)",
+          startmint : "Start to mint",
+          dqwmintbanhao : "There are no minable editions now :",
+          tipsjs1:'Your claims have been received, you can check the status on page “My NFTs”',
+				}
+			},
+			lang:''
     };
   },
   created() {
     this.isConnect = getCookie("isConnect") == "false" ? false : true;
     this.getAccount();
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';
   },
   mounted() {
     this.getAssetsList();
@@ -216,7 +276,7 @@ module.exports = {
               hsycms.alert("model3");
             }, 50);
           }else{
-            tips('當前無可鑄造版號');
+            tips(this.chEnTextHtml[lang].dqwmintbanhao);
             return;
           }
         } else {
@@ -263,7 +323,7 @@ module.exports = {
 					})
         }else{
 					loadingHide();
-          tips('請勾選需要鑄造的版號！');
+          // tips('請勾選需要鑄造的版號！');
           return;
         }
       }
