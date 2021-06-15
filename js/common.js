@@ -75,13 +75,13 @@ function walletaddressdelete(){
 
 $(function(){
 	// 中英文切换
-	$(".language-change-en").click(function(){
+	$("body").on("click", ".language-change-en", function () {
 		setCookie('lang','EN');
-		window.reload();
+		window.location.href=window.location.href; 
 	})
-	$(".language-change-ch").click(function(){
+	$("body").on("click", ".language-change-ch", function () {
 		setCookie('lang','TC');
-		window.reload();
+		window.location.href=window.location.href;
 	})
 
 	languageType = getCookie('lang')?getCookie('lang'):'TC'
