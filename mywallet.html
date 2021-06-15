@@ -27,7 +27,7 @@
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
-	<!-- <script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script> -->
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
 	<style>
 	
@@ -52,174 +52,227 @@
 	</style>
 </head>
 <body>
-	<!-- head -->
-	<div class="headerpage"></div>
-	
-	<div class="bzy-title center-80"><span class="language-tc">我的錢包</span></div>
-	
-	<div class="my-wallet center-80 my-assets">
-		<ul class="flex">
-			<li>
-				<div class="my-wallet-tit flex">
-					<img src="./images/Wallet.png" alt="">
-					<span class="language-tc">我的餘額</span>
-				</div>
-				<div class="my-wallet-number usdt-rest">BUSD 0 </div>
-				<div class="my-wallet-btn flex">
-					<a class="flex add modify-tc-pc tc-show" href="javascript:void(0);" onclick="addFund()"><span class="language-tc">充值</span></a>
-					<a class="flex withdraw modify-tc-pc tc-show" href="javascript:void(0);" onclick="widthDraw()"><span class="language-tc">提款</span></a>
-				</div>
-			</li>
-			
-			<li>
-				<div class="my-wallet-tit flex">
-					<img src="./images/Card.png" alt="">
-					<span class="language-tc">信用卡</span>
-				</div>
-				<div class="my-wallet-number cardNo">---</div>
-				<div class="my-wallet-btn flex">
-					<a class="flex change modify-tc-pc tc-show hideenbtn" href="javascript:void(0);" onclick="changeCard()"><span class="language-tc">更換</span></a>
-					<a class="flex delete modify-tc-pc tc-show hideenbtn" href="javascript:void(0);" onclick="deleteCard()"><span class="language-tc">刪除</span></a>
-					<a class="flex addbtn modify-tc-pc tc-show hideenbtn2" href="javascript:void(0);" onclick="changeCard()"><span class="language-tc">添加</span></a>
-				</div>
-			</li>
-			
-			<li class="metamask-wallet" data-wallet="metamask">
-				<div class="my-wallet-tit my-wallet-metamask flex">
-					<img src="./images/Metamask.png" alt="">
-					<span>Metamask</span>
-				</div>
-				<div class="my-wallet-number wallet-address">---</div>
-				<div class="my-wallet-btn flex">
-					<a class="flex change" href="connectWallet.html"><span class="language-tc">更換</span></a>
-					<a class="flex delete modify-tc-pc tc-show" href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">刪除</span></a>
-				</div>
-			</li>
-			
-			<li class="walletconnect-wallet none" data-wallet="wallectconnect">
-				<div class="my-wallet-tit my-wallet-metamask flex">
-					<img src="./images/WalletConnect.png" alt="">
-					<span>WalletConnect</span>
-				</div>
-				<div class="my-wallet-number wallet-address">---</div>
-				<div class="my-wallet-btn flex">
-					<a class="flex change " href="connectWallet.html"><span class="language-tc">更換</span></a>
-					<a class="flex delete modify-tc-pc tc-show" href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">刪除</span></a>
-				</div>
-			</li>
-			<li class="nowallet-wallet none">
-				<div class="my-wallet-tit my-wallet-metamask flex">
-					<img src="./images/Plus.png" alt="">
-					<span>連接錢包</span>
-				</div>
-				<div class="my-wallet-number wallet-address">---</div>
-				<div class="my-wallet-btn flex">
-					<a class="flex addbtn tc-show" href="connectWallet.html"><span class="language-tc">連接錢包</span></a>
-				</div>
-				<div class="my-wallet-tip my-wallet-jumptip">
-					<a href="" onclick="window.open('https://bazhuayuhelp.zendesk.com/hc/zh-hk')">什麼是電子錢包？    如何鏈接電子錢包？</a>
-				</div>
-			</li>
-			
-			<!-- <li class="connect-wallet-nothing none">
-				<div class="my-wallet-tit flex">
-					<img src="./images/Plus.png" alt="">
-					<span>Connect Your Wallet</span>
-				</div>
-				<div class="my-wallet-tip">
-					<p>Connect with one of the available wallet providers or create a new wallet.</p>
-					<a href="">What is a Wallet?</a>
-				</div>
-				<div class="my-wallet-connect flex">
-					<a class="flex" href="connectWallet.html">
-						<span>Connect Wallet</span>
-					</a>
-				</div>
-			</li> -->
-		</ul>
-	</div>
-	
-	<!-- foot -->
-	<div class="footerpage2"></div>
-	
-	<!-- modify -->
-	<div class="modify none">
-		<div class="modify-container flex">
-			<div class="modify-form">
-				<div class="modify-tit flex" data-type="add"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
-				<div class="modify-ipt-fream" id="modify-ipt-form">
-					<div class="modify-ipt-add">
-						<div class="modify-ipt-tit">新信用卡信息</div>
+	<div id="mywallet" v-cloak>
+		<!-- head -->
+		<div class="headerpage"></div>
+		
+		<div class="bzy-title center-80"><span class="language-tc">{{chEnTextHtml[lang].title}}</span></div>
+		
+		<div class="my-wallet center-80 my-assets">
+			<ul class="flex">
+				<li>
+					<div class="my-wallet-tit flex">
+						<img src="./images/Wallet.png" alt="">
+						<span class="language-tc">{{chEnTextHtml[lang].mybalance}}</span>
 					</div>
-					<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
-						<div class="payment-form-ipt" style="margin-top: 30px;">
-							<div class="input-container card-number" style="margin-bottom: 20px !important;">
-								<div class="icon-container">
-									<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
-								</div> 
-								<div class="card-number-frame"></div>
-								<div class="icon-container payment-method">
-									<img id="logo-payment-method" />
+					<div class="my-wallet-number usdt-rest">BUSD 0 </div>
+					<div class="my-wallet-btn flex">
+						<a class="flex add modify-tc-pc tc-show" href="javascript:void(0);" onclick="addFund()"><span class="language-tc">{{chEnTextHtml[lang].recharge}}</span></a>
+						<a class="flex withdraw modify-tc-pc tc-show" href="javascript:void(0);" onclick="widthDraw()"><span class="language-tc">{{chEnTextHtml[lang].drawing}}</span></a>
+					</div>
+				</li>
+				
+				<li>
+					<div class="my-wallet-tit flex">
+						<img src="./images/Card.png" alt="">
+						<span class="language-tc">{{chEnTextHtml[lang].card}}</span>
+					</div>
+					<div class="my-wallet-number cardNo">---</div>
+					<div class="my-wallet-btn flex">
+						<a class="flex change modify-tc-pc tc-show hideenbtn" href="javascript:void(0);" onclick="changeCard()"><span class="language-tc">{{chEnTextHtml[lang].switch}}</span></a>
+						<a class="flex delete modify-tc-pc tc-show hideenbtn" href="javascript:void(0);" onclick="deleteCard()"><span class="language-tc">{{chEnTextHtml[lang].delect}}</span></a>
+						<a class="flex addbtn modify-tc-pc tc-show hideenbtn2" href="javascript:void(0);" onclick="changeCard()"><span class="language-tc">{{chEnTextHtml[lang].add}}</span></a>
+					</div>
+				</li>
+				
+				<li class="metamask-wallet" data-wallet="metamask">
+					<div class="my-wallet-tit my-wallet-metamask flex">
+						<img src="./images/Metamask.png" alt="">
+						<span>Metamask</span>
+					</div>
+					<div class="my-wallet-number wallet-address">---</div>
+					<div class="my-wallet-btn flex">
+						<a class="flex change" href="connectWallet.html"><span class="language-tc">{{chEnTextHtml[lang].switch}}</span></a>
+						<a class="flex delete modify-tc-pc tc-show" href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">{{chEnTextHtml[lang].delect}}</span></a>
+					</div>
+				</li>
+				
+				<li class="walletconnect-wallet none" data-wallet="wallectconnect">
+					<div class="my-wallet-tit my-wallet-metamask flex">
+						<img src="./images/WalletConnect.png" alt="">
+						<span>WalletConnect</span>
+					</div>
+					<div class="my-wallet-number wallet-address">---</div>
+					<div class="my-wallet-btn flex">
+						<a class="flex change " href="connectWallet.html"><span class="language-tc">{{chEnTextHtml[lang].switch}}</span></a>
+						<a class="flex delete modify-tc-pc tc-show" href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">{{chEnTextHtml[lang].delect}}</span></a>
+					</div>
+				</li>
+				<li class="nowallet-wallet none">
+					<div class="my-wallet-tit my-wallet-metamask flex">
+						<img src="./images/Plus.png" alt="">
+						<span>{{chEnTextHtml[lang].connectwallet}}</span>
+					</div>
+					<div class="my-wallet-number wallet-address">---</div>
+					<div class="my-wallet-btn flex">
+						<a class="flex addbtn tc-show" href="connectWallet.html"><span class="language-tc">{{chEnTextHtml[lang].connectwallet}}</span></a>
+					</div>
+					<div class="my-wallet-tip my-wallet-jumptip">
+						<a href="" onclick="window.open('https://bazhuayuhelp.zendesk.com/hc/zh-hk')">{{chEnTextHtml[lang].tips}}</a>
+					</div>
+				</li>
+				
+				<!-- <li class="connect-wallet-nothing none">
+					<div class="my-wallet-tit flex">
+						<img src="./images/Plus.png" alt="">
+						<span>Connect Your Wallet</span>
+					</div>
+					<div class="my-wallet-tip">
+						<p>Connect with one of the available wallet providers or create a new wallet.</p>
+						<a href="">What is a Wallet?</a>
+					</div>
+					<div class="my-wallet-connect flex">
+						<a class="flex" href="connectWallet.html">
+							<span>Connect Wallet</span>
+						</a>
+					</div>
+				</li> -->
+			</ul>
+		</div>
+		
+		<!-- foot -->
+		<div class="footerpage2"></div>
+		
+		<!-- modify -->
+		<div class="modify none">
+			<div class="modify-container flex">
+				<div class="modify-form">
+					<div class="modify-tit flex" data-type="add"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
+					<div class="modify-ipt-fream" id="modify-ipt-form">
+						<div class="modify-ipt-add">
+							<div class="modify-ipt-tit">{{chEnTextHtml[lang].newcardinfo}}</div>
+						</div>
+						<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
+							<div class="payment-form-ipt" style="margin-top: 30px;">
+								<div class="input-container card-number" style="margin-bottom: 20px !important;">
+									<div class="icon-container">
+										<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
+									</div> 
+									<div class="card-number-frame"></div>
+									<div class="icon-container payment-method">
+										<img id="logo-payment-method" />
+									</div>
+									<div class="icon-container">
+										<img id="icon-card-number-error" src="images/card-icons/error.svg" />
+									</div>
 								</div>
-								<div class="icon-container">
-									<img id="icon-card-number-error" src="images/card-icons/error.svg" />
-								</div>
-							</div>
-
-							<div class="date-and-code">
-								<div>
-									<div class="input-container expiry-date">
-										<div class="icon-container">
-											<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
+	
+								<div class="date-and-code">
+									<div>
+										<div class="input-container expiry-date">
+											<div class="icon-container">
+												<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
+											</div>
+											<div class="expiry-date-frame"></div>
+											<div class="icon-container">
+												<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
+											</div>
 										</div>
-										<div class="expiry-date-frame"></div>
-										<div class="icon-container">
-											<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
+									</div>
+	
+									<div>
+										<div class="input-container cvv">
+											<div class="icon-container">
+												<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
+											</div>
+											<div class="cvv-frame"></div>
+											<div class="icon-container">
+												<img id="icon-cvv-error" src="images/card-icons/error.svg" />
+											</div>
 										</div>
 									</div>
 								</div>
-
-								<div>
-									<div class="input-container cvv">
-										<div class="icon-container">
-											<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
-										</div>
-										<div class="cvv-frame"></div>
-										<div class="icon-container">
-											<img id="icon-cvv-error" src="images/card-icons/error.svg" />
-										</div>
-									</div>
-								</div>
 							</div>
-						</div>
-						<div class="pay-button modify-btn" style="border-top: 1px solid rgba(255, 255, 255, 0.15);">
-							<button class="add modify-btn-active" id="pay-button"></button>
-							<button class="cancel" type="button" onclick="cancel()">取消</button>
-							<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
-						</div>
-						<div class="message">
-								<span class="error-message error-message__card-number"></span>
-								<span class="error-message error-message__expiry-date"></span>
-								<span class="error-message error-message__cvv"></span>
-						</div>
-					</form>
+							<div class="pay-button modify-btn" style="border-top: 1px solid rgba(255, 255, 255, 0.15);">
+								<button class="add modify-btn-active" id="pay-button"></button>
+								<button class="cancel" type="button" onclick="cancel()">{{chEnTextHtml[lang].cancel}}</button>
+								<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
+							</div>
+							<div class="message">
+									<span class="error-message error-message__card-number"></span>
+									<span class="error-message error-message__expiry-date"></span>
+									<span class="error-message error-message__cvv"></span>
+							</div>
+						</form>
+					</div>
+					<div class="modify-ipt-form modify-ipt"></div>
+					<div class="modify-btn flex" id="modify-btn-form">
+						<button class="add modify-btn-active " type="button"></button>
+						<button class="cancel" type="button" onclick="cancel()">取消</button>
+						<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">{{chEnTextHtml[lang].cancel}}</button>
+					</div>
+					<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
 				</div>
-				<div class="modify-ipt-form modify-ipt"></div>
-				<div class="modify-btn flex" id="modify-btn-form">
-					<button class="add modify-btn-active " type="button"></button>
-					<button class="cancel" type="button" onclick="cancel()">取消</button>
-					<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
-				</div>
-				<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
 			</div>
 		</div>
+		
+		<div class="tips"></div>
 	</div>
-	
-	<div class="tips"></div>
 	
 </body>
 <script src="./js/framesv2.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/mywalletCard.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/mywallet.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#mywallet',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					title : "我的錢包",
+					mybalance :"我的餘額",
+					recharge : "充值",
+					drawing : "提款",
+					card : "信用卡",
+					switch : "更換",
+					delect : "刪除",
+					add : "添加",
+					connectwallet : "連接錢包",
+					tips : "什麼是電子錢包？    如何鏈接電子錢包？",
+					newcardinfo : "新信用卡信息",
+					cancel : "取消",
+				},
+				"EN":{
+					title : "My Wallet",
+					mybalance :"Balance",
+					recharge : "Add funds",
+					drawing : "Withdraw",
+					card : "Credit card",
+					switch : "Change",
+					delect : "Delete",
+					add : "Add",
+					connectwallet : "Connect Wallet",
+					tips : "What is an electronic wallet? How to link e-wallet?",
+					newcardinfo : "New credit card info",
+					cancel : "cancel",
+				}
+			},
+			lang:''
+		}
+	},
+	created() {
+		let self = this;
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
+			document.title = '我的錢包';
+		}else{
+			document.title = 'My Wallet';
+		}
+	}
+})
+</script>
 </html>
