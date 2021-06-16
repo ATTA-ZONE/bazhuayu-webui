@@ -23,165 +23,229 @@
 	<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainCommon.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
 	<!-- <script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script> -->
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-	<!-- head -->
-	<header class="header center-85 flex header-fixed">
-		<div class="header-left flex">
-			<a class="header-left-logo" href="index.html"><img src="images/Brand.png" ></a>
-			<ul class="nav-header flex">
-				<li><a class="language-tc" href="index.html">首頁</a></li>
-				<li class="current"><a class="language-tc" href="auction.html">拍賣</a></li>
-			</ul>
-		</div>
-		<div class="header-right flex">
-			<div class="header-dl flex"></div>
-			<a class="header-right-wallet" href="javascript:void(0);" onclick="connectWallet()"></a>
-			<p class="switchlanguagebox">
-				<a class="language-change-en">EN</a>
-				<span style="margin: 0 16px;">|</span>
-				<a class="language-change-ch">繁</a>
-			</p>
-		</div>
-		<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png" ></div>
-		<div class="mobile-menu none" onclick="menuShow()"><img src="./images/menu.png" ></div>
-	</header>
-	
-	<div class="menu-list menu-list1 none">
-		<div class="menu-list-con">
-			<div class="menu-list-con-tit flex">
-				<img class="logo" src="./images/Brand.png" >
-				<img class="menu-close" src="./images/Close.png" onclick="menuHide()" >
+	<div id="auction" v-cloak>
+		<!-- head -->
+		<header class="header center-85 flex header-fixed">
+			<div class="header-left flex">
+				<a class="header-left-logo" href="index.html"><img src="images/Brand.png" ></a>
+				<ul class="nav-header flex">
+					<li><a class="language-tc" href="index.html">{{chEnTextHtml[lang].home}}</a></li>
+					<li class="current"><a class="language-tc" href="auction.html">{{chEnTextHtml[lang].anction}}</a></li>
+				</ul>
 			</div>
-			<!-- <div class="menu-list-con-meail none"></div> -->
-			<ul class="moblic_h5_navbox">
-				<li><a class="language-tc" href="index.html">首頁</a></li>
-				<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a></li>
-				<li class="switchlanguage_mobile">
-					<a href="/mobile/en/auction.html">EN</a>
+			<div class="header-right flex">
+				<div class="header-dl flex"></div>
+				<a class="header-right-wallet" href="javascript:void(0);" onclick="connectWallet()"></a>
+				<p class="switchlanguagebox">
+					<a class="language-change-en">EN</a>
 					<span style="margin: 0 16px;">|</span>
-					<a href="/mobile/tc/auction.html">繁</a>
-				</li>
-			</ul>
-			<!-- <div class="menu-list-con-tit-lan flex">
-				<a class="language-change-en">EN</a>
-				<span></span>
-				<a class="language-change-ch">繁</a>
-			</div> -->
-			<div class="menu-list-con-tit-btn mobile-login"><a class="flex" href="login.html">登入/註冊</a></div>
-			<!-- <div class="menu-list-con-tit-btn mobile-logout none" onclick="confirm()"><a class="flex" href="javascript:void(0);">Logout</a></div> -->
-		</div>
-	</div>
-	
-	<div class="menu-list menu-list2 none">
-		<div class="menu-list-con">
-			<div class="menu-list-con-tit flex">
-				<img class="logo" src="./images/Brand.png" >
-				<img class="menu-close" src="./images/Close.png" onclick="headIconHide()" >
+					<a class="language-change-ch">繁</a>
+				</p>
 			</div>
-			<div class="menu-list-con-meail"></div>
-			<ul>
-				<li><a class="language-tc" href="myaccount.html">我的帳戶</a></li>
-				<li><a class="language-tc" href="myorders.html">我的訂單</a></li>
-				<li><a class="language-tc" href="myassets.html">我的資產</a></li>
-				<li><a class="language-tc" href="mywallet.html">我的錢包</a></li>
-			</ul>
-			<div class="menu-list-con-tit-btn mobile-logout" onclick="logoutConfirm()"><a class="flex" href="javascript:void(0);"><span class="language-tc">登出</span></a></div>
-		</div>
-	</div>
-	
-	
-	<div class="bid center-80 flex">
-		<div class="bid-left"><img class="full-screen detail-media" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice detail-media" src="./images/mute.png"/></div>
-		<div class="bid-right">
-			<div class="bid-right-tit">----</div>
-			<div class="bid-right-edition flex">
-				<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
-				<span>@ATTA</span>
-				<div class="details-right-creator-edition">第0版</div>
-			</div>
-			<div class="bid-right-des">
-				<p></p>
-			</div>
-			<div class="bid-right-status">
-				<div class="bid-right-status-current flex"><span>當前競價：</span><span>BUSD 0</span></div>
-				<div class="bid-right-status-time flex"><span>拍賣剩餘時間：</span><span>00 : 00 : 00</span></div>
-			</div>
-			<div class="bid-right-tip" data-address="0"></div>
-			<div class="bid-right-btn flex">
-				<span class="flex" onclick="baojia(this)" data-status="0" data-price="0">最低競價 BUSD <font style="margin-left:3px;">0</font></span>
-				<button id="make_offer" data-sign="0" data-status="0" type="button">報價</button>
-			</div>
-		</div>
-	</div>
-	
-	<div class="bids-list center-80">
-		<div class="bids-list-tit">競標記錄 (<font>0</font>)</div>
-		<ul>
-			<!-- <li class="flex">
-				<div class="bids-list-person flex">
-					<div class="bids-list-person-head"><img src="./images/Ellipse%2093.png" ></div>
-					<div class="bids-list-person-name">By  tomomitsu</div>
-				</div>
-				<div class="bids-list-time">2021/4/22 12:56:32</div>
-				<div class="bids-list-busd">$BUSD 40000.00</div>
-			</li> -->
-		</ul>
+			<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png" ></div>
+			<div class="mobile-menu none" onclick="menuShow()"><img src="./images/menu.png" ></div>
+		</header>
 		
-		<div class="bids-list-pagination none flex">
-			<div class="bids-list-pagination-prev flex"><img src="./images/prev.png" ></div>
-			<div class="bids-list-pagination-page flex">
-				<a class="active" href="javascript:void(0);">1</a>
-				<a href="javascript:void(0);">2</a>
-				<a href="javascript:void(0);">3</a>
-				<a href="javascript:void(0);">4</a>
-				<a href="javascript:void(0);">5</a>
+		<div class="menu-list menu-list1 none">
+			<div class="menu-list-con">
+				<div class="menu-list-con-tit flex">
+					<img class="logo" src="./images/Brand.png" >
+					<img class="menu-close" src="./images/Close.png" onclick="menuHide()" >
+				</div>
+				<!-- <div class="menu-list-con-meail none"></div> -->
+				<ul class="moblic_h5_navbox">
+					<li><a class="language-tc" href="index.html">{{chEnTextHtml[lang].home}}</a></li>
+					<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">{{chEnTextHtml[lang].connectwallet}}</a></li>
+					<li class="switchlanguage_mobile">
+						<a href="/mobile/en/auction.html">EN</a>
+						<span style="margin: 0 16px;">|</span>
+						<a href="/mobile/tc/auction.html">繁</a>
+					</li>
+				</ul>
+				<!-- <div class="menu-list-con-tit-lan flex">
+					<a class="language-change-en">EN</a>
+					<span></span>
+					<a class="language-change-ch">繁</a>
+				</div> -->
+				<div class="menu-list-con-tit-btn mobile-login"><a class="flex" href="login.html">{{chEnTextHtml[lang].login}}</a></div>
+				<!-- <div class="menu-list-con-tit-btn mobile-logout none" onclick="confirm()"><a class="flex" href="javascript:void(0);">Logout</a></div> -->
 			</div>
-			<div class="bids-list-pagination-next flex"><img src="./images/Frame.png" ></div>
 		</div>
-	</div>
-	
-	<!-- 播放视频 -->
-	<div class="video-mask none"></div>
-	<div class="video-model none" onclick="closeVideo()">
-		<div class="video-model-container flex">
-			<div>
-				<img onclick="closeVideo()" class="video-close" src="./images/Close.png" >
-				<video autoplay="autoplay" loop="loop" src="" controls="controls"></video>
+		
+		<div class="menu-list menu-list2 none">
+			<div class="menu-list-con">
+				<div class="menu-list-con-tit flex">
+					<img class="logo" src="./images/Brand.png" >
+					<img class="menu-close" src="./images/Close.png" onclick="headIconHide()" >
+				</div>
+				<div class="menu-list-con-meail"></div>
+				<ul>
+					<li><a class="language-tc" href="myaccount.html">{{chEnTextHtml[lang].account}}</a></li>
+					<li><a class="language-tc" href="myorders.html">{{chEnTextHtml[lang].orders}}</a></li>
+					<li><a class="language-tc" href="myassets.html">{{chEnTextHtml[lang].assets}}</a></li>
+					<li><a class="language-tc" href="mywallet.html">{{chEnTextHtml[lang].wallet}}</a></li>
+				</ul>
+				<div class="menu-list-con-tit-btn mobile-logout" onclick="logoutConfirm()"><a class="flex" href="javascript:void(0);"><span class="language-tc">{{chEnTextHtml[lang].logout}}</span></a></div>
 			</div>
 		</div>
-	</div>
-	
-	<!--普通弹窗-->
-	<div class="hsycms-model-mask" id="mask-alert" ></div>
-	<div class="hsycms-model hsycms-model-alert auction-model" id="alert">
-		<div class="hscysm-model-title">提示</div>
-		<div class="hsycms-model-text auction-model-text"></div>
-		<div class="hsycms-model-btn">
-			<button type="button ok">確認</button>
+		
+		
+		<div class="bid center-80 flex">
+			<div class="bid-left"><img class="full-screen detail-media" onclick="toggleScreen()" src="./images/fullscreen.png"/><img onclick="toggleVideo()" class="voice detail-media" src="./images/mute.png"/></div>
+			<div class="bid-right">
+				<div class="bid-right-tit">----</div>
+				<div class="bid-right-edition flex">
+					<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
+					<span>@ATTA</span>
+					<div class="details-right-creator-edition">{{chEnTextHtml[lang].edition}}</div>
+				</div>
+				<div class="bid-right-des">
+					<p></p>
+				</div>
+				<div class="bid-right-status">
+					<div class="bid-right-status-current flex"><span>{{chEnTextHtml[lang].bidding}}</span><span>BUSD 0</span></div>
+					<div class="bid-right-status-time flex"><span>{{chEnTextHtml[lang].endtime}}</span><span>00 : 00 : 00</span></div>
+				</div>
+				<div class="bid-right-tip" data-address="0"></div>
+				<div class="bid-right-btn flex">
+					<span class="flex" onclick="baojia(this)" data-status="0" data-price="0">{{chEnTextHtml[lang].minmonery}}<font style="margin-left:3px;">0</font></span>
+					<button id="make_offer" data-sign="0" data-status="0" type="button">{{chEnTextHtml[lang].quotation}}</button>
+				</div>
+			</div>
 		</div>
-	</div>
-
-	<!-- loading -->
-	<div class="hsycms-model-mask" id="mask-loading"></div>
-	<div class="hsycms-model hsycms-model-loading" id="loading">
-		<div class="hsycms-model-load">
-			<span></span>
-			<span></span>
-			<span></span>
+		
+		<div class="bids-list center-80">
+			<div class="bids-list-tit">{{chEnTextHtml[lang].record}}(<font>0</font>)</div>
+			<ul>
+				<!-- <li class="flex">
+					<div class="bids-list-person flex">
+						<div class="bids-list-person-head"><img src="./images/Ellipse%2093.png" ></div>
+						<div class="bids-list-person-name">By  tomomitsu</div>
+					</div>
+					<div class="bids-list-time">2021/4/22 12:56:32</div>
+					<div class="bids-list-busd">$BUSD 40000.00</div>
+				</li> -->
+			</ul>
+			
+			<div class="bids-list-pagination none flex">
+				<div class="bids-list-pagination-prev flex"><img src="./images/prev.png" ></div>
+				<div class="bids-list-pagination-page flex">
+					<a class="active" href="javascript:void(0);">1</a>
+					<a href="javascript:void(0);">2</a>
+					<a href="javascript:void(0);">3</a>
+					<a href="javascript:void(0);">4</a>
+					<a href="javascript:void(0);">5</a>
+				</div>
+				<div class="bids-list-pagination-next flex"><img src="./images/Frame.png" ></div>
+			</div>
 		</div>
-	<div class="hsycms-model-text">正在加载</div>
+		
+		<!-- 播放视频 -->
+		<div class="video-mask none"></div>
+		<div class="video-model none" onclick="closeVideo()">
+			<div class="video-model-container flex">
+				<div>
+					<img onclick="closeVideo()" class="video-close" src="./images/Close.png" >
+					<video autoplay="autoplay" loop="loop" src="" controls="controls"></video>
+				</div>
+			</div>
+		</div>
+		
+		<!--普通弹窗-->
+		<div class="hsycms-model-mask" id="mask-alert" ></div>
+		<div class="hsycms-model hsycms-model-alert auction-model" id="alert">
+			<div class="hscysm-model-title">提示</div>
+			<div class="hsycms-model-text auction-model-text"></div>
+			<div class="hsycms-model-btn">
+				<button type="button ok">{{chEnTextHtml[lang].confirmation}}</button>
+			</div>
+		</div>
+	
+		<!-- loading -->
+		<div class="hsycms-model-mask" id="mask-loading"></div>
+		<div class="hsycms-model hsycms-model-loading" id="loading">
+			<div class="hsycms-model-load">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		<div class="hsycms-model-text">{{chEnTextHtml[lang].loading}}</div>
+		</div>
+		
+		<!-- foot -->
+		<div class="footerpage2"></div>
+		
+		<div class="tips"></div>
 	</div>
-	
-	<!-- foot -->
-	<div class="footerpage2"></div>
-	
-	<div class="tips"></div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#auction',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					home : "首頁",
+					anction :"拍賣",
+					connectwallet : "未連接錢包",
+					login : "登入/註冊",
+					account : "我的帳戶",
+					orders : "我的訂單",
+					assets : "我的資產",
+					wallet : "我的錢包",
+					logout : "登出",
+					edition : "第0版",
+					bidding : "當前競價：",
+					endtime : "拍賣剩餘時間：",
+					minmonery : "最低競價 BUSD ",
+					quotation : "報價",
+					record : "競標記錄 ",
+					confirmation : "確認",
+					loading : "正在加载",
+				},
+				"EN":{
+					home : "HOME",
+					anction :"AUCTION",
+					connectwallet : "Connect Wallet",
+					login : "Login/Sign up",
+					account : "My Account",
+					orders : "My Orders",
+					assets : "My Assets",
+					wallet : "My Wallet",
+					logout : "Log out",
+					edition : "Edition 0",
+					bidding : "Current bid：",
+					endtime : "Bidding ends in：",
+					minmonery : "Bidding ends in：",
+					quotation : "Make offer",
+					record : "Bids ",
+					confirmation : "Got it",
+					loading : "loading",
+				}
+			},
+			lang:''
+		}
+	},
+	created() {
+		let self = this;
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
+			document.title = '拍賣';
+		}else{
+			document.title = 'AUCTION';
+		}
+	}
+})
+</script>
 <script src="./js/auction.js" type="text/javascript" charset="utf-8"></script>
 <script>
 	function toggleVideo(){
