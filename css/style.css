@@ -111,7 +111,6 @@ html {
 }
 
 .header-left {
-	width: 550px;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -121,7 +120,7 @@ html {
 }
 
 .header-left ul {
-	/* width: 180px; */
+	margin-left: 20px;
 	justify-content: space-between;
 }
 
