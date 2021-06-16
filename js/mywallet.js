@@ -199,15 +199,15 @@ $(function () {
 			var amount = $('.modify-ipt input').val().trim();
 			var ye = $('.usdt-rest').text().split(' ')[0];
 			var text = $('.modify-ipt-tit').text();
-			if (text == '請連接錢包') {
+			if (text == mywalletText.connectWallet) {
 
-				tips('請連接錢包');
+				tips(mywalletText.connectWallet);
 
 			} else {
 				if (amount > ye) {
-					tips('餘額不足');
+					tips(mywalletText.balanceInsufficient);
 				} else if (amount == '') {
-					tips('請填寫提現金額');
+					tips(mywalletText.amountWithdrawal);
 				} else {
 					loading();
 					$.ajax({
@@ -225,13 +225,13 @@ $(function () {
 							if (res.code == 0) {
 								setTimeout(function () {
 									// success('Success',1800);
-									tips('提款申請已收到，請等待');
+									tips(mywalletText.apppleWithdrawal);
 									setTimeout(function () {
 										window.location.reload();
 									}, 2000);
 								}, 1000)
 							} else {
-								error('提款失敗', 1800);
+								error(mywalletText.withdrawalsErr, 1800);
 							}
 						}
 					})
@@ -283,6 +283,6 @@ function copyaddressbtn() {
         document.execCommand('copy');
     }
     transfer.blur();
-	tips("複製成功");
+	tips(mywalletText.copysuc);
     document.body.removeChild(transfer);
 }
