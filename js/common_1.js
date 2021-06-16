@@ -99,12 +99,16 @@ $(function(){
 		setCookie('lang','TC');
 		window.location.href=window.location.href;
 	})
-
-	$(".headerpage").load("header.html");
-	// $(".headerpage2").load("header2.html");
-	$(".footerpage").load("footer.html");
-	// $(".footerpage2").load("footer.html");
-	$(".tips").load("tips.html");
+	
+	if(lang == "TC"){
+		$(".headerpage").load("header.html");
+		$(".footerpage").load("footer.html");
+		$(".tips").load("tips.html");
+	}else{
+		$(".headerpage").load("header2.html");
+		$(".footerpage").load("footer2.html");
+		$(".tips").load("tips2.html");
+	}
 	
 	//底部配置信息
 	$.ajax({
