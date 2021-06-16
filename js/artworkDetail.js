@@ -351,7 +351,7 @@ var app = new Vue({
 						}
 						$('.details-right-creator-edition').text('Edition ' + res.data.edition + ' of ' + res.data.endEdition);
 						$('.selectarrnum').text(res.data.edition);
-						if(this.languageType == "TC"){
+						if(self.languageType == "TC"){
 							$('.order-introduce').html(res.data.introduce == '' ? '暫無介紹' : (res.data.introduce.replace(/;\|;/g, '<br>')));
 							$('.order-content').html(res.data.content == '' ? '暫無更多資訊' : (res.data.content.replace(/;\|;/g, '<br>')));
 						}else{
@@ -361,11 +361,11 @@ var app = new Vue({
 						if (res.data.endEdition - res.data.edition > 0) { //还有库存
 							if (systemTime < saleStartTimeMillis) {
 								$('.details-right-btn').addClass('unclick')
-								$('.details-right-btn').text(this.chEnTextHtml[this.languageType].comSoon)
+								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].comSoon)
 								$('.details-right-btn').data('status', '1')
 								var msTime = saleStartTimeMillis - systemTime;
 								var time = self.formatDuring(msTime);
-								$('.details-right-time span:first-child').text(this.chEnTextHtml[this.languageType].start);
+								$('.details-right-time span:first-child').text(self.chEnTextHtml[self.languageType].start);
 								$('.details-right-time-djs').text(time);
 								setInterval(function () {
 									var curTime = Date.now() + 1150;
@@ -382,7 +382,7 @@ var app = new Vue({
 								if (ycdjs > 1825) {
 									$(".details-right-time").hide();
 								}
-								$('.details-right-time span:first-child').text(this.chEnTextHtml[this.languageType].end);
+								$('.details-right-time span:first-child').text(self.chEnTextHtml[self.languageType].end);
 								$('.details-right-time-djs').text(time);
 
 								setInterval(function () {
@@ -393,17 +393,17 @@ var app = new Vue({
 								}, 1000);
 							} else if (systemTime > saleEndTimeMillis) {
 								$('.details-right-btn').addClass('unclick');
-								$('.details-right-btn').text(this.chEnTextHtml[this.languageType].salesClosed);
+								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].salesClosed);
 								$('.details-right-btn').data('status', '1')
 								$('.details-right-time span:first-child').css('opacity', '0');
-								$('.details-right-time-djs').text(this.chEnTextHtml[this.languageType].salesClosed);
+								$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].salesClosed);
 							}
 						} else { //没有库存
 							$('.details-right-btn').addClass('unclick');
-							$('.details-right-btn').text(this.chEnTextHtml[this.languageType].sellOut);
+							$('.details-right-btn').text(self.chEnTextHtml[self.languageType].sellOut);
 							$('.details-right-btn').data('status', '1');
 							$('.details-right-time span:first-child').css('opacity', '0');
-							$('.details-right-time-djs').text(this.chEnTextHtml[this.languageType].sellOut);
+							$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].sellOut);
 							$('.details-right-time-djs').css('color', '#cf3737');
 						}
 						self.getAccountInfo(res)
