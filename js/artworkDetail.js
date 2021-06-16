@@ -265,9 +265,11 @@ var app = new Vue({
 							$('.details-right-btn').addClass('unclick');
 							$('.details-right-btn').text('已售罄');
 							$('.details-right-btn').data('status', '1');
+							$('.details-right-btn').attr('disabled',true)
 							$('.details-right-time span:first-child').css('opacity', '0');
 							$('.details-right-time-djs').text('已售罄');
 							$('.details-right-time-djs').css('color', '#cf3737');
+							$('.details-right-time-djs').attr('disabled',true)
 						}
 						self.getAccountInfo(res)
 					}
