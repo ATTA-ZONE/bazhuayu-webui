@@ -441,6 +441,9 @@ var app = new Vue({
 			return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 		},
 		toPay() {
+			if ($('.details-right-btn').dataset.status == 1) {
+				return false
+			}
 			if ($('.busd-tip').text() == '餘額不足' || this.accountBalance < this.busdPrice * this.selectarr.length) {
 				$('.payment-page-right-btn button').text('充值');
 				$('#balanceBtn').attr('disabled', false)
