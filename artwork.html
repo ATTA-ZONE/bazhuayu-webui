@@ -132,13 +132,13 @@
 <script src="./js/artwork.js" type="text/javascript" charset="utf-8"></script>
 <script>
 	let html = "", html_mobile = "";
-	html += `<a href='/mobile/en/artwork.html${window.location.search}'>EN</a>
+	html += `<a class="language-change-en">EN</a>
 			<span style="margin: 0 16px;">|</span>
-			<a href='/mobile/tc/artwork.html${window.location.search}'>繁</a>`;
+			<a class="language-change-ch">繁</a>`;
 	$(".switchlanguagebox").html(html);
-	html_mobile += `<a href='/mobile/en/artwork.html${window.location.search}'>EN</a>
+	html_mobile += `<a class="language-change-en">EN</a>
 					<span style="margin: 0 16px;">|</span>
-					<a href='/mobile/tc/artwork.html${window.location.search}'>繁</a>`;
+					<a class="language-change-ch">繁</a>`;
 	$(".switchlanguage_mobile").html(html_mobile);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

@@ -25,7 +25,8 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 		targetChainId = 56;
 	}
 }
-var lang = 'TC';
+var lang = getCookie("lang")?getCookie("lang"):'TC';
+console.log(lang);
 $.ajax({
 	url:base_url+'/v2/user/lang/select',
 	type:'POST',
@@ -67,8 +68,6 @@ function headIconHide(){
 	$('.menu-list2').removeClass('menu-list-show');
 	$('video').removeClass('video-hidden');
 }
-
-lang = getCookie('lang')?getCookie('lang'):'TC'
 
 function walletaddressreplace(){
 	window.location.href = 'connectWallet.html';
