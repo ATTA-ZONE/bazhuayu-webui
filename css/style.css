@@ -2090,6 +2090,7 @@ html {
 
 .tc-login-right-form .form-ipt div {
 	align-items: center;
+	-webkit-user-select:text !important;
 }
 
 .tc-login-right-form .form-ipt div img {
@@ -4065,7 +4066,7 @@ html {
 	white-space: nowrap;
 }
 input,div{
-	-moz-user-select:none;
-	-webkit-user-select:none;
-	user-select:none;  
+	/* -moz-user-select:auto;
+	-webkit-user-select:auto;
+	user-select:auto;   */
 }
