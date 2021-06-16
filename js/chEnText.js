@@ -199,7 +199,11 @@ var chEnText = {
       "logOut":"登出",
       "login":"登入/註冊",
       "connectWallet":"已連接錢包",
-      "noConnectWallet":"未連接錢包"
+      "noConnectWallet":"未連接錢包",
+      "home":"首頁",
+      "auction":"拍賣",
+      "wallet":"錢包連接中",
+      "unBind":"未綁定錢包"
     },
     "EN":{
       "logOutMes":"Are you sure you want to log out",
@@ -212,7 +216,11 @@ var chEnText = {
       "logOut":"Log out",
       "login":"Login/Sign up",
       "connectWallet":"Wallet connected",
-      "noConnectWallet":"Connect Wallet"
+      "noConnectWallet":"Connect Wallet",
+      "home":"home",
+      "auction":"auction",
+      "wallet":"錢包連接中",
+      "unBind":"Unregistered"
     }
   },
   "connectWallet":{

@@ -3,7 +3,6 @@
 var url = window.location.pathname;
 url = url.substring(url.lastIndexOf('/')+1);
 url = url.substring(0,url.indexOf('.'));
-
 //var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
 var base_url = '';
@@ -26,7 +25,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	}
 }
 var lang = getCookie("lang")?getCookie("lang"):'TC';
-console.log(lang);
+var commonText = chEnText.common[lang];
 $.ajax({
 	url:base_url+'/v2/user/lang/select',
 	type:'POST',
@@ -38,9 +37,9 @@ $.ajax({
 
 //询问弹窗
 function logoutConfirm(){
-	hsycms.confirm('confirm','你確定要登出嗎',
+	hsycms.confirm('confirm',commonText.logOutMes,
 		function(res){            
-			hsycms.success('success','成功');
+			hsycms.success('success',commonText.suc);
 			setTimeout(function(){
 				$.ajax({
 					url:base_url+'/logout',
@@ -191,11 +190,11 @@ $(function(){
 				
 				html += `	<div class="header-right-yidl-my none">
 								
-								<span onclick="window.location.href = 'myaccount.html'">我的帳戶</span>
-								<span onclick="window.location.href = 'myorders.html'">我的訂單</span>
-								<span onclick="window.location.href = 'myassets.html'">我的資產</span>
-								<span onclick="window.location.href = 'mywallet.html'">我的錢包</span>
-								<span class="logout" onclick="logoutConfirm()">登出</span>
+								<span onclick="window.location.href = 'myaccount.html'">${commonText.myaccount}</span>
+								<span onclick="window.location.href = 'myorders.html'">${commonText.myorders}</span>
+								<span onclick="window.location.href = 'myassets.html'">${commonText.myassets}</span>
+								<span onclick="window.location.href = 'mywallet.html'">${commonText.mywallet}</span>
+								<span class="logout" onclick="logoutConfirm()">${commonText.logOut}</span>
 							</div>`;
 				
 				html += `</a>`;
@@ -215,7 +214,7 @@ $(function(){
 				$('.mobile-login').show();
 				// $('.header-right-yidl').hide();
 				// $('.header-right-login').show();
-				html += `<a class="header-right-login flex" href="login.html">登入/註冊</a>`;
+				html += `<a class="header-right-login flex" href="login.html">${commonText.login}</a>`;
 				
 				// $('.menu-list-con-meail').hide();
 				// $('.mobile-ydl').hide();
@@ -230,18 +229,18 @@ $(function(){
 		success : function (res) {
 			if (res.code==0) {
 				let data = res.data.types;
-				let html = `<li class="${url == 'index' ? 'current' : ''}"><a class="language-tc" href="index.html">首頁</a></li>`;
+				let html = `<li class="${url == 'index' ? 'current' : ''}"><a class="language-tc" href="index.html">${commonText.home}</a></li>`;
 				data.forEach(item => {
 					html += `<li class="${window.location.search == '?id='+item.id ? 'current' : ''}"><a class="language-tc" href="artwork.html?id=`+item.id+`">${item.name}</a></li>`
 				});
-				html += `<li class="${url == 'auction' ? 'current' : ''}"><a class="language-tc" href="auction.html">拍賣</a></li>`;
+				html += `<li class="${url == 'auction' ? 'current' : ''}"><a class="language-tc" href="auction.html">${commonText.auction}</a></li>`;
 				$('.nav-header').html(html);
 				
-				let html_h5 = `<li><a class="language-tc" href="index.html">首頁</a></li>`;
+				let html_h5 = `<li><a class="language-tc" href="index.html">${commonText.home}</a></li>`;
 				data.forEach(item => {
 					html_h5 += `<li><a class="language-tc" href="artwork.html?id=`+item.id+`">${item.name}</a></li>`;
 				});
-				html_h5 += `<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a></li>
+				html_h5 += `<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">${commonText.noConnectWallet}</a></li>
 							<li class="switchlanguage_mobile">
 								<a class="language-change-en">EN</a>
 								<span style="margin: 0 16px;">|</span>
@@ -256,8 +255,8 @@ $(function(){
 })
 
 function updateWalletStatus() {
-	$('.header-right-wallet').html('<img src="./images/point-loading.gif" style="width:6px; margin-right:5px;"><span>錢包連接中</span>');
-	$('.mobile-connect-wallet').html('<img src="./images/point-loading.gif" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" onclick="connectWallet()" href="javascript:void(0);">錢包連接中</a>');
+	$('.header-right-wallet').html('<img src="./images/point-loading.gif" style="width:6px; margin-right:5px;"><span>'+commonText.wallet+'</span>');
+	$('.mobile-connect-wallet').html('<img src="./images/point-loading.gif" style="width:6px; margin-right:5px; "/><a class="language-tc" style="width:calc(100% - 11px)" onclick="connectWallet()" href="javascript:void(0);">'+commonText.wallet+'</a>');
 	$('.header-right-wallet').show();
 	$('.mobile-connect-wallet').show();
 
@@ -297,7 +296,7 @@ function updateWalletStatus() {
 CHAIN.WALLET.accountsChangedAssign(updateWalletStatus);
 
 function showwalletaddress(e){
-	if ($('.header-right-wallet .modify-tc-pc').text() == "未連接錢包" || $('.mobile-connect-wallet .modify-tc-pc').text() == "未連接錢包") {
+	if ($('.header-right-wallet .modify-tc-pc').text() == commonText.noConnectWallet || $('.mobile-connect-wallet .modify-tc-pc').text() == commonText.noConnectWallet) {
 		connectWallet();
 	}else{
 		window.location.href  = 'showwallet.html';
@@ -308,26 +307,26 @@ function displayWalletStatus(status, account){
 	if (status==0) {
 		// 钱包与 绑定钱包 相同
 		setCookie('isConnect',true);
-		$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">已連接錢包</span><p class="walletIdshow">'+ account[0] +'</p>');
-		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ account[0] +'</p>');		
-			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ account[0] +'</p>');
-		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">已連接錢包</a><p class="walletIdshow">'+ account[0] +'</p>');		
+		$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">'+commonText.connectWallet+'</span><p class="walletIdshow">'+ account[0] +'</p>');
+		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">'+commonText.connectWallet+'</a><p class="walletIdshow">'+ account[0] +'</p>');		
+			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">'+commonText.connectWallet+'</a><p class="walletIdshow">'+ account[0] +'</p>');
+		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">'+commonText.connectWallet+'</a><p class="walletIdshow">'+ account[0] +'</p>');		
 		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
 			showwalletaddress();
 		});
 	} else if (status==1) {
 		// 钱包与 绑定钱包 不同/未绑定
 		setCookie('isConnect',true);
-		$('.header-right-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">未綁定錢包</span><p class="walletIdshow">'+ account[0] +'</p>');
-		$('.mobile-connect-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">未綁定錢包</a><p class="walletIdshow">'+ account[0] +'</p>');
+		$('.header-right-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">'+commonText.unBind+'</span><p class="walletIdshow">'+ account[0] +'</p>');
+		$('.mobile-connect-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">'+commonText.unBind+'</a><p class="walletIdshow">'+ account[0] +'</p>');
 		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
 			showwalletaddress();
 		});
 	} else if (status==2) {
 		// 钱包 未授权
 		setCookie('isConnect', false);
-		$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">未連接錢包</span>');
-		$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">未連接錢包</a>');
+		$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">'+commonText.noConnectWallet+'</span>');
+		$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">'+commonText.noConnectWallet+'</a>');
 		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
 			showwalletaddress();
 		});
