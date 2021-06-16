@@ -2,14 +2,14 @@
   <div class="history-container">
     <div class="filter-wrap">
       <div class="filter-control" @click="toggleFilters">
-        <span>全部</span>
+        <span>{{chEnTextHtml[lang].title}}</span>
         <img :class="showFilters ? 'roate' : ''" src="./images/selectMore.png" />
       </div>
       <ul v-if="showFilters" class="filter-items">
         <li
           @click="setFilter(idx)"
           :class="selectedFilterTag == idx ? 'selected-tag' : ''"
-          v-for="(itm, idx) in filTags"
+          v-for="(itm, idx) in chEnTextHtml[lang].filTags"
           :key="'#' + idx"
         >{{ itm }}</li>
       </ul>
@@ -37,7 +37,7 @@
           <div class="history-desc">
             <div class="desc-info">
               <span>{{ item.claimType }}</span>
-              <span class="desc-info-edtion">{{ item.edition || item.editions }}版</span>
+              <span class="desc-info-edtion">{{ item.edition || item.editions }}{{chEnTextHtml[lang].ban}}</span>
             </div>
             <div
               class="desc-address"
@@ -48,8 +48,8 @@
               "
             >
               <div>
-                開始鑄造
-                <a @click="cancelNft(item.mintFlow)" class="recoverRequest">[撤回鑄造申請]</a>
+                {{chEnTextHtml[lang].startmint}}
+                <a @click="cancelNft(item.mintFlow)" class="recoverRequest">{{chEnTextHtml[lang].nomint}}</a>
               </div>
             </div>
             <div
@@ -60,7 +60,7 @@
                 item.mintTime
               "
             >
-              <div>鑄造完畢，請在“我的NFT”頁面查看</div>
+              <div>{{chEnTextHtml[lang].tips1}}</div>
               <div>
                 Transaction hash：
                 <span class="desc-info-address">
@@ -71,16 +71,16 @@
               </div>
             </div>
             <div class="desc-address" v-if="showFilter.indexOf('2') > -1 && item.toAddress">
-              <div>接收地址由：{{ item.fromAddress }}</div>
+              <div>{{chEnTextHtml[lang].jsaddress + item.fromAddress }}</div>
               <div>
-                更改為：
+                {{chEnTextHtml[lang].change}}
                 <span class="desc-info-address">{{ item.toAddress }}</span>
               </div>
             </div>
             <div class="desc-address" v-if="showFilter.indexOf('3') > -1 && item.blockHash">
-              <div>原地址：{{ item.from }}</div>
+              <div>{{chEnTextHtml[lang].oldaddress + item.from }}</div>
               <div>
-                已轉移至地址：
+                {{chEnTextHtml[lang].changeaddress}}
                 <span class="desc-info-address">{{ item.to }}</span>
               </div>
               <div>
@@ -106,9 +106,43 @@ module.exports = {
         mintRecords: [],
       },
       showFilter: ["1", "2", "3"],
-      filTags: ["鑄造記錄", "地址修改記錄", "轉移記錄"],
       selectedFilterTag: -1,
       dataList: [],
+      chEnTextHtml: {
+				"TC":{
+						title : "全部",
+						ban : "版",
+						startmint : "開始鑄造",
+						nomint : "[撤回鑄造申請]",
+						tips1 : "鑄造完畢，請在“我的NFT”頁面查看",
+            jsaddress : "接收地址由：",
+            change : "更改為：",
+            oldaddress : "原地址：",
+            changeaddress : "已轉移至地址：",
+            filTags: ["鑄造記錄", "地址修改記錄", "轉移記錄"],
+            nosuc : "撤回成功",
+            tips2 : "你確定要[撤回鑄造申請]嗎？",
+            tips3 : "確認",
+            tips4 : "取消",
+					},
+					"EN":{
+						title : "All",
+            ban : "Edition",
+						startmint : "Start casting",
+            nomint : "[Withdrawal of casting application]",
+            tips1 : 'After casting, please check on the "My NFT" page',
+            jsaddress : "The receiving address is from：",
+            change : "change to：",
+            oldaddress : "Original address：",
+            changeaddress : "Transferred to address：",
+            filTags: ['Casting record','Address modification record','Transfer record'],
+            nosuc : "Withdraw successfully",
+            tips2 : 'Are you sure you want to [Withdrawal of casting application]？',
+            tips3 : 'Confirm',
+            tips4 : "Cancel",
+          }
+			},
+			lang:''
     };
   },
   created() {
@@ -119,6 +153,7 @@ module.exports = {
     window.onresize = function() {
       self.resizeWindow();
     };
+    self.lang = getCookie("lang")?getCookie("lang"):'TC';
   },
   computed: {
     computedData() {
@@ -159,7 +194,7 @@ module.exports = {
           success: function(res) {
             if (res.code == 0) {
               self.getHistory();
-              hsycms.success("success", "撤回成功");
+              hsycms.success("success", this.chEnTextHtml[this.lang].nosuc);
             }
           },
         });
@@ -169,15 +204,15 @@ module.exports = {
       let self = this;
       hsycms.confirm(
         "confirm",
-        "你確定要[撤回鑄造申請]嗎？",
+        this.chEnTextHtml[this.lang].tips2,
         function(res) {
-          hsycms.success("success", "確認");
+          hsycms.success("success", this.chEnTextHtml[this.lang].tips3);
           setTimeout(function() {
             self.cancelNftRequest(id);
           }, 1500);
         },
         function(res) {
-          hsycms.error("error", "取消");
+          hsycms.error("error", this.chEnTextHtml[this.lang].tips4);
         }
       );
     },
