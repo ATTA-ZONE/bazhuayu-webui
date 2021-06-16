@@ -20,7 +20,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 		base_url = 'http://47.118.74.48:'+window.location.port;
 	}
 }
-var lang = 'TC';
+var lang = getCookie("lang")?getCookie("lang"):'TC';
 $.ajax({
 	url:base_url+'/v2/user/lang/select',
 	type:'POST',

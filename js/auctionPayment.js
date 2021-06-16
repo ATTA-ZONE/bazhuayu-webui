@@ -1,8 +1,7 @@
+var auctionPaymentText = chEnText.artwork[lang];
 function backAuction() {
 	window.location.href = 'auction.html';
 }
-
-
 function bindWallet(targetAddress) {
 	$.ajax({
 		url: '/v2/user/wallet/info',
@@ -12,9 +11,9 @@ function bindWallet(targetAddress) {
 				var hintMessage = '';
 				if (res.data.address != targetAddress) {
 					if (res.data.address == null || res.data.address == '') {
-						hintMessage = "您的賬戶未綁定地址，點擊確定會為您自動綁定當前錢包地址\n基於區塊鏈的獨立性，即使不綁定您仍然可以參與競拍\n當前錢包地址: " + targetAddress + " \n賬戶綁定地址: null";
+						hintMessage = auctionPaymentText.hintMessage0101 + targetAddress + auctionPaymentText.hintMessage0102;
 					} else {
-						hintMessage = "您的賬戶綁定地址與當前錢包地址不符，點擊確定會為您重新綁定當前錢包地址\n基於區塊鏈的獨立性，即使不綁定您仍然可以參與競拍\n當前錢包地址: " + targetAddress + " \n賬戶綁定地址: " + res.data.address;
+						hintMessage = auctionPaymentText.hintMessage0201 + targetAddress + auctionPaymentText.hintMessage0202 + res.data.address;
 					}
 
 					if (window.confirm(hintMessage)) {
@@ -31,16 +30,16 @@ function bindWallet(targetAddress) {
 							data: JSON.stringify(data),
 							success: function (res) {
 								if (res.code == 0) {
-									success('綁定成功！', 1800);
+									success(auctionPaymentText.bindSuc, 1800);
 								} else {
-									error('綁定失敗！', 1800);
+									error(auctionPaymentText.bindErr, 1800);
 								}
 							}
 						});
 					}
 				}
 			} else {
-				window.alert("您尚未登錄，無法綁定錢包，但基於區塊鏈的獨立性，您仍然可以參與競拍\n當前錢包地址: " + targetAddress);
+				window.alert(auctionPaymentText.noLogin + targetAddress);
 			}
 		}
 	});
@@ -167,7 +166,7 @@ if (walletType || window.ethereum) {
 
 	CHAIN.WALLET.accountsChangedAssign(accountsChangedImplement);
 } else {
-	window.confirm('錢包連接已失效，請重新連接錢包');
+	window.confirm(auctionPaymentText.walletLose);
 }
 
 
@@ -243,21 +242,21 @@ $('#pay_now').click(function () {
 								.then(function (res) {
 									var price = web3.utils.fromWei(res.events.Bid.returnValues.price, 'ether');
 									loadingHide();
-									success('競價成功', 1800);
+									success(auctionPaymentText.priceSuc, 1800);
 									setTimeout(function () {
-										$('.bid-payment-mobile-tit span').text('完成');
-										$('.bid-payment-right-tit').text('完成');
-										$('.bid-payment-right-tip').text('您的競標成功。');
-										$('.info-tit').text('訂單號：');
+										$('.bid-payment-mobile-tit span').text(auctionPaymentText.accomplish);
+										$('.bid-payment-right-tit').text(auctionPaymentText.accomplis);
+										$('.bid-payment-right-tip').text(auctionPaymentText.youPriceSuc);
+										$('.info-tit').text(auctionPaymentText.number);
 										$('.info-your-busd').hide();
-										$('.info-busd').text('您的競標價格為 BUSD ' + price);
-										$('.address-tit').text('付費地址：');
+										$('.info-busd').text(auctionPaymentText.youPrice + ' BUSD ' + price);
+										$('.address-tit').text(auctionPaymentText.payAddress);
 										$('.bid-payment-right-btn button').hide();
 									}, 1800)
 								})
 								.catch(function (error) {
 									loadingHide();
-									error('競價失敗！', 1800);
+									error(auctionPaymentText.priceErr, 1800);
 								})
 						});
 				} else {
@@ -269,21 +268,21 @@ $('#pay_now').click(function () {
 						.then(function (res) {
 							var price = web3.utils.fromWei(res.events.Bid.returnValues.price, 'ether');
 							loadingHide();
-							success('競價成功', 1800);
+							success(auctionPaymentText.priceSuc, 1800);
 							setTimeout(function () {
-								$('.bid-payment-mobile-tit span').text('完成');
-								$('.bid-payment-right-tit').text('完成');
-								$('.bid-payment-right-tip').text('您的競標成功。');
-								$('.info-tit').text('訂單號：');
+								$('.bid-payment-mobile-tit span').text(auctionPaymentText.accomplish);
+								$('.bid-payment-right-tit').text(auctionPaymentText.accomplish);
+								$('.bid-payment-right-tip').text(auctionPaymentText.youPriceSuc);
+								$('.info-tit').text(auctionPaymentText.number);
 								$('.info-your-busd').hide();
-								$('.info-busd').text('您的競標價格為 BUSD ' + price);
-								$('.address-tit').text('付費地址：');
+								$('.info-busd').text(auctionPaymentText.youPrice + ' BUSD ' + price);
+								$('.address-tit').text(auctionPaymentText.payAddress);
 								$('.bid-payment-right-btn button').hide();
 							}, 1800)
 						})
 						.catch(function (err) {
 							loadingHide();
-							error('競價失敗！', 1800);
+							error(auctionPaymentText.priceErr, 1800);
 						})
 				}
 
