@@ -265,11 +265,9 @@ var app = new Vue({
 							$('.details-right-btn').addClass('unclick');
 							$('.details-right-btn').text('已售罄');
 							$('.details-right-btn').data('status', '1');
-							$('.details-right-btn').attr('disabled',true)
 							$('.details-right-time span:first-child').css('opacity', '0');
 							$('.details-right-time-djs').text('已售罄');
 							$('.details-right-time-djs').css('color', '#cf3737');
-							$('.details-right-time-djs').attr('disabled',true)
 						}
 						self.getAccountInfo(res)
 					}
@@ -396,6 +394,9 @@ var app = new Vue({
 			return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 		},
 		toPay() {
+			if ($('.details-right-btn').dataset.status == 1) {
+				return false
+			}
 			if ($('.busd-tip').text() == '餘額不足' || this.accountBalance < this.busdPrice * this.selectarr.length) {
 				$('.payment-page-right-btn button').text('充值');
 				$('#balanceBtn').attr('disabled', false)
