@@ -143,7 +143,7 @@
       </div>
     </div>
     <!-- foot -->
-    <div class="footerpage2"></div>
+    <div class="footerpage"></div>
     <!--提示弹窗-->
     <div class="hsycms-model-mask" id="mask-tips"></div>
     <div class="hsycms-model hsycms-model-tips" id="tips">

@@ -103,7 +103,7 @@ $(function(){
 	$(".headerpage").load("header.html");
 	// $(".headerpage2").load("header2.html");
 	$(".footerpage").load("footer.html");
-	$(".footerpage2").load("footer2.html");
+	// $(".footerpage2").load("footer.html");
 	$(".tips").load("tips.html");
 	
 	//底部配置信息

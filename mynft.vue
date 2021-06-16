@@ -97,7 +97,7 @@
 			<div class="hsycms-model-text">这里是提示内容</div>
 		</div>
 		<!-- foot -->
-		<div class="footerpage2"></div>
+		<div class="footerpage"></div>
 
 		<!-- <div class="tips"></div> -->
 		
