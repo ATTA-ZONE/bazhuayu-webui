@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>註冊</title>
+	<title></title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
@@ -16,6 +16,7 @@
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<!-- <script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
@@ -66,7 +67,7 @@
 	
 </head>
 <body>
-	<div id="signup">
+	<div id="signup" v-cloak>
 		<div class="sign flex" id="signuppage">
 			<div class="sign-container flex">
 				<div class="sign-form">
@@ -111,6 +112,7 @@
 	
 </body>
 <script src="./js/signup.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 	var app = new Vue({
 	el: '#signup',

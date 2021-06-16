@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="twitter:title" content="八爪娛-文化/創意/藝術/娛樂NFT內容發布平臺與粉絲社區">
-	<title>連接錢包</title>
+	<meta name="twitter:title" content="">
+	<title></title>
 	<link rel="shortcut icon " type="images/x-icon" href="./images/Asset3.png">
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
@@ -78,8 +78,8 @@
 					<div class="modify-tips"></div>
 					<div class="modify-btn flex">
 						<button class="add modify-btn-active " type="button"></button>
-						<button class="cancel" type="button" onclick="cancel()">取消</button>
-						<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
+						<button class="cancel" type="button" onclick="cancel()">{{chEnTextHtml[lang].cancel}}</button>
+						<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">{{chEnTextHtml[lang].cancel}}</button>
 					</div>
 					<div class="modify-btn-tips"></div>
 					<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
@@ -104,12 +104,14 @@
 					tips1:"接錢包提供商或創建一個新的錢包。",
 					tips2:"如何註冊幣安智能鏈錢包？",
 					tips3:"我們沒有您的私鑰，未經您的確認也無法訪問您的資金。",
+					cancel:"取消"
 				},
 				"EN":{
 					title : "Connect your wallet",
 					tips1:"Connect your wallet through a following provider or create a new wallet.",
 					tips2:"What is a digital currency wallet？",
 					tips3:"We don't store your private key and can't access your funds without your confirmation.",
+					cancel:"cancel"
 				}
 			},
 			lang:''
@@ -119,8 +121,10 @@
 		let self = this;
 		this.lang = getCookie("lang")?getCookie("lang"):'TC';	
 		if(this.lang == 'TC'){
+			$('meta[name="twitter:title"]').attr('content',"八爪娛-文化/創意/藝術/娛樂NFT內容發布平臺與粉絲社區" );
 			document.title = '連接錢包';
 		}else{
+			$('meta[name="twitter:title"]').attr('content',"BAZHUAYU is an NFT asset publishing platform focusing on entertainment." );
 			document.title = 'Connect Wallet';
 		}
 	}

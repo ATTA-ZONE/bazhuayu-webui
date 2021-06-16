@@ -16,6 +16,7 @@
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<!-- <script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script> -->
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
@@ -42,32 +43,72 @@
 	
 </head>
 <body>
-	<div class="sign flex">
-		<div class="sign-container flex">
-			<div class="sign-form">
-				<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
-				<div class="sign-tit">設置密碼</div>
-				<div class="sign-tip"></div>
-				<div class="sign-input">
-					<p>
-						<label for="pwd">輸入新密碼</label>
-						<input id="pwd" type="password" placeholder="輸入新密碼" />
-					</p>
-					<p>
-						<label for="newPwd">重複新密碼</label>
-						<input id="newPwd" type="password" placeholder="重複新密碼" />
-					</p>
-				</div>
-				<div class="sign-btn flex">
-					<p class="sign-btn-register"><button type="button" data-click="0">確認</button></p>
+	<div id="reset" v-cloak>
+		<div class="sign flex">
+			<div class="sign-container flex">
+				<div class="sign-form">
+					<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
+					<div class="sign-tit">{{chEnTextHtml[languageType].setpsd}}</div>
+					<div class="sign-tip"></div>
+					<div class="sign-input">
+						<p>
+							<label for="pwd">{{chEnTextHtml[languageType].enterPsd}}</label>
+							<input id="pwd" type="password" :placeholder="chEnTextHtml[languageType].placeholderEnterPsd" />
+						</p>
+						<p>
+							<label for="newPwd">{{chEnTextHtml[languageType].repeatPsd}}</label>
+							<input id="newPwd" type="password" :placeholder="chEnTextHtml[languageType].placeholderRepeatPsd" />
+						</p>
+					</div>
+					<div class="sign-btn flex">
+						<p class="sign-btn-register"><button type="button" data-click="0">{{chEnTextHtml[languageType].confirm}}</button></p>
+					</div>
 				</div>
 			</div>
 		</div>
+		
+		<div class="tips"></div>
 	</div>
-	
-	<div class="tips"></div>
 	
 </body>
 <!-- <script src="./js/signup.js" type="text/javascript" charset="utf-8"></script> -->
-<script src="./js/reset.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/reset.js" type="text/javascript" charset="utf-8"></script><script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#reset',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					setpsd : "設置密碼",
+					enterPsd :"輸入新密碼",
+					placeholderEnterPsd:"輸入新密碼",
+					repeatPsd : "重複新密碼",
+					placeholderRepeatPsd:"重複新密碼",
+					confirm  : "確認",
+				},
+				"EN":{
+					setpsd : "Password Setting",
+					enterPsd :"New password",
+					placeholderEnterPsd:"Please enter your new password",
+					repeatPsd : "Repeat your new password",
+					placeholderRepeatPsd:"Please repeat your new password",
+					confirm  : "Submit",
+				}
+			},
+			lang:''
+		}
+	},
+	created() {
+		let self = this;
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
+			document.title = '設置密碼';
+		}else{
+			document.title = 'Password Setting';
+		}
+	}
+})
+</script>
 </html>

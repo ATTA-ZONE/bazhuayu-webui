@@ -1,5 +1,5 @@
 <template>
-  <div class="history-container">
+  <div class="history-container" v-cloak>
     <div class="filter-wrap">
       <div class="filter-control" @click="toggleFilters">
         <span>{{chEnTextHtml[lang].title}}</span>
