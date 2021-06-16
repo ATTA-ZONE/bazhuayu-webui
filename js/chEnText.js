@@ -14,31 +14,31 @@ var chEnText = {
       "hintMessage02":" \n賬戶綁定地址: ",
       "binded":"當前錢包已被綁定占有, 請更換錢包防止誤充",
       "emailNot":"郵箱未驗證",
-      "loginNot":"Please log in first.",
+      "loginNot":"登錄已失效，請重新登錄",
       "windowErr":"系統錯誤",
       "unregistered":"網絡錯誤，無法獲取賬戶信息",
       "startTopUp":"充值已發起,期間請勿更換錢包防止誤充",
       "rechargeSuc":"充值已成功"
     },
     "EN":{
-      "walletAddress":"當前綁定錢包地址：",
-      "rechargeDataNull":"無法獲取充值信息",
-      "deleteSuc":"delete sucessful",
-      "connectWallet":"Please connect your wallet",
-      "balanceInsufficient":"Insufficient balance",
-      "amountWithdrawal":"請填寫提現金額",
-      "apppleWithdrawal":"提款申請已收到，請等待",
-      "withdrawalsErr":"提款失敗",
-      "copysuc":"複製成功",
-      "hintMessage01":"您的賬戶綁定地址與當前錢包地址不符，點擊確定會為您綁定當前錢包地址\n當前錢包地址: ",
-      "hintMessage02":" \nAccount binding address: ",
-      "binded":"當前錢包已被綁定占有, 請更換錢包防止誤充",
-      "emailNot":"郵箱未驗證",
-      "loginNot":"登錄已失效，請重新登錄",
-      "windowErr":"系統錯誤",
-      "unregistered":"Network error, unable to access account info",
-      "startTopUp":"充值已發起,期間請勿更換錢包防止誤充",
-      "rechargeSuc":"充值已成功"
+      "walletAddress":"Current registered wallet：",
+      "rechargeDataNull":"Cannot get recharge info",
+      "deleteSuc":"Delete successfully",
+      "connectWallet":"Please connect your wallet",
+      "balanceInsufficient":"Insufficient balance",
+      "amountWithdrawal":"Please enter withdraw amount",
+      "apppleWithdrawal":"Withdraw claim received, please wait",
+      "withdrawalsErr":"Withdraw failed",
+      "copysuc":"Copied",
+      "hintMessage01":"Current wallet doesn’t match the wallet registered with your account, click confirm the registered wallet will change to current wallet\n Current wallet address: ",
+      "hintMessage02":" \nAccount registered address: ",
+      "binded":"Current wallet is registered to another account, please change to another wallet in order to avoid false recharge",
+      "emailNot":"E-mail not verified",
+      "loginNot":"Login expired，please re-login",
+      "windowErr":"System error",
+      "unregistered":"Network error, unable to access account info",
+      "startTopUp":"Adding funds, please do not change wallet during this process",
+      "rechargeSuc":"Funds added!"
     }
   },
   "myOrders":{
@@ -69,30 +69,30 @@ var chEnText = {
       "balancePayment":"餘額支付"
     },
     "EN":{
-      "myWallt":"Go check my assets",
-      "confirm":"confirm",
-      "cancel":"cancel",
-      "noResults":"There is nothing here",
-      "buyDate":"Purchase time：",
-      "number":"Order number # ",
-      "purchased":"Purchased edition",
-      "version01":" of ",
-      "version02":"",
-      "paymentMethod":"Payment method：",
-      "cryptocurrencies":"Crypto wallet",
-      "price":"Price：",
-      "purchasePrice":"Purchase price: ",
-      "bankCard":"Bank card payment",
-      "balanceInsufficient":"Insufficient balance",
-      "paySuc":"Payment successful",
-      "payErr":"Payment failed",
-      "cardAuthorization":"Your credit card will be authorized immediately",
-      "recharge":"Recharge",
-      "payment":"Immediate payment",
-      "walletImpower":"Your wallet will be authorized immediately",
-      "accomplis":"complete",
-      "toAssets":"Go check my assets",
-      "balancePayment":"Balance payment"
+      "myWallt":"Check my assets",
+      "confirm":"Confirm",
+      "cancel":"Cancel",
+      "noResults":"There is nothing here",
+      "buyDate":"Purchased time：",
+      "number":"Order number # ",
+      "purchased":"Purchased edition",
+      "version01":" of ",
+      "version02":"",
+      "paymentMethod":"Payment method：",
+      "cryptocurrencies":"Crypto wallet",
+      "price":"Price：",
+      "purchasePrice":"Purchased price: ",
+      "bankCard":"Credit card payment",
+      "balanceInsufficient":"Insufficient balance",
+      "paySuc":"Payment succeeded",
+      "payErr":"Payment failed",
+      "cardAuthorization":"Your credit card will be authorized immediately",
+      "recharge":"Recharge",
+      "payment":"Immediate payment",
+      "walletImpower":"Your wallet will be authorized immediately",
+      "accomplis":"Completed",
+      "toAssets":"Check my assets",
+      "balancePayment":"Balance payment"
     }
   },
   "artwork":{
@@ -106,13 +106,13 @@ var chEnText = {
       "auction":"拍賣中",
     },
     "EN":{
-      "noResult":"There is nothing here",
-      "xdd":"Xu Dongdong Ox N.X Designer Toy NFT Limited Edition",
-      "sellOut":"Sold out",
-      "preSale":"Pre-sale",
-      "purchaseNow":"Purchase Now",
-      "salesClosed":"Sold out",
-      "auction":"拍賣中"
+      "noResult":"There is nothing here",
+      "xdd":"Xu Dongdong Ox N.X Designer Toy NFT Limited Edition",
+      "sellOut":"Sold out",
+      "preSale":"Pre-sale",
+      "purchaseNow":"Purchase Now",
+      "salesClosed":"Sales ended",
+      "auction":"Bid on going"
     }
   },
   "auction":{
@@ -135,22 +135,22 @@ var chEnText = {
       "walletLose":"錢包連接已失效，請重新連接錢包"
     },
     "EN":{
-      "haveBid":"My offer",
-      "bid":"The offer cannot be lower than the initial offer",
-      "startingPrice":"Bidding starts in：",
-      "endPrice":"Bidding ends in：",
-      "auctionEnd":"Bid ended",
-      "topPrice":"Congrats! You are the finnal winner!",
-      "assetLook":"Go to my asset to check",
-      "maxmonery":"You are the highest bidder",
-      "bidFailure":"Your bid has been exceeded ",
-      "lose":"Not logged in/Unconnected wallet",
-      "notBegun":"AUCTION Not started",
-      "msg01":"Please install metamask first to ensure the use of audit function",
-      "msg02":"Go to metamask's website",
-      "address01":"Current wallet address：",
-      "address02":"The bidding records shown are attatched to current wallet. You can switch to other wallet if you want to check the bidding records related to other wallet.",
-      "walletLose":"The wallet connection has failed. Please connect the wallet again"
+      "haveBid":"My offer",
+      "bid":"Your offer cannot be lower than the initial offer",
+      "startingPrice":"Bidding starts in：",
+      "endPrice":"Bidding ends in：",
+      "auctionEnd":"Bid ended",
+      "topPrice":"Congrats! You are the finnal winner!",
+      "assetLook":"Check my asset",
+      "maxmonery":"You are the highest bidder",
+      "bidFailure":"Your bid has been exceeded ",
+      "lose":"Not logged in/Unconnected wallet",
+      "notBegun":"Bidding haven’t started",
+      "msg01":"Please install metamask first to ensure the use of audition",
+      "msg02":"Go to metamask's website",
+      "address01":"Current wallet address：",
+      "address02":"The bidding records shown are attatched to current wallet. You can switch to other wallet if you want to check the bidding records related to other wallet.",
+      "walletLose":"Wallet connection has failed. Please re-connect your wallet"
     }
   },
   "auctionPayment":{
@@ -172,21 +172,21 @@ var chEnText = {
       "payAddress":"付費地址："
     },
     "EN":{
-      "walletLose":"Wallet disconnected, please connect again",
-      "hintMessage0101":"Your account is not bound to address. Click OK to bind the current wallet address automatically for you\nDue to the independence of the blockchain, you can still participate in the auction even if it is not bound\nCurrent wallet address: ",
-      "hintMessage0102":" \nAccount binding address: null",
-      "hintMessage0201":"Your account binding address does not match the current wallet address. Click OK to rebind the current wallet address for you\nDue to the independence of the blockchain, you can still participate in the auction even if it is not bound\nCurrent wallet address: ",
-      "hintMessage0202":" \nAccount binding address: ",
-      "bindSuc":"Binding succeeded!",
-      "bindErr":"Binding failed!",
-      "noLogin":"You have not signed in yet and cannot bind the wallet. However, due to the independence of the blockchain, you can still participate in bidding for the current wallet address: ",
-      "priceSuc":"Successful bidding",
-      "priceErr":"Bid failed！",
-      "accomplish":"complete",
-      "youPriceSuc":"Your bid is successful.",
-      "number":"Order No：",
-      "youPrice":"Your bid price is",
-      "payAddress":"Billing address:"
+      "walletLose":"Wallet disconnected, please connect again",
+      "hintMessage0101":"Your account is not related to any wallet. Click OK to register the current wallet address to your account \nDue to the independence of the blockchain, you can still participate in the auction even if the wallet is not  registered to your account \nCurrent wallet address: ",
+      "hintMessage0102":" \nAccount binding address: null",
+      "hintMessage0201":"Your account registered wallet address does not match the current wallet address. Click OK to replace the current wallet address to registered wallet address \ nDue to the independence of the blockchain, you can still participate in the auction even if the wallet is not  registered to your account \nCurrent wallet address: ",
+      "hintMessage0202":" \nAccount Registered address: ",
+      "bindSuc":"Registered successfully!",
+      "bindErr":"Registered failed!",
+      "noLogin":"You have not signed in yet and cannot register the wallet. However, due to the independence of the blockchain, you can still participate in auction with current wallet address: ",
+      "priceSuc":"Bid successfully!",
+      "priceErr":"Bid failed！",
+      "accomplish":"Complete",
+      "youPriceSuc":"Your bid is successful.",
+      "number":"Order No：",
+      "youPrice":"Your bid price is",
+      "payAddress":"Billing address:"
     } 
   },
   "common":{
@@ -208,21 +208,21 @@ var chEnText = {
       "unBind":"未綁定錢包"
     },
     "EN":{
-      "logOutMes":"Are you sure you want to log out",
-      "suc":"success",
-      "cancel":"cancel",
-      "myaccount":"My Account",
-      "myorders":"My Orders",
-      "myassets":"My Assets",
-      "mywallet":"My Wallet",
-      "logOut":"Log out",
-      "login":"Login/Sign up",
-      "connectWallet":"Wallet connected",
-      "noConnectWallet":"Connect Wallet",
-      "home":"HOME",
-      "auction":"auction",
-      "wallet":"錢包連接中",
-      "unBind":"Unregistered"
+      "logOutMes":"Are you sure you want to log out",
+      "suc":"Succeeded",
+      "cancel":"Cancel",
+      "myaccount":"My Account",
+      "myorders":"My Orders",
+      "myassets":"My Assets",
+      "mywallet":"My Wallet",
+      "logOut":"Log out",
+      "login":"Login/Sign up",
+      "connectWallet":"Wallet connected",
+      "noConnectWallet":"Connect Wallet",
+      "home":"Home",
+      "auction":"Auction",
+      "wallet":"Wallet connecting",
+      "unBind":"Unregistered"
     }
   },
   "connectWallet":{
@@ -242,19 +242,19 @@ var chEnText = {
       "alert":"請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。"
     },
     "EN":{
-      "logWtllet":"You successfully registered a wallet",
-      "connectWallet":"Please connect your wallet",
-      "walletAddress":"Wallet address：",
-      "tips01":"Note: The NFT assets you purchased will be sent to the current wallet you connected only.",
-      "tips02":"（ Please click the 'wallet connected' button to change to another wallet if you need. ）",
-      "know":"Got it!",
-      "changeWallet":"該錢包已被綁定占有, 請更換錢包",
-      "emailErr":"郵箱未驗證",
-      "loginNot":"Please log in first.",
-      "windowErr":"系統錯誤",
-      "httpError":"Error, cannot receive account info.",
-      "unableGet":"Cannot receive wallet info.",
-      "alert":"In order to connect your wallet successfully, please use the built-in browser within any wallet Dapp to visit BAZHUAYU.IO, or use the wallet add-ons of the PC browser on desktop PC."
+      "logWtllet":"You successfully registered a wallet",
+      "connectWallet":"Please connect your wallet",
+      "walletAddress":"Wallet address：",
+      "tips01":"Note: The NFT assets you purchased will be sent to the current wallet you connected only.",
+      "tips02":"（ Please click the 'wallet connected' button to change to another wallet if you need. ）",
+      "know":"Got it!",
+      "changeWallet":"This wallet has been registered to an account, please try another wallet",
+      "emailErr":"E-mail not verified",
+      "loginNot":"Please log in first.",
+      "windowErr":"System Error",
+      "httpError":"Error, cannot receive account info.",
+      "unableGet":"Cannot receive wallet info.",
+      "alert":"In order to connect your wallet successfully, please use the built-in browser within any wallet Dapp to visit BAZHUAYU.IO, or use the wallet add-ons of the PC browser on desktop PC."
     }
   },
   "forgotPassword":{
@@ -263,8 +263,8 @@ var chEnText = {
       "emailErr":"郵箱格式錯誤"
     },
     "EN":{
-      "verificationCode":"Verification sent to mailbox",
-      "emailErr":"Email format error"
+      "verificationCode":"Verification code has sent to your E-mail",
+      "emailErr":"Email format error"
     } 
   },
   "frames":{
@@ -325,46 +325,46 @@ var chEnText = {
       "noLog":"未登錄，請登入"
     },
     "EN":{
-      "passWord":"At least 8 digits, must contain one upper case letter and one lower case letter",
-      "recharge":"Add funds",
-      "nowRecharge":"Withdraw now",
-      "connectWallet":"Place connect wallet",
-      "amount":"Enter amount",
-      "withdraw":"Withdraw",
-      "nowWithdraw":"Withdraw now",
-      "changeCard":"Change credit card",
-      "deleteData":"Delete credit card",
-      "deleteCard":"Are you sure you want to delete credit card information? Cannot be undone.",
-      "delete":"Delete",
-      "deleteWallt":"Are you sure you want to delete wallet information? Cannot be revoked.",
-      "chengeNick":"Change nickname",
-      "currentNick":"Current nickname",
-      "newNick":"Enter your new nickname",
-      "save":"Submit",
-      "changeNFT":"Edit Receiving Address",
-      "currentAddress":"Current address：",
-      "noAddress":"No receiving address",
-      "newAddress":"New address：",
-      "tips01":"Note: You cannot change the receiving address once minting is completed. You need to connect to the new address (wallet) if you want to check the NFT.",
-      "edit":"Confirm",
-      "transfer":"Transfer Token ",
-      "newWallt":" to new wallet",
-      "walltAdress":"Current addr：",
-      "transferTo":"Transfer to：",
-      "tips02":"Note: After you transfered your NFT, you need to connect the wallet you transfered to, to check your NFTs’status",
-      "confirmCurrent":"Confirm",
-      "changePassword":"Change password",
-      "currentPassword":"Current password",
-      "enterCurrentPassword":"Enter current password",
-      "currentPasswordErr":"The current password you entered is not correct",
-      "newPassword":"New password",
-      "entweNewPassword":"Enter new password",
-      "passwordLength":"密碼長度不少於6比特",
-      "passwordReg":"At least 8 digits, must contain one upper case letter and one lower case letter",
-      "repeatPassword":"Enter new password again",
-      "repeatPasswordErr":"The password you entered Doesn't match your new password",
-      "noConnectWallet":"Connect Wallet",
-      "noLog":"Not logged in, please log in"
+      "passWord":"At least 8 digits, must contain one upper case letter and one lower case letter",
+      "recharge":"Add funds",
+      "nowRecharge":"Withdraw now",
+      "connectWallet":"Place connect wallet",
+      "amount":"Enter amount",
+      "withdraw":"Withdraw",
+      "nowWithdraw":"Withdraw now",
+      "changeCard":"Change credit card",
+      "deleteData":"Delete credit card",
+      "deleteCard":"Are you sure you want to delete credit card information? This action cannot be undone.",
+      "delete":"Delete",
+      "deleteWallt":"Are you sure you want to delete wallet information? This action cannot be undone.",
+      "chengeNick":"Change nickname",
+      "currentNick":"Current nickname",
+      "newNick":"Enter your new nickname",
+      "save":"Submit",
+      "changeNFT":"Edit Receiving Address",
+      "currentAddress":"Current address：",
+      "noAddress":"No receiving address",
+      "newAddress":"New address：",
+      "tips01":"Note: You cannot change the receiving address once minting is completed. You need to connect to the new address (wallet) if you want to check the NFT.",
+      "edit":"Confirm",
+      "transfer":"Transfer Token ",
+      "newWallt":" to new wallet",
+      "walltAdress":"Current addr：",
+      "transferTo":"Transfer to：",
+      "tips02":"Note: After you transfered your NFT, you need to connect the wallet you transfered to, to check your NFTs’ status",
+      "confirmCurrent":"Confirm",
+      "changePassword":"Change password",
+      "currentPassword":"Current password",
+      "enterCurrentPassword":"Enter current password",
+      "currentPasswordErr":"The current password you entered is not correct",
+      "newPassword":"New password",
+      "entweNewPassword":"Enter new password",
+      "passwordLength":"Password need to be at least 8 digits",
+      "passwordReg":"At least 8 digits, must contain one upper case letter and one lower case letter",
+      "repeatPassword":"Enter new password again",
+      "repeatPasswordErr":"The password you entered Doesn't match your new password",
+      "noConnectWallet":"Connect Wallet",
+      "noLog":"Not logged in, please log in"
     }
   },
   "login":{
@@ -377,12 +377,12 @@ var chEnText = {
       "dataErr":"郵箱或密碼不能為空"
     },
     "EN":{
-      "emailMgs":"The mailbox has been registered but not verified. Please verify the mailbox",
-      "confirm":"Confirmation",
-      "cancel":"cancel",
-      "logSuc":"Login successful",
-      "logErr":"Email or password error",
-      "dataErr":"Email or password cannot be empty"
+      "emailMgs":"This E-mail has been registered but not verified. Please verify the E-mail first",
+      "confirm":"Confirmation",
+      "cancel":"Cancel",
+      "logSuc":"Login successfully",
+      "logErr":"Email or password error",
+      "dataErr":"Email or password cannot be empty"
     }
   },
   "myaccount":{
@@ -392,9 +392,9 @@ var chEnText = {
       "editSuc":"修改成功"
     },
     "EN":{
-      "nick":"Current nickname：",
-      "nickUnNull":"Nickname cannot be empty",
-      "editSuc":"Modified successfully"
+      "nick":"Current nickname：",
+      "nickUnNull":"Nickname cannot be empty",
+      "editSuc":"Change successfully"
     }
   },
   "myassets":{
@@ -427,10 +427,10 @@ var chEnText = {
       "tips04":"修改成功"
     },
     "EN":{
-      "tips01":"Password can not be empty",
-      "tips02":"Password length cannot be less than 8",
-      "tips03":"The two passwords are not equal",
-      "tips04":"Successfully modified"
+      "tips01":"Password cannot be empty",
+      "tips02":"Password need to be at least 8 digits",
+      "tips03":"Password doesn’t match with each other",
+      "tips04":"Change Successfully"
     }
   },
   "showwallet":{
@@ -443,12 +443,12 @@ var chEnText = {
       "deleteSuc":"删除成功"
     },
     "EN":{
-      "bindWallt":"Current wallet address：",
-      "NFTWallt":"All NFT assets you purchased will be sent to the address above.",
-      "change":"Change",
-      "delete":"Delete",
-      "cancel":"Cancel",
-      "deleteSuc":"delete sucessful"
+      "bindWallt":"Current wallet address：",
+      "NFTWallt":"All NFT assets you purchased will be sent to the address above.",
+      "change":"Change",
+      "delete":"Delete",
+      "cancel":"Cancel",
+      "deleteSuc":"Delete successfully"
     }
   },
   "signup":{
@@ -463,14 +463,14 @@ var chEnText = {
       "tips05":"郵箱格式不正確"
     },
     "EN":{
-      "verificationEmail":"To verify email",
-      "suc":"success",
-      "cancel":"cancel",
-      "tips01":"Please input the same password",
-      "tips02":"The mailbox is registered but not verified",
-      "tips03":"The mailbox has been registered. Please try another mailbox",
-      "tips04":"Registration is currently prohibited",
-      "tips05":"The mailbox format is incorrect"
+      "verificationEmail":"To verify email",
+      "suc":"Success",
+      "cancel":"Cancel",
+      "tips01":"Please input the same password",
+      "tips02":"This E-mail is registered but not verified",
+      "tips03":"This E-mial has been registered. Please try another mailbox",
+      "tips04":"Registration is currently prohibited",
+      "tips05":"The E-mail format is incorrect"
     }
   },
   "upload":{
@@ -479,8 +479,8 @@ var chEnText = {
       "tips02":"上传大小不能超过2M."
     },
     "EN":{
-      "tips01":"您拖的不是图片！",
-      "tips02":"上传大小不能超过2M."
+      "tips01":"Pictures only",
+      "tips02":"File cannot exceed 2M."
     }
   },
   "verificationCode":{
@@ -489,8 +489,8 @@ var chEnText = {
       "tips02":"注册成功"
     },
     "EN":{
-      "tips01":"發送成功",
-      "tips02":"注册成功"
+      "tips01":"Verification code sent",
+      "tips02":"Registered successfully"
     }
   }
 }
