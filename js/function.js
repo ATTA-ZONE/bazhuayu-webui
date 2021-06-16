@@ -76,13 +76,14 @@ function toggleBanner(obj){
 	progress(5000);
 }
 function togglepwd() {
+	var functionText = chEnText.function[lang];
 	var value = $('.newPwd').val().trim()
 	var regExp = /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/
 	if (regExp.test(value)) {
 		$('.password-icon1').attr('src', './images/pass.png')
 	} else if (value.length > 8) {
 		$('.password-icon1').attr('src', './images/refuse.png')
-		tips('密碼至少8位，請至少包含一個大寫字母和一個小寫字母')
+		tips(functionText.passWord)
 	}
 }
 
@@ -154,6 +155,7 @@ function menuHide(){
 
 // add fund
 function addFund(){
+	var functionText = chEnText.function[lang];
 	if (getCookie('isConnect')=='false') {
 		window.location.href="./connectWallet.html"
 	}else{
@@ -168,14 +170,14 @@ function addFund(){
 		.then(function(account){
 			var html = ``;
 			html += `<div class="modify-ipt-add">
-						<div class="modify-ipt-tit" id="testcopy">`+(account.length == 0?'請連接錢包':'From '+account[0])+`<img class="copybtn" src="./images/copyicon.png" onclick="copyaddressbtn()"/></div>
-						<input type="text" placeholder="輸入金額" />
+						<div class="modify-ipt-tit" id="testcopy">`+(account.length == 0?functionText.connectWallet:'From '+account[0])+`<img class="copybtn" src="./images/copyicon.png" onclick="copyaddressbtn()"/></div>
+						<input type="text" placeholder="${functionText.amount}" />
 					</div>`;
 					
 			$('.modify-ipt').html(html);
 			$('.modify-btn-active').addClass('add');
 			$('.modify-btn-active').removeClass('delete');
-			$('.modify-btn-active').text('立即充值');
+			$('.modify-btn-active').text(functionText.nowRecharge);
 		})
 	}
 }
@@ -201,6 +203,7 @@ function cancelMobile(){
 
 //widthdraw
 function widthDraw(){
+	var functionText = chEnText.function[lang];
 	if (getCookie('isConnect')=='false') {	
 		window.location.href="./connectWallet.html"
 	}else{
@@ -209,7 +212,7 @@ function widthDraw(){
 		var modifyForm = document.getElementById("modify-btn-form");
 		modifyForm.style.display = "block";
 		$('.modify-ipt-form').addClass('modify-ipt');
-		$('.modify-tit span').text('提款');
+		$('.modify-tit span').text(functionText.withdraw);
 		$('.modify-tit').data('type','withdraw');
 		$.ajax({
 			url:base_url+'/v2/user/wallet/info',
@@ -218,13 +221,13 @@ function widthDraw(){
 					var html = ``;
 					html += `<div class="modify-ipt-add">
 								<div class="modify-ipt-tit">`+(res.data.address==null?'請連接錢包':'To '+res.data.address)+`</div>
-								<input type="text" placeholder="輸入金額" />
+								<input type="text" placeholder="${functionText.amount}" />
 							</div>`;
 							
 					$('.modify-ipt').html(html);
 					$('.modify-btn-active').addClass('add');
 					$('.modify-btn-active').removeClass('delete');
-					$('.modify-btn-active').text('立即提款');
+					$('.modify-btn-active').text(functionText.nowWithdraw);
 				}
 			}
 		})
@@ -234,17 +237,18 @@ function widthDraw(){
 
 //change card
 function changeCard(){
+	var functionText = chEnText.function[lang];
 	var payForm = document.getElementById("modify-ipt-form");
 	payForm.style.display = "block";
 	var modifyForm = document.getElementById("modify-btn-form");
 	modifyForm.style.display = "none";
 	$('.modify-ipt-form').removeClass('modify-ipt');
 	$('.modify-ipt-form').html(``);
-	$('.modify-tit span').text('更換信用卡');
+	$('.modify-tit span').text(functionText.changeCard);
 	$('.modify-tit').data('type','card');
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
-	$('.modify-btn-active').text('儲存');
+	$('.modify-btn-active').text(functionText.save);
 	
 	// $('#datetimepicker').datetimepicker({
 	// 	format: 'mm/yyyy',
@@ -257,96 +261,101 @@ function changeCard(){
 
 //delete info
 function deleteCard(){
+	var functionText = chEnText.function[lang];
 	var payForm = document.getElementById("modify-ipt-form");
 	payForm.style.display = "none";
 	var modifyForm = document.getElementById("modify-btn-form");
 	modifyForm.style.display = "block";
 	$('.modify-ipt-form').addClass('modify-ipt');
-	$('.modify-tit span').text('刪除資料');
+	$('.modify-tit span').text(functionText.deleteData);
 	$('.modify-tit').data('type','dcard');
 	var html = ``;
 	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">您確定要刪除信用卡信息嗎？不能撤消。</div>
+				<div class="modify-ipt-tit">${functionText.deleteCard}</div>
 			</div>`;
 			
 	$('.modify-ipt').html(html);
 	$('.modify-btn-active').removeClass('add');
 	$('.modify-btn-active').addClass('delete');
-	$('.modify-btn-active').text('刪除');
+	$('.modify-btn-active').text(functionText.delete);
 	// $('.modify').fadeIn();
 }
 
 function deleteWallet(){
+	var functionText = chEnText.function[lang];
 	var payForm = document.getElementById("modify-ipt-form");
 	payForm.style.display = "none";
 	var modifyForm = document.getElementById("modify-btn-form");
 	modifyForm.style.display = "block";
 	$('.modify-ipt-form').addClass('modify-ipt');
-	$('.modify-tit span').html('刪除資料');
+	$('.modify-tit span').html(functionText.deleteData);
 	$('.modify-tit').data('type','dwallet');
 	var html = ``;
 	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">您確定要刪除錢包信息嗎？不能撤消。</div>
+				<div class="modify-ipt-tit">${functionText.deleteWallt}</div>
 			</div>`;
 			
 	$('.modify-ipt').html(html);
 	$('.modify-btn-active').removeClass('add');
 	$('.modify-btn-active').addClass('delete');
-	$('.modify-btn-active').text('刪除   ');
+	$('.modify-btn-active').text(functionText.delete);
 	// $('.modify').fadeIn();
 }
 
 // change name
 function changeName(){
-	$('.modify-tit span').text('更換暱稱');
+	var functionText = chEnText.function[lang];
+	$('.modify-tit span').text(functionText.chengeNick);
 	$('.modify-tit').data('type','name');
 	var html = ``;
 	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">當前暱稱：Vova Zhuruk</div>
-				<input type="text" placeholder="輸入新暱稱" />
+				<div class="modify-ipt-tit">${functionText.currentNick}Vova Zhuruk</div>
+				<input type="text" placeholder="${functionText.newNick}" />
 			</div>`;
 			
 	$('.modify-ipt').html(html);
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
-	$('.modify-btn-active').text('儲存');
+	$('.modify-btn-active').text(functionText.save);
 	// $('.modify').fadeIn();
 }
 
 
 function editnftaddress(e){
+	var functionText = chEnText.function[lang];
 	let obj = JSON.parse(e.target.dataset.json);
-	$('.modify-tit span').text('修改BSC NFT接收地址');
+	$('.modify-tit span').text(functionText.changeNFT);
 	var html = ``;
 	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit dqaddress">當前接收地址：<span>`+(obj.receiver ? obj.receiver : "暫無接收地址")+`</span></div>
-				<div class="modify-ipt-tit newaddress">新接收地址：<input type="text" value=`+walletId+`></div>
+				<div class="modify-ipt-tit dqaddress">${functionText.currentAddress}<span>`+(obj.receiver ? obj.receiver : functionText.noAddress)+`</span></div>
+				<div class="modify-ipt-tit newaddress">${functionText.newAddress}<input type="text" value=`+walletId+`></div>
 			</div>`;
 			
 	$('.modify-ipt').html(html);
-	$('.modify-tips').html(`<span class="modify-tips-content">提示：一旦鑄造完成，則不可修改地址。如需查看該NFT，需連接新接收地址才可查看</span>`);
+	$('.modify-tips').html(`<span class="modify-tips-content">${functionText.tips01}</span>`);
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
-	$('.modify-btn-active').text('確認修改');
+	$('.modify-btn-active').text(functionText.edit);
 	$('.modify-btn-active').attr('data-type',e.target.dataset.json);
 	$('.cancel').hide();
 	$('.modify').fadeIn();
 }
 function zhuanyiaddress(e){
+	var functionText = chEnText.function[lang];
 	let obj = JSON.parse(e.target.dataset.json);
 	let endedition = JSON.parse(e.target.dataset.endedition);
-	$('.modify-tit span').text(`轉移Token `+obj.edition+` of `+endedition+` 至新錢包`);
+	$('.modify-tit span').text(functionText.transfer+obj.edition+` of `+endedition+functionText.newWallt);
 	var html = ``;
 	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit dqaddress">當前所在錢包地址：<span>`+walletId+`</span></div>
-				<div class="modify-ipt-tit newaddress2">轉移至：<input type="text" value=`+walletId+`></div>
+				<div class="modify-ipt-tit dqaddress">${functionText.walltAdress}<span>`+walletId+`</span></div>
+				<div class="modify-ipt-tit newaddress2">${functionText.transferTo}<input type="text" value=`+walletId+`></div>
 			</div>`;
 			
 	$('.modify-ipt').html(html);
-	$('.modify-tips').html(`<span class="modify-tips-content">提示：轉移至新錢包后，需連接新錢包才可在“我的NFT”中查看</span>`);
+	$('.modify-tips').html(`<span class="modify-tips-content">${functionText.tips02}</span>`);
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
-	$('.modify-btn-active').text('確認轉移');
+	$('.modify-btn-active').text(functionText.confirmCurrent);
 	$('.modify-btn-active').attr('data-type',e.target.dataset.json);
 	$('.cancel').hide();
 	$('.modify').fadeIn();
@@ -374,33 +383,34 @@ function changePhone(){
 }
 //change pwd
 function changePwd(){
-	$('.modify-tit span').text('更換密碼');
+	var functionText = chEnText.function[lang];
+	$('.modify-tit span').text(functionText.changePassword);
 	$('.modify-tit').data('type','pwd');
 	var html = ``;
 	html += `<div class="modify-ipt-add">
 				<div class="input-position">
-					<div class="modify-ipt-tit">當前密碼</div>
-					<input class="modify-ipt-pwd oldPwd" type="password" placeholder="輸入當前密碼" />
-					<div class="pwdMessage oldPwd-message">當前密碼不正確。</div>
+					<div class="modify-ipt-tit">${functionText.currentPassword}</div>
+					<input class="modify-ipt-pwd oldPwd" type="password" placeholder="${functionText.enterCurrentPassword}" />
+					<div class="pwdMessage oldPwd-message">${functionText.currentPasswordErr}</div>
 				</div>
 				<div class="input-position">
-					<div class="modify-ipt-tit">新密碼</div>
-					<input class="modify-ipt-pwd newPwd" type="password" placeholder="輸入新密碼" oninput="togglepwd()"/>
+					<div class="modify-ipt-tit">${functionText.newPassword}</div>
+					<input class="modify-ipt-pwd newPwd" type="password" placeholder="${functionText.entweNewPassword}" oninput="togglepwd()"/>
 					<img class="password-icon1" style="top:58px;" src="./images/refuse.png">
-					<div class="pwdMessage newPwd-message">密碼長度不少於6比特</div>
-					<div class="pswrule">密碼至少8位，請至少包含一個大寫字母和一個小寫字母</div>
+					<div class="pwdMessage newPwd-message">${functionText.passwordLength}</div>
+					<div class="pswrule">${functionText.passwordReg}</div>
 				</div>
 				<div class="input-position">
-					<div class="modify-ipt-tit">重複新密碼</div>
-					<input class="modify-ipt-pwd repeatPwd" type="password" placeholder="重複新密碼" />
-					<div class="pwdMessage repeatPwd-message">重複密碼不正確</div>
+					<div class="modify-ipt-tit">${functionText.repeatPassword}</div>
+					<input class="modify-ipt-pwd repeatPwd" type="password" placeholder="${functionText.repeatPassword}" />
+					<div class="pwdMessage repeatPwd-message">${functionText.repeatPasswordErr}</div>
 				</div>
 			</div>`;
 			
 	$('.modify-ipt').html(html);
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
-	$('.modify-btn-active').text('儲存');
+	$('.modify-btn-active').text(functionText.save);
 	// $('.modify').fadeIn();
 }
 
@@ -451,12 +461,13 @@ function tips(txt){
 
 //
 function connectWallet(){
+	var functionText = chEnText.function[lang];
 	$.ajax({
 		url:base_url+'/v2/user/account',
 		success:function(res){
 			if(res.code==0){
 				var text = $('.header-right-wallet').text().trim();
-				if(text=='未連接錢包'){
+				if(text==functionText.noConnectWallet){
 					window.location.href = 'connectWallet.html';
 				}else{
 					// tips('已連接');
@@ -464,7 +475,7 @@ function connectWallet(){
 				
 			}else{
 			
-				tips('未登錄，請登入');
+				tips(functionText.noLog);
 			
 			}
 			// console.log(res)
