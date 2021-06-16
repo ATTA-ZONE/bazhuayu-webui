@@ -129,6 +129,7 @@ html {
 	padding: 0 10px;
 	padding-bottom: 10px;
 	transition: all 0.3s;
+	margin: 0 10px;
 }
 
 .header-left ul li a {
