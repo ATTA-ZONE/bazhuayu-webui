@@ -85,7 +85,7 @@ var app = new Vue({
 					walletFirst:"請先連接錢包  ->",
 				},
 				"EN":{
-					home:'home',
+					home:'HOME',
 					auction:'AUCTION',
 					noConnectWallet:"Connect Wallet",
 					login:"Login/Sign up",

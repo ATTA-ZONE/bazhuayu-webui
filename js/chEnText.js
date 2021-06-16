@@ -219,7 +219,7 @@ var chEnText = {
       "login":"Login/Sign up",
       "connectWallet":"Wallet connected",
       "noConnectWallet":"Connect Wallet",
-      "home":"home",
+      "home":"HOME",
       "auction":"auction",
       "wallet":"錢包連接中",
       "unBind":"Unregistered"
