@@ -1,4 +1,7 @@
 var auctionPaymentText = chEnText.artwork[lang];
+var urlauctionPayment = window.location.search.split('=');
+var userPrice = urlauctionPayment[1].split("&id")[0];
+var urlid = urlauctionPayment[urlauctionPayment.length - 1];
 function backAuction() {
 	window.location.href = 'auction.html';
 }
@@ -46,24 +49,23 @@ function bindWallet(targetAddress) {
 }
 
 $.ajax({
-	url: '/v2/auction/list',
+	url: '/v2/auction/detail?id='+urlid,
 	success: function (res) {
 		if (res.code == 0) {
-			var data = res.data.pageResult.records[0];
-			var geshi = data.primaryPic.substr(data.primaryPic.lastIndexOf('.') + 1);
+			var geshi = res.data.primaryPic.substr(res.data.primaryPic.lastIndexOf('.') + 1);
 			if (geshi == 'mp4') {
-				var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="` + data.primaryPic + `" muted="muted"></video>
-							<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + data.primaryPic + `" muted="muted"></video>`;
+				var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="` + res.data.primaryPic + `" muted="muted"></video>
+							<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + res.data.primaryPic + `" muted="muted"></video>`;
 
 				$('.bid-payment-img').html(html);
 			} else {
-				var html = `<img src="` + data.primaryPic + `" >
-							<img class="mohu" src="` + data.primaryPic + `" >`;
+				var html = `<img src="` + res.data.primaryPic + `" >
+							<img class="mohu" src="` + res.data.primaryPic + `" >`;
 
 				$('.bid-payment-img').html(html);
 			}
 
-			$('.auction-name').text(data.name);
+			$('.auction-name').text(res.data.name);
 			// $('.auction-edition').text(`第`+data.edition+`版，共`+data.storage+`版`);
 		}
 	}
@@ -205,7 +207,6 @@ $('#connectWallet').click(function () {
 // })
 
 //用户初始报价
-var userPrice = window.location.search.split('=')[1];
 $('.info-your-busd span').text(userPrice);
 
 //拍卖
