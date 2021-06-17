@@ -20,7 +20,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 		base_url = 'http://47.118.74.48:'+window.location.port;
 	}
 }
-var lang = 'TC';
+var lang = getCookie("lang")?getCookie("lang"):'TC';
 $.ajax({
 	url:base_url+'/v2/user/lang/select',
 	type:'POST',
@@ -74,11 +74,25 @@ function walletaddressdelete(){
 }
 
 $(function(){
-	$(".headerpage").load("header.html");
-	// $(".headerpage2").load("header2.html");
-	$(".footerpage").load("footer.html");
-	$(".footerpage2").load("footer2.html");
-	$(".tips").load("tips.html");
+	// 中英文切换
+	$("body").on("click", ".language-change-en", function () {
+		setCookie('lang','EN');
+		window.location.href=window.location.href; 
+	})
+	$("body").on("click", ".language-change-ch", function () {
+		setCookie('lang','TC');
+		window.location.href=window.location.href;
+	})
+	
+	if(lang == "TC"){
+		$(".headerpage").load("header.html");
+		$(".footerpage").load("footer.html");
+		$(".tips").load("tips.html");
+	}else{
+		$(".headerpage").load("header2.html");
+		$(".footerpage").load("footer2.html");
+		$(".tips").load("tips2.html");
+	}
 	
 	//底部配置信息
 	$.ajax({

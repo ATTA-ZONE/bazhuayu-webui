@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="twitter:title" content="八爪娛-文化/創意/藝術/娛樂NFT內容發布平臺與粉絲社區">
-	<title>連接錢包</title>
+	<meta name="twitter:title" content="">
+	<title></title>
 	<link rel="shortcut icon " type="images/x-icon" href="./images/Asset3.png">
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
@@ -26,56 +26,108 @@
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
 	<!-- <script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script> -->
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
+	<style>
+		.newword,.newword a{
+			color: #9567FF;
+		}
+		.newword a:hover{
+			text-decoration: underline;
+		}
+		.connect-wallet-tip{
+			margin-top: 10px;
+		}
+	</style>
 </head>
 <body class="connectWalletpage">
-	
-	<!-- connect wallet -->
-	<div class="tc connect">
-		<div class="tc-container flex">
-			<div class="tc-login flex">
-				<div class="tc-close" onclick="tcHide()"><img src="./images/Close.png" ></div>
-				<div class="tc-login-left flex"><img src="./images/Asset6.png" ></div>
-				<div class="tc-login-right flex">
-					<div class="tc-login-right-form">
-						<div class="form-tit flex"><span class="language-tc">連接錢包</span><img class="none" src="./images/Close.png" onclick="tcHide()"></div>
-						<div class="connect-wallet-des">
-							<p>接錢包提供商或創建一個新的錢包。</p>
-							<a href="https://bazhuayuhelp.zendesk.com/hc/zh-hk/articles/900006920823" target="_blank">如何註冊幣安智能鏈錢包？</a>
+	<div id="connectWallet" v-cloak>
+		<!-- connect wallet -->
+		<div class="tc connect">
+			<div class="tc-container flex">
+				<div class="tc-login flex">
+					<div class="tc-close" onclick="tcHide()"><img src="./images/Close.png" ></div>
+					<div class="tc-login-left flex"><img src="./images/Asset6.png" ></div>
+					<div class="tc-login-right flex">
+						<div class="tc-login-right-form">
+							<div class="form-tit flex"><span class="language-tc">{{chEnTextHtml[lang].title}}</span><img class="none" src="./images/Close.png" onclick="tcHide()"></div>
+							<div class="connect-wallet-des">
+								<p>{{chEnTextHtml[lang].tips1}}</p>
+								<a href="https://bazhuayuhelp.zendesk.com/hc/zh-hk/articles/900006920823" target="_blank">{{chEnTextHtml[lang].tips2}}</a>
+							</div>
+							<div class="connect-wallet-btn flex">
+								<a href="javascript:void(0);" class="flex metamask"><img src="./images/Metamask.png" ><span type="button">Metamask</span></a>
+								<a id="walletColletBtn" href="javascript:void(0);" class="flex"><img src="./images/WalletConnect.png" ><span type="button">WalletConnect</span></a>
+							</div>
+							<div class="newword" v-if="lang == 'EN'">By connecting your wallet, you agree to our <a href="agreement.html">Terms of Service</a> and our <a href="privacy.html">Privacy Policy</a>.</div>
+							<div class="connect-wallet-tip">{{chEnTextHtml[lang].tips3}}</div>
 						</div>
-						<div class="connect-wallet-btn flex">
-							<a href="javascript:void(0);" class="flex metamask"><img src="./images/Metamask.png" ><span type="button">Metamask</span></a>
-							<a id="walletColletBtn" href="javascript:void(0);" class="flex"><img src="./images/WalletConnect.png" ><span type="button">WalletConnect</span></a>
-						</div>
-						<div class="connect-wallet-tip">我們沒有您的私鑰，未經您的確認也無法訪問您的資金。</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+		
+		<div class="tc-mask"></div>
 	
-	<div class="tc-mask"></div>
-
-	<!-- modify -->
-	<div class="modify none">
-		<div class="modify-container flex">
-			<div class="modify-form">
-				<div class="modify-tit flex" data-type="add"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
-				<div class="modify-ipt"></div>
-				<div class="modify-tips"></div>
-				<div class="modify-btn flex">
-					<button class="add modify-btn-active " type="button"></button>
-					<button class="cancel" type="button" onclick="cancel()">取消</button>
-					<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
+		<!-- modify -->
+		<div class="modify none">
+			<div class="modify-container flex">
+				<div class="modify-form">
+					<div class="modify-tit flex" data-type="add"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
+					<div class="modify-ipt"></div>
+					<div class="modify-tips"></div>
+					<div class="modify-btn flex">
+						<button class="add modify-btn-active " type="button"></button>
+						<button class="cancel" type="button" onclick="cancel()">{{chEnTextHtml[lang].cancel}}</button>
+						<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">{{chEnTextHtml[lang].cancel}}</button>
+					</div>
+					<div class="modify-btn-tips"></div>
+					<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
 				</div>
-				<div class="modify-btn-tips"></div>
-				<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
 			</div>
 		</div>
+		
+		<div class="tips"></div>
 	</div>
 	
-	<div class="tips"></div>
-	
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#connectWallet',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					title : "連接錢包",
+					tips1:"接錢包提供商或創建一個新的錢包。",
+					tips2:"如何註冊幣安智能鏈錢包？",
+					tips3:"我們沒有您的私鑰，未經您的確認也無法訪問您的資金。",
+					cancel:"取消"
+				},
+				"EN":{
+					title : "Connect your wallet",
+					tips1:"Connect your wallet through a following provider or create a new wallet.",
+					tips2:"What is a digital currency wallet？",
+					tips3:"We don't store your private key and can't access your funds without your confirmation.",
+					cancel:"cancel"
+				}
+			},
+			lang:''
+		}
+	},
+	created() {
+		let self = this;
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.lang == 'TC'){
+			$('meta[name="twitter:title"]').attr('content',"八爪娛-文化/創意/藝術/娛樂NFT內容發布平臺與粉絲社區" );
+			document.title = '連接錢包';
+		}else{
+			$('meta[name="twitter:title"]').attr('content',"BAZHUAYU is an NFT asset publishing platform focusing on entertainment." );
+			document.title = 'Connect Wallet';
+		}
+	}
+})
+</script>
 <script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
 </html>

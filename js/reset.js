@@ -1,3 +1,4 @@
+var resetText = chEnText.reset[lang];
 $(function(){ 
 	
 	var canClick = false;
@@ -34,15 +35,15 @@ $(function(){
 		});
 		
 		if(newPwd == ''){
-			tips('密碼不能為空');
+			tips(resetText.tips01);
 			canClick = false;
 			
 		}else if(newPwd.length < 8){
-			tips('密碼長度不能低於8');
+			tips(resetText.tips02);
 			canClick = false;
 			
 		}else if(newPwd != repeatPwd){
-			tips('兩次密碼不相等');
+			tips(resetText.tips03);
 			canClick = false;
 		}else{
 			canClick = true;
@@ -61,7 +62,7 @@ $(function(){
 				}),
 				success:function(res){
 					if(res.code == 0){
-						success('修改成功');
+						tips(resetText.tips04);
 						setTimeout(function(){
 							window.location.href = '/mobile/tc/login.html';
 						},1500)

@@ -1,3 +1,4 @@
+var signupText = chEnText.signup[lang];
 // 注册类型
 var type;
 $.ajax({
@@ -22,15 +23,15 @@ $.ajax({
 });
 
 function confirm(vtoken) {
-	hsycms.confirm('confirm', '去驗證郵箱',
+	hsycms.confirm('confirm', signupText.verificationEmail,
 		function (res) {
-			hsycms.success('success', '成功');
+			hsycms.success('success', signupText.suc);
 			setTimeout(function () {
 				window.location.href = 'verificationCode.html?vtoken=' + vtoken;
 			}, 1500)
 		},
 		function (res) {
-			hsycms.error('error', '取消');
+			hsycms.error('error', signupText.cancel);
 		},
 	)
 };
@@ -169,7 +170,7 @@ $(function () {
 						};
 					}
 					if (password != password2) {
-						checkTip($('.sign-check-tip2'), '密码请输入一致');
+						checkTip($('.sign-check-tip2'), signupText.tips01);
 					} else {
 						$.ajax({ //1邀請碼註冊
 							url: base_url + '/v2/user/check/email',
@@ -188,7 +189,7 @@ $(function () {
 									return;
 								}
 								if (code == 1) {
-									checkTip($('.sign-check-tip'), '該郵箱已被注册，但未驗證');
+									checkTip($('.sign-check-tip'), signupText.tips02);
 
 									// tips('該郵箱已被注册，但未驗證');
 									// setTimeout(function(){
@@ -197,7 +198,7 @@ $(function () {
 									return;
 								}
 								if (code == 2) {
-									checkTip($('.sign-check-tip'), '該郵箱已被注册，請嘗試換一個郵箱')
+									checkTip($('.sign-check-tip'), signupText.tips03)
 									return;
 								}
 
@@ -207,12 +208,12 @@ $(function () {
 
 
 				} else {
-					checkTip($('.sign-check-tip'), '當前禁止註冊');
+					checkTip($('.sign-check-tip'), signupText.tips04);
 				}
 
 
 			} else {
-				checkTip($('.sign-check-tip'), '郵箱格式不正確');
+				checkTip($('.sign-check-tip'), signupText.tips05);
 			}
 
 		}

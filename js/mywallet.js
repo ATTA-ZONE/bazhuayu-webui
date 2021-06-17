@@ -1,7 +1,8 @@
+var mywalletText = chEnText.mywallet[lang];
 function safeCharge(res, accounts) {
 	loading();
 	if (res.data.address != accounts[0]) {
-		var hintMessage = "您的賬戶綁定地址與當前錢包地址不符，點擊確定會為您綁定當前錢包地址\n當前錢包地址: " + accounts[0] + " \n賬戶綁定地址: " + res.data.address;
+		var hintMessage = mywalletText.hintMessage01 + accounts[0] + mywalletText.hintMessage02 + res.data.address;
 		if (window.confirm(hintMessage)) {
 			var data = {
 				address: accounts[0],
@@ -20,21 +21,21 @@ function safeCharge(res, accounts) {
 						_charge(res, accounts);
 					} else if (res1.code == 2001){
 						loadingHide();
-						window.alert('當前錢包已被綁定占有, 請更換錢包防止誤充');
+						window.alert(mywalletText.binded);
 					} else if (res1.code == 1011){
 						loadingHide();
-						window.alert('郵箱未驗證');
+						window.alert(mywalletText.emailNot);
 					} else if (res1.code == 1002){
 						loadingHide();
-						window.alert('登錄已失效，請重新登錄');
+						window.alert(mywalletText.loginNot);
 					} else {
 						loadingHide();
-						window.alert('系統錯誤');
+						window.alert(mywalletText.windowErr);
 					}
 				},
 				error: function (res1) {
 					loadingHide();
-					window.alert('網絡錯誤，無法獲取賬戶信息');
+					window.alert(mywalletText.httpError);
 				}
 			})
 		} else {
@@ -70,7 +71,7 @@ function _charge(res, accounts) {
 
 						if (Number(res2) >= Number(num)) {
 							setTimeout(function () {
-								success('充值已發起,期間請勿更換錢包防止誤充', 3000);
+								success(mywalletText.startTopUp, 3000);
 								busdContractInstance.methods.transfer(cwallet, num).send({ //转账
 										from: accounts[0]
 									})
@@ -78,7 +79,7 @@ function _charge(res, accounts) {
 										console.log(['hash', hash]);
 										//success('充值已發起,期間請勿更換錢包防止誤充', 1800);
 										setTimeout(function () {
-											tips('充值已成功');
+											tips(mywalletText.rechargeSuc);
 
 											setTimeout(function () {
 												panduan();
@@ -93,7 +94,7 @@ function _charge(res, accounts) {
 							}, 500)
 						} else {
 
-							tips('餘額不足');
+							tips(mywalletText.balanceInsufficient);
 						}
 					});
 
@@ -103,6 +104,11 @@ function _charge(res, accounts) {
 }
 
 $(function () {
+	if(lang == 'TC'){
+		document.title = "我的錢包"
+	}else{
+		document.title = "Wallet"
+	}
 	var web3 = new Web3(CHAIN.WALLET.provider());
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
@@ -125,14 +131,14 @@ $(function () {
 						$('.connect-wallet-nothing').hide();
 						$('.walletconnect-wallet').addClass('wallet-li');
 						$('.metamask-wallet').removeClass('wallet-li');
-						$('.walletconnect-wallet .wallet-address').text("當前綁定錢包地址："+res.data.address)
+						$('.walletconnect-wallet .wallet-address').text(mywalletText.walletAddress+res.data.address)
 					} else {
 						$('.walletconnect-wallet').hide();
 						$('.metamask-wallet').show();
 						$('.connect-wallet-nothing').hide();
 						$('.walletconnect-wallet').removeClass('wallet-li');
 						$('.metamask-wallet').addClass('wallet-li');
-						$('.metamask-wallet .wallet-address').text("當前綁定錢包地址："+res.data.address)
+						$('.metamask-wallet .wallet-address').text(mywalletText.walletAddress+res.data.address)
 					};							
 				} else {
 					$('.walletconnect-wallet').hide();
@@ -165,11 +171,11 @@ $(function () {
 								safeCharge(res, accounts)
 							})
 					} else {
-						window.alert('無法獲取充值信息');
+						window.alert(mywalletText.rechargeDataNull);
 					}
 				},
 				error: function (res) {
-					window.alert('網絡錯誤，無法獲取賬戶信息');
+					window.alert(mywalletText.httpError);
 				}
 			})	
 		} else if (tit == 'dwallet') {
@@ -179,7 +185,7 @@ $(function () {
 				dataType: 'json',
 				success: function (res) {
 					if (res.code == 0) {
-						success('删除成功', 1800);
+						success(mywalletText.httpError, 1800);
 						// document.cookie = "isConnect=false";
 						setCookie("isConnect",false);
 						setTimeout(function () {
@@ -193,15 +199,15 @@ $(function () {
 			var amount = $('.modify-ipt input').val().trim();
 			var ye = $('.usdt-rest').text().split(' ')[0];
 			var text = $('.modify-ipt-tit').text();
-			if (text == '請連接錢包') {
+			if (text == mywalletText.connectWallet) {
 
-				tips('請連接錢包');
+				tips(mywalletText.connectWallet);
 
 			} else {
 				if (amount > ye) {
-					tips('餘額不足');
+					tips(mywalletText.balanceInsufficient);
 				} else if (amount == '') {
-					tips('請填寫提現金額');
+					tips(mywalletText.amountWithdrawal);
 				} else {
 					loading();
 					$.ajax({
@@ -219,13 +225,13 @@ $(function () {
 							if (res.code == 0) {
 								setTimeout(function () {
 									// success('Success',1800);
-									tips('提款申請已收到，請等待');
+									tips(mywalletText.apppleWithdrawal);
 									setTimeout(function () {
 										window.location.reload();
 									}, 2000);
 								}, 1000)
 							} else {
-								error('提款失敗', 1800);
+								error(mywalletText.withdrawalsErr, 1800);
 							}
 						}
 					})
@@ -277,6 +283,6 @@ function copyaddressbtn() {
         document.execCommand('copy');
     }
     transfer.blur();
-	tips("複製成功");
+	tips(mywalletText.copysuc);
     document.body.removeChild(transfer);
 }

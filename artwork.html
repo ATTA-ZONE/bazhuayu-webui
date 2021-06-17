@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>明星藏品</title>
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/swiper.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css" />
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css" />
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css" />
+	<link rel="stylesheet" type="text/css" href="./css/style.css" />
+	<link rel="stylesheet" type="text/css" href="./css/media.css" />
 	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/web3-provider.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
@@ -20,124 +22,174 @@
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
 	<style>
-		.bzy-e-list-info{
+		.bzy-e-list-info {
 			position: relative;
+		}
+		.btnbox{
+			justify-content: space-between;
+			align-items: center;
+		}
+		.ljgmbtn{
+			text-align: center;
+			line-height: 38px;
+		}
+		.pmstatus{
+			background: #9567FF;
+			border-radius: 6px;
+			font-size: 16px;
+			color: #FFFFFF;
+			padding: 7px 19px;
 		}
 	</style>
 </head>
+
 <body>
-	<!-- head -->
-	<header class="header center-85 flex header-fixed">
-		<div class="header-left flex">
-			<a class="header-left-logo" href="index.html"><img src="images/Brand.png" ></a>
-			<ul class="nav-header flex">
-				<li><a class="language-tc" href="index.html">首頁</a></li>
-				<li><a class="language-tc" href="auction.html">拍賣</a></li>
-			</ul>
-		</div>
-		<div class="header-right flex">
-			<div class="header-dl flex"></div>
-			<a class="header-right-wallet" href="javascript:void(0);" onclick="connectWallet()"></a>
-			<p class="switchlanguagebox"></p>
-			<!-- <div class="header-right-lan flex"><a href="/mobile/en/index.html">EN</a><span></span><a href="/mobile/tc/index.html">繁</a></div> -->
-		</div>
-		<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png" ></div>
-		<div class="mobile-menu none" onclick="menuShow()"><img src="./images/menu.png" ></div>
-	</header>
-	
-	<div class="menu-list menu-list1 none">
-		<div class="menu-list-con">
-			<div class="menu-list-con-tit flex">
-				<img class="logo" src="./images/Brand.png" >
-				<img class="menu-close" src="./images/Close.png" onclick="menuHide()" >
+	<div id="artwork">
+		<header class="header center-85 flex header-fixed">
+			<div class="header-left flex">
+				<a class="header-left-logo" href="index.html"><img src="images/Brand.png"></a>
+				<ul class="nav-header flex">
+					<li><a class="language-tc" href="index.html">{{chEnTextHtml[languageType].home}}</a></li>
+					<li><a class="language-tc" href="auction.html">{{chEnTextHtml[languageType].auction}}</a></li>
+				</ul>
 			</div>
-			<!-- <div class="menu-list-con-meail none"></div> -->
-			<ul class="moblic_h5_navbox">
-				<li><a class="language-tc" href="index.html">首頁</a></li>
-				<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">未連接錢包</a></li>
-				<li class="switchlanguage_mobile"></li>
-			</ul>
-			<!-- <div class="menu-list-con-tit-lan flex">
-				<a href="/mobile/en/index.html">EN</a>
-				<span></span>
-				<a href="/mobile/tc/index.html">繁</a>
-			</div> -->
-			<div class="menu-list-con-tit-btn mobile-login"><a class="flex" href="login.html">登入/註冊</a></div>
-			<!-- <div class="menu-list-con-tit-btn mobile-logout none" onclick="confirm()"><a class="flex" href="javascript:void(0);">Logout</a></div> -->
-		</div>
-	</div>
-	
-	<div class="menu-list menu-list2 none">
-		<div class="menu-list-con">
-			<div class="menu-list-con-tit flex">
-				<img class="logo" src="./images/Brand.png" >
-				<img class="menu-close" src="./images/Close.png" onclick="headIconHide()" >
+			<div class="header-right flex">
+				<div class="header-dl flex"></div>
+				<a class="header-right-wallet" href="javascript:void(0);" onclick="connectWallet()"></a>
+				<p class="switchlanguagebox"></p>
 			</div>
-			<div class="menu-list-con-meail"></div>
-			<ul>
-				<li><a class="language-tc" href="myaccount.html">我的帳戶</a></li>
-				<li><a class="language-tc" href="myorders.html">我的訂單</a></li>
-				<li><a class="language-tc" href="myassets.html">我的資產</a></li>
-				<li><a class="language-tc" href="mywallet.html">我的錢包</a></li>
-			</ul>
-			<div class="menu-list-con-tit-btn mobile-logout" onclick="logoutConfirm()"><a class="flex" href="javascript:void(0);"><span class="language-tc">登出</span></a></div>
-		</div>
-	</div>
-	
-	
-	<div class="bzy-d center-85">
-		<div class="bzy-d-head flex">
-			<div class="bzy-d-head-left flex">    
-				<span class="current" data-type="-1" onclick="typeToggle(this)">全部</span>
-			</div>
-			
-			<div class="bzy-d-head-left-mobile none" >
-				<div class="bzy-d-head-left-mobile-show flex" data-status="0">
-					<img src="./images/Filter.png" ><span>全部</span>
+			<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png"></div>
+			<div class="mobile-menu none" onclick="menuShow()"><img src="./images/menu.png"></div>
+		</header>
+		<div class="menu-list menu-list1 none">
+			<div class="menu-list-con">
+				<div class="menu-list-con-tit flex">
+					<img class="logo" src="./images/Brand.png">
+					<img class="menu-close" src="./images/Close.png" onclick="menuHide()">
 				</div>
-				<div class="bzy-d-head-left-mobile-list none">
-					<ul>
-						<li data-type="-1">全部</li>
-					</ul>
+				<ul class="moblic_h5_navbox">
+					<li><a class="language-tc" href="index.html">{{chEnTextHtml[languageType].home}}</a></li>
+					<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()"
+							href="javascript:void(0);">{{chEnTextHtml[languageType].noConnectWallet}}</a></li>
+					<li class="switchlanguage_mobile"></li>
+				</ul>
+				<div class="menu-list-con-tit-btn mobile-login"><a class="flex" href="login.html">{{chEnTextHtml[languageType].login}}</a></div>
+			</div>
+		</div>
+		<div class="menu-list menu-list2 none">
+			<div class="menu-list-con">
+				<div class="menu-list-con-tit flex">
+					<img class="logo" src="./images/Brand.png">
+					<img class="menu-close" src="./images/Close.png" onclick="headIconHide()">
+				</div>
+				<div class="menu-list-con-meail"></div>
+				<ul>
+					<li><a class="language-tc" href="myaccount.html">{{chEnTextHtml[languageType].myaccount}}</a></li>
+					<li><a class="language-tc" href="myorders.html">{{chEnTextHtml[languageType].myaccount}}</a></li>
+					<li><a class="language-tc" href="myassets.html">{{chEnTextHtml[languageType].myassets}}</a></li>
+					<li><a class="language-tc" href="mywallet.html">{{chEnTextHtml[languageType].mywallet}}</a></li>
+				</ul>
+				<div class="menu-list-con-tit-btn mobile-logout" onclick="logoutConfirm()"><a class="flex"
+						href="javascript:void(0);"><span class="language-tc">{{chEnTextHtml[languageType].logOut}}</span></a></div>
+			</div>
+		</div>
+		<div class="bzy-d center-85">
+			<div class="bzy-d-head flex">
+				<div class="bzy-d-head-left flex">
+					<span class="current" data-type="-1" onclick="typeToggle(this)">{{chEnTextHtml[languageType].all}}</span>
+				</div>
+				<div class="bzy-d-head-left-mobile none">
+					<div class="bzy-d-head-left-mobile-show flex" data-status="0">
+						<img src="./images/Filter.png"><span>{{chEnTextHtml[languageType].all}}</span>
+					</div>
+					<div class="bzy-d-head-left-mobile-list none">
+						<ul>
+							<li data-type="-1">{{chEnTextHtml[languageType].all}}</li>
+						</ul>
+					</div>
+				</div>
+				<div class="bzy-d-head-right bzy-search flex">
+					<img data-status="0" src="./images/search.png">
+					<input type="text" :placeholder="chEnTextHtml[languageType].search" />
 				</div>
 			</div>
-			
-			<div class="bzy-d-head-right bzy-search flex">
-				<img data-status="0" src="./images/search.png" >
-				<input type="text" placeholder="搜索..." />
+		</div>
+		<div class="bzy-e center-85">
+			<ul class="bzy-e-list">
+			</ul>
+			<div class="bzy-e-more none">
+				<div class="flex artwork-list-load" data-type="-1" data-name=""><span class="language-tc">{{chEnTextHtml[languageType].moreThan}}</span><img
+						src="./images/next.png"><img class="none" src="./images/xiala2.png"></div>
 			</div>
 		</div>
+		<div class="footerpage"></div>
+		<div class="tips"></div>
 	</div>
-	
-	<div class="bzy-e center-85">
-		<ul class="bzy-e-list">
-			
-			
-		</ul>
-		
-		<div class="bzy-e-more none">
-			<div class="flex artwork-list-load" data-type="-1" data-name=""><span class="language-tc">加载更多</span><img src="./images/next.png" ><img class="none" src="./images/xiala2.png" ></div>
-		</div>
-	</div>
-	
-	<!-- foot -->
-	<div class="footerpage"></div>
-	
-	<div class="tips"></div>
 </body>
 <script src="./js/artwork.js" type="text/javascript" charset="utf-8"></script>
 <script>
-	let html = "",html_mobile = "";
-	html += `<a href='/mobile/en/artwork.html${window.location.search}'>EN</a>
+	let html = "", html_mobile = "";
+	html += `<a class="language-change-en">EN</a>
 			<span style="margin: 0 16px;">|</span>
-			<a href='/mobile/tc/artwork.html${window.location.search}'>繁</a>`;
+			<a class="language-change-ch">繁</a>`;
 	$(".switchlanguagebox").html(html);
-	html_mobile += `<a href='/mobile/en/artwork.html${window.location.search}'>EN</a>
+	html_mobile += `<a class="language-change-en">EN</a>
 					<span style="margin: 0 16px;">|</span>
-					<a href='/mobile/tc/artwork.html${window.location.search}'>繁</a>`;
+					<a class="language-change-ch">繁</a>`;
 	$(".switchlanguage_mobile").html(html_mobile);
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#artwork',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					home:'首頁',
+					auction:'拍賣',
+					noConnectWallet:"未連接錢包",
+					login:"登入/註冊",
+					myaccount:"我的帳戶",
+					myorders:"我的訂單",
+					myassets:"我的資產",
+					mywallet:"我的錢包",
+					logOut:"登出",
+					all:'全部',
+					search:"搜索...",
+					moreThan:"加载更多"
+				},
+				"EN":{
+					home:'HOME',
+					auction:'AUCTION',
+					noConnectWallet:"Connect Wallet",
+					login:"Login/Sign up",
+					myaccount:"My Account",
+					myorders:"My Orders",
+					myassets:"My Assets",
+					mywallet:"My Wallet",
+					logOut:"Log out",
+					all:'All',
+					search:"Search...",
+					moreThan:"Load More"
+				}
+			},
+			languageType:''
+		}
+	},
+	created() {
+		let self = this;
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
+			document.title = '明星藏品';
+		}else{
+			document.title = 'COLLECTIONS';
+		}
+	},
+	methods: {}
+})
+</script>
 </html>

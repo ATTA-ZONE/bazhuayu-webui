@@ -1,3 +1,4 @@
+var auctionText = chEnText.auction[lang];
 //普通弹窗 
 function alert(txt) {
 	hsycms.alert('alert', txt, function () {
@@ -40,7 +41,7 @@ function baojia(obj) {
 	var status = $(obj).data('status');
 	if (status == 0) {
 		var value = $(obj).find('font').text().trim();
-		var html = `<label>我的出價 BUSD</label> <input onblur="baojiaSure(this)" type="text">`;
+		var html = `<label>${auctionText.haveBid} BUSD</label> <input onblur="baojiaSure(this)" type="text">`;
 		$(obj).html(html);
 		$(obj).find('input').val('').focus().val(value);
 		$(obj).data('status', '1');
@@ -51,12 +52,12 @@ function baojia(obj) {
 function baojiaSure(obj) {
 	var val = $(obj).val().trim();
 	var min_value = $(obj).parent('span').data('price').trim();
-	var html = `我的出價 BUSD <font style="margin-left:3px;">` + val + `</font>`;
+	var html = `${auctionText.haveBid} BUSD <font style="margin-left:3px;">` + val + `</font>`;
 	if (Number(val) >= Number(min_value)) {
 		$(obj).parent('span').data('status', '0');
 		$(obj).parent('span').html(html);
 	} else {
-		tips('報價不能低於初始出價');
+		tips(auctionText.bid);
 	}
 }
 
@@ -158,7 +159,7 @@ function initialization() {
         					if (currentTime < startTime) { //未开始
         						$('#make_offer').data('status', '0');
         						var time = formatDuring(startTime - currentTime);
-        						html += `<span>拍賣開始時間：</span><span data-time="0">` + time + `</span>`;
+        						html += `<span>${auctionText.endPrice}</span><span data-time="0">` + time + `</span>`;
         						var ksTime = setInterval(function () {
         							var js = formatDuring(startTime - Date.now());
         							$('.bid-right-status-time span:nth-child(2)').text(js);
@@ -170,7 +171,7 @@ function initialization() {
         					} else if (currentTime >= startTime && currentTime <= endTime) {
         						$('#make_offer').data('status', '1');
         						var time = formatDuring(endTime - currentTime);
-        						html += `<span>拍賣剩餘時間：</span><span data-time="1">` + time + `</span>`;
+        						html += `<span>${auctionText.endPrice}</span><span data-time="1">` + time + `</span>`;
         
         						var syTime = setInterval(function () {
         							var js = formatDuring(endTime - Date.now());
@@ -181,7 +182,7 @@ function initialization() {
         						}, 1000);
         
         					} else {
-        						html += `<span>拍賣剩餘時間：</span><span data-time="2">競標結束</span>`;
+        						html += `<span>${auctionText.endPrice}</span><span data-time="2">${auctionText.auctionEnd}</span>`;
         						$('.bid-right-btn span').hide();
         						$('#make_offer').hide();
         
@@ -262,10 +263,10 @@ function userBidInfo() {
         						// $('#make_offer').hide();
         
         						if (res[0]['price'] >= currentPrice) { //当前用户为最高价
-        							html += `<span style="color:#9567FF;">恭喜！ 您是出價最高者！</span>`;
+        							html += `<span style="color:#9567FF;">${auctionText.topPrice}</span>`;
         							$('.bid-right-btn span').hide();
         							$('#make_offer').data('status', '2');
-        							$('#make_offer').text('去我的資產查看');
+        							$('#make_offer').text(auctionText.assetLook);
         						}
         						// else{
         						// 	$('.bid-right-btn span').hide();
@@ -280,11 +281,11 @@ function userBidInfo() {
         
         						if (res[0]['price'] >= currentPrice) { //当前用户为最高价
         							var u_price = web3.utils.fromWei(res[0]['price'], 'ether');
-        							html += `<span>您是當前最高出價者  (BUSD ` + u_price + `)</span>`;
+        							html += `<span>${auctionText.maxmonery}  (BUSD ` + u_price + `)</span>`;
         
         						} else {
         							var u_price = web3.utils.fromWei(res[0]['price'], 'ether');
-        							html += `<span style="color:#CB5252;">您上次競標失敗  (BUSD ` + u_price + `)</span>`;
+        							html += `<span style="color:#CB5252;">${auctionText.bidFailure}  (BUSD ` + u_price + `)</span>`;
         						}
         
         					}
@@ -333,7 +334,7 @@ $('#make_offer').click(function () {
 	var sign = $(this).data('sign');
 	var status = $(this).data('status');
 	if (sign == 0) {
-		window.alert('未登入/錢包連接已失效');
+		window.alert(auctionText.lose);
 	} else {
 		if (status == 1) {
 			var price = $('.bid-right-btn span font').text().trim();
@@ -341,12 +342,12 @@ $('#make_offer').click(function () {
 		} else if (status == 2) {
 			window.location.href = 'myassets.html';
 		} else if (status == 0) {
-			window.alert('拍賣未開始');
+			window.alert(auctionText.notBegun);
 		} else if (sign == 4) {
 			let bool = false;
 			if (bool) {
-				var html = `<div>請先安裝MetaMask/或者使用WalletConnect，以保證拍賣功能的使用</div>
-							<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">轉到MetaMask的網站</a>`;
+				var html = `<div>${auctionText.msg01}</div>
+							<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">${auctionText.msg02}</a>`;
 				alert(html);
 			}
 		}
@@ -390,7 +391,7 @@ $.ajax({
 								}
 							});
 						} else if (userAddress != res.data.address){
-							window.alert("當前連接錢包地址為：" + res.data.address+"\n"+"當前頁面的競拍記錄以當前連接的錢包為準，如果您使用了其他錢包參與競拍，可以切換至其他錢包查看競拍記錄。");
+							window.alert(auctionText.msg01 + res.data.address+"\n"+auctionText.msg02);
 						};
 
 						$('#make_offer').data('sign', 1);
@@ -427,5 +428,5 @@ if (walletType || window.ethereum) {
 
 } else { 
 	$('#make_offer').data('sign', 0);
-	window.alert('錢包連接已失效，請重新連接錢包');
+	window.alert(auctionText.walletLose);
 }

@@ -17,44 +17,44 @@
 						<div class="my-assets-right-creator flex">
 							<div class="details-right-creator-img"><img src="./images/t8.png"></div>
 							<span>@ATTA</span>
-							<div class="my-assets-right-creator-edition">共{{item.endEdition}}版</div>
+							<div class="my-assets-right-creator-edition">{{chEnTextHtml[lang].common + item.endEdition + chEnTextHtml[lang].ban}}</div>
 						</div>
-						<div class="details-right-des-tit">商品描述</div>
-						<div class="details-right-des" v-html="getIntroduce(item,'desc','暫無介紹')">
+						<div class="details-right-des-tit">{{chEnTextHtml[lang].productdescription}}</div>
+						<div class="details-right-des" v-html="getIntroduce(item,'desc',chEnTextHtml[lang].nointroduction)">
 						</div>
 						<div class="details-right-additional">
-							<p class="details-right-additional-show" @click="toggleMoreInfo(idx)">更多信息 <span>+</span>
-							</p>
+							<!-- <p class="details-right-additional-show" @click="toggleMoreInfo(idx)">更多信息 <span>+</span>
+							</p> -->
 							<p class="details-right-additional-more order-content" v-if="showMoreInfo==idx"
-								v-html="getIntroduce(item,'detail','暫無更多資訊')">
+								v-html="getIntroduce(item,'detail',chEnTextHtml[lang].noinformation)">
 							</p>
 						</div>
 						<div class="my-assets-right-price">
 							<div class="flex my-assets-right-download"><a class="flex download" :download="item.attachment"
-									:href="item.attachment">下載原始文件副本</a></div>
+									:href="item.attachment">{{chEnTextHtml[lang].down}}</a></div>
 						</div>
 						
 					</div>
 				</div>
 				<div class="tablistbox" v-if="item.mintList && item.mintList.length">
 					<p class="titlebox flex between">
-						<span>當前持有({{item.mintList.length}}):</span>
+						<span>{{chEnTextHtml[lang].currentlyholds}}({{item.mintList.length}}):</span>
 						<img src="./images/arrow.png" alt="" :class="item.ishide ? 'ishide' : ''" @click="changeishide(item.ishide,idx)">
 					</p>
 					<div class="listbox" v-if="!item.ishide">
 						<div class="everydatabox" v-for="(json,index) in item.mintList" :key="index">
 							<p class="tit">
 								<span>Token ID :  {{json.edition}}  of {{item.endEdition}}</span>
-								<span style="margin-left: 50px;">區塊鏈： Binance</span>
+								<span style="margin-left: 50px;">{{chEnTextHtml[lang].blockchain}}</span>
 							</p>
 							<div class="inputbox flex between">
 								<div class="srkbox">
-									<input type="text" readonly :value="json.status == 1 ? '接收地址: '+ (json.receiver ? json.receiver : '暫無接收地址') : '當前所在錢包: '+walletId">
-									<button v-if="json.status == 1" :data-json="JSON.stringify(json)" onclick="editnftaddress(event)">修改</button>
-									<span v-if="json.status == 1" :data-json="JSON.stringify(json)" class="clickedit" onclick="editnftaddress(event)">點擊修改地址</span>
+									<input type="text" readonly :value="json.status == 1 ? chEnTextHtml[lang].jsaddress+ (json.receiver ? json.receiver : chEnTextHtml[lang].jsaddress2) : chEnTextHtml[lang].inwallet +walletId">
+									<button v-if="json.status == 1" :data-json="JSON.stringify(json)" onclick="editnftaddress(event)">{{chEnTextHtml[lang].edit}}</button>
+									<span v-if="json.status == 1" :data-json="JSON.stringify(json)" class="clickedit" onclick="editnftaddress(event)">{{chEnTextHtml[lang].clickedit}}</span>
 								</div>
-								<button class="ntfbtn kxbor" v-if="json.status == 1">鑄造中</button>
-								<button class="ntfbtn" v-if="json.status == 2" :data-endedition="item.endEdition" :data-json="JSON.stringify(json)" onclick="zhuanyiaddress(event)">轉移</button>
+								<button class="ntfbtn kxbor" v-if="json.status == 1">{{chEnTextHtml[lang].mint}}</button>
+								<button class="ntfbtn" v-if="json.status == 2" :data-endedition="item.endEdition" :data-json="JSON.stringify(json)" onclick="zhuanyiaddress(event)">{{chEnTextHtml[lang].transfer}}</button>
 							</div>
 							<div class="horizontalline"></div>
 						</div>
@@ -64,12 +64,12 @@
 		</ul>
 		<ul v-else style="padding-top: 100px;">
 			<li class="flex nothing">
-				<div>暫無藏品記錄</div>
+				<div>{{chEnTextHtml[lang].norecord}}</div>
 			</li>
 		</ul>
 		<div class="bzy-e-more" v-if="assetsList.total > 9">
 			<div class="flex assets-list-load" @click="getMoreList">
-				<span class="language-tc">加载更多</span>
+				<span class="language-tc">{{chEnTextHtml[lang].more}}</span>
 				<img src="./images/next.png">
 				<img src="./images/xiala2.png">
 			</div>
@@ -84,8 +84,8 @@
 					<div class="modify-tips"></div>
 					<div class="modify-btn flex">
 						<button class="add modify-btn-active" type="button" @click="editzyclick($event)"></button>
-						<button class="cancel" type="button" onclick="cancel()">取消</button>
-						<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">取消</button>
+						<button class="cancel" type="button" onclick="cancel()">{{chEnTextHtml[lang].cancel}}</button>
+						<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">{{chEnTextHtml[lang].cancel}}</button>
 					</div>
 					<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
 				</div>
@@ -97,7 +97,7 @@
 			<div class="hsycms-model-text">这里是提示内容</div>
 		</div>
 		<!-- foot -->
-		<div class="footerpage2"></div>
+		<div class="footerpage"></div>
 
 		<!-- <div class="tips"></div> -->
 		
@@ -118,13 +118,94 @@ module.exports = {
 			selectedNftName:'',
 			selectedNft: null,
 			walletId: '',
-			tokenarr : []
+			tokenarr : [],
+			chEnTextHtml: {
+				"TC":{
+						common : "共",
+						ban : "版",
+						ban2 : "版",
+						productdescription : "商品描述",
+						nointroduction : "暫無介紹",
+						noinformation : "暫無更多資訊",
+						down : "下載原始文件副本",
+						currentholdings : "當前持有可鑄造版號：",
+						notyet : "暫無",
+						mint : "鑄造中",
+						inpreparation : "(功能準備中)",
+						norecord : "暫無藏品記錄",
+						more : "加载更多",
+						linkwallet : "您需要連接錢包",
+						tips1 : "為了接收您的NFT,您需要先連接錢包。",
+						tips2 : "如果您不熟悉加密貨幣錢包,請單擊此處。",
+						connectnow : "立即連接",
+						banhao : "版號",
+						jsaddress : "接收地址: ",
+						editaddress : "(默認為當前連接的錢包地址，點擊修改)",
+						banhao2 : "版號",
+						jsaddress2 : "暫無接收地址",
+						editaddress2 : "(默認為當前連接的錢包地址，點擊修改)",
+						startmint : "開始鑄造",
+						dqwmintbanhao : "當前無可鑄造版號",
+						tipsjs1:'不可以為空~',
+						tipsjs2:'请输入合法地址',
+						tipsjs3:'修改成功',
+						tipsjs4:'轉移操作已完成~',
+						tipsjs5:'您的NFT轉移操作已完成，請到相應錢包內確認噢~',
+						currentlyholds:"當前持有",
+						blockchain:"區塊鏈： Binance",
+						inwallet:"當前所在錢包: ",
+						edit:"修改",
+						clickedit:"點擊修改地址",
+						transfer:"轉移",
+						cancel:"取消",
+					},
+					"EN":{
+						common : "Total editions ",
+						ban : "",
+						ban2 : "Edition",
+						productdescription : "Description",
+						nointroduction : "No Introduction",
+						noinformation : "No more information",
+						down : "Download the original copy",
+						currentholdings : "Current mintable editions：",
+						notyet : "Null",
+						mint : "Minting ",
+						inpreparation : "(function coming soon)",
+						norecord : "There's nothing here.",
+						more : "Load More",
+						linkwallet : "Please connect your wallet",
+						tips1 : "You need to connect your wallet first in order to receive NFTs",
+						tips2 : "",
+						connectnow : "Connect now",
+						banhao : "Edition",
+						jsaddress : "Receiving add: ",
+						editaddress : "(Click address to edit if need)",
+						banhao2 : "Version Number",
+						jsaddress2 : "No receiving address",
+						editaddress2 : "(The default is the currently connected wallet address, click to modify)",
+						startmint : "Start to mint",
+						dqwmintbanhao : "There are no minable editions now :",
+						tipsjs1:'Cannot be empty~',
+						tipsjs2:'Please enter legal address',
+						tipsjs3:'Modified successfully',
+						tipsjs4:'Transfer operation completed~',
+						tipsjs5:'Modification succeeded. Your NFT transfer operation has been completed. Please confirm in the corresponding wallet~',
+						currentlyholds:"Currently holds ",
+						blockchain:"Blockchain： Binance",
+						inwallet:"In wallet: ",
+						edit:"Edit",
+						clickedit:"Click to edit",
+						transfer:"Transfer",
+						cancel:"cancel",
+				}
+			},
+			lang:''
 		}
 	},
 	
 	created() {
 		this.isConnect = getCookie('isConnect') == 'false' ? false : true
-		// this.getAccount()
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';
 	},
 	mounted() {
 		this.getAccount()
@@ -276,11 +357,11 @@ module.exports = {
 			let obj = JSON.parse(e.target.dataset.type);
 			console.log(e.target.dataset.type,!newaddress);
 			if (!newaddress && obj.status == 1 || !newaddress2 && obj.status == 2) {
-				tips("不可以為空~");
+				tips(this.chEnTextHtml[this.lang].tipsjs1);
 				return;
 			}
 			if (!web3.utils.isAddress(newaddress) && obj.status == 1 || !web3.utils.isAddress(newaddress2) && obj.status == 2) {
-				tips("请输入合法地址");
+				tips(this.chEnTextHtml[this.lang].tipsjs2);
 				return;
 			}
 			if (obj.status == 1) {
@@ -306,7 +387,7 @@ module.exports = {
 				}),
 				success: function (res) {
 					if (res.code == 0) {
-						tips("修改成功");
+						tips(this.chEnTextHtml[this.lang].tipsjs3);
 						setTimeout(function(){
 							cancelMobile();
 							self.geteveryqkl();
@@ -339,11 +420,11 @@ module.exports = {
 					})
 					.then(function (res) {
 						console.log(res);
-						tips("轉移操作已完成~");
+						tips(this.chEnTextHtml[this.lang].tipsjs4);
 						self.geteveryqkl();
 					});
 					setTimeout(() => {
-						tips("您的NFT轉移操作已完成，請到相應錢包內確認噢~");
+						tips(this.chEnTextHtml[this.lang].tipsjs5);
 						setTimeout(function(){
 							cancelMobile();
 						},1800);

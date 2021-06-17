@@ -6,7 +6,7 @@
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>我的藏品</title>
+	<title>我的資產</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css" />
@@ -27,6 +27,7 @@
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/loadsh.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod">
 	</script>
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
@@ -35,12 +36,12 @@
 </head>
 <body>
 	<!-- head -->
-	<div>
+	<div id="myassets" v-cloak>
 		<div class="headerpage"></div>
-		<div class="bzy-title center-80"><span class="language-tc">我的資產</span></div>
-		<div class="my-assets center-80" id="app" v-cloak>
+		<div class="bzy-title center-80"><span class="language-tc">{{chEnTextHtml[lang].title}}</span></div>
+		<div class="my-assets center-80" id="app">
 			<div class="tabs-wrap">
-				<div v-for="(item,idx) in tabs" :key="idx" @click="toggleTab(item, idx)">
+				<div v-for="(item,idx) in chEnTextHtml[lang].tabs" :key="idx" @click="toggleTab(item, idx)">
 					<span>{{item}}</span>
 					<div v-if="selectedTab == idx" class="active-tab"></div>
 				</div>

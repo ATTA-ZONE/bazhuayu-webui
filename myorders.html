@@ -24,222 +24,241 @@
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-	<!-- head -->
-	<div class="headerpage"></div>
-	
-	<div class="bzy-title center-80"><span class="language-tc">我的訂單</span></div>
-	
-	<div class="my-orders center-80 my-assets">
-		<ul>
-			<!-- <li class="flex">
-				<div class="my-orders-head none">
-					<div class="my-orders-number-mb">Order # 65467498132416873165</div>
-					<div class="my-orders-tit-mb">004_Cryptogod_#03</div>
-					<div class="my-orders-time-mb flex"><span>2020/04/07</span><span>15:24</span></div>
-				</div>
-				<div class="my-orders-body flex">
-					<div class="my-orders-left"><img src="./images/zu2.png" ></div>
-					<div class="my-orders-right">
-						<div class="my-orders-time flex"><span>2020/04/07</span><span>15:24</span></div>
-						<div class="my-orders-order">
-							<div class="my-orders-order-number">Order # 65467498132416873165</div>
-							<div class="my-orders-order-tit">004_Cryptogod_#03</div>
-						</div>
-						<div class="my-orders-status">
-							<div class="my-orders-status-status">
-								<div class="status-tit">Status</div>
-								<div class="status-des">Success</div>
-								<div class="status-due none">Due in 07:53:46</div>
-							</div>
-							<div class="my-orders-status-card">
-								<div class="card-tit">Charged Credit Card</div>
-								<div class="card-number">XXXX - XXXX - XXXX - 5474</div>
-							</div>
-							<div class="my-orders-status-payment">
-								<div class="payment-tit">Payment Amount</div>
-								<div class="payment-price">$3179.22 HKD</div>
-							</div>
-						</div>
-						<div class="my-orders-btn none flex">
-							<a class="flex" href="">Pay Now</a>
-							<div class="my-orders-btn-time flex">
-								<img src="./images/image13.png" >
-								<span>10:00:00</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</li> -->
-			
-		</ul>
-		<div class="bzy-e-more none">
-			<div class="flex order-list-load"><span class="language-tc">加载更多</span><img src="./images/next.png" ><img class="none" src="./images/xiala2.png" ></div>
+	<div id="myorders" v-cloak>
+		<!-- head -->
+		<div class="headerpage"></div>
+		
+		<div class="bzy-title center-80"><span class="language-tc">{{chEnTextHtml[lang].title}}</span></div>
+		
+		<div class="my-orders center-80 my-assets">
+			<ul></ul>
+			<div class="bzy-e-more none">
+				<div class="flex order-list-load"><span class="language-tc">{{chEnTextHtml[lang].more}}</span><img src="./images/next.png" ><img class="none" src="./images/xiala2.png" ></div>
+			</div>
 		</div>
-	</div>
-	
-	<!-- payment -->
-	<div class="payment none">
-		<div class="payment-container flex">
-			<div class="payment-page flex">
-				<div class="payment-page-close payment-close-pc"><img src="./images/Close.png" ></div>
-				<div class="payment-page-top none flex">
-					<div class="payment-page-right-tit">支付</div>
-					<div class="payment-close-mobile"><img src="./images/Close.png" ></div>
-				</div>
-				<div class="payment-page-left">
-					<div class="payment-page-left-tit order-title">----</div>
-					<div class="payment-page-left-creator flex">
-						<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
-						<span>@ATTA</span>
-						<div class="details-right-creator-edition">第1版，共150版</div>
+		
+		<!-- payment -->
+		<div class="payment none">
+			<div class="payment-container flex">
+				<div class="payment-page flex">
+					<div class="payment-page-close payment-close-pc"><img src="./images/Close.png" ></div>
+					<div class="payment-page-top none flex">
+						<div class="payment-page-right-tit">{{chEnTextHtml[lang].zf}}</div>
+						<div class="payment-close-mobile"><img src="./images/Close.png" ></div>
 					</div>
-					<div class="payment-page-left-img order-img"><img src="" ></div>
-				</div>
-				
-				<div class="payment-page-right">
-					<div class="payment-page-right-tit">支付</div>
-					<div class="payment-page-left-tit none payment-page-left-tit-mobile order-title">----</div>
-					<div class="payment-page-left-creator none payment-page-left-creator-mobile flex">
-						<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
-						<span>@ATTA</span>
-						<div class="details-right-creator-edition">第1版，共150版</div>
-					</div>
-					 
-					<div class="payment-page-right-order none">
-						<p class="order-number">Order #：<span>----</span></p>
-						<p class="payment-page-right-order-tit">您的付款金額為</p>
-						<p class="payment-page-right-order-je"><span>----</span></p>
-						<p class="payment-page-right-order-by"><span>信用卡支付</span>.</p>
-						<p class="payment-page-right-order-card none">----</p>
-					</div>
-					
-					<div class="payment-page-right-pay flex"><span class="cur" data-type="0">信用卡</span><span data-type="1">加密貨幣</span></div>
-					<div class="payment-page-right-total">
-						<p>這是待付款，您的付款金額為：</p>
-						<p class="order-price"><span class="order-price-hdk">HK$0 </span><span class="order-price-busd none">BUSD 0 </span></p>
-					</div>
-					
-					<div class="payment-page-right-select">
-						<!-- <p class="flex">
-							<input class="card-number" type="text" placeholder="卡號" />
-							<input class="date" type="text" placeholder="MM/YYYY" id="datetimepicker3" />
-							<input class="cvc" type="text" placeholder="CVC" />
-						</p>
-						<p class="flex"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p> -->
-						
-						<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
-							<div class="payment-form-ipt">
-								<div class="input-container card-number">
-									<div class="icon-container">
-										<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
-									</div>
-									<div class="card-number-frame"></div>
-									<div class="icon-container payment-method">
-										<img id="logo-payment-method" />
-									</div>
-									<div class="icon-container">
-										<img id="icon-card-number-error" src="images/card-icons/error.svg" />
-									</div>
-								</div>
-						
-								<div class="date-and-code">
-									<div>
-										<div class="input-container expiry-date">
-											<div class="icon-container">
-												<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
-											</div>
-											<div class="expiry-date-frame"></div>
-											<div class="icon-container">
-												<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
-											</div>
-										</div>
-									</div>
-						
-									<div>
-										<div class="input-container cvv">
-											<div class="icon-container">
-												<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
-											</div>
-											<div class="cvv-frame"></div>
-											<div class="icon-container">
-												<img id="icon-cvv-error" src="images/card-icons/error.svg" />
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p> -->
-						
-							<div class="pay-button"><button id="pay-button" disabled="">立即付款  -></button></div>
-						
-							<div>
-								<span class="error-message error-message__card-number"></span>
-								<span class="error-message error-message__expiry-date"></span>
-								<span class="error-message error-message__cvv"></span>
-							</div>
-						
-							<!-- <p class="success-payment-message"></p> -->
-						</form>
-						
-					</div>
-					
-					<div class="payment-page-right-busd none">
-						<div class="payment-page-right-busd-tit">正在使用</div>
-						<div class="payment-page-right-busd-con">
-							<span class="busd-balance">餘額</span>
-							<span class="busd-ye">BUSD 0 </span>
-							<span class="busd-tip none">0</span>
+					<div class="payment-page-left">
+						<div class="payment-page-left-tit order-title">----</div>
+						<div class="payment-page-left-creator flex">
+							<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
+							<span>@ATTA</span>
+							<div class="details-right-creator-edition">{{chEnTextHtml[lang].edition}}</div>
 						</div>
+						<div class="payment-page-left-img order-img"><img src="" ></div>
 					</div>
-					<div class="payment-page-right-btn none">
-						<button type="button">立即付款  -></button>
-						<p>您的信用卡將被立即授權。</p>
+					
+					<div class="payment-page-right">
+						<div class="payment-page-right-tit">{{chEnTextHtml[lang].zf}}</div>
+						<div class="payment-page-left-tit none payment-page-left-tit-mobile order-title">----</div>
+						<div class="payment-page-left-creator none payment-page-left-creator-mobile flex">
+							<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
+							<span>@ATTA</span>
+							<div class="details-right-creator-edition">{{chEnTextHtml[lang].edition}}</div>
+						</div>
+						 
+						<div class="payment-page-right-order none">
+							<p class="order-number">Order #：<span>----</span></p>
+							<p class="payment-page-right-order-tit">{{chEnTextHtml[lang].youpaymentamount}}</p>
+							<p class="payment-page-right-order-je"><span>----</span></p>
+							<p class="payment-page-right-order-by"><span>{{chEnTextHtml[lang].cardzf}}</span>.</p>
+							<p class="payment-page-right-order-card none">----</p>
+						</div>
+						
+						<div class="payment-page-right-pay flex"><span class="cur" data-type="0">{{chEnTextHtml[lang].card}}</span><span data-type="1">{{chEnTextHtml[lang].busd}}</span></div>
+						<div class="payment-page-right-total">
+							<p>{{chEnTextHtml[lang].dfkpaymentamount}}</p>
+							<p class="order-price"><span class="order-price-hdk">HK$0 </span><span class="order-price-busd none">BUSD 0 </span></p>
+						</div>
+						
+						<div class="payment-page-right-select">
+							<!-- <p class="flex">
+								<input class="card-number" type="text" placeholder="卡號" />
+								<input class="date" type="text" placeholder="MM/YYYY" id="datetimepicker3" />
+								<input class="cvc" type="text" placeholder="CVC" />
+							</p>
+							<p class="flex"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p> -->
+							
+							<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
+								<div class="payment-form-ipt">
+									<div class="input-container card-number">
+										<div class="icon-container">
+											<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
+										</div>
+										<div class="card-number-frame"></div>
+										<div class="icon-container payment-method">
+											<img id="logo-payment-method" />
+										</div>
+										<div class="icon-container">
+											<img id="icon-card-number-error" src="images/card-icons/error.svg" />
+										</div>
+									</div>
+							
+									<div class="date-and-code">
+										<div>
+											<div class="input-container expiry-date">
+												<div class="icon-container">
+													<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
+												</div>
+												<div class="expiry-date-frame"></div>
+												<div class="icon-container">
+													<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
+												</div>
+											</div>
+										</div>
+							
+										<div>
+											<div class="input-container cvv">
+												<div class="icon-container">
+													<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
+												</div>
+												<div class="cvv-frame"></div>
+												<div class="icon-container">
+													<img id="icon-cvv-error" src="images/card-icons/error.svg" />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">{{chEnTextHtml[lang].save}}</label></p> -->
+							
+								<div class="pay-button"><button id="pay-button" disabled="">{{chEnTextHtml[lang].immediatepayment}}</button></div>
+							
+								<div>
+									<span class="error-message error-message__card-number"></span>
+									<span class="error-message error-message__expiry-date"></span>
+									<span class="error-message error-message__cvv"></span>
+								</div>
+							
+								<!-- <p class="success-payment-message"></p> -->
+							</form>
+							
+						</div>
+						
+						<div class="payment-page-right-busd none">
+							<div class="payment-page-right-busd-tit">{{chEnTextHtml[lang].inuse}}</div>
+							<div class="payment-page-right-busd-con">
+								<span class="busd-balance">{{chEnTextHtml[lang].balance}}</span>
+								<span class="busd-ye">BUSD 0 </span>
+								<span class="busd-tip none">0</span>
+							</div>
+						</div>
+						<div class="payment-page-right-btn none">
+							<button type="button">{{chEnTextHtml[lang].immediatepayment}}</button>
+							<p>{{chEnTextHtml[lang].authorization}}</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<!--提交成功-->
-	<div class="hsycms-model-mask" id="mask-success"></div>
-	<div class="hsycms-model hsycms-model-success" id="success">
-		<div class="hsycms-model-icon">
-			<svg width="50" height="50">
-				<circle class="hsycms-alert-svgcircle"  cx="25" cy="25" r="24" fill="none" stroke="#ffffff" stroke-width="2"></circle>   
-				<polyline class="hsycms-alert-svggou" fill="none" stroke="#ffffff" stroke-width="2.5" points="14,25 23,34 36,18" stroke-linecap="round" stroke-linejoin="round" />
-			</svg>
+		
+		<!--提交成功-->
+		<div class="hsycms-model-mask" id="mask-success"></div>
+		<div class="hsycms-model hsycms-model-success" id="success">
+			<div class="hsycms-model-icon">
+				<svg width="50" height="50">
+					<circle class="hsycms-alert-svgcircle"  cx="25" cy="25" r="24" fill="none" stroke="#ffffff" stroke-width="2"></circle>   
+					<polyline class="hsycms-alert-svggou" fill="none" stroke="#ffffff" stroke-width="2.5" points="14,25 23,34 36,18" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</div>
+			<div class="hsycms-model-text">{{chEnTextHtml[lang].loginsuccessful}}</div>
 		</div>
-		<div class="hsycms-model-text">注册成功</div>
-	</div>
-	
-	<!--提交失败-->
-	<div class="hsycms-model-mask" id="mask-error"></div>
-	<div class="hsycms-model hsycms-model-error" id="error">
-		<div class="hsycms-model-icon">
-			<svg width="50" height="50">
-				<circle class="hsycms-alert-svgcircle"  cx="25" cy="25" r="24" fill="none" stroke="#f54655" stroke-width="2"></circle>   
-				<polyline class="hsycms-alert-svgca1" fill="none" stroke="#f54655" stroke-width="2.5" points="18,17 32,35" stroke-linecap="round" stroke-linejoin="round" />
-				<polyline class="hsycms-alert-svgca2" fill="none" stroke="#f54655" stroke-width="2.5" points="18,35 32,17" stroke-linecap="round" stroke-linejoin="round" />
-			</svg>
+		
+		<!--提交失败-->
+		<div class="hsycms-model-mask" id="mask-error"></div>
+		<div class="hsycms-model hsycms-model-error" id="error">
+			<div class="hsycms-model-icon">
+				<svg width="50" height="50">
+					<circle class="hsycms-alert-svgcircle"  cx="25" cy="25" r="24" fill="none" stroke="#f54655" stroke-width="2"></circle>   
+					<polyline class="hsycms-alert-svgca1" fill="none" stroke="#f54655" stroke-width="2.5" points="18,17 32,35" stroke-linecap="round" stroke-linejoin="round" />
+					<polyline class="hsycms-alert-svgca2" fill="none" stroke="#f54655" stroke-width="2.5" points="18,35 32,17" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</div>
+			<div class="hsycms-model-text">{{chEnTextHtml[lang].operationfailed}}</div>
 		</div>
-		<div class="hsycms-model-text">操作失败</div>
+		
+		<!-- foot -->
+		<div class="footerpage"></div>
+		
+		<div class="tips"></div>
 	</div>
-	
-	<!-- foot -->
-	<div class="footerpage2"></div>
-	
-	<div class="tips"></div>
 	
 	
 </body>
-<!-- <script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
-<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script> -->
 <script src="./js/framesv2.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/myorders.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/frames.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#myorders',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					title : "我的訂單",
+					more :"加载更多",
+					zf : "支付",
+					edition : "第1版，共150版",
+					youpaymentamount : "您的付款金額為",
+					cardzf : "信用卡支付",
+					card : "信用卡",
+					busd : "加密貨幣",
+					dfkpaymentamount : "這是待付款，您的付款金額為：",
+					save : "保存以備將來購買",
+					immediatepayment : "立即付款  ->",
+					inuse : "正在使用",
+					balance : "餘額",
+					authorization : "您的信用卡將被立即授權。",
+					loginsuccessful : "注册成功",
+					operationfailed : "操作失败",
+				},
+				"EN":{
+					title : "My Orders",
+					more :"Load More",
+					zf : "Pay",
+					edition : "Edition 1th of 150",
+					youpaymentamount : "Your payment amount is",
+					cardzf : "Credit Card Pay",
+					card : "credit card",
+					busd : "Crypto wallet",
+					dfkpaymentamount : "This is pending payment，Your payment amount is：",
+					save : "Save for future purchase",
+					immediatepayment : "Immediate payment  ->",
+					inuse : "is using",
+					balance : "Balance",
+					authorization : "Your credit card will be authorized immediately.",
+					loginsuccessful : "registration success",
+					operationfailed : "operation failed",
+				}
+			},
+			lang:''
+		}
+	},
+	created() {
+		let self = this;
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
+			document.title = '我的訂單';
+		}else{
+			document.title = 'My Orders';
+		}
+	}
+})
+</script>
 </html>

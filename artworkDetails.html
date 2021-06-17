@@ -6,7 +6,7 @@
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>明星藏品詳情</title>
+	<title></title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap-datetimepicker.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/normalize.css" />
@@ -26,6 +26,7 @@
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
@@ -84,293 +85,279 @@
 </head>
 
 <body>
-	<!-- head -->
-	<header class="header center-85 flex header-fixed">
-		<div class="header-left flex">
-			<a class="header-left-logo" href="index.html"><img src="images/Brand.png"></a>
-			<ul class="nav-header flex">
-				<li><a class="language-tc" href="index.html">首頁</a></li>
-				<li><a class="language-tc" href="auction.html">拍賣</a></li>
-			</ul>
-		</div>
-		<div class="header-right flex">
-			<div class="header-dl flex"></div>
-			<a class="header-right-wallet" href="javascript:void(0);" onclick="connectWallet()">未連接錢包</a>
-			<p class="switchlanguagebox"></p>
-			<!-- <div class="header-right-lan flex"><a href="/mobile/en/index.html">EN</a><span></span><a href="/mobile/tc/index.html">繁</a></div> -->
-		</div>
-		<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png"></div>
-		<div class="mobile-menu none" onclick="menuShow()"><img src="./images/menu.png"></div>
-	</header>
-
-	<div class="menu-list menu-list1 none">
-		<div class="menu-list-con">
-			<div class="menu-list-con-tit flex">
-				<img class="logo" src="./images/Brand.png">
-				<img class="menu-close" src="./images/Close.png" onclick="menuHide()">
+	<div id="artDetail" v-cloak>
+		<!-- head -->
+		<header class="header center-85 flex header-fixed">
+			<div class="header-left flex">
+				<a class="header-left-logo" href="index.html"><img src="images/Brand.png"></a>
+				<ul class="nav-header flex">
+					<li><a class="language-tc" href="index.html">{{chEnTextHtml[languageType].home}}</a></li>
+					<li><a class="language-tc" href="auction.html">{{chEnTextHtml[languageType].auction}}</a></li>
+				</ul>
 			</div>
-			<!-- <div class="menu-list-con-meail none"></div> -->
-			<ul class="moblic_h5_navbox">
-				<li><a class="language-tc" href="index.html">首頁</a></li>
-				<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()"
-						href="javascript:void(0);">未連接錢包</a></li>
-				<li class="switchlanguage_mobile"></li>
-			</ul>
-			<!-- <div class="menu-list-con-tit-lan flex">
-				<a href="/mobile/en/index.html">EN</a>
-				<span></span>
-				<a href="/mobile/tc/index.html">繁</a>
-			</div> -->
-			<div class="menu-list-con-tit-btn mobile-login"><a class="flex" href="login.html">登入/註冊</a></div>
-			<!-- <div class="menu-list-con-tit-btn mobile-logout none" onclick="confirm()"><a class="flex" href="javascript:void(0);">Logout</a></div> -->
-		</div>
-	</div>
-
-	<div class="menu-list menu-list2 none">
-		<div class="menu-list-con">
-			<div class="menu-list-con-tit flex">
-				<img class="logo" src="./images/Brand.png">
-				<img class="menu-close" src="./images/Close.png" onclick="headIconHide()">
+			<div class="header-right flex">
+				<div class="header-dl flex"></div>
+				<a class="header-right-wallet" href="javascript:void(0);" onclick="connectWallet()">{{chEnTextHtml[languageType].noConnectWallet}}</a>
+				<p class="switchlanguagebox"></p>
 			</div>
-			<div class="menu-list-con-meail"></div>
-			<ul>
-				<li><a class="language-tc" href="myaccount.html">我的帳戶</a></li>
-				<li><a class="language-tc" href="myorders.html">我的訂單</a></li>
-				<li><a class="language-tc" href="myassets.html">我的資產</a></li>
-				<li><a class="language-tc" href="mywallet.html">我的錢包</a></li>
-			</ul>
-			<div class="menu-list-con-tit-btn mobile-logout" onclick="logoutConfirm()"><a class="flex"
-					href="javascript:void(0);"><span class="language-tc">登出</span></a></div>
-		</div>
-	</div>
-	<div id="artDetail">
+			<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png"></div>
+			<div class="mobile-menu none" onclick="menuShow()"><img src="./images/menu.png"></div>
+		</header>
 
-		<div class="details center-80 flex">
-			<div class="details-left order-img">
-				<div onclick="playVideo(this,event)" class="detail-mask"></div><img class="full-screen detail-media"
-					@click="FullScreen" src="./images/fullscreen.png" /><img @click="toggleVideo" class="voice detail-media"
-					src="./images/mute.png" />
-			</div>
-			<div class="details-right">
-				<div class="details-right-tit order-title">----</div>
-				<div class="details-right-creator flex">
-					<div class="details-right-creator-img"><img src="./images/t8.png"></div>
-					<span>@ATTA</span>
-					<div class="details-right-creator-edition">第1版，共150版</div>
+		<div class="menu-list menu-list1 none">
+			<div class="menu-list-con">
+				<div class="menu-list-con-tit flex">
+					<img class="logo" src="./images/Brand.png">
+					<img class="menu-close" src="./images/Close.png" onclick="menuHide()">
 				</div>
-				<div class="checknumbox">
-					<div class="purchasenumbox">
-						<button @click="changenum(1)"><img src="./images/jian.png" alt=""></button>
-						<span class="purchase_num">1</span>
-						<button @click="changenum(2)"><img src="./images/jia.png" alt=""></button>
+				<ul class="moblic_h5_navbox">
+					<li><a class="language-tc" href="index.html">{{chEnTextHtml[languageType].home}}</a></li>
+					<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()"
+							href="javascript:void(0);">{{chEnTextHtml[languageType].noConnectWallet}}</a></li>
+					<li class="switchlanguage_mobile"></li>
+				</ul>
+				<div class="menu-list-con-tit-btn mobile-login"><a class="flex" href="login.html">{{chEnTextHtml[languageType].login}}</a></div>
+			</div>
+		</div>
+
+		<div class="menu-list menu-list2 none">
+			<div class="menu-list-con">
+				<div class="menu-list-con-tit flex">
+					<img class="logo" src="./images/Brand.png">
+					<img class="menu-close" src="./images/Close.png" onclick="headIconHide()">
+				</div>
+				<div class="menu-list-con-meail"></div>
+				<ul>
+					<li><a class="language-tc" href="myaccount.html">{{chEnTextHtml[languageType].myaccount}}</a></li>
+					<li><a class="language-tc" href="myorders.html">{{chEnTextHtml[languageType].myorders}}</a></li>
+					<li><a class="language-tc" href="myassets.html">{{chEnTextHtml[languageType].myassets}}</a></li>
+					<li><a class="language-tc" href="mywallet.html">{{chEnTextHtml[languageType].mywallet}}</a></li>
+				</ul>
+				<div class="menu-list-con-tit-btn mobile-logout" onclick="logoutConfirm()"><a class="flex"
+						href="javascript:void(0);"><span class="language-tc">{{chEnTextHtml[languageType].logOut}}</span></a></div>
+			</div>
+		</div>
+		<div>
+
+			<div class="details center-80 flex">
+				<div class="details-left order-img">
+					<div onclick="playVideo(this,event)" class="detail-mask"></div><img class="full-screen detail-media"
+						@click="FullScreen" src="./images/fullscreen.png" /><img @click="toggleVideo" class="voice detail-media"
+						src="./images/mute.png" />
+				</div>
+				<div class="details-right">
+					<div class="details-right-tit order-title">----</div>
+					<div class="details-right-creator flex">
+						<div class="details-right-creator-img"><img src="./images/t8.png"></div>
+						<span>@ATTA</span>
+						<div class="details-right-creator-edition">{{chEnTextHtml[languageType].version}}</div>
 					</div>
-					<p class="selectnumbox">已選第 <span class="selectarrnum">1</span> 版</p>
-				</div>
-				<div class="countmoneybox">
-					<p class="moneryridebox">
-						單價：
-						<span class="cur order-price-hdk">HK$0 </span>
-						<span>/</span>
-						<span class="order-price-busd">BUSD 0 </span>
-					</p>
-					<p class="countetcbox">
-						<img src="./images/multiply.png" alt="">
-						<span class="purchase_num">1</span>
-						=
-					</p>
-				</div>
-				<div class="details-right-price flex"><span class="cur order-price-hdk hkdPrice">HK$0 </span> <span
-						style="margin-right: 20px;">/</span> <span class="order-price-busd busdPrice" style="opacity: 1;">BUSD 0
-					</span></div>
-				<div class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay">立即購買 -></div>
-				<div class="details-right-time flex"><span>銷售結束於：</span><span class="details-right-time-djs">01 : 05 : 32</span>
-				</div>
-				<div class="details-right-des order-introduce">
-				</div>
-				<div class="details-right-additional">
-					<p class="details-right-additional-show" data-status="0" @click="showDetailInfo">更多信息 <span>+</span></p>
-					<p class="details-right-additional-more none order-content"></p>
+					<div class="checknumbox">
+						<div class="purchasenumbox">
+							<button @click="changenum(1)"><img src="./images/jian.png" alt=""></button>
+							<span class="purchase_num">1</span>
+							<button @click="changenum(2)"><img src="./images/jia.png" alt=""></button>
+						</div>
+						<p class="selectnumbox">{{chEnTextHtml[languageType].select}} <span class="selectarrnum">1</span> {{chEnTextHtml[languageType].versionTxt}}</p>
+					</div>
+					<div class="countmoneybox">
+						<p class="moneryridebox">
+							{{chEnTextHtml[languageType].price}}
+							<span class="cur order-price-hdk">HK$0 </span>
+							<span>/</span>
+							<span class="order-price-busd">BUSD 0 </span>
+						</p>
+						<p class="countetcbox">
+							<img src="./images/multiply.png" alt="">
+							<span class="purchase_num">1</span>
+							=
+						</p>
+					</div>
+					<div class="details-right-price flex"><span class="cur order-price-hdk hkdPrice">HK$0 </span> <span
+							style="margin-right: 20px;">/</span> <span class="order-price-busd busdPrice" style="opacity: 1;">BUSD 0
+						</span></div>
+					<div class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay">{{chEnTextHtml[languageType].purchaseNow}}</div>
+					<div class="details-right-time flex"><span>{{chEnTextHtml[languageType].saleEnds}}</span><span class="details-right-time-djs">01 : 05 : 32</span>
+					</div>
+					<div class="details-right-des order-introduce">
+					</div>
+					<div class="details-right-additional">
+						<!-- <p class="details-right-additional-show" data-status="0" @click="showDetailInfo">更多信息 <span>+</span></p> -->
+						<p class="details-right-additional-more none order-content"></p>
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- payment -->
-		<div class="payment none">
-			<div class="payment-container flex">
-				<div class="payment-page flex">
-					<div class="payment-page-close payment-close-pc" onclick="paymentClose()"><img src="./images/Close.png"></div>
-					<div class="payment-page-top none flex">
-						<div class="payment-page-right-tit">支付</div>
-						<div class="payment-close-mobile"><img src="./images/Close.png"></div>
-					</div>
-					<div class="payment-page-left">
-						<div class="payment-page-left-tit order-title">----</div>
-						<div class="payment-page-left-creator flex">
-							<div class="details-right-creator-img"><img src="./images/t8.png"></div>
-							<span>@ATTA</span>
-							<div class="details-right-creator-edition">第1版，共150版</div>
+			<div class="payment none">
+				<div class="payment-container flex">
+					<div class="payment-page flex">
+						<div class="payment-page-close payment-close-pc" onclick="paymentClose()"><img src="./images/Close.png"></div>
+						<div class="payment-page-top none flex">
+							<div class="payment-page-right-tit">{{chEnTextHtml[languageType].pay}}</div>
+							<div class="payment-close-mobile"><img src="./images/Close.png"></div>
 						</div>
-						<div class="payment-page-left-img order-img"><img src=""></div>
-					</div>
-
-					<div class="payment-page-right">
-						<div class="payment-page-right-tit">支付</div>
-						<div class="payment-page-left-tit none payment-page-left-tit-mobile order-title">----</div>
-						<div class="payment-page-left-creator none payment-page-left-creator-mobile flex">
-							<div class="details-right-creator-img"><img src="./images/t8.png"></div>
-							<span>@ATTA</span>
-							<div class="details-right-creator-edition">第1版，共150版</div>
+						<div class="payment-page-left">
+							<div class="payment-page-left-tit order-title">----</div>
+							<div class="payment-page-left-creator flex">
+								<div class="details-right-creator-img"><img src="./images/t8.png"></div>
+								<span>@ATTA</span>
+								<div class="details-right-creator-edition">{{chEnTextHtml[languageType].version}}</div>
+							</div>
+							<div class="payment-page-left-img order-img"><img src=""></div>
 						</div>
 
-						<div class="payment-page-right-order none">
-							<p class="order-number">Order #：<span>----</span></p>
-							<p class="payment-page-right-order-tit">您的付款金額為</p>
-							<p class="payment-page-right-order-je"><span>----</span></p>
-							<p class="payment-page-right-order-by"><span>信用卡支付</span></p>
-							<p class="payment-page-right-order-card none">----</p>
-						</div>
-						<div class="payment-page-right-pay flex">
-							<span v-for="(item, index) in payTabs" :key="index" :class="selectedPayMethod == index? 'cur':''"
-								@click="togglePayMethod(index)">{{item}}</span>
-						</div>
-						<div class="payment-page-right-total">
-							<p>這是待付款，您的付款金額為：</p>
-							<p class="order-price"><span class="order-price-hdk hkdPrice">HK$0 </span><span
-									class="order-price-busd none busdPrice">BUSD 0 </span></p>
-						</div>
+						<div class="payment-page-right">
+							<div class="payment-page-right-tit">{{chEnTextHtml[languageType].pay}}</div>
+							<div class="payment-page-left-tit none payment-page-left-tit-mobile order-title">----</div>
+							<div class="payment-page-left-creator none payment-page-left-creator-mobile flex">
+								<div class="details-right-creator-img"><img src="./images/t8.png"></div>
+								<span>@ATTA</span>
+								<div class="details-right-creator-edition">{{chEnTextHtml[languageType].version}}</div>
+							</div>
 
-						<div class="payment-page-right-select modify-ipt-fream">
-							<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
-								<div class="payment-form-ipt">
-									<div class="input-container card-number" style="margin-bottom: 20px !important;">
-										<div class="icon-container">
-											<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
-										</div>
-										<div class="card-number-frame"></div>
-										<div class="icon-container payment-method">
-											<img id="logo-payment-method" />
-										</div>
-										<div class="icon-container">
-											<img id="icon-card-number-error" src="images/card-icons/error.svg" />
-										</div>
-									</div>
+							<div class="payment-page-right-order none">
+								<p class="order-number">Order #：<span>----</span></p>
+								<p class="payment-page-right-order-tit">{{chEnTextHtml[languageType].paid}}</p>
+								<p class="payment-page-right-order-je"><span>----</span></p>
+								<p class="payment-page-right-order-by"><span>{{chEnTextHtml[languageType].byCreditCard}}</span></p>
+								<p class="payment-page-right-order-card none">----</p>
+							</div>
+							<div class="payment-page-right-pay flex">
+								<span v-for="(item, index) in payTabs" :key="index" :class="selectedPayMethod == index? 'cur':''"
+									@click="togglePayMethod(index)">{{item}}</span>
+							</div>
+							<div class="payment-page-right-total">
+								<p>{{chEnTextHtml[languageType].pendingPayment}}</p>
+								<p class="order-price"><span class="order-price-hdk hkdPrice">HK$0 </span><span
+										class="order-price-busd none busdPrice">BUSD 0 </span></p>
+							</div>
 
-									<div class="date-and-code">
-										<div>
-											<div class="input-container expiry-date">
-												<div class="icon-container">
-													<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
-												</div>
-												<div class="expiry-date-frame"></div>
-												<div class="icon-container">
-													<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
-												</div>
+							<div class="payment-page-right-select modify-ipt-fream">
+								<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
+									<div class="payment-form-ipt">
+										<div class="input-container card-number" style="margin-bottom: 20px !important;">
+											<div class="icon-container">
+												<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
+											</div>
+											<div class="card-number-frame"></div>
+											<div class="icon-container payment-method">
+												<img id="logo-payment-method" />
+											</div>
+											<div class="icon-container">
+												<img id="icon-card-number-error" src="images/card-icons/error.svg" />
 											</div>
 										</div>
 
-										<div>
-											<div class="input-container cvv">
-												<div class="icon-container">
-													<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
+										<div class="date-and-code">
+											<div>
+												<div class="input-container expiry-date">
+													<div class="icon-container">
+														<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
+													</div>
+													<div class="expiry-date-frame"></div>
+													<div class="icon-container">
+														<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
+													</div>
 												</div>
-												<div class="cvv-frame"></div>
-												<div class="icon-container">
-													<img id="icon-cvv-error" src="images/card-icons/error.svg" />
+											</div>
+
+											<div>
+												<div class="input-container cvv">
+													<div class="icon-container">
+														<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
+													</div>
+													<div class="cvv-frame"></div>
+													<div class="icon-container">
+														<img id="icon-cvv-error" src="images/card-icons/error.svg" />
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
+										<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">{{chEnTextHtml[languageType].saveFor}}</label></p>
+										<div style="color: #FF1313;
+									display: flex;
+									align-items: center;
+									margin-top: 10px;"><input id="savetips" type="checkbox" /><span>{{chEnTextHtml[languageType].purchasing}}</span></div>
+
+										<div>
+											<div class="pay-button"><button id="pay-button" disabled="">{{chEnTextHtml[languageType].payment}} ></button></div>
+											<span class="error-message error-message__card-number"></span>
+											<span class="error-message error-message__expiry-date"></span>
+											<span class="error-message error-message__cvv"></span>
+										</div>
+								</form>
+							</div>
+							<div class="payment-page-right-busd none">
+								<div class="payment-page-right-busd-tit">{{chEnTextHtml[languageType].currentUsing}}</div>
+								<div class="payment-page-right-busd-con">
+									<span class="busd-balance">{{chEnTextHtml[languageType].balance}}</span>
+									<span class="busd-ye">BUSD 0</span>
+									<span class="busd-tip none">0</span>
 								</div>
-									<p class="flex pay-save"><input id="save" type="checkbox" /><label for="save">保存以備將來購買</label></p>
-									<div style="color: #FF1313;
-								display: flex;
-								align-items: center;
-								margin-top: 10px;"><input id="savetips" type="checkbox" /><span>由於您購買的是數字作品，一經售出概不退換</span></div>
-
-									<div>
-										<div class="pay-button"><button id="pay-button" disabled="">立即付款 ></button></div>
-										<span class="error-message error-message__card-number"></span>
-										<span class="error-message error-message__expiry-date"></span>
-										<span class="error-message error-message__cvv"></span>
-									</div>
-							</form>
-						</div>
-						<div class="payment-page-right-busd none">
-							<div class="payment-page-right-busd-tit">正在使用</div>
-							<div class="payment-page-right-busd-con">
-								<span class="busd-balance">餘額</span>
-								<span class="busd-ye">BUSD 0</span>
-								<span class="busd-tip none">0</span>
+							</div>
+							<div class="wallet-payment-desc none">{{chEnTextHtml[languageType].notStore}}</div>
+							<div class="payment-page-right-balance" style="color: #FF1313;
+									display: flex;
+									align-items: center;
+									margin-top: 10px;">
+								<input id="saveBalance" @click="toggleBalanceCheck" type="checkbox" />
+								<span>{{chEnTextHtml[languageType].purchasing}}</span>
+							</div>
+							<div class="payment-page-right-btn none" style="border-bottom: none !important;">
+								<button id="balanceBtn" @click="payBalance" disabled="" type="button">{{chEnTextHtml[languageType].payment}} ></button>
+							</div>
+							<div class="payment-page-right-crypto none">
+								<button id="cryptoBtn" @click="payCrypto" disabled="" type="button">{{chEnTextHtml[languageType].payment}} ></button>
+								<p></p>
 							</div>
 						</div>
-						<div class="wallet-payment-desc none">我們不會儲存您的錢包密鑰，未經您的授權，也無法使用您電子錢包中的貨幣。</div>
-						<div class="payment-page-right-balance" style="color: #FF1313;
-								display: flex;
-								align-items: center;
-								margin-top: 10px;">
-							<input id="saveBalance" @click="toggleBalanceCheck" type="checkbox" />
-							<span>由於您購買的是數字作品，一經售出概不退換。</span>
-						</div>
-						<div class="payment-page-right-btn none" style="border-bottom: none !important;">
-							<button id="balanceBtn" @click="payBalance" disabled="" type="button">立即付款 ></button>
-						</div>
-						<div class="payment-page-right-crypto none">
-							<button id="cryptoBtn" @click="payCrypto" disabled="" type="button">立即付款 ></button>
-							<p></p>
-						</div>
 					</div>
 				</div>
 			</div>
+			<div class="pre-mask none"></div>
 		</div>
-		<div class="pre-mask none"></div>
-	</div>
-
-	<!-- 播放视频 -->
-	<div class="video-mask none"></div>
-	<div class="video-model none" onclick="closeVideo()">
-		<div class="video-model-container flex">
-			<div>
-				<img onclick="closeVideo()" class="video-close" src="./images/Close.png">
-				<video autoplay="autoplay" loop="loop" src="" controls="controls"></video>
+		<!-- 播放视频 -->
+		<div class="video-mask none"></div>
+		<div class="video-model none" onclick="closeVideo()">
+			<div class="video-model-container flex">
+				<div>
+					<img onclick="closeVideo()" class="video-close" src="./images/Close.png">
+					<video autoplay="autoplay" loop="loop" src="" controls="controls"></video>
+				</div>
 			</div>
 		</div>
-	</div>
-
-	<!--提交成功-->
-	<div class="hsycms-model-mask" id="mask-success"></div>
-	<div class="hsycms-model hsycms-model-success" id="success">
-		<div class="hsycms-model-icon">
-			<svg width="50" height="50">
-				<circle class="hsycms-alert-svgcircle" cx="25" cy="25" r="24" fill="none" stroke="#ffffff" stroke-width="2">
-				</circle>
-				<polyline class="hsycms-alert-svggou" fill="none" stroke="#ffffff" stroke-width="2.5" points="14,25 23,34 36,18"
-					stroke-linecap="round" stroke-linejoin="round" />
-			</svg>
+		<!--提交成功-->
+		<div class="hsycms-model-mask" id="mask-success"></div>
+		<div class="hsycms-model hsycms-model-success" id="success">
+			<div class="hsycms-model-icon">
+				<svg width="50" height="50">
+					<circle class="hsycms-alert-svgcircle" cx="25" cy="25" r="24" fill="none" stroke="#ffffff" stroke-width="2">
+					</circle>
+					<polyline class="hsycms-alert-svggou" fill="none" stroke="#ffffff" stroke-width="2.5" points="14,25 23,34 36,18"
+						stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</div>
+			<div class="hsycms-model-text">{{chEnTextHtml[languageType].regSuc}}</div>
 		</div>
-		<div class="hsycms-model-text">注册成功</div>
-	</div>
-
-	<!--提交失败-->
-	<div class="hsycms-model-mask" id="mask-error"></div>
-	<div class="hsycms-model hsycms-model-error" id="error">
-		<div class="hsycms-model-icon">
-			<svg width="50" height="50">
-				<circle class="hsycms-alert-svgcircle" cx="25" cy="25" r="24" fill="none" stroke="#f54655" stroke-width="2">
-				</circle>
-				<polyline class="hsycms-alert-svgca1" fill="none" stroke="#f54655" stroke-width="2.5" points="18,17 32,35"
-					stroke-linecap="round" stroke-linejoin="round" />
-				<polyline class="hsycms-alert-svgca2" fill="none" stroke="#f54655" stroke-width="2.5" points="18,35 32,17"
-					stroke-linecap="round" stroke-linejoin="round" />
-			</svg>
+		<!--提交失败-->
+		<div class="hsycms-model-mask" id="mask-error"></div>
+		<div class="hsycms-model hsycms-model-error" id="error">
+			<div class="hsycms-model-icon">
+				<svg width="50" height="50">
+					<circle class="hsycms-alert-svgcircle" cx="25" cy="25" r="24" fill="none" stroke="#f54655" stroke-width="2">
+					</circle>
+					<polyline class="hsycms-alert-svgca1" fill="none" stroke="#f54655" stroke-width="2.5" points="18,17 32,35"
+						stroke-linecap="round" stroke-linejoin="round" />
+					<polyline class="hsycms-alert-svgca2" fill="none" stroke="#f54655" stroke-width="2.5" points="18,35 32,17"
+						stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</div>
+			<div class="hsycms-model-text">{{chEnTextHtml[languageType].operationFailed}}</div>
 		</div>
-		<div class="hsycms-model-text">操作失败</div>
+		<!-- foot -->
+		<div class="footerpage"></div>
+		<div class="tips"></div>
 	</div>
-
-	<!-- foot -->
-	<div class="footerpage2"></div>
-
-	<div class="tips"></div>
-
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="./js/artworkDetail.js" type="text/javascript" charset="utf-8"></script>
@@ -387,5 +374,4 @@
 					<a href=${'/mobile'+document.referrer.split('mobile')[1]}>繁</a>`;
 	$(".switchlanguage_mobile").html(html_mobile);
 </script>
-
 </html>

@@ -1,13 +1,14 @@
 /* global Frames */
 var payButton = document.getElementById("pay-button");
 var form = document.getElementById("payment-form");
-
+var framesText = chEnText.frames[lang];
+console.log(framesText);
 // Frames.init("pk_test_8ac41c0d-fbcc-4ae3-a771-31ea533a2beb");
 Frames.init({
 	// publicKey:'pk_test_7cabb2f1-609e-4581-918f-0f2c304989be',
 	publicKey:'pk_a154d2a3-6b40-4401-a12c-dba288e68957',
 	localization: {
-	    cardNumberPlaceholder: "卡號",
+	    cardNumberPlaceholder: framesText.number,
 	    expiryMonthPlaceholder: "MM",
 	    expiryYearPlaceholder: "YY",
 	    cvvPlaceholder: "CVV",
@@ -47,9 +48,9 @@ var errors = {};
 // errors["expiry-date"] = "Please enter a valid expiry date";
 // errors["cvv"] = "Please enter a valid cvv code";
 
-errors["card-number"] = "請輸入有效的卡號";
-errors["expiry-date"] = "請輸入有效的到期日期";
-errors["cvv"] = "請輸入有效的cvv程式碼";
+errors["card-number"] = framesText.validCardNumber;
+errors["expiry-date"] = framesText.validDate;
+errors["cvv"] = framesText.validCvv;
 
 Frames.addEventHandler(
   Frames.Events.FRAME_VALIDATION_CHANGED,

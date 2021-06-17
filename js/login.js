@@ -1,15 +1,14 @@
-
-
+var indexText = chEnText.login[lang];
 function loginconfirm(vtoken){
-	hsycms.confirm('confirm','該郵箱已被注册，但未驗證，去驗證郵箱',
+	hsycms.confirm('confirm',indexText.emailMgs,
 		function(res){            
-			hsycms.success('success','確認');
+			hsycms.success('success',indexText.confirm);
 			setTimeout(function(){
 				window.location.href = 'verificationCode.html?vtoken='+vtoken;
 			},1500)
 		},
 		function(res){
-			hsycms.error('error','取消');
+			hsycms.error('error',indexText.cancel);
 		},
 	)
 };
@@ -27,7 +26,7 @@ function logIn(data,url){
 			if(res.code==0){
 				if(res.data.verified==1){
 					setCookie('islogin',true);
-					success('登入成功',1800);
+					success(indexText.logSuc,1800);
 					setTimeout(function(){
 						if(url!=''){
 							window.location.href = 'index.html'
@@ -46,7 +45,7 @@ function logIn(data,url){
 				
 			}else{
 				// console.log(res)
-				tips('郵箱或密碼錯誤');
+				tips(indexText.logErr);
 			}
 		}
 	});
@@ -66,7 +65,7 @@ $(function(){
 		};
 		
 		if(email==''||password==""){
-			tips('郵箱或密碼不能為空');
+			tips(indexText.dataErr);
 			isClick = false;
 		}else{
 			isClick = true;
@@ -91,7 +90,7 @@ $(function(){
 				password
 			};
 			if(email==''||password==""){
-				tips('郵箱或密碼不能為空');
+				tips(indexText.dataErr);
 				isClick = false;
 			}else{
 				isClick = true;
@@ -102,15 +101,4 @@ $(function(){
 			}
 		}
 	})
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 })
