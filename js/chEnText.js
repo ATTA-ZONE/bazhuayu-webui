@@ -104,6 +104,12 @@ var chEnText = {
       "preSale":"預售",
       "salesClosed":"銷售已結束",
       "auction":"拍賣中",
+      "ban" : "第",
+      "ban2" : "版",
+      "bidding" : "當前競價：",
+      "endtime" : "拍賣剩餘時間：",
+      "starttime" : "拍賣開始時間：",
+      "auctionEnd":"競標結束",
     },
     "EN":{
       "noResult":"There is nothing here",
@@ -112,7 +118,13 @@ var chEnText = {
       "preSale":"Pre-sale",
       "purchaseNow":"Purchase Now",
       "salesClosed":"Sales ended",
-      "auction":"Bid on going"
+      "auction":"Bid on going",
+      "ban" : "Edition ",
+      "ban2" : "",
+      "bidding" : "Current bid：",
+      "endtime" : "Bidding ends in：",
+      "starttime" : "Bidding starts in：",
+      "endPrice":"Bidding ends in：",
     }
   },
   "auction":{
