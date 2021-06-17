@@ -77,7 +77,6 @@ var app = new Vue({
 					cancel:"取消",
 					recharge:"充值",
 					noLog:"未登錄，請登入",
-					paySuc:"支付成功",
 					number:"訂單號 #：",
 					balancePayment:"餘額支付",
 					accomplish:"完成",
@@ -101,7 +100,7 @@ var app = new Vue({
 					purchaseNow:"Purchase Now ->",
 					saleEnds:"Sale ends at：",
 					details:"Details",
-					pay:"Pay",
+					pay:"Payment",
 					paySuc:"Payment successful",
 					payErr:"Payment failed",
 					paid:"Your paid",
@@ -135,11 +134,10 @@ var app = new Vue({
 					cancel:"cancel",
 					recharge:"Add funds",
 					noLog:"Not logged in, please log in",
-					paySuc:"payment successful",
 					number:"Order #: ",
 					balancePayment:"Paid by balance",
 					accomplish:"complete",
-					payment:"Immediate payment",
+					payment:"Pay now",
 					walletFirst:"Please connect your wallet first  ->",
 				}
 			}
@@ -594,18 +592,19 @@ var app = new Vue({
 						}),
 						success: function (res) {
 							if (res.code == 0) {
-								success(this.chEnTextHtml[this.languageType].paySuc, 1800);
+								console.log(self.chEnTextHtml[self.languageType]);
+								success(self.chEnTextHtml[self.languageType].paySuc, 1800);
 								setTimeout(function () {
-									$('.order-number').text(this.chEnTextHtml[this.languageType].number + res.data);
-									$('.payment-page-right-tit').text(this.chEnTextHtml[this.languageType].accomplish);
+									$('.order-number').text(self.chEnTextHtml[self.languageType].number + res.data);
+									$('.payment-page-right-tit').text(self.chEnTextHtml[self.languageType].accomplish);
 									$('.payment-page-right-order').show();
 									$('.payment-page-right-pay').hide();
 									$('.payment-page-right-total').hide();
 									$('.payment-page-right-busd').hide();
 									$('.payment-page-right-balance').hide()
-									$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].asset);
+									$('.payment-page-right-btn button').text(self.chEnTextHtml[self.languageType].asset);
 									$('.payment-page-right-order-je span').text(busd);
-									$('.payment-page-right-order-by span').text(this.chEnTextHtml[this.languageType].balancePayment);
+									$('.payment-page-right-order-by span').text(self.chEnTextHtml[self.languageType].balancePayment);
 								}, 1800);
 							} else {
 								error(res.message, 1800);
@@ -642,7 +641,7 @@ var app = new Vue({
 				$('.payment-page-right-total').show();
 				$('.payment-page-right-balance').show()
 				$('.payment-page-right-btn button').addClass('can');
-				if ($(('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') || this.accountBalance < this.busdPrice * this.selectarr.length) {
+				if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') || this.accountBalance < this.busdPrice * this.selectarr.length) {
 					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 					$('#balanceBtn').attr('disabled', false)
 				} else {
