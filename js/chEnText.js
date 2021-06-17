@@ -205,7 +205,9 @@ var chEnText = {
       "home":"首頁",
       "auction":"拍賣",
       "wallet":"錢包連接中",
-      "unBind":"未綁定錢包"
+      "unBind":"未綁定錢包",
+      "tips01":"Your wallet is connected to the [variable: current blockchain net]. To use BSC on Bazhuayu,please switch to ",
+      "tips02":"bsc-dataseed1.ninicoin.io"
     },
     "EN":{
       "logOutMes":"Are you sure you want to log out",
@@ -219,10 +221,12 @@ var chEnText = {
       "login":"Login/Sign up",
       "connectWallet":"Wallet connected",
       "noConnectWallet":"Connect Wallet",
-      "home":"Home",
-      "auction":"Auction",
+      "home":"HOME",
+      "auction":"AUCTION",
       "wallet":"Wallet connecting",
-      "unBind":"Unregistered"
+      "unBind":"Unregistered",
+      "tips01":"Your wallet is connected to the [variable: current blockchain net]. To use BSC on Bazhuayu,please switch to ",
+      "tips02":"bsc-dataseed1.ninicoin.io"
     }
   },
   "connectWallet":{
