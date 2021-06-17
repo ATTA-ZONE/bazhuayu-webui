@@ -218,8 +218,8 @@ var chEnText = {
       "auction":"拍賣",
       "wallet":"錢包連接中",
       "unBind":"未綁定錢包",
-      "tips01":"Your wallet is connected to the [variable: current blockchain net]. To use BSC on Bazhuayu,please switch to ",
-      "tips02":"bsc-dataseed1.ninicoin.io"
+      "tips01":"Your wallet is connected to the [",
+      "tips02":"]. To use BSC on Bazhuayu,please switch to ",
     },
     "EN":{
       "logOutMes":"Are you sure you want to log out",

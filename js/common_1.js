@@ -82,10 +82,20 @@ function closeBsc() {
 	$('.bsc-tips').hide()
 }
 
+function RPCSwitchHint(res) {
+	if (res != targetChainId && getCookie('islogin')=='true') {
+		$('.rpcname').text(commonText.tips01+RPCSetting[res]['CHAIN_NAME']+commonText.tips02);
+		$('.target-rpcname').text(RPCSetting[targetChainId]['CHAIN_NAME']);
+		$('.bsc-tips').show()
+	} else {
+		$('.bsc-tips').hide()
+	}
+}
+
 function changenetwork() {
-		CHAIN.WALLET.switchRPCSettings(targetChainId).then(()=>{
-			$('.bsc-tips').hide()
-		})
+	CHAIN.WALLET.switchRPCSettings(targetChainId).then(()=>{
+		$('.bsc-tips').hide()
+	})
 }
 
 $(function(){
@@ -150,20 +160,13 @@ $(function(){
 		})
 	}
 
-			CHAIN.WALLET.chainId()
-				.then(function (res) {
-					var targetChainId = '';
-					if (window.location.href.indexOf('bazhuayu.io') == -1) {
-						targetChainId = 97;
-					} else {
-						targetChainId = 56;
-					}
-					if (res != targetChainId) {
-						$('.bsc-tips').show()
-					}
-				})
-	$('body').append('<div class="bsc-tips" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:9999;color:#fff;background: #9567FF;border-radius: 10px;white-space: nowrap;padding:10px 20px;">'+commonText.tips01+'<a onclick="changenetwork()">'+commonText.tips02+'</a><img onclick="closeBsc()" style="width: 20px;vertical-align: bottom;" src="./images/Close.png" /></div>')
-	
+	$('body').append('<div class="bsc-tips" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:9999;color:#fff;background: #9567FF;border-radius: 10px;white-space: nowrap;padding:10px 20px;"><span class="rpcname">'+commonText.tips01+commonText.tips02+'</span><a onclick="changenetwork()" class="target-rpcname">'+commonText.tips02+'</a><img onclick="closeBsc()" style="width: 20px;vertical-align: bottom;" src="./images/Close.png" /></div>')
+	$('.bsc-tips').hide()
+
+	CHAIN.WALLET.chainId()
+		.then(function (res) {
+			RPCSwitchHint(res)
+		})
 	
 	
 	// 用户信息
@@ -297,6 +300,7 @@ function updateWalletStatus() {
 	})
 }
 CHAIN.WALLET.accountsChangedAssign(updateWalletStatus);
+CHAIN.WALLET.networkChangedAssign(RPCSwitchHint);
 
 function showwalletaddress(e){
 	if ($('.header-right-wallet .modify-tc-pc').text() == commonText.noConnectWallet || $('.mobile-connect-wallet .modify-tc-pc').text() == commonText.noConnectWallet) {
