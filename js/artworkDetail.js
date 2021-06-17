@@ -100,7 +100,7 @@ var app = new Vue({
 					purchaseNow:"Purchase Now ->",
 					saleEnds:"Sale ends at：",
 					details:"Details",
-					pay:"Pay",
+					pay:"Payment",
 					paySuc:"Payment successful",
 					payErr:"Payment failed",
 					paid:"Your paid",
@@ -137,7 +137,7 @@ var app = new Vue({
 					number:"Order #: ",
 					balancePayment:"Paid by balance",
 					accomplish:"complete",
-					payment:"Immediate payment",
+					payment:"Pay now",
 					walletFirst:"Please connect your wallet first  ->",
 				}
 			}
