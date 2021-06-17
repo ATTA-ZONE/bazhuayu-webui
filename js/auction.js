@@ -1,432 +1,321 @@
-var auctionText = chEnText.auction[lang];
-//普通弹窗 
-function alert(txt) {
-	hsycms.alert('alert', txt, function () {
-		hsycms.close('alert');
-		// window.open('https://metamask.io/');
-	})
-}
-
-//日前转换格式
-Date.prototype.toLocaleString = function () {
-	return this.getFullYear() + "/" + (this.getMonth() + 1) + "/" + this.getDate() + " " + (this.getHours() < 10 ? '0' + this.getHours() : this.getHours()) + ":" + (this.getMinutes() < 10 ? '0' + this.getMinutes() : this.getMinutes()) + ":" + (this.getSeconds() < 10 ? '0' + this.getSeconds() : this.getSeconds());
-};
-
+var channelId = window.location.search.split("=")[1];
+var artworkText = chEnText.artwork[lang];
 //获取时间
 function formatDuring(mss) {
-	var days = parseInt(mss / (1000 * 60 * 60 * 24));
-	var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-	var seconds = parseInt((mss % (1000 * 60)) / 1000);
-	return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-}
-
-function compare(property, desc) {
-	return function (a, b) {
-		var value1 = a[property];
-		var value2 = b[property];
-		if (desc == true) {
-			// 升序排列
-			return value1 - value2;
-		} else {
-			// 降序排列
-			return value2 - value1;
-		}
+    var days = parseInt(mss / (1000 * 60 * 60 * 24));
+    var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = parseInt((mss % (1000 * 60)) / 1000);
+	if(days==0){
+		return (hours<10?'0'+hours:hours) + " hours " + (minutes<10?'0'+minutes:minutes) + " m " + (seconds<10?'0'+seconds:seconds) + " s ";
+	}else{
+		return days + "days " + hours + ":" + minutes + ":" + seconds
 	}
 }
 
-
-//
-function baojia(obj) {
-	var status = $(obj).data('status');
-	if (status == 0) {
-		var value = $(obj).find('font').text().trim();
-		var html = `<label>${auctionText.haveBid} BUSD</label> <input onblur="baojiaSure(this)" type="text">`;
-		$(obj).html(html);
-		$(obj).find('input').val('').focus().val(value);
-		$(obj).data('status', '1');
-	}
-}
-
-//
-function baojiaSure(obj) {
-	var val = $(obj).val().trim();
-	var min_value = $(obj).parent('span').data('price').trim();
-	var html = `${auctionText.haveBid} BUSD <font style="margin-left:3px;">` + val + `</font>`;
-	if (Number(val) >= Number(min_value)) {
-		$(obj).parent('span').data('status', '0');
-		$(obj).parent('span').html(html);
-	} else {
-		tips(auctionText.bid);
-	}
-}
-
-
-// 播放视频
-function playVideo(obj, e) {
-	e.stopPropagation();
-	$(obj)[0].pause();
-	var src = $(obj).attr('src');
-	$('.video-model video').attr('src', src);
-	$('.video-model video')[0].play();
-	$('.video-mask').fadeIn('fast');
-	$('.video-model').fadeIn('fast');
-}
-
-function closeVideo() {
-	$('.video-mask').hide();
-	$('.video-model').hide();
-	$('.bid-left video')[0].play();
-	$('.video-model video')[0].pause();
-}
-
-$('html').click(function () {
-	closeVideo();
-});
-
-$('.video-model video').click(function (e) {
-	e.stopPropagation();
-});
-
-function changwWalletId(accounts) {
-	if (accounts.length > 0) {
-		user_address = accounts[0];
-	}
-}
-
-function initialization() {
-	if (walletType) {
-    	var web3 = new Web3(CHAIN.WALLET.provider());
-	} else if (window.ethereum) {
-		var web3 = new Web3(window.ethereum);
-	}
-    var chainId = '';
-    CHAIN.WALLET.chainId()
-        .then(function (res) {
-            chainId = web3.utils.hexToNumber(res);
-
-            if (chainId != targetChainId) {
-                CHAIN.WALLET.switchRPCSettings(targetChainId);
-				// 建议替换成 导航栏 内 切换网络提示
-            }
-        
-            var auctionAddress = contractSetting['auction_contract'][chainId].address;
-            // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
-        	var auctionABI = contractSetting['auction_contract']['abi'];
-        
-        	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
-        
-            
-            var tokenTypeId = 0;
-        	if (chainId == 97) {
-        		tokenTypeId = 80000003; // 测试环境
-        	} else if (chainId == 56) {
-        		tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
-        	} else {
-        		tokenTypeId = 0;
-        	}
-        
-        
-        	//获取 tokenId 的 下一个 竞价的 至少 要大于 的 值
-        	auctionContractInstance.methods.getNextMinimalBid(tokenTypeId).call()
-        		.then(function (res) {
-        			res =web3.utils.fromWei(res, 'ether');
-        			$('.bid-right-btn span').data('price', res);
-        			$('.bid-right-btn span font').text(res);
-        		});
-        
-        
-        	//获取 拍卖的 详情，包括 时间参数，最高价     等设定
-        	auctionContractInstance.methods._auctions(tokenTypeId).call()
-        		.then(function (res) {
-        			var tokenTopBid = web3.utils.fromWei(res.tokenTopBid, 'ether');
-        			$('.bid-right-status-current span:nth-child(2)').text('BUSD ' + tokenTopBid);
-        
-        			var currentTime = Date.now(); //当前时间  ms
-        			var startTime = parseInt(res.startTime) * 1000; //拍卖开始时间  ms
-        			var minLastPeriod = parseInt(res.minLastPeriod) * 1000; //拍卖持续时间  ms
-        			var tokenLastBidTime = parseInt(res.tokenLastBidTime) * 1000; //最高竞价者 的竞价时间 ms
-        			var callBackPeriod = parseInt(res.callBackPeriod) * 1000; //每有一次新竞价的 续命 时间 ms
-        			var endTime = startTime + minLastPeriod;
-        			var html = ``;
-        
-        			auctionContractInstance.methods.auctionOpenBid(tokenTypeId).call()
-        				.then(function (key) {
-        					if(minLastPeriod - (tokenLastBidTime + callBackPeriod) < 0 && key){
-        						endTime = endTime + callBackPeriod;
-        					}
-        
-        					if (currentTime < startTime) { //未开始
-        						$('#make_offer').data('status', '0');
-        						var time = formatDuring(startTime - currentTime);
-        						html += `<span>${auctionText.endPrice}</span><span data-time="0">` + time + `</span>`;
-        						var ksTime = setInterval(function () {
-        							var js = formatDuring(startTime - Date.now());
-        							$('.bid-right-status-time span:nth-child(2)').text(js);
-        							if (startTime <= Date.now()) {
-        								clearInterval(ksTime);
-        							}
-        						}, 1000);
-        
-        					} else if (currentTime >= startTime && currentTime <= endTime) {
-        						$('#make_offer').data('status', '1');
-        						var time = formatDuring(endTime - currentTime);
-        						html += `<span>${auctionText.endPrice}</span><span data-time="1">` + time + `</span>`;
-        
-        						var syTime = setInterval(function () {
-        							var js = formatDuring(endTime - Date.now());
-        							$('.bid-right-status-time span:nth-child(2)').text(js);
-        							if (endTime <= Date.now()) {
-        								clearInterval(syTime);
-        							}
-        						}, 1000);
-        
-        					} else {
-        						html += `<span>${auctionText.endPrice}</span><span data-time="2">${auctionText.auctionEnd}</span>`;
-        						$('.bid-right-btn span').hide();
-        						$('#make_offer').hide();
-        
-        					}
-        
-        					$('.bid-right-status-time').html(html);
-        					//loadingHide();
-        				})
-        
-        		});
-        
-        	$.ajax({
-        		url: scansite_base_url + '/api?module=logs&action=getLogs&address=' + auctionAddress.toString() + '&topic0=0x19421268847f42dd61705778018ddfc43bcdce8517e7a630acb12f122c709481&apikey=' + scansite_apiKey,
-        		success: function (res) {
-        			var bidData = res.result;
-        			var html = ``;
-        			var newData = [];
-        			for (var i = 0; i < bidData.length; i++) {
-        				newData.unshift(bidData[i]);
-        			};
-        
-        			$('.bids-list-tit font').text(bidData.length);
-        
-        			$.each(newData, function (i, v) {
-        				var unixTimestamp = web3.utils.hexToNumber(v.timeStamp) * 1000;
-        				unixTimestamp = new Date(unixTimestamp);
-        				unixTimestamp = unixTimestamp.toLocaleString();
-        				var price = web3.utils.fromWei(v.data, 'ether');
-        
-        				var u_add = v.topics[1].split('000000000000000000000000').join('');
-        				html += `<li class="flex">
-        								<div class="bids-list-person flex">
-        									<div class="bids-list-person-name">By ` + u_add + `</div>
-        								</div>
-        								<div class="bids-list-time">` + unixTimestamp + `</div>
-        								<div class="bids-list-busd">$BUSD <span>` + price + `</span></div>
-        							</li>`;
-        
-        			});
-        
-        			$('.bids-list ul').html(html);
-        
-        		}
-        	});
-        
-        
-        	//获取 tokenId 下  竞价 数量
-        	// contract.methods.getBidsLength(tokenTypeId).call()
-        	// .then(function(res){
-        	// 	$('.bids-list-tit span').val(res);
-        	// });
-        
-        	userBidInfo();
-        });
-}
-
-function userBidInfo() {
-    var userAddress = '';
-	CHAIN.WALLET.accounts()
-        .then(function (res) {
-            if (res.length > 0) {
-                userAddress = res[0];
-            }
+function getArtworkList(current,pageSize,name,typeId){
+	var data = {
+		current,
+		pageSize,
+		name,
+		// typeId,
+		// channelId
+	};
 	
-        	//获取users 对于 所有 竞拍 下的 所有 竞价
-        	if (userAddress != '') {
-        		auctionContractInstance.methods.getUserBids(userAddress).call()
-        			.then(function (res) {
-        				if (!res || res.length < 1) {
-        					return false
-        				}
-        				var text = $('.bid-right-status-time span:nth-child(2)').data('time');
-        				var html = ``;
-        				var currentPrice = $('.bid-right-status-current span:nth-child(2)').text().trim().split(' ')[1];
-        				if (res[0].price > 0) {
-        					if (text == 2) {
-        						// $('.bid-right-btn span').hide();
-        						// $('#make_offer').hide();
-        
-        						if (res[0]['price'] >= currentPrice) { //当前用户为最高价
-        							html += `<span style="color:#9567FF;">${auctionText.topPrice}</span>`;
-        							$('.bid-right-btn span').hide();
-        							$('#make_offer').data('status', '2');
-        							$('#make_offer').text(auctionText.assetLook);
-        						}
-        						// else{
-        						// 	$('.bid-right-btn span').hide();
-        						// 	$('#make_offer').hide();
-        						// }
-        					} else if (text == 0) {
-        						// $('#make_offer').data('sign','3');
-        						html += '';
-        					} else {
-        
-        						// $('#make_offer').data('sign','1');
-        
-        						if (res[0]['price'] >= currentPrice) { //当前用户为最高价
-        							var u_price = web3.utils.fromWei(res[0]['price'], 'ether');
-        							html += `<span>${auctionText.maxmonery}  (BUSD ` + u_price + `)</span>`;
-        
-        						} else {
-        							var u_price = web3.utils.fromWei(res[0]['price'], 'ether');
-        							html += `<span style="color:#CB5252;">${auctionText.bidFailure}  (BUSD ` + u_price + `)</span>`;
-        						}
-        
-        					}
-        
-        				}
-        				$('.bid-right-tip').html(html);
-        			});
-        
-        	} else {
-        		$('.bid-right-tip').html('');
-				$('.bid-right-tip').data('address', '0');
-				$('#make_offer').data('sign', 0);
-				//window.confirm('錢包連接已失效，請重新連接錢包');
-        	}
-        });
+	
+	$.ajax({
+		url:base_url+'/v2/auction/pageList',
+		data:data,
+		success: function (res) {
+			if (res.code == 0) {
+				let records = res.data.pageResult.records;
+				let html = '';
+				var systemTime = res.data.systemTime;
+				
+				if(res.data.pageResult.total>9 && data.length==9){
+					$('.bzy-e-more').show();
+				}else{
+					$('.bzy-e-more').hide();
+				};
+				
+				if(records.length<=3){
+					$('.bzy-e-list').addClass('bzy-e-list-flex');
+				}else{
+					$('.bzy-e-list').removeClass('bzy-e-list-flex');
+				};
+				
+				if(records.length==0){
+					html += `<li class="nothing-artwork">
+					<div>暫無搜索結果</div></li>`;
+					$('.bzy-e-list').css('padding-top','100px');
+				}else{
+					 
+					$.each(records,function(i,v){
+						var timeStatus;
+						var geshi = v.primaryPic.substr(v.primaryPic.lastIndexOf('.')+1);
+						
+						if(v.name==artworkText.xdd){
+							v.edition = 200;
+						}
+						
+						if(v.endEdition - v.edition > 0){   //有库存
+							
+							if(systemTime < v.saleStartTimeMillis){
+								timeStatus = 1;    //未到销售时间
+							}else if(systemTime >= v.saleStartTimeMillis && systemTime <=  v.saleEndTimeMillis){
+								timeStatus = 2;  //在销售时间内
+							}else{
+								timeStatus = 3;   //过了销售时间
+							};
+							
+						}else{
+							timeStatus = 0;    //没有库存
+						}
+						
+						html += 
+						`<li>
+							<a class="artwork-mask" href="auctionDetails.html?id=`+v.id+`"><div class="artwork-mask-wrap"></div>`;
+						
+						if(geshi=='mp4'){
+							
+						  html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
+							
+						}else{
+							
+						  html+=`<img class="bzy-e-list-img" src="`+v.primaryPic+`" >`;
+						  
+						}
+						
+									
+						if(timeStatus==0){
+							
+						html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
+									<div class="bzy-e-list-info-price flex">
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+									</div>`;
+							
+							html +=`<div class="bzy-e-list-info-sale flex">
+										<span style="color:#CF3737;">${artworkText.sellOut}</span>
+									</div>
+									<div class="bzy-e-list-info-creator flex">
+										<div><img src="./images/t8.png"></div>
+										<span>@ATTA</span>
+									</div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
+									</div>
+								</div>
+							</a>
+						</li>`;
+							
+						}else if(timeStatus==1){
+						
+						html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
+									<div class="bzy-e-list-info-price flex">
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+									</div>`;
+							html +=`<div class="bzy-e-list-info-sale flex">
+										<span>${artworkText.preSale}</span>
+									</div>
+									<div class="bzy-e-list-info-creator flex">
+										<div><img src="./images/t8.png" ></div>
+										<span>@ATTA</span>
+									</div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
+										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">拍賣未開始</span>
+									</div>
+								</div>
+							</a>
+						</li>`;
+						
+						// html += `<div class="bzy-e-list-yushou flex"><span>發售預告</span><span>`+v.name+`</span></div>`;
+						
+						// html += `</a></li>`;
+						
+						}else if(timeStatus==2){
+						html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
+									<div class="bzy-e-list-info-price flex">
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+									</div>`;
+									
+							html +=`
+									<div class="bzy-e-list-info-creator flex">
+										<div><img src="./images/t8.png" ></div>
+										<span>@ATTA</span>
+									</div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
+										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">${artworkText.auction}</span>
+									</div>
+								</div>
+							</a>
+						</li>`;
+						}else if(timeStatus==3){
+						html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
+									<div class="bzy-e-list-info-price flex">
+										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+									</div>`;
+							html +=`<div class="bzy-e-list-info-sale flex">
+										<span>${artworkText.salesClosed}</span>
+									</div>
+									<div class="bzy-e-list-info-creator flex">
+										<div><img src="./images/t8.png" ></div>
+										<span>@ATTA</span>
+									</div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
+										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">${artworkText.salesClosed}</span>
+									</div>
+								</div>
+							</a>
+						</li>`;
+						};   
+					});
+					
+					$('.bzy-e-list').css('padding-top','0');
+				}
+				$('.bzy-e-list').append(html);	
+					
+				
+			} else {
+			}
+		},
+		error: function (err) {
+		}
+	})
+	
 }
 
 
-$.ajax({
-	url: '/v2/auction/list',
-	success: function (res) {
-		if (res.code == 0) {
-			var data = res.data.pageResult.records[0];
-			var geshi = data.primaryPic.substr(data.primaryPic.lastIndexOf('.') + 1);
-			if (geshi == 'mp4') {
-				$('.detail-media').css('display', 'block')
-				var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="` + data.primaryPic + `" onclick="playVideo(this,event)" muted="muted"></video>
-							<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + data.primaryPic + `" muted="muted"></video>`;
-
-				$('.bid-left').append(html);
-			} else {
-				var html = `<img src="` + data.primaryPic + `" >
-							<img class="mohu" src="` + data.primaryPic + `" >`;
-
-				$('.bid-left').html(html);
-			};
-
-			$('.bid-right-tit').text(data.name);
-			$('.bid-right-des').html(data.introduce.replace(/;\|;/g, '<br>'));
-			// $('.details-right-creator-edition').text(`第`+data.edition+`版);
-		}
-	}
-});
-
-$('#make_offer').click(function () {
-	var sign = $(this).data('sign');
-	var status = $(this).data('status');
-	if (sign == 0) {
-		window.alert(auctionText.lose);
-	} else {
-		if (status == 1) {
-			var price = $('.bid-right-btn span font').text().trim();
-			window.location.href = 'auctionPayment.html?bid=' + price;
-		} else if (status == 2) {
-			window.location.href = 'myassets.html';
-		} else if (status == 0) {
-			window.alert(auctionText.notBegun);
-		} else if (sign == 4) {
-			let bool = false;
-			if (bool) {
-				var html = `<div>${auctionText.msg01}</div>
-							<a style="font-size:16px; display:block; color:#9567FF; margin-top:5px;" href="https://metamask.io/">${auctionText.msg02}</a>`;
-				alert(html);
+// 获取类型
+function getTypeList(){
+	$.ajax({
+		url:base_url+`/v2/commodity/type/list?channelId=${channelId}`,
+		success:function(res){
+			if(res.code==0){
+				var html_pc = ``;
+				var html_mobile = ``;
+				$.each(res.data.types,function(i,v){
+					html_pc += `<span data-type="`+v.id+`" onclick=typeToggle(this)>`+v.name+`</span>`;
+					html_mobile += `<li data-type="`+v.id+`">`+v.name+`</li>`;
+				});
+				
+				$('.bzy-d-head-left').append(html_pc);
+				$('.bzy-d-head-left-mobile-list ul').append(html_mobile);
 			}
 		}
-	}
-});
-
-//
-$.ajax({
-	url: '/v2/user/wallet/info',
-	async: false,
-	success: function (res) {
-		var userAddress = '';
-		CHAIN.WALLET.accounts()
-        	.then(function (accounts) {
-            	if (accounts.length > 0) {
-                	userAddress = accounts[0];
-					$('.bid-right-tip').data('address', userAddress);	
-					if (res.code == 0) {  //1002
-						if (res.data.address == null || res.data.address == '') {
-							$.ajax({
-								url:'/v2/user/wallet/bind',
-								type:'POST',
-								contentType:'application/json',
-								dataType:'json',
-								data:JSON.stringify({
-									address:userAddress,
-									walletType:'TOKEN POCKET'
-								}),
-								success:function(res){
-									if(res.code==0){
-										// document.cookie="isConnect=true";
-										setCookie('isConnect',true)
-										if (c) {
-											c();
-										}else{
-											window.location.href = document.referrer;
-										}
-									}else{
-										tips(res.message)
-									}
-								}
-							});
-						} else if (userAddress != res.data.address){
-							window.alert(auctionText.msg01 + res.data.address+"\n"+auctionText.msg02);
-						};
-
-						$('#make_offer').data('sign', 1);
-					} else {
-						$('#make_offer').data('sign', 0);
-					}
-				} else {
-					$('.bid-right-tip').data('address', '0');
-					$('#make_offer').data('sign', 0);
-					// tips('未登入，請登入');
-				}
-			})
-	}
-});
-
-var walletType = getCookie(CHAIN.WALLET.__wallet__);
-
-
-if (walletType || window.ethereum) {
-	loading();
-    initialization()
-    loadingHide()
-    function networkChangedImplement() {
-	    initialization();
-    }
-	
-	CHAIN.WALLET.networkChangedAssign(networkChangedImplement);
-
-	function accountsChangedImplement(accounts) {
-		userBidInfo();
-	}
-
-	CHAIN.WALLET.accountsChangedAssign(accountsChangedImplement);
-
-} else { 
-	$('#make_offer').data('sign', 0);
-	window.alert(auctionText.walletLose);
+	})	
 }
+
+
+function typeToggle(obj){
+	$('.bzy-d-head-left span').removeClass('current');
+	$(obj).addClass('current');
+	var typeId = $(obj).data('type');
+	$('.artwork-list-load').data('type',typeId);
+	if(typeId==-1){
+		typeId = null;
+	}
+	$('.bzy-e-list').html('');
+	getArtworkList(1,9,'',typeId);
+}
+
+$(function(){
+	var current = 1;
+	getArtworkList(current,9,'',null);
+	getTypeList();
+	$('.artwork-list-load').click(function(){
+		current ++;
+		var typeId = $(this).data('type');
+		var name = $(this).data('name');
+		typeId == -1?typeId = null:typeId = typeId;
+		getArtworkList(current,9,name,typeId);
+
+	});
+	
+	$('.bzy-d-head-left-mobile-show').click(function(e){
+		e.stopPropagation();
+		if($(this).data('status')=='0'){
+			$('.bzy-d-head-left-mobile-list').slideDown('fast');
+			$(this).data('status','1');
+		}else if($(this).data('status')=='1'){
+			$('.bzy-d-head-left-mobile-list').slideUp('fast');
+			$(this).data('status','0');
+		}
+	});
+	
+	$('body').click(function(){
+		$('.bzy-d-head-left-mobile-list').slideUp('fast');
+		$('.bzy-d-head-left-mobile-show').data('status','0');
+	})
+	
+	setTimeout(function(){
+		$('.bzy-d-head-left-mobile-list ul li').on('click',function(e){
+			e.stopPropagation();
+			var text = $(this).text().trim();
+			$('.bzy-d-head-left-mobile-show span').text(text);
+			$('.bzy-d-head-left-mobile-list').slideUp('fast');
+			$('.bzy-d-head-left-mobile-show').data('status','0');
+			
+			var typeId = $(this).data('type');
+			$('.artwork-list-load').data('type',typeId);
+			if(typeId==-1){
+				typeId = null;
+			}
+			$('.bzy-e-list').html('');
+			getArtworkList(1,9,'',typeId);
+			// getArtworkList(1,9);
+		});
+	},200)
+	
+	
+	
+	// 搜索
+	$('.bzy-search input').on('keypress',function(e){
+		var name = $(this).val().trim();
+		$('.artwork-list-load').data('name',name);
+		if(e.keyCode==13){
+			$('.bzy-e-list').html('');
+			getArtworkList(1,9,name,null);
+			$(this).val('')
+		}
+	})
+	
+	
+	var mobile_width = $(window).width();
+	if(mobile_width<=992){
+		$('.bzy-d-head-right img').click(function(){
+
+			$('.bzy-d-head-right').css('width','200px');
+			$('.bzy-d-head-right img').css('margin-right','15px');
+			$('.bzy-d-head-right input').css('width','100%')
+			$(this).data('status','1');
+
+		});
+		
+		$('.bzy-search input').on('blur',function(e){
+			$('.bzy-d-head-right').css('width','24px');
+			$('.bzy-d-head-right img').css('margin-right','0');
+			$('.bzy-d-head-right input').css('width','0')
+			$(this).data('status','0');
+			
+		})
+		
+		
+		$('.bzy-search input').on('input',function(e){
+			var name = $(this).val().trim();
+			$('.artwork-list-load').data('name',name);
+			// if(e.keyCode==13){
+			$('.bzy-e-list').html('');
+			getArtworkList(1,9,name,null);
+			// $(this).val('');
+			// }
+		})
+		
+	};
+})
