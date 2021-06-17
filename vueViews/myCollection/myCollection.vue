@@ -264,7 +264,6 @@ module.exports = {
             var selectedList = this.getAllBsc(data.totalEditionList);
             this.basicId = data.basicId;
             selectedList.forEach(item=>{
-              console.log(item);
               var data = {
                 checked:false,
                 number:this.walletId,
@@ -285,7 +284,6 @@ module.exports = {
           }, 50);
         }
       } else {//调接口
-        console.log(this.selectedList);
 				loading();
         var checkData = [];
         this.selectedList.forEach(item=>{

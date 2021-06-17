@@ -243,7 +243,6 @@ module.exports = {
 				success: function(res) {
 					let nftData = res.result;
 					let obj = {},arr = [],tokenarr = [];
-					console.log(nftData);
 					for (let i = 0; i < nftData.length; i++) {
 						if (!obj[nftData[i].tokenID]) {
 							obj[nftData[i].tokenID] = true;
@@ -270,8 +269,6 @@ module.exports = {
 							tokenarr.push(item.tokenID)
 						}
 					});
-					console.log(arr);
-					console.log(tokenarr);
 					self.tokenarr = tokenarr;
 					self.getAssetsList(tokenarr);
 				}
@@ -355,7 +352,6 @@ module.exports = {
 			let newaddress2 = $('.newaddress2 input').val();
 			let web3 = new Web3(CHAIN.WALLET.provider());
 			let obj = JSON.parse(e.target.dataset.type);
-			console.log(e.target.dataset.type,!newaddress);
 			if (!newaddress && obj.status == 1 || !newaddress2 && obj.status == 2) {
 				tips(this.chEnTextHtml[this.lang].tipsjs1);
 				return;
@@ -400,7 +396,6 @@ module.exports = {
 		zyajax(newaddress,obj){
 			var self = this
 			var web3 = new Web3(CHAIN.WALLET.provider());
-			console.log(obj);
 			var chainId = '';
 			CHAIN.WALLET.chainId()
 				.then(function (res) {
@@ -419,7 +414,6 @@ module.exports = {
 						from: this.walletId
 					})
 					.then(function (res) {
-						console.log(res);
 						tips(this.chEnTextHtml[this.lang].tipsjs4);
 						self.geteveryqkl();
 					});

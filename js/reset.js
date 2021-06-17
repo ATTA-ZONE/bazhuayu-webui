@@ -67,7 +67,6 @@ $(function(){
 							window.location.href = '/mobile/tc/login.html';
 						},1500)
 					}else{
-						console.log("失敗")
 					}
 				},
 				error:function(err){

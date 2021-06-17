@@ -97,7 +97,6 @@ $(function(){
 			
 			
 		} else {//其他修改
-			console.log("准备修改其他")
 		}
 
 	});

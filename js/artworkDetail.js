@@ -375,7 +375,6 @@ var app = new Vue({
 							} else if (systemTime >= saleStartTimeMillis && systemTime <= saleEndTimeMillis) {
 								var msTime = saleEndTimeMillis - systemTime;
 								var time = self.formatDuring(msTime);
-								console.log(time);
 								let ycdjs = time.split('d')[0];
 								if (ycdjs > 1825) {
 									$(".details-right-time").hide();
@@ -592,7 +591,6 @@ var app = new Vue({
 						}),
 						success: function (res) {
 							if (res.code == 0) {
-								console.log(self.chEnTextHtml[self.languageType]);
 								success(self.chEnTextHtml[self.languageType].paySuc, 1800);
 								setTimeout(function () {
 									$('.order-number').text(self.chEnTextHtml[self.languageType].number + res.data);
@@ -621,7 +619,6 @@ var app = new Vue({
 		},
 		togglePayMethod(text) {
 			this.selectedPayMethod = text
-			console.log(text);
 			if (text == 0) {
 				$('.payment-page-right-btn').hide();
 				$('.order-price .order-price-hdk').show();

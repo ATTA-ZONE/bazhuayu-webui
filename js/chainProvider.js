@@ -31,7 +31,6 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				} else {
 					// var hintMessage='';
 					// window.confirm(hintMessage);
-					console.log('cookie does not exist');
 					return null;
 				}
 			},
@@ -58,7 +57,6 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 			_errorHandleWrapper: function(func) {
 				return async function(...args) {
 					var th=W.CHAIN.WALLET;
-					// console.log('_errorHandleWrapper', func.name);
 					try {return await func(...args)} catch(error) {console.log(func.name, error)}
 				};
 			},
@@ -72,14 +70,10 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 
 				var t=getCookie(th.__wallet__);
 				if (th.isConnected(t)) {
-					console.log('Wallet:',t);
 					var res =  await th.provider().request({ method: 'eth_accounts'});		
 				} else {
-					console.log('InitWallet:',t);
 					var res =  await th.enable();
 				}
-
-				// console.log('__isUnlocked', th);
 				var res = await th.provider().request({ method: 'eth_accounts' });
         		if (res.length > 0) {
 					if (ads) {return res.indexOf(ads)!=-1} else {return true}
@@ -93,15 +87,12 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				var th=W.CHAIN.WALLET;
 				var t=getCookie(th.__wallet__);
 				if (th.isConnected(t)) {
-					console.log('Wallet:',t);
 					var res =  await th.provider().request({ method: 'eth_accounts'});
 					return res;
 				} else {
-					console.log('InitWallet:',t);
 					var res =  await th.enable();
 					return res;
 				}
-				// console.log('__accounts', th);
 				// var res =  await th.provider().request({ method: 'eth_accounts'});
 				// return res;
 			},
@@ -111,12 +102,10 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				var th=W.CHAIN.WALLET;
 				var t=getCookie(th.__wallet__);
 				if (th.isConnected(t)) {
-					console.log('Wallet:',t);
 					var res =  await th.provider().request({ method: 'eth_chainId'});
 					if (typeof(res)=='string') {res=Web3.utils.hexToNumber(res);}
 					return res;
 				} else {
-					console.log('InitWallet:',t);
 					await th.enable();
 					var res =  await th.provider().request({ method: 'eth_chainId'});
 					if (typeof(res)=='string') {res=Web3.utils.hexToNumber(res);}
@@ -130,8 +119,6 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 			__connect: async function() {
 				var t=arguments[0];
 				var th=W.CHAIN.WALLET;
-				
-				// console.log('__connect', th);
 				var wallet=th[t];
 				window.debug&&console.log('connect', t, wallet);
 				if (wallet) {
@@ -150,10 +137,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				if (t==null) {
 					t = getCookie(th.__wallet__);
 				}
-				// console.log('__connect', th);
 				var wallet=th[t];
-				// console.log(th);
-				// console.log(t);
 				window.debug&&console.log('connect', t, wallet);
 				if (wallet) {
 					if (getCookie(th.__wallet__)&&(getCookie(th.__wallet__)!=t)){
@@ -228,7 +212,6 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					th1.provider().removeAllListeners('accountsChanged');
 					th1.provider().removeAllListeners('chainChanged');
 					th1.provider().on("disconnect", (code, reason) => {
-						console.log('disconnect', code, reason);
 						setCookie(th.__wallet__, '');
 					});
 
@@ -239,7 +222,6 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				// 监听账户变更事件
 				__accountsChangedAssign: function(fnc) {
 					var th1=W.CHAIN.WALLET.MetaMask;
-					// console.log('accountsChangedAssign', th);
 					th1.provider().on('accountsChanged', function(accounts){
 						fnc(accounts);
 					});
@@ -247,7 +229,6 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 
 				__networkChangedAssign: function(fnc) {
 					var th1=W.CHAIN.WALLET.MetaMask;
-					// console.log('networkChangedAssign', th);
 					th1.provider().on('chainChanged', function (netVer) {
 						if (typeof(netVer)=='string') {var _netVer=Web3.utils.hexToNumber(netVer);}
 						fnc(_netVer);

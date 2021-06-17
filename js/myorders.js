@@ -271,8 +271,6 @@ function payNow(obj){
 		$('.my-orders-btn-paynow').addClass('payment-btn-mobile');
 		
 		$('.payment-btn-mobile').on('click',function(){
-			// var status = $(this).data('status');
-			// console.log(status)
 			$('.payment').addClass('payment-active')
 			$('video').addClass('video-hidden');
 			$('.payment-page-left-img video').removeClass('video-hidden');

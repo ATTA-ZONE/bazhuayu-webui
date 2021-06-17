@@ -22,7 +22,6 @@ function logIn(data,url){
 		dataType: 'json',
 		data:JSON.stringify(data),
 		success:function(res){
-			console.log(res)
 			if(res.code==0){
 				if(res.data.verified==1){
 					setCookie('islogin',true);
@@ -44,7 +43,6 @@ function logIn(data,url){
 				}
 				
 			}else{
-				// console.log(res)
 				tips(indexText.logErr);
 			}
 		}

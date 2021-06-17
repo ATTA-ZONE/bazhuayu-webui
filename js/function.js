@@ -93,8 +93,6 @@ function progressToggle(obj){
 	
 	$('.stacked-cards li').removeClass('active');
 	$(obj).addClass('active');
-	// console.log(this)
-	
 	$('.banner-left ul li').removeClass('active');
 	$('.banner-left ul li').eq(index).addClass('active');
 	
@@ -453,7 +451,6 @@ function error(text,s){
 //提示弹窗
 function tips(txt){
 	hsycms.tips('tips',txt,function(){
-		console.log("提示关闭后");
 	},2000)
 }
 
@@ -478,7 +475,6 @@ function connectWallet(){
 				tips(functionText.noLog);
 			
 			}
-			// console.log(res)
 		}
 	});
 }
@@ -540,7 +536,6 @@ function moneyFormat(value) { // 金额 格式化
 // 		dataType:'json',
 // 		data:{lang:lang},
 // 		success:function(res){
-// 			console.log(res);
 // 		}
 // 	});
 

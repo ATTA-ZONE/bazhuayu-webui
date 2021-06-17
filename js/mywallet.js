@@ -76,7 +76,6 @@ function _charge(res, accounts) {
 										from: accounts[0]
 									})
 									.on('transactionHash', function (hash) {
-										console.log(['hash', hash]);
 										//success('充值已發起,期間請勿更換錢包防止誤充', 1800);
 										setTimeout(function () {
 											tips(mywalletText.rechargeSuc);
@@ -87,9 +86,7 @@ function _charge(res, accounts) {
 											}, 1500)
 										}, 1800);
 									}).on('receipt', function (receipt) {
-										// console.log(['receipt',receipt])
 									}).on('error', function (err) {
-										// console.log(['error',err])
 									});
 							}, 500)
 						} else {
@@ -238,10 +235,7 @@ $(function () {
 				}
 			}
 		} else if (tit == 'card') {
-			console.log('tit == card')
-			
 		}else if(tit == 'dcard'){
-			console.log(tit);
 			loading();
 					$.ajax({
 						url: base_url + '/v2/user/wallet/credit/delete',

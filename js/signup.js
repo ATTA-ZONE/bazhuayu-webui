@@ -180,8 +180,7 @@ $(function () {
 							data: JSON.stringify({
 								email: email
 							}),
-							success: function (res) { // console.log(res);
-								// var inviteCode = res.data.code;
+							success: function (res) { 
 								var code = res.data.emailStatus;
 								if (code == 0) {
 									loading();

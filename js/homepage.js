@@ -60,11 +60,9 @@ $(function () {
 				$('.banner-left-progress div:first').addClass('progress-active');
 
 			} else {
-				console.log(data.message)
 			}
 		},
 		error: function (err) {
-			console.log(res.message)
 		}
 	})
 
@@ -77,7 +75,6 @@ $(function () {
 
 	// setInterval(function(){
 	// 	acount ++;
-	// 	// console.log(acount)
 	// 	$('.bzy-a-right img:nth-child('+acount+')').addClass('active');
 
 
@@ -89,7 +86,6 @@ $(function () {
 	// setTimeout(function(){
 	// 	setInterval(function(){
 	// 		acount ++;
-	// 		// console.log(acount)
 	// 		$('.bzy-a-right img:nth-child('+acount+')').removeClass('active');
 	// 		if(acount==5){
 	// 			acount = 0;
