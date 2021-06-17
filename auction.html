@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css" />
 	<link rel="stylesheet" type="text/css" href="./css/swiper.css" />
 	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css" />
+	<link rel="stylesheet" type="text/css" href="./css/auction.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 	<link rel="stylesheet" type="text/css" href="./css/media.css" />
 	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -20,6 +21,9 @@
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chainCommon.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
@@ -42,6 +46,26 @@
 			font-size: 16px;
 			color: #FFFFFF;
 			padding: 7px 19px;
+		}
+		
+		.artwork-mask.pcstyle{
+			flex-direction: row;
+			align-items: start;
+		}
+		.pcstyle2{
+			background: transparent;
+			padding-left: 6.9%;
+			padding-top: 0;
+		}
+		@media only screen and (max-width:992px){
+			.artwork-mask.pcstyle{
+				flex-direction: column;
+			}
+			.pcstyle2{
+				padding-left: 0;
+				padding-right: 0;
+				padding-top: 24px;
+			}
 		}
 	</style>
 </head>

@@ -118,14 +118,14 @@ function initialization() {
         	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
         
             
-            var tokenTypeId = 0;
-        	if (chainId == 97) {
-        		tokenTypeId = 80000003; // 测试环境
-        	} else if (chainId == 56) {
-        		tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
-        	} else {
-        		tokenTypeId = 0;
-        	}
+            // var tokenTypeId = 0;
+        	// if (chainId == 97) {
+        	// 	tokenTypeId = 80000003; // 测试环境
+        	// } else if (chainId == 56) {
+        	// 	tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
+        	// } else {
+        	// 	tokenTypeId = 0;
+        	// }
         
         
         	//获取 tokenId 的 下一个 竞价的 至少 要大于 的 值
@@ -309,6 +309,7 @@ $.ajax({
 	url: '/v2/auction/detail?id='+urlid,
 	success: function (res) {
 		if (res.code == 0) {
+			tokenTypeId = res.data.tokenTypeId;
 			// var data = res.data.pageResult.records[0];
 			var geshi = res.data.primaryPic.substr(res.data.primaryPic.lastIndexOf('.') + 1);
 			if (geshi == 'mp4') {
@@ -339,7 +340,7 @@ $('#make_offer').click(function () {
 	} else {
 		if (status == 1) {
 			var price = $('.bid-right-btn span font').text().trim();
-			window.location.href = 'auctionPayment.html?bid=' + price+"&id="+urlid;
+			window.location.href = 'auctionPayment.html?bid=' + price+"&id="+urlid+"&tokenTypeId="+tokenTypeId;
 		} else if (status == 2) {
 			window.location.href = 'myassets.html';
 		} else if (status == 0) {

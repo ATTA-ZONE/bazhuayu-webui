@@ -73,8 +73,8 @@ function getArtworkList(current,pageSize,name,typeId){
 						}
 						
 						html += 
-						`<li>
-							<a class="artwork-mask" href="auctionDetails.html?id=`+v.id+`"><div class="artwork-mask-wrap"></div>`;
+						`<li style="width:100%;margin-right:0">
+							<a class="artwork-mask pcstyle" href="auctionDetails.html?id=`+v.id+`"><div class="artwork-mask-wrap"></div>`;
 						
 						if(geshi=='mp4'){
 							
@@ -89,98 +89,71 @@ function getArtworkList(current,pageSize,name,typeId){
 									
 						if(timeStatus==0){
 							
-						html +=	`<div class="bzy-e-list-info">
+						html +=	`<div class="bzy-e-list-info pcstyle2">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
-									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
-									</div>`;
-							
-							html +=`<div class="bzy-e-list-info-sale flex">
-										<span style="color:#CF3737;">${artworkText.sellOut}</span>
-									</div>
 									<div class="bzy-e-list-info-creator flex">
 										<div><img src="./images/t8.png"></div>
 										<span>@ATTA</span>
+										<span style="margin-left:32px">${artworkText.ban + v.edition + artworkText.ban2}</span>
 									</div>
-									<div class="flex btnbox">
-										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
-									</div>
-								</div>
-							</a>
-						</li>`;
+									<div class="bid-right-des">${v.introduce.replace(/;\|;/g, '<br>')}</div>`;
+							
+							html +=`<div class="bid-right-status">
+										<div class="bid-right-status-current flex bid-right-status-current${v.tokenTypeId}"><span>${artworkText.bidding}</span><span>BUSD 0</span></div>
+										<div class="bid-right-status-time flex bid-right-status-time${v.tokenTypeId}"><span>${artworkText.endtime}</span><span>00 : 00 : 00</span></div>
+									</div></div></a></li>`;
 							
 						}else if(timeStatus==1){
 						
-						html +=	`<div class="bzy-e-list-info">
+						html +=	`<div class="bzy-e-list-info pcstyle2">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
-									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
-									</div>`;
-							html +=`<div class="bzy-e-list-info-sale flex">
-										<span>${artworkText.preSale}</span>
-									</div>
 									<div class="bzy-e-list-info-creator flex">
-										<div><img src="./images/t8.png" ></div>
+										<div><img src="./images/t8.png"></div>
 										<span>@ATTA</span>
+										<span style="margin-left:32px">${artworkText.ban + v.edition + artworkText.ban2}</span>
 									</div>
-									<div class="flex btnbox">
-										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
-										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">拍賣未開始</span>
-									</div>
-								</div>
-							</a>
-						</li>`;
-						
-						// html += `<div class="bzy-e-list-yushou flex"><span>發售預告</span><span>`+v.name+`</span></div>`;
-						
-						// html += `</a></li>`;
+									<div class="bid-right-des">${v.introduce.replace(/;\|;/g, '<br>')}</div>`;
+							html +=`<div class="bid-right-status">
+										<div class="bid-right-status-current flex bid-right-status-current${v.tokenTypeId}"><span>${artworkText.bidding}</span><span>BUSD 0</span></div>
+										<div class="bid-right-status-time flex bid-right-status-time${v.tokenTypeId}"><span>${artworkText.endtime}</span><span>00 : 00 : 00</span></div>
+									</div></div></a></li>`;
 						
 						}else if(timeStatus==2){
-						html +=	`<div class="bzy-e-list-info">
+						html +=	`<div class="bzy-e-list-info pcstyle2">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
-									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
-									</div>`;
+									<div class="bzy-e-list-info-creator flex">
+										<div><img src="./images/t8.png"></div>
+										<span>@ATTA</span>
+										<span style="margin-left:32px">${artworkText.ban + v.edition + artworkText.ban2}</span>
+									</div>
+									<div class="bid-right-des">${v.introduce.replace(/;\|;/g, '<br>')}</div>`;
 									
-							html +=`
-									<div class="bzy-e-list-info-creator flex">
-										<div><img src="./images/t8.png" ></div>
-										<span>@ATTA</span>
-									</div>
-									<div class="flex btnbox">
-										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
-										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">${artworkText.auction}</span>
-									</div>
-								</div>
-							</a>
-						</li>`;
+							html +=`<div class="bid-right-status">
+										<div class="bid-right-status-current flex bid-right-status-current${v.tokenTypeId}"><span>${artworkText.bidding}</span><span>BUSD 0</span></div>
+										<div class="bid-right-status-time flex bid-right-status-time${v.tokenTypeId}"><span>${artworkText.endtime}</span><span>00 : 00 : 00</span></div>
+									</div></div></a></li>`;
 						}else if(timeStatus==3){
-						html +=	`<div class="bzy-e-list-info">
+						html +=	`<div class="bzy-e-list-info pcstyle2">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
-									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
-									</div>`;
-							html +=`<div class="bzy-e-list-info-sale flex">
-										<span>${artworkText.salesClosed}</span>
-									</div>
 									<div class="bzy-e-list-info-creator flex">
-										<div><img src="./images/t8.png" ></div>
+										<div><img src="./images/t8.png"></div>
 										<span>@ATTA</span>
+										<span style="margin-left:32px">${artworkText.ban + v.edition + artworkText.ban2}</span>
 									</div>
-									<div class="flex btnbox">
-										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
-										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">${artworkText.salesClosed}</span>
-									</div>
-								</div>
-							</a>
-						</li>`;
+									<div class="bid-right-des">${v.introduce.replace(/;\|;/g, '<br>')}</div>`;
+							html +=`<div class="bid-right-status">
+										<div class="bid-right-status-current flex bid-right-status-current${v.tokenTypeId}"><span>${artworkText.bidding}</span><span>BUSD 0</span></div>
+										<div class="bid-right-status-time flex bid-right-status-time${v.tokenTypeId}"><span>${artworkText.endtime}</span><span>00 : 00 : 00</span></div>
+									</div></div></a></li>`;
 						};   
 					});
 					
 					$('.bzy-e-list').css('padding-top','0');
 				}
 				$('.bzy-e-list').append(html);	
-					
+				$.each(records,function(i,v){
+					initialization(v.tokenTypeId);	
+				})
 				
 			} else {
 			}
@@ -190,6 +163,109 @@ function getArtworkList(current,pageSize,name,typeId){
 	})
 	
 }
+
+function initialization(tokenTypeId) {
+	var walletType = getCookie(CHAIN.WALLET.__wallet__);
+	if (walletType) {
+    	var web3 = new Web3(CHAIN.WALLET.provider());
+	} else if (window.ethereum) {
+		var web3 = new Web3(window.ethereum);
+	}
+    var chainId = '';
+    CHAIN.WALLET.chainId()
+        .then(function (res) {
+            chainId = web3.utils.hexToNumber(res);
+
+            if (chainId != targetChainId) {
+                CHAIN.WALLET.switchRPCSettings(targetChainId);
+				// 建议替换成 导航栏 内 切换网络提示
+            }
+        
+            var auctionAddress = contractSetting['auction_contract'][chainId].address;
+            // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+        	var auctionABI = contractSetting['auction_contract']['abi'];
+        
+        	auctionContractInstance = new web3.eth.Contract(auctionABI, auctionAddress);
+        
+            
+            // var tokenTypeId = 0;
+        	// if (chainId == 97) {
+        	// 	tokenTypeId = 80000003; // 测试环境
+        	// } else if (chainId == 56) {
+        	// 	tokenTypeId = 5010000; // 正式环境 见数据库 config_commodity_basic 对应的 commodity_type_id
+        	// } else {
+        	// 	tokenTypeId = 0;
+        	// }
+        
+        
+        	// //获取 tokenId 的 下一个 竞价的 至少 要大于 的 值
+        	// auctionContractInstance.methods.getNextMinimalBid(tokenTypeId).call()
+        	// 	.then(function (res) {
+        	// 		res =web3.utils.fromWei(res, 'ether');
+        	// 		$('.bid-right-btn span').data('price', res);
+        	// 		$('.bid-right-btn span font').text(res);
+        	// 	});
+        
+        
+        	//获取 拍卖的 详情，包括 时间参数，最高价     等设定
+			let classname1 = '.bid-right-status-current' + tokenTypeId + ' span:nth-child(2)';
+			let classname2 = '.bid-right-status-time' + tokenTypeId + ' span:nth-child(2)';
+			let classname3 = '.bid-right-status-time' + tokenTypeId;
+        	auctionContractInstance.methods._auctions(tokenTypeId).call()
+        		.then(function (res) {
+        			var tokenTopBid = web3.utils.fromWei(res.tokenTopBid, 'ether');
+        			$(classname1).text('BUSD ' + tokenTopBid);
+        
+        			var currentTime = Date.now(); //当前时间  ms
+        			var startTime = parseInt(res.startTime) * 1000; //拍卖开始时间  ms
+        			var minLastPeriod = parseInt(res.minLastPeriod) * 1000; //拍卖持续时间  ms
+        			var tokenLastBidTime = parseInt(res.tokenLastBidTime) * 1000; //最高竞价者 的竞价时间 ms
+        			var callBackPeriod = parseInt(res.callBackPeriod) * 1000; //每有一次新竞价的 续命 时间 ms
+        			var endTime = startTime + minLastPeriod;
+        			var html = ``;
+        
+        			auctionContractInstance.methods.auctionOpenBid(tokenTypeId).call()
+        				.then(function (key) {
+        					if(minLastPeriod - (tokenLastBidTime + callBackPeriod) < 0 && key){
+        						endTime = endTime + callBackPeriod;
+        					}
+        					if (currentTime < startTime) { //未开始
+        						var time = formatDuring(startTime - currentTime);
+        						html += `<span>${artworkText.starttime}</span><span data-time="0">` + time + `</span>`;
+        						var ksTime = setInterval(function () {
+        							var js = formatDuring(startTime - Date.now());
+        							$(classname2).text(js);
+        							if (startTime <= Date.now()) {
+        								clearInterval(ksTime);
+        							}
+        						}, 1000);
+        
+        					} else if (currentTime >= startTime && currentTime <= endTime) {
+        						var time = formatDuring(endTime - currentTime);
+        						html += `<span>${artworkText.endtime}</span><span data-time="1">` + time + `</span>`;
+        
+        						var syTime = setInterval(function () {
+        							var js = formatDuring(endTime - Date.now());
+        							$(classname2).text(js);
+        							if (endTime <= Date.now()) {
+        								clearInterval(syTime);
+        							}
+        						}, 1000);
+        
+        					} else {
+        						html += `<span>${artworkText.endtime}</span><span data-time="2">${artworkText.auctionEnd}</span>`;
+        
+        					}
+        
+        					$(classname3).html(html);
+        					//loadingHide();
+        				})
+        
+        		});
+        
+        });
+}
+
 
 
 // 获取类型

@@ -1,7 +1,8 @@
 var auctionPaymentText = chEnText.artwork[lang];
 var urlauctionPayment = window.location.search.split('=');
 var userPrice = urlauctionPayment[1].split("&id")[0];
-var urlid = urlauctionPayment[urlauctionPayment.length - 1];
+var urlid = urlauctionPayment[2].split("&tokenTypeId")[0];
+var tokenTypeId = urlauctionPayment[urlauctionPayment.length - 1];
 function backAuction() {
 	window.location.href = 'auction.html';
 }
@@ -93,12 +94,12 @@ function initialization() {
 
 			busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
 			userBidInfo();
-			tokenTypeId = '';
-			if (window.location.href.indexOf('bazhuayu.io') == -1) {
-				tokenTypeId = 80000003;
-			} else {
-				tokenTypeId = 5010000;
-			}
+			// tokenTypeId = '';
+			// if (window.location.href.indexOf('bazhuayu.io') == -1) {
+			// 	tokenTypeId = 80000003;
+			// } else {
+			// 	tokenTypeId = 5010000;
+			// }
 
 			//获取 拍卖的 详情，包括 时间参数，最高价 等设定
 			auctionContractInstance.methods._auctions(tokenTypeId).call()
@@ -255,7 +256,7 @@ $('#pay_now').click(function () {
 										$('.bid-payment-right-btn button').hide();
 									}, 1800)
 								})
-								.catch(function (error) {
+								.catch(function (err) {
 									loadingHide();
 									error(auctionPaymentText.priceErr, 1800);
 								})
