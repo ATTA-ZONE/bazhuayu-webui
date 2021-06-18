@@ -304,7 +304,7 @@ function typeToggle(obj){
 $(function(){
 	var current = 1;
 	getArtworkList(current,9,'',null);
-	getTypeList();
+	// getTypeList();
 	$('.artwork-list-load').click(function(){
 		current ++;
 		var typeId = $(this).data('type');
