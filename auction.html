@@ -29,8 +29,32 @@
 	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
 	<style>
+		.bzy-e-list-flex{
+			margin: 0 60px;
+		}
 		.bzy-e-list-info {
 			position: relative;
+		}
+		.bzy-e-list-info-tit{
+			font-size: 44px;
+			line-height: 110%;
+			margin-bottom: 50px;
+		}
+		.bzy-e-list-info-creator{
+			margin-bottom: 60px;
+		}
+		.bzy-e-list-info-creator span{
+			font-size: 18px;
+		}
+		.bzy-e-list-video{
+			min-width: 55%;
+			max-width: 55%;
+		}
+		.bzy-e-list-img {
+			min-width: 55%;
+			max-width: 55%;
+			border-top-left-radius: 4px;
+			border-top-right-radius: 4px;
 		}
 		.btnbox{
 			justify-content: space-between;
@@ -68,7 +92,12 @@
 				padding-top: 24px;
 			}
 			.bzy-e-list-video{
-				width: 100% !important;
+				min-width: 100% !important;
+				max-width: 100% !important;
+			}
+			.bzy-e-list-img{
+				min-width: 100% !important;
+				max-width: 100% !important;
 			}
 		}
 	</style>
