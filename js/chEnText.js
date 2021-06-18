@@ -218,8 +218,8 @@ var chEnText = {
       "auction":"拍賣",
       "wallet":"錢包連接中",
       "unBind":"未綁定錢包",
-      "tips01":"你目前處於 [",
-      "tips02":"] 網絡. 為保證正常功能, 請切換/添加 ",
+      "tips01":"您的錢包當前連接的主網為：[",
+      "tips02":"]，八爪娛平台當前僅支持BSC主網，點擊切換至BSC主網 ",
     },
     "EN":{
       "logOutMes":"Are you sure you want to log out",
