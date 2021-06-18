@@ -349,6 +349,7 @@
 	}
 	.bzy-e-list-flex{
 		justify-content:space-between;
+		margin: 0 !important;
 	}
 	.bzy-e-list-flex li{
 		width:48%;
@@ -882,6 +883,7 @@
 		margin-bottom:15px;
 	}
 	.bzy-e-list-img{
+		width: 100%;
 		border-top-left-radius:4px;
 		border-top-right-radius:4px;
 	}
