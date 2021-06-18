@@ -1,4 +1,4 @@
-
+var forgotPasswordText = chEnText.forgotPassword[lang];
 //邮箱格式验证
 function emailCheck(email){
 	var reg = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
@@ -22,14 +22,14 @@ $(function(){
 				contentType: 'application/json',
 				data:JSON.stringify({email:email}), 
 				success:function(){
-					success("驗證已發送到郵箱",1800);
+					success(forgotPasswordText.verificationCode,1800);
 					setTimeout(function(){
 						window.location.href = "index.html";
 					},2000);
 				}
 			})
 		}else{
-			console.log("郵箱格式錯誤")
+			console.log(forgotPasswordText.emailErr)
 		}
 	})
 })

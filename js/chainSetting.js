@@ -139,6 +139,49 @@ var contractSetting = {
                 'address': '0x790575dcE4E68e5e3c4508DB0293EE2A9ab890a7'
             },
         
+    },
+    'vending_machine': {
+        'proxy': '',
+        'abi': c_vendingMachine_abi,
+        56:
+            {
+                'owner_id': '',
+                'address': ''
+            },
+        97:
+            {
+                'owner_id': 1,
+                'address': '0x5dE6ed56ED3Eba9769e3768F31966634386F18B1'
+            },
+    },
+    'atta_ERC1155_Airdrop' : {
+        'proxy': None,
+        'abi': c_atta_ERC1155_Airdrop_abi,
+        56:
+            {
+                'owner_id': '',
+                'address': ''
+            },
+        97:
+            {
+                'owner_id': 1,
+                'address': '0xD752fc21081f154cC7d34f08aA57929A6f18B1Fe'
+            }
+    },
+    
+    'atta_ERC1155_Airdrop_MerkleProof' : {
+        'proxy': None,
+        'abi': c_atta_ERC1155_Airdrop_MerkleProof_abi,
+        56:
+            {
+                'owner_id': '',
+                'address': ''
+            },
+        97:
+            {
+                'owner_id': 1,
+                'address': '0xFe27452f8639Ad0B41D99E919C80B601A42D6880'
+            }
     }
 }
 

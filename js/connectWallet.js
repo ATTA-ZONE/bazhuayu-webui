@@ -1,17 +1,18 @@
+var connectWalletText = chEnText.connectWallet[lang];
 // link successful
 function linksuccessful(walletId) {
-	$('.modify-tit span').text('您成功登記了一個錢包');
+	$('.modify-tit span').text(connectWalletText.logWtllet);
 	var html = ``;
 	html += `<div class="modify-ipt-add">
-				<div class="modify-ipt-tit">`+(walletId==null?'請連接錢包':'錢包地址：'+walletId)+`</div>
+				<div class="modify-ipt-tit">`+(walletId==null?connectWalletText.connectWallet:connectWalletText.walletAddress+walletId)+`</div>
 			</div>`;
 			
 	$('.modify-ipt').html(html);
-	$('.modify-tips').html(`<span class="modify-tips-content">請註意：您購買的NFT資產只會發放至當前登記的錢包</span>`);
-	$('.modify-btn-tips').html(`<span class="modify-btn-tips-content">（ 如果您想使用其他錢包，請點擊右上角“已連接錢包”進行更換 ）</span>`);
+	$('.modify-tips').html(`<span class="modify-tips-content">${connectWalletText.tips01}</span>`);
+	$('.modify-btn-tips').html(`<span class="modify-btn-tips-content">${connectWalletText.tips02}</span>`);
 	$('.modify-btn-active').addClass('add');
 	$('.modify-btn-active').removeClass('delete');
-	$('.modify-btn-active').text('知道了');
+	$('.modify-btn-active').text(connectWalletText.know);
 	$('.cancel').hide();
 	$('.modify').fadeIn();
 }
@@ -25,6 +26,7 @@ function connectInit(walletname) {
 				if (CHAIN.WALLET.isConnected(walletname)) {
 					// document.cookie = "isConnect=true";
 					setCookie('isConnect',true);
+					setCookie(CHAIN.WALLET.__wallet__, walletname);
 				};
 				var data = {
 					address: accounts[0],
@@ -43,26 +45,26 @@ function connectInit(walletname) {
 							linksuccessful(accounts[0]);
 						} else if (res.code == 2001){
 							loadingHide();
-							window.alert('該錢包已被綁定占有, 請更換錢包');
+							window.alert(connectWalletText.changeWallet);
 						} else if (res.code == 1011){
 							loadingHide();
-							window.alert('郵箱未驗證');
+							window.alert(connectWalletText.emailErr);
 						} else if (res.code == 1002){
 							loadingHide();
-							window.alert('登錄已失效，請重新登錄');
+							window.alert(connectWalletText.loginNot);
 						} else {
 							loadingHide();
-							window.alert('系統錯誤');
+							window.alert(connectWalletText.windowErr);
 						}
 
 					},
 					error: function (res) {
 						loadingHide();
-						window.alert('網絡錯誤，無法獲取賬戶信息');
+						window.alert(connectWalletText.httpError);
 					}
 				});
 			} else {
-				window.alert('無法獲取錢包信息');
+				window.alert(connectWalletText.unableGet);
 			}
 		})
 		.catch(function (reason) {
@@ -78,7 +80,7 @@ $(".metamask").click(function (e) {
 	} else {
 		// 处理用户没安装的情况， 比如显示一个消息
 		// 告诉他们要安装 MetaMask 来使用我们的应用
-		alert('請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。');
+		alert(connectWalletText.alert);
 	}
 });
 

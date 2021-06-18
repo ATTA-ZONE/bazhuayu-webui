@@ -3,7 +3,7 @@ var app = new Vue({
 	data: function () {
 		return {
 			id: '',
-			prev: -1, 
+			prev: -1,
 			success_status: -1,
 			walletType: '',
 			maxbannum: 0,
@@ -15,11 +15,146 @@ var app = new Vue({
 			oneUserCountLimit: 0,
 			onceCountLimit: 0,
 			payTabs: ['信用卡', '餘額支付', '錢包支付'],
-			selectedPayMethod: 0
+			selectedPayMethod: 0,
+			basicId: 0,
+			visiable: [],
+			auctionAddress: '',
+			auctionContractInstance: null,
+			userAddress: '',
+			tokenLimits: [],
+			chainId: '',
+			// 中英文切换
+			languageType:"",
+			chEnTextHtml:{
+				"TC":{
+					home:'首頁',
+					auction:'拍賣',
+					noConnectWallet:"未連接錢包",
+					login:"登入/註冊",
+					myaccount:"我的帳戶",
+					myorders:"我的訂單",
+					myassets:"我的資產",
+					mywallet:"我的錢包",
+					logOut:"登出",
+					version:"第1版，共150版",
+					select:"已選第",
+					versionTxt:"版",
+					price:"单价：",
+					purchaseNow:"立即購買 ->",
+					saleEnds:"銷售結束於：",
+					details:"更多信息",
+					pay:"支付",
+					paySuc:"支付成功",
+					payErr:"支付失敗",
+					paid:"您的付款金額為",
+					byCreditCard:"信用卡支付",
+					pendingPayment:"這是待付款，您的付款金額為：",
+					saveFor:"保存以備將來購買",
+					purchasing:"由於您購買的是數字作品，一經售出概不退換",
+					payment:"立即付款",
+					currentUsing:"正在使用",
+					balance:"餘額",
+					notStore:"我們不會儲存您的錢包密鑰，未經您的授權，也無法使用您電子錢包中的貨幣。",
+					regSuc:"注册成功",
+					operationFailed:"操作失败",
+					// js部分
+					maximum:"已達到最大購買數量",
+					purchaseSuc:"购买成功",
+					seconds:"預計10秒內到賬",
+					comSoon:"即將開售",
+					start:"銷售開始於：",
+					end:"銷售結束於：",
+					salesClosed:"銷售已結束",
+					sellOut:"已售罄",
+					balanceInsufficient:"餘額不足",
+					least:"至少選擇一件噢",
+					reached:"已達到賬號購買數量限制",
+					limit:"已達到單次購買數量限制",
+					moment:"當前剩餘只可選擇1個",
+					quantity:"已達到最大購買數量",
+					asset:"去我的資產核對",
+					confirm:"確認",
+					cancel:"取消",
+					recharge:"充值",
+					noLog:"未登錄，請登入",
+					number:"訂單號 #：",
+					balancePayment:"餘額支付",
+					accomplish:"完成",
+					payment:"立即付款",
+					walletFirst:"請先連接錢包  ->",
+					paymentComing: "錢包直連支付功能準備中..."
+				},
+				"EN":{
+					home:'HOME',
+					auction:'AUCTION',
+					noConnectWallet:"Connect Wallet",
+					login:"Login/Sign up",
+					myaccount:"My Account",
+					myorders:"My Orders",
+					myassets:"My Assets",
+					mywallet:"My Wallet",
+					logOut:"Log out",
+					version:"Edition 1 of 150",
+					select:"Selected",
+					versionTxt:"th edition",
+					price:"Price：",
+					purchaseNow:"Purchase Now ->",
+					saleEnds:"Sale ends at：",
+					details:"Details",
+					pay:"Payment",
+					paySuc:"Payment successful",
+					payErr:"Payment failed",
+					paid:"Your paid",
+					byCreditCard:"By credit card",
+					pendingPayment:"Your pending payment is：",
+					saveFor:"Save for future purchase",
+					purchasing:"Since you're purchasing a digital creation, all sales are final.",
+					currentUsing:"Current using",
+					payment:"Pay now",
+					balance:"Balance",
+					notStore:"We will not store your wallet key, nor can we use the currency in your wallet without your authorization.",
+					regSuc:"registration success",
+					operationFailed:"operation failed",
+					// js部分
+					maximum:"Maximum purchase quantity has been reached",
+					purchaseSuc:"Successful purchase",
+					seconds:"Expected to arrive within 10 seconds",
+					comSoon:"Coming soon",
+					start:"Sales start at：",
+					end:"Sale ends at：",
+					salesClosed:"Sold out",
+					sellOut:"Sold out",
+					balanceInsufficient:"Insufficient balance",
+					least:"Choose at least one~",
+					reached:"The account purchase limit has been reached",
+					limit:"Reached the single purchase quantity limit",
+					moment:"Only 1 can be selected at the moment",
+					quantity:"Maximum purchase quantity has been reached",
+					asset:"Go to my asset to check",
+					confirm:"confirm",
+					cancel:"cancel",
+					recharge:"Add funds",
+					noLog:"Not logged in, please log in",
+					number:"Order #: ",
+					balancePayment:"Paid by balance",
+					accomplish:"complete",
+					payment:"Pay now",
+					walletFirst:"Please connect your wallet first  ->",
+					paymentComing: "Function coming soon..."
+				}
+			}
 		}
 	},
 	created() {
-		let self = this
+		let self = this;
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';
+		if(this.languageType == "TC"){
+			document.title = "明星藏品詳情";
+			this.payTabs = ['信用卡', '餘額支付', '錢包支付'];
+		}else{
+			document.title = "collection detail";
+			this.payTabs = ['Credit card', 'Balance', 'Crypto wallet'];
+		}
 		self.initMediaCss()
 		var params = window.location.search.substr(1).split('&')
 		var arr = [];
@@ -44,151 +179,132 @@ var app = new Vue({
 		}
 
 		if (self.success_status == 1) {
-			success('支付成功', 1800);
+			success(this.chEnTextHtml[this.languageType].paySuc, 1800);
 			setTimeout(function () {
 				self.saveconfirm();
 			}, 1800)
 		} else if (self.success_status == 0) {
-			error('支付失敗', 1800);
+			error(this.chEnTextHtml[this.languageType].payErr, 1800);
 		}
 		$('.payment-page-right-balance').hide()
 		self.getComditInfo()
+		self.initAddress()
 	},
 	methods: {
 		payCrypto() {
-			if ($('#cryptoBtn').text() == '去我的資產核對') {
+			let self = this
+			if ($('#cryptoBtn').text() == '去我的資產核對' || $('#cryptoBtn').text() == 'Go to my asset to check') {
 				window.location.href = 'myassets.html';
 				return false
 			}
-			if ($('#cryptoBtn').text() == '請先連接錢包  ->') {
-				window.open('mywallet.html');
+			if ($('#cryptoBtn').text() == '請先連接錢包  ->' || $('#cryptoBtn').text() == 'Please connect your wallet first  ->') {
+				window.open('connectWallet.html');
 				return false
 			}
-			if (this.walletType == 'wallectconnect') {
-				var provider = CHAIN.WALLET.WalletConnect.provider();
-				var address_p = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
-				const web3_p = new Web3(provider);
-				var contract_p = new web3_p.eth.Contract(abi, address_p);
-
-				var amount = $('.modify-ipt input').val().trim();
-				if (amount == '') {
-					tips('Please enter the recharge amount');
-					return;
-				}
-				var num = getWeb3().utils.toWei(amount, 'ether');
-				var isWalletConnect = localStorage.getItem('walletconnect');
-
-				if (isWalletConnect) {
-					CHAIN.WALLET.WalletConnect.provider().enable()
-						.then(function (res) {
-							loading();
-
-							$.ajax({
-								url: base_url + '/v2/user/wallet/simpleInfo',
-								success: function (response) {
-									contract_p.methods.transfer(response.data.cwallet, num).send({ //转账
-											from: response.data.address
-										})
-										.on('transactionHash', function (hash) {
-											loadingHide();
-											success('Top up successfully', 1800);
-											setTimeout(function () {
-												tips('預計在10秒內到帳');
-												setTimeout(function () {
-													window.location.reload();
-												}, 1500)
-											}, 1800);
-										}).on('receipt', function (receipt) {
-											loadingHide();
-										}).on('error', function (err) {
-											loadingHide();
-											error('Recharge failed', 1800);
-											setTimeout(function () {
-												window.location.reload();
-											}, 1800);
-										});
-
-								}
-							});
-
-						});
-
-				} else {
-					tips('Please Connect Wallet');
-				}
-				var dd = CHAIN.WALLET.WalletConnect.isConnected();
-
-			} else if (this.walletType == 'METAMASK') {
-				var amount = self.busdPrice * this.selectarr.length;
-				if (amount == '') {
-					amount = '0';
-				}
-				var num = getWeb3().utils.toWei(amount, 'ether');
-				if (typeof window.ethereum !== 'undefined') {
-					$.ajax({
-						url: base_url + '/v2/user/wallet/simpleInfo',
-						success: function (res) {
-							if (res.code == 0) {
-
-								if (res.data.address == null || res.data.address == '') {
-									tips('Please Connect Wallet');
-									setTimeout(function () {
-										window.location.reload();
-									}, 2000);
-								} else { //绑定的地址登录的账户地址一致
-									loading();
-									window.ethereum.enable().then(function (accounts) {
-										if (window.ethereum && window.ethereum.isConnected()) {
-											setCookie('isConnect',true);
-										}
-										setTimeout(function () {
-											loadingHide();
-										}, 1000);
-										if (location.host.indexOf('bazhuayu.io') < 0) {
-											window.ethereum.request({
-												method: 'wallet_addEthereumChain',
-												params: [{
-													chainId: '0x61',
-													chainName: 'bsctestnet',
-													nativeCurrency: {
-														name: 'BNB',
-														symbol: 'BNB',
-														decimals: 18
-													},
-													rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-													blockExplorerUrls: ['https://testnet.bscscan.com']
-												}]
-											}).then(function () {
-												mangeWalletCharge(res, accounts)
-											})
-										} else {
-											window.ethereum.request({
-													method: 'wallet_addEthereumChain',
-													params: [{
-														chainId: '0x38',
-														chainName: 'Binance Smart Chain Mainnet', //如果是切换测试网 就 填 测试网 的RPC配置
-														nativeCurrency: {
-															name: 'BNB',
-															symbol: 'bnb',
-															decimals: 18
-														},
-														rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
-														blockExplorerUrls: ['https://bscscan.com/']
-													}]
-												})
-												.then(function () {
-													mangeWalletCharge(res, accounts)
-												});
-										}
+			if ($('#cryptoBtn').text() == '立即付款  ->' || $('#cryptoBtn').text() == 'Pay now  ->') {
+				$.ajax({
+					url: base_url + '/v2/commodity/tokenLimit',
+					data: {
+						basicId: self.basicId
+					},
+					success: function (res) {
+						loading();
+						$('#cryptoBtn').attr('disabled', true)
+						self.tokenLimits = res.data.tokenLimit
+						self.authUser()
+					}
+				})
+			}
+		},
+		authUser() {
+			let self = this
+			var web3 = new Web3(CHAIN.WALLET.provider());
+			var busdAddress = contractSetting['busd_ERC20'][self.chainId].address;
+			var busdABI = contractSetting['busd_ERC20']['abi'];
+			var busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
+			busdContractInstance.methods.allowance(self.userAddress, self.auctionAddress).call()
+				.then(function (res) {
+					loadingHide()
+					busdContractInstance.methods.balanceOf(self.userAddress).call().then(balancePrice =>{
+						if (web3.utils.fromWei(balancePrice, 'ether') < Number(self.busdPrice)) {
+							tips('钱包余额不足');
+							$('#cryptoBtn').attr('disabled', false)
+						} else {
+							if (res < Number(self.busdPrice)) {
+								var num = web3.utils.toWei('999999999999999', 'ether');
+								//发起授权
+								busdContractInstance.methods.approve(self.auctionAddress, num).send({
+										from: self.userAddress
+									})
+									.then(function () {
+										self.getOnSellToken()
 									});
-								}
+							} else {
+								self.getOnSellToken()
 							}
 						}
 					})
-				} else {
-					alert('Please use the browser that comes with any wallet Dapp to visit bazhuayu.io, then you can successfully Connect Wallet. Or please use your computer to connect to the wallet plug-in Connect Wallet of your browser.');
+				})
+		},
+		initAddress() {
+			let self = this
+			var targetChainId = '';
+			if (window.location.href.indexOf('bazhuayu.io') == -1) {
+				targetChainId = 97;
+			} else {
+				targetChainId = 56;
+			}
+			var web3 = new Web3(CHAIN.WALLET.provider());
+			CHAIN.WALLET.accounts()
+				.then(function (accounts) {
+					self.userAddress = accounts[0]
+				})
+			CHAIN.WALLET.chainId()
+				.then(function (res) {
+					let id = ''
+					self.chainId = web3.utils.hexToNumber(res);
+					id = web3.utils.hexToNumber(res);
+					if (id == targetChainId) {
+						self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
+					}
+					var auctionABI = contractSetting['vending_machine']['abi'];
+					self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
+				})
+		},
+		getOnSellToken() {
+			let self = this
+			if (!self.tokenLimits) {
+				return false
+			}
+			self.auctionContractInstance.methods.getOnSellToken().call().then(arr => {
+				for (let i = 0; i < arr.length; i++) {
+					for (let j = 0; j < self.tokenLimits.length; j++) {
+						if (arr[i] >= self.tokenLimits[j].startTokenId && arr[i] <= self.tokenLimits[j].endTokenId) {
+							self.visiable.push(arr[i])
+						}
+					}
 				}
-			};
+				if (self.selectarr.length > self.visiable.length) {
+					tips(this.chEnTextHtml[this.languageType].maximum);
+					$('#cryptoBtn').attr('disabled', false)
+					return false
+				}
+				CHAIN.WALLET.accounts()
+					.then(function (accounts) {
+						self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr.length)).send({
+							from: accounts[0]
+						}).on('transactionHash', function (hash) {
+							success(this.chEnTextHtml[this.languageType].purchaseSuc, 1800);
+							setTimeout(function () {
+								tips(this.chEnTextHtml[this.languageType].seconds);
+								$('#cryptoBtn').attr('disabled', false)
+								setTimeout(function () {
+									window.location.reload();
+								}, 1500)
+							}, 1800);
+						})
+					})
+			})
 		},
 		getComditInfo() {
 			//商品详情业加载
@@ -200,6 +316,7 @@ var app = new Vue({
 				},
 				success: function (res) {
 					if (res.code == 0) {
+						self.basicId = res.data.basicId
 						var content = res.data.content;
 						var saleStartTimeMillis = res.data.saleStartTimeMillis; //开始销售时间
 						var saleEndTimeMillis = res.data.saleEndTimeMillis; //销售结束时间
@@ -230,21 +347,26 @@ var app = new Vue({
 						$('.order-title').text(res.data.name);
 						$('.order-price-hdk').text('HK$ ' + moneyFormat(res.data.hkdPrice));
 						$('.order-price-busd').text('BUSD ' + moneyFormat(res.data.price));
-						if (res.data.name == '徐冬冬 牛N.X潮玩 NFT限量版') {
+						if (res.data.name == '徐冬冬 牛N.X潮玩 NFT限量版' || res.data.name == 'Xu Dongdong_Nu N.X Trendy Play _Limited') {
 							res.data.edition = 200;
 						}
-						$('.details-right-creator-edition').text('Edition ' + editionnum   + ' of ' + res.data.endEdition);
-						$('.selectarrnum').text(editionnum);
-						$('.order-introduce').html(res.data.introduce == '' ? '暫無介紹' : (res.data.introduce.replace(/;\|;/g, '<br>')));
-						$('.order-content').html(res.data.content == '' ? '暫無更多資訊' : (res.data.content.replace(/;\|;/g, '<br>')));
+						$('.details-right-creator-edition').text('Edition ' + res.data.edition + ' of ' + res.data.endEdition);
+						$('.selectarrnum').text(res.data.edition);
+						if(self.languageType == "TC"){
+							$('.order-introduce').html(res.data.introduce == '' ? '暫無介紹' : (res.data.introduce.replace(/;\|;/g, '<br>')));
+							$('.order-content').html(res.data.content == '' ? '暫無更多資訊' : (res.data.content.replace(/;\|;/g, '<br>')));
+						}else{
+							$('.order-introduce').html(res.data.introduce == '' ? 'No introduction' : (res.data.introduce.replace(/;\|;/g, '<br>')));
+							$('.order-content').html(res.data.content == '' ? 'No more information' : (res.data.content.replace(/;\|;/g, '<br>')));
+						}
 						if (res.data.endEdition - res.data.edition > 0) { //还有库存
 							if (systemTime < saleStartTimeMillis) {
 								$('.details-right-btn').addClass('unclick')
-								$('.details-right-btn').text('即將開售')
+								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].comSoon)
 								$('.details-right-btn').data('status', '1')
 								var msTime = saleStartTimeMillis - systemTime;
 								var time = self.formatDuring(msTime);
-								$('.details-right-time span:first-child').text('銷售開始於： ');
+								$('.details-right-time span:first-child').text(self.chEnTextHtml[self.languageType].start);
 								$('.details-right-time-djs').text(time);
 								setInterval(function () {
 									var curTime = Date.now() + 1150;
@@ -256,12 +378,11 @@ var app = new Vue({
 							} else if (systemTime >= saleStartTimeMillis && systemTime <= saleEndTimeMillis) {
 								var msTime = saleEndTimeMillis - systemTime;
 								var time = self.formatDuring(msTime);
-								console.log(time);
 								let ycdjs = time.split('d')[0];
 								if (ycdjs > 1825) {
 									$(".details-right-time").hide();
 								}
-								$('.details-right-time span:first-child').text('銷售結束於：');
+								$('.details-right-time span:first-child').text(self.chEnTextHtml[self.languageType].end);
 								$('.details-right-time-djs').text(time);
 
 								setInterval(function () {
@@ -272,17 +393,17 @@ var app = new Vue({
 								}, 1000);
 							} else if (systemTime > saleEndTimeMillis) {
 								$('.details-right-btn').addClass('unclick');
-								$('.details-right-btn').text('銷售已結束');
+								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].salesClosed);
 								$('.details-right-btn').data('status', '1')
 								$('.details-right-time span:first-child').css('opacity', '0');
-								$('.details-right-time-djs').text('銷售已結束');
+								$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].salesClosed);
 							}
 						} else { //没有库存
 							$('.details-right-btn').addClass('unclick');
-							$('.details-right-btn').text('已售罄');
+							$('.details-right-btn').text(self.chEnTextHtml[self.languageType].sellOut);
 							$('.details-right-btn').data('status', '1');
 							$('.details-right-time span:first-child').css('opacity', '0');
-							$('.details-right-time-djs').text('已售罄');
+							$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].sellOut);
 							$('.details-right-time-djs').css('color', '#cf3737');
 						}
 						self.getAccountInfo(res)
@@ -299,7 +420,7 @@ var app = new Vue({
 						$('.busd-ye').text('BUSD ' + result.data.usdtRest);
 						self.accountBalance = result.data.usdtRest
 						if (res.data.price > result.data.usdtRest) {
-							$('.busd-tip').text('餘額不足');
+							$('.busd-tip').text(this.chEnTextHtml[this.languageType].balanceInsufficient);
 						} else {
 							$('.busd-tip').text('-' + res.data.price);
 						}
@@ -331,12 +452,12 @@ var app = new Vue({
 				ele.webkitRequestFullScreen();
 			}
 		},
-		changenum(e, type) {
+		changenum(type) {
 			let self = this
 			let str = '';
 			if (type == 1) {
 				if (self.selectarr.length < 2) {
-					tips("至少選擇一件噢~");
+					tips(this.chEnTextHtml[this.languageType].least);
 				} else {
 					self.selectarr.pop();
 				}
@@ -344,19 +465,19 @@ var app = new Vue({
 			if (type == 2) {
 				if (self.selectarr[self.selectarr.length - 1] < self.maxbannum) {
 					if (self.curUserOwned + self.selectarr.length >= self.oneUserCountLimit) {
-						tips('已達到賬號購買數量限制');
+						tips(this.chEnTextHtml[this.languageType].reached);
 						return;
 					}
 					if (self.selectarr.length >= self.onceCountLimit) {
-						tips('已達到單次購買數量限制');
+						tips(this.chEnTextHtml[this.languageType].limit);
 						return;
 					}
 					self.selectarr.push(self.selectarr[self.selectarr.length - 1] + 1);
 				} else {
 					if (self.selectarr.length == 1) {
-						tips('當前剩餘只可選擇1個');
+						tips(this.chEnTextHtml[this.languageType].moment);
 					} else {
-						tips('已達到最大購買數量');
+						tips(this.chEnTextHtml[this.languageType].quantity);
 					}
 				}
 			}
@@ -372,49 +493,17 @@ var app = new Vue({
 			$('.selectarrnum').text(str);
 			$('.busd-tip').text('-' + self.busdPrice * self.selectarr.length);
 		},
-		mangeWalletCharge(res, accounts) {
-			if (res.data.address == accounts[0]) {
-				var cwallet = res.data.cwallet; //收款钱包 地址
-				var web3 = getEth();
-				var contract = new web3.Contract(abi, address);
-				var amount = this.busdPrice * this.selectarr.length;
-				if (amount == '') {
-					amount = '0';
-				}
-				var num = getWeb3().utils.toWei(amount, 'ether');
-				contract.methods.balanceOf(accounts[0]).call() //查询余额
-					.then(function (res) {
-						if (Number(res) >= Number(num)) {
-							setTimeout(function () {
-								contract.methods.transfer(cwallet, num).send({ //转账
-										from: accounts[0]
-									})
-									.on('transactionHash', function (hash) {
-										tips('預計在10秒內到帳');
-										$('#cryptoBtn').text('去我的資產核對');
-										$('.payment-page-right-balance').hide()
-										$('.wallet-payment-desc').text('錢包: ' + hash)
-									})
-							}, 500)
-						} else {
-							tips('餘額不足');
-						}
-					});
-			} else {
-				tips('登錄帳號地址與綁定地址不一致，請切換帳號或重新綁定');
-			}
-		},
 		//询问弹窗
 		saveconfirm() {
-			hsycms.confirm('confirm', '去我的資產核對',
+			hsycms.confirm('confirm', this.chEnTextHtml[this.languageType].asset,
 				function (res) {
-					hsycms.success('success', '確認');
+					hsycms.success('success', this.chEnTextHtml[this.languageType].confirm);
 					setTimeout(function () {
 						window.location.href = 'myassets.html';
 					}, 1500)
 				},
 				function (res) {
-					hsycms.error('error', '取消');
+					hsycms.error('error', this.chEnTextHtml[this.languageType].cancel);
 				},
 			)
 		},
@@ -428,7 +517,7 @@ var app = new Vue({
 				}
 			} else {
 				cryButton.disabled = true;
-				if ($('#balanceBtn').text() == '立即付款 >') {
+				if ($('#balanceBtn').text() == '立即付款 >' || $('#balanceBtn').text() == 'Pay now >') {
 					payButton.disabled = true;
 				}
 			}
@@ -442,11 +531,8 @@ var app = new Vue({
 			return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 		},
 		toPay() {
-			if ($('.details-right-btn').dataset.status == 1) {
-				return false
-			}
-			if ($('.busd-tip').text() == '餘額不足' || this.accountBalance < this.busdPrice * this.selectarr.length) {
-				$('.payment-page-right-btn button').text('充值');
+			if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance')|| this.accountBalance < this.busdPrice * this.selectarr.length) {
+				$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 				$('#balanceBtn').attr('disabled', false)
 			}
 			$.ajax({
@@ -458,12 +544,12 @@ var app = new Vue({
 						$('video').addClass('video-hidden');
 						$('.payment-page-left-img video').removeClass('video-hidden')
 					} else {
-						tips('未登錄，請登入');
+						tips(this.chEnTextHtml[this.languageType].noLog);
 					}
 				}
 			})
 		},
-		
+
 		initMediaCss() {
 			var mobile_width = $(window).width();
 			if (mobile_width <= 992) {
@@ -476,7 +562,7 @@ var app = new Vue({
 			}
 		},
 		//Additional Infomation 
-		showDetailInfo () {
+		showDetailInfo() {
 			var ele = $('.details-right-additional-show')
 			var status = ele.data('status');
 			if (status == 0) {
@@ -508,34 +594,34 @@ var app = new Vue({
 						}),
 						success: function (res) {
 							if (res.code == 0) {
-								success('支付成功', 1800);
+								success(self.chEnTextHtml[self.languageType].paySuc, 1800);
 								setTimeout(function () {
-									$('.order-number').text("訂單號 #：" + res.data);
-									$('.payment-page-right-tit').text('完成');
+									$('.order-number').text(self.chEnTextHtml[self.languageType].number + res.data);
+									$('.payment-page-right-tit').text(self.chEnTextHtml[self.languageType].accomplish);
 									$('.payment-page-right-order').show();
 									$('.payment-page-right-pay').hide();
 									$('.payment-page-right-total').hide();
 									$('.payment-page-right-busd').hide();
 									$('.payment-page-right-balance').hide()
-									$('.payment-page-right-btn button').text('去我的資產核對');
+									$('.payment-page-right-btn button').text(self.chEnTextHtml[self.languageType].asset);
 									$('.payment-page-right-order-je span').text(busd);
-									$('.payment-page-right-order-by span').text('餘額支付');
+									$('.payment-page-right-order-by span').text(self.chEnTextHtml[self.languageType].balancePayment);
 								}, 1800);
 							} else {
 								error(res.message, 1800);
 							}
 						}
 					})
-				} else if (value == '充值') {
-					window.open('mywallet.html');
-				} else if (value == '去我的資產核對') {
+				} else if (value == '充值' || value == 'Add funds') {
+					// window.open('mywallet.html');
+					window.location.href = 'mywallet.html?isframe=true';
+				} else if (value == this.chEnTextHtml[this.languageType].asset) {
 					window.location.href = 'myassets.html';
 				}
 			}
 		},
 		togglePayMethod(text) {
 			this.selectedPayMethod = text
-			console.log(text);
 			if (text == 0) {
 				$('.payment-page-right-btn').hide();
 				$('.order-price .order-price-hdk').show();
@@ -555,11 +641,11 @@ var app = new Vue({
 				$('.payment-page-right-total').show();
 				$('.payment-page-right-balance').show()
 				$('.payment-page-right-btn button').addClass('can');
-				if ($('.busd-tip').text() == '餘額不足' || this.accountBalance < this.busdPrice * this.selectarr.length) {
-					$('.payment-page-right-btn button').text('充值');
+				if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') || this.accountBalance < this.busdPrice * this.selectarr.length) {
+					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 					$('#balanceBtn').attr('disabled', false)
 				} else {
-					$('.payment-page-right-btn button').text('立即付款 >');
+					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
 				}
 				$('.order-price .order-price-hdk').hide();
 				$('.order-price .order-price-busd').show();
@@ -569,30 +655,31 @@ var app = new Vue({
 			}
 			if (text == 2) {
 				$('.payment-page-right-btn').hide();
-				$('.payment-page-right-crypto').show();
-				if (getCookie('isConnect') != true) {
-					$('#cryptoBtn').text('請先連接錢包  ->')
+				//$('.payment-page-right-crypto').show();
+				if (getCookie('isConnect') != 'true') {
+					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
 					$('#cryptoBtn').attr('disabled', false)
 				} else {
-					$('#cryptoBtn').text('立即付款  ->')
-					$('#cryptoBtn').attr('disabled', true)
+					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].payment+'  ->')
+					$('#cryptoBtn').attr('disabled', false)
 				}
 				$('.payment-page-right-balance').hide()
-				$('#cryptoBtn').text('錢包支付功能準備中...')
-				$('#cryptoBtn').attr('disabled', true)
 				$('.payment-page-right-crypto button').addClass('can');
-				if ($('.busd-tip').text() == '餘額不足') {
-					$('.payment-page-right-btn button').text('充值');
+				if ($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') {
+					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 				} else {
-					$('.payment-page-right-btn button').text('立即付款 >');
+					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
 				}
-				$('.payment-page-right-total').hide();
+
+				$('.payment-page-right-total').show();
+				$('.payment-page-right-total p').text(this.chEnTextHtml[this.languageType].paymentComing)
+				$('.payment-page-right-total .order-price').hide()
 				$('.order-price .order-price-hdk').hide();
 				$('.order-price .order-price-busd').show();
 				$('.payment-page-right-select').hide();
 				$('.payment-page-right-busd').hide();
-				$('.wallet-payment-desc').show();
-				$('.wallet-payment-desc').text('錢包直連支付功能準備中...');
+				//$('.wallet-payment-desc').show();
+				$('#cryptoBtn').attr('disabled', true)
 			}
 		}
 	}

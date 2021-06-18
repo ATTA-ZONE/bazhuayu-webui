@@ -1,67 +1,111 @@
-function mangeWalletCharge(res, accounts) {
-	if (res.data.address == accounts[0]) {
+var mywalletText = chEnText.mywallet[lang];
+function safeCharge(res, accounts) {
+	loading();
+	if (res.data.address != accounts[0]) {
+		var hintMessage = mywalletText.hintMessage01 + accounts[0] + mywalletText.hintMessage02 + res.data.address;
+		if (window.confirm(hintMessage)) {
+			var data = {
+				address: accounts[0],
+				walletType: 'METAMASK'
+			}
+
+			$.ajax({
+				url: base_url + '/v2/user/wallet/bind',
+				type: 'POST',
+				contentType: 'application/json',
+				dataType: 'json',
+				data: JSON.stringify(data),
+				success: function (res1) {
+					if (res1.code == 0) {
+						loadingHide();
+						_charge(res, accounts);
+					} else if (res1.code == 2001){
+						loadingHide();
+						window.alert(mywalletText.binded);
+					} else if (res1.code == 1011){
+						loadingHide();
+						window.alert(mywalletText.emailNot);
+					} else if (res1.code == 1002){
+						loadingHide();
+						window.alert(mywalletText.loginNot);
+					} else {
+						loadingHide();
+						window.alert(mywalletText.windowErr);
+					}
+				},
+				error: function (res1) {
+					loadingHide();
+					window.alert(mywalletText.httpError);
+				}
+			})
+		} else {
+			loadingHide();
+		}
+	} else {
+		loadingHide();
+		_charge(res, accounts);
+	}
+}
+
+function _charge(res, accounts) {
 		var cwallet = res.data.cwallet; //收款钱包 地址
 		var web3 = new Web3(CHAIN.WALLET.provider());
 
 		var chainId = '';
-	CHAIN.WALLET.chainId()
-        .then(function (res) {
-            chainId = web3.utils.hexToNumber(res); 
+		CHAIN.WALLET.chainId()
+			.then(function (res1) {
+				chainId = web3.utils.hexToNumber(res1); 
 						
-						
-		// busdAddress 供外界使用
-		var busdAddress = contractSetting['busd_ERC20'][chainId].address;
-		var busdABI = contractSetting['busd_ERC20']['abi'];
-		
-		busdContractInstance = new web3.eth.Contract(busdABI, busdAddress); 
-		var amount = $('.modify-ipt input').val().trim();
-				if (amount == '') {
-					amount = '0';
-				}
-		var num = web3.utils.toWei(amount, 'ether');
-		busdContractInstance.methods.balanceOf(accounts[0]).call() //查询余额
-			.then(function (res) {
+				// busdAddress 供外界使用
+				var busdAddress = contractSetting['busd_ERC20'][chainId].address;
+				var busdABI = contractSetting['busd_ERC20']['abi'];
+				
+				busdContractInstance = new web3.eth.Contract(busdABI, busdAddress); 
+				var amount = $('.modify-ipt input').val().trim();
+						if (amount == '') {
+							amount = '0';
+						}
+				var num = web3.utils.toWei(amount, 'ether');
+				busdContractInstance.methods.balanceOf(accounts[0]).call() //查询余额
+					.then(function (res2) {
 
-				if (Number(res) >= Number(num)) {
-					setTimeout(function () {
-						busdContractInstance.methods.transfer(cwallet, num).send({ //转账
-								from: accounts[0]
-							})
-							.on('transactionHash', function (hash) {
-								console.log(['hash', hash]);
-								success('充值成功', 1800);
-								setTimeout(function () {
-									tips('預計10秒內到賬');
+						if (Number(res2) >= Number(num)) {
+							setTimeout(function () {
+								success(mywalletText.startTopUp, 3000);
+								busdContractInstance.methods.transfer(cwallet, num).send({ //转账
+										from: accounts[0]
+									})
+									.on('transactionHash', function (hash) {
+										//success('充值已發起,期間請勿更換錢包防止誤充', 1800);
+										setTimeout(function () {
+											tips(mywalletText.rechargeSuc);
 
-									setTimeout(function () {
-										window.location.reload();
-									}, 1500)
-								}, 1800);
-							}).on('receipt', function (receipt) {
-								// console.log(['receipt',receipt])
-							}).on('error', function (err) {
-								// console.log(['error',err])
-							});
-					}, 500)
-				} else {
+											setTimeout(function () {
+												panduan();
+												// window.location.reload();
+											}, 1500)
+										}, 1800);
+									}).on('receipt', function (receipt) {
+									}).on('error', function (err) {
+									});
+							}, 500)
+						} else {
 
-					tips('餘額不足');
-
-				}
-			});
+							tips(mywalletText.balanceInsufficient);
+						}
+					});
 
 
-				})
+		})
 
-	} else {
-
-		tips('登入帳戶地址與綁定地址不一致，請切換帳戶或重新綁定');
-
-	}
 }
 
 $(function () {
-
+	if(lang == 'TC'){
+		document.title = "我的錢包"
+	}else{
+		document.title = "Wallet"
+	}
 	var web3 = new Web3(CHAIN.WALLET.provider());
 	$.ajax({
 		url: base_url + '/v2/user/wallet/info',
@@ -77,48 +121,37 @@ $(function () {
 					$('.hideenbtn').show();
 					$('.hideenbtn2').hide();
 				};
-				if (getCookie('isConnect')=='true') {
-					if (res.data.walletType == "TOKEN POCKET") {
+				if (res.data.address) {
+					if (getCookie(CHAIN.WALLET.__wallet__)=='WalletConnect') {
 						$('.walletconnect-wallet').show();
 						$('.metamask-wallet').hide();
 						$('.connect-wallet-nothing').hide();
 						$('.walletconnect-wallet').addClass('wallet-li');
 						$('.metamask-wallet').removeClass('wallet-li');
-						if (res.data.address == null || res.data.address == '') {
-							$('.walletconnect-wallet .wallet-address').text('---')
-						} else {
-							$('.walletconnect-wallet .wallet-address').text("当前钱包地址："+res.data.address)
-						}
-						
-					} else if(res.data.walletType == "METAMASK") {
-					
+						$('.walletconnect-wallet .wallet-address').text(mywalletText.walletAddress+res.data.address)
+					} else {
 						$('.walletconnect-wallet').hide();
 						$('.metamask-wallet').show();
 						$('.connect-wallet-nothing').hide();
 						$('.walletconnect-wallet').removeClass('wallet-li');
 						$('.metamask-wallet').addClass('wallet-li');
-						if (res.data.address == null || res.data.address == '') {
-							$('.metamask-wallet .wallet-address').text('---')
-						} else {
-							$('.metamask-wallet .wallet-address').text("当前钱包地址："+res.data.address)
-						}
-						
-					}else{
-						$('.walletconnect-wallet').hide();
-						$('.metamask-wallet').hide();
-						$('.connect-wallet-nothing').show();
-					}
-				}else{
+						$('.metamask-wallet .wallet-address').text(mywalletText.walletAddress+res.data.address)
+					};							
+				} else {
+					$('.walletconnect-wallet').hide();
+					$('.metamask-wallet').hide();
+					$('.connect-wallet-nothing').show();
+					$('.walletconnect-wallet .wallet-address').text('---');
 					$(".nowallet-wallet").show();
-					$(".walletconnect-wallet").hide();
-					$(".metamask-wallet").hide();
 				}
-
+			} else {
+				$(".nowallet-wallet").show();
+				$(".walletconnect-wallet").hide();
+				$(".metamask-wallet").hide();
 			}
+
 		}
 	});
-
-	var web3 = new Web3(CHAIN.WALLET.provider());
 	
 	//发送交易请求
 	$('.modify-btn-active').click(function (e) {
@@ -126,148 +159,22 @@ $(function () {
 
 
 		if (tit == 'add') {
-			var wallet_type = $('.wallet-li').data('wallet');
-			
-			// console.log(wallet_type)
-			
-			if (wallet_type == 'wallectconnect') {
-				
-				var provider = CHAIN.WALLET.WalletConnect.provider();
-				var address_p = '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56';
-				const web3_p = new Web3(provider);
-				var contract_p = new web3_p.eth.Contract(abi, address_p);
-				
-				var amount = $('.modify-ipt input').val().trim();
-				if (amount == '') {
-					tips('請輸入充值金額');
-					return;
+			$.ajax({
+				url: base_url + '/v2/user/wallet/simpleInfo',
+				success: function (res) {
+					if (res.code == 0) {
+						CHAIN.WALLET.accounts()
+							.then(function(accounts){
+								safeCharge(res, accounts)
+							})
+					} else {
+						window.alert(mywalletText.rechargeDataNull);
+					}
+				},
+				error: function (res) {
+					window.alert(mywalletText.httpError);
 				}
-				var num = getWeb3().utils.toWei(amount, 'ether');
-				
-				var isWalletConnect = localStorage.getItem('walletconnect');				
-				if(isWalletConnect){
-					CHAIN.WALLET.WalletConnect.provider().enable()
-					.then(function (res) {
-						loading();
-						
-						$.ajax({
-							url:base_url+'/v2/user/wallet/simpleInfo',
-							success:function(response){								
-								contract_p.methods.transfer(response.data.cwallet, num).send({     //转账
-									from:response.data.address
-								})
-								.on('transactionHash', function(hash){
-									loadingHide();
-									success('充值成功',1800);
-									setTimeout(function(){
-										tips('預計10秒內到賬');
-									
-										setTimeout(function(){
-											window.location.reload();
-										},1500)
-									},1800);
-								}).on('receipt', function(receipt){
-									loadingHide();
-								}).on('error',function(err){
-									loadingHide();
-									error('充值失敗',1800);
-									setTimeout(function(){
-										window.location.reload();
-									},1800);
-								});
-								
-							}
-						});
-						
-					});
-					
-				}else{
-					tips('請連接錢包');
-				}
-				var dd = CHAIN.WALLET.WalletConnect.isConnected();
-			} else if (wallet_type == 'metamask') {
-
-				var amount = $('.modify-ipt input').val().trim();
-				if (amount == '') {
-					amount = '0';
-				}
-
-				var num = web3.utils.toWei(amount, 'ether');
-
-				if (typeof window.ethereum !== 'undefined') {
-
-					$.ajax({
-						url: base_url + '/v2/user/wallet/simpleInfo',
-						success: function (res) {
-							if (res.code == 0) {
-
-								if (res.data.address == null || res.data.address == '') {
-									tips('請連接錢包');
-									setTimeout(function () {
-										window.location.reload();
-									}, 2000);
-								} else { //绑定的地址登录的账户地址一致
-									loading();
-									window.ethereum.enable().then(function (accounts) {
-
-
-										if (window.ethereum && window.ethereum.isConnected()) {
-											// document.cookie = "isConnect=true";
-											setCookie('isConnect',true);
-										}
-
-										setTimeout(function () {
-											loadingHide();
-										}, 1000);
-										if (location.host.indexOf('bazhuayu.io') < 0) {
-											window.ethereum.request({
-												method: 'wallet_addEthereumChain',
-												params: [{
-													chainId: '0x61',
-													chainName: 'bsctestnet',
-													nativeCurrency: {
-														name: 'BNB',
-														symbol: 'BNB',
-														decimals: 18
-													},
-													rpcUrls: ["https://data-seed-prebsc-2-s3.binance.org:8545"],
-													blockExplorerUrls: ['https://testnet.bscscan.com']
-												}]
-											}).then(function () {
-												mangeWalletCharge(res, accounts)
-											})
-										} else {
-											window.ethereum.request({
-													method: 'wallet_addEthereumChain',
-													params: [{
-														chainId: '0x38',
-														chainName: 'Binance Smart Chain Mainnet', //如果是切换测试网 就 填 测试网 的RPC配置
-														nativeCurrency: {
-															name: 'BNB',
-															symbol: 'bnb',
-															decimals: 18
-														},
-														rpcUrls: ["https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed.binance.org"],
-														blockExplorerUrls: ['https://bscscan.com/']
-													}]
-												})
-												.then(function () {
-													mangeWalletCharge(res, accounts)
-												});
-										}
-									});
-								}
-							}
-						}
-					})
-
-				} else {
-
-					alert('請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。');
-
-				}
-			};
-
+			})	
 		} else if (tit == 'dwallet') {
 			$.ajax({
 				url: base_url + '/v2/user/wallet/delete',
@@ -275,7 +182,7 @@ $(function () {
 				dataType: 'json',
 				success: function (res) {
 					if (res.code == 0) {
-						success('删除成功', 1800);
+						success(mywalletText.httpError, 1800);
 						// document.cookie = "isConnect=false";
 						setCookie("isConnect",false);
 						setTimeout(function () {
@@ -289,15 +196,15 @@ $(function () {
 			var amount = $('.modify-ipt input').val().trim();
 			var ye = $('.usdt-rest').text().split(' ')[0];
 			var text = $('.modify-ipt-tit').text();
-			if (text == '請連接錢包') {
+			if (text == mywalletText.connectWallet) {
 
-				tips('請連接錢包');
+				tips(mywalletText.connectWallet);
 
 			} else {
 				if (amount > ye) {
-					tips('餘額不足');
+					tips(mywalletText.balanceInsufficient);
 				} else if (amount == '') {
-					tips('請填寫提現金額');
+					tips(mywalletText.amountWithdrawal);
 				} else {
 					loading();
 					$.ajax({
@@ -315,28 +222,20 @@ $(function () {
 							if (res.code == 0) {
 								setTimeout(function () {
 									// success('Success',1800);
-									tips('提款申請已收到，請等待');
+									tips(mywalletText.apppleWithdrawal);
 									setTimeout(function () {
 										window.location.reload();
 									}, 2000);
 								}, 1000)
 							} else {
-								error('提款失敗', 1800);
+								error(mywalletText.withdrawalsErr, 1800);
 							}
 						}
 					})
-
-
-
 				}
-
 			}
-
 		} else if (tit == 'card') {
-			console.log('tit == card')
-			
 		}else if(tit == 'dcard'){
-			console.log(tit);
 			loading();
 					$.ajax({
 						url: base_url + '/v2/user/wallet/credit/delete',
@@ -353,5 +252,31 @@ $(function () {
 		}
 	});
 
-
+	var url = window.location.search;
+	url = url.substring(url.lastIndexOf('?')+1);
+	if (url == "isframe=true") {
+		addFund();
+		$('.modify').fadeIn();
+	}
 })
+function  panduan() {
+	var url = window.location.search;
+	url = url.substring(url.lastIndexOf('?')+1);
+	if (url == "isframe=true") {
+		window.location.search = "";
+	}
+}
+function copyaddressbtn() {
+	let val = $("#testcopy").text();
+	let transfer = document.createElement('input');
+    document.body.appendChild(transfer);
+    transfer.value = val.split(" ")[1];  // 这里表示想要复制的内容
+    transfer.focus();
+    transfer.select();
+    if (document.execCommand('copy')) {
+        document.execCommand('copy');
+    }
+    transfer.blur();
+	tips(mywalletText.copysuc);
+    document.body.removeChild(transfer);
+}

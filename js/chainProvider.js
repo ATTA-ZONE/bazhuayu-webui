@@ -1,3 +1,17 @@
+var targetChainId = '';
+var scansite_apiKey = '';
+var scansite_base_url = '';
+
+if (window.location.href.indexOf('bazhuayu.io') == -1) {
+    targetChainId = 97;
+    scansite_apiKey = '9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27'
+    scansite_base_url = 'https://api-testnet.bscscan.com'
+} else {
+    targetChainId = 56;
+    scansite_apiKey = '';
+    scansite_base_url = 'https://api.bscscan.com'
+}
+
 
 
 !function(W){
@@ -17,7 +31,6 @@
 				} else {
 					// var hintMessage='';
 					// window.confirm(hintMessage);
-					console.log('cookie does not exist');
 					return null;
 				}
 			},
@@ -44,7 +57,6 @@
 			_errorHandleWrapper: function(func) {
 				return async function(...args) {
 					var th=W.CHAIN.WALLET;
-					// console.log('_errorHandleWrapper', func.name);
 					try {return await func(...args)} catch(error) {console.log(func.name, error)}
 				};
 			},
@@ -55,7 +67,13 @@
 			__isUnlocked: async function() {
 				var th=W.CHAIN.WALLET;
 				var ads = arguments[0];
-				// console.log('__isUnlocked', th);
+
+				var t=getCookie(th.__wallet__);
+				if (th.isConnected(t)) {
+					var res =  await th.provider().request({ method: 'eth_accounts'});		
+				} else {
+					var res =  await th.enable();
+				}
 				var res = await th.provider().request({ method: 'eth_accounts' });
         		if (res.length > 0) {
 					if (ads) {return res.indexOf(ads)!=-1} else {return true}
@@ -67,26 +85,40 @@
 			//accounts: CHAIN.WALLET._errorHandleWrapper(CHAIN.WALLET.__accounts),
 			__accounts: async function() {
 				var th=W.CHAIN.WALLET;
-				// console.log('__accounts', th);
-				var res =  await th.provider().request({ method: 'eth_accounts'});
-				return res;
+				var t=getCookie(th.__wallet__);
+				if (th.isConnected(t)) {
+					var res =  await th.provider().request({ method: 'eth_accounts'});
+					return res;
+				} else {
+					var res =  await th.enable();
+					return res;
+				}
+				// var res =  await th.provider().request({ method: 'eth_accounts'});
+				// return res;
 			},
 
 			//chainId: CHAIN.WALLET._errorHandleWrapper(CHAIN.WALLET.__chainId),
 			__chainId: async function() {
 				var th=W.CHAIN.WALLET;
-				// console.log('__chainId', th);
-				var res =  await th.provider().request({ method: 'eth_chainId'});
-				if (typeof(res)=='string') {res=Web3.utils.hexToNumber(res);}
-				return res;
+				var t=getCookie(th.__wallet__);
+				if (th.isConnected(t)) {
+					var res =  await th.provider().request({ method: 'eth_chainId'});
+					if (typeof(res)=='string') {res=Web3.utils.hexToNumber(res);}
+					return res;
+				} else {
+					await th.enable();
+					var res =  await th.provider().request({ method: 'eth_chainId'});
+					if (typeof(res)=='string') {res=Web3.utils.hexToNumber(res);}
+					return res;
+				}
+
+				
 			},
 
 			//connect: CHAIN.WALLET._errorHandleWrapper(CHAIN.WALLET.__connect),
 			__connect: async function() {
 				var t=arguments[0];
 				var th=W.CHAIN.WALLET;
-				
-				// console.log('__connect', th);
 				var wallet=th[t];
 				window.debug&&console.log('connect', t, wallet);
 				if (wallet) {
@@ -105,10 +137,7 @@
 				if (t==null) {
 					t = getCookie(th.__wallet__);
 				}
-				// console.log('__connect', th);
 				var wallet=th[t];
-				// console.log(th);
-				// console.log(t);
 				window.debug&&console.log('connect', t, wallet);
 				if (wallet) {
 					if (getCookie(th.__wallet__)&&(getCookie(th.__wallet__)!=t)){
@@ -116,7 +145,7 @@
 						await oldWallet.__disconnect();
 					}
 					
-					setCookie(th.__wallet__, wallet.name);
+					//setCookie(th.__wallet__, wallet.name);
 
 					var res = await wallet.__enableInit();
 					return res;
@@ -183,7 +212,6 @@
 					th1.provider().removeAllListeners('accountsChanged');
 					th1.provider().removeAllListeners('chainChanged');
 					th1.provider().on("disconnect", (code, reason) => {
-						console.log('disconnect', code, reason);
 						setCookie(th.__wallet__, '');
 					});
 
@@ -194,7 +222,6 @@
 				// 监听账户变更事件
 				__accountsChangedAssign: function(fnc) {
 					var th1=W.CHAIN.WALLET.MetaMask;
-					// console.log('accountsChangedAssign', th);
 					th1.provider().on('accountsChanged', function(accounts){
 						fnc(accounts);
 					});
@@ -202,7 +229,6 @@
 
 				__networkChangedAssign: function(fnc) {
 					var th1=W.CHAIN.WALLET.MetaMask;
-					// console.log('networkChangedAssign', th);
 					th1.provider().on('chainChanged', function (netVer) {
 						if (typeof(netVer)=='string') {var _netVer=Web3.utils.hexToNumber(netVer);}
 						fnc(_netVer);
@@ -260,8 +286,8 @@
 						chainId: RPCSetting[chainId]['CHAIN_ID_HEX'],
 						chainName: RPCSetting[chainId]['CHAIN_NAME'],
 						nativeCurrency:{
-							name: RPCSetting[chainId]['symbol'],
-							symbol: RPCSetting[chainId]['symbol'],
+							name: RPCSetting[chainId]['SYMBOL'],
+							symbol: RPCSetting[chainId]['SYMBOL'],
 							decimals: 18},
 							rpcUrls: [RPCSetting[chainId]['RPC_URL']],
 							blockExplorerUrls:[RPCSetting[chainId]['ETHERSCAN_URL']]
@@ -313,8 +339,14 @@
 					var th1=W.CHAIN.WALLET.WalletConnect;
 					var res = '';
 					try {
-						res = await th1.__enable();
-						th1.__initListener();
+
+						if (th1.provider()&&th1.__provider.connector.connected==false) {
+							await th1.__disconnect();
+							res = [];
+						} else {
+							res = await th1.__enable();
+							th1.__initListener();
+						}
 					} catch(err){
 						console.log(err);
 						th1.__provider = null;
@@ -358,7 +390,7 @@
 
 				isConnected: function() {
 					var th1=W.CHAIN.WALLET.WalletConnect;
-					return th1.provider().connector.connected;
+					return th1.provider().isRunning();
 				},
 	
 				provider: function() {
@@ -368,8 +400,8 @@
 						th1.__provider = new WalletConnectProvider({ 
 							rpc:{
 								1: RPCSetting[1]['RPC_URL'],
-								3: RPCSetting[1]['RPC_URL'],
-								4: RPCSetting[1]['RPC_URL'],
+								3: RPCSetting[3]['RPC_URL'],
+								4: RPCSetting[4]['RPC_URL'],
 								56: RPCSetting[56]['RPC_URL'],
 								97: RPCSetting[97]['RPC_URL'],
 								128: RPCSetting[128]['RPC_URL'],
@@ -385,15 +417,20 @@
 					var th1=W.CHAIN.WALLET.WalletConnect;
 					console.log('__connectInit1', th1.__provider);
 				
-					if (th1.provider()&&th1.__provider.connector.connected==true) {
-						await th1.__disconnect();
-					}
+					// if (th1.provider()&&th1.__provider.connector.connected==true) {
+					// 	await th1.__disconnect();
+					// }
 
 					if (getCookie(th.__wallet__)){
 						console.log('__connectInit2', th1.__provider);
 						var oldWallet = th[getCookie(th.__wallet__)];
 						await oldWallet.__disconnect();
 					}
+
+					await th1.__disconnect();
+
+					console.log('__connectInit2.5', th1.__provider);
+					
 
 					var res = await th1.__enable();
 					th1.__initListener();
@@ -407,11 +444,7 @@
 				__enable: async function() {
 					var th1=W.CHAIN.WALLET.WalletConnect;
 
-					if (th1.provider()&&th1.__provider.connector.connected==false) {
-						await th1.__disconnect();
-					}
-
-					th1.provider().chainId=null;
+					th1.provider().chainId=targetChainId;
 					console.log('__enable', th1.__provider);
 					var res = await th1.provider().enable();
 					return res;
@@ -466,11 +499,11 @@
 				__disconnect: async function() {
 					//var th=W.CHAIN.WALLET;
 					var th1=W.CHAIN.WALLET.WalletConnect;
-					//setCookie(th.__wallet__, '')
-					if (th1.provider()) {
-						await th1.provider().disconnect();
-						//th1.__provider = null;
-					}
+					// setCookie(th.__wallet__, '');
+					await th1.provider().disconnect();
+					// await th1.provider().disconnect();
+					th1.__provider = null;
+					
 				}
 			},
 		},
@@ -495,7 +528,13 @@
 	// W.CHAIN.WALLET.WalletConnect.enable = W.CHAIN.WALLET._errorHandleWrapper(W.CHAIN.WALLET.WalletConnect.__enable);
 	// W.CHAIN.WALLET.WalletConnect.disconnect = W.CHAIN.WALLET._errorHandleWrapper(W.CHAIN.WALLET.WalletConnect.__disconnect);
 
-
+	var th=W.CHAIN.WALLET;
+	var t=getCookie(th.__wallet__);
+	if (t=='WalletConnect' && (th.provider().connector.connected==false)) {
+		console.log('Lost WalletConnect');
+		setCookie(th.__wallet__, 'MetaMask');
+	} else {
+	}
 }(window);
 //a.CHAIN.WALLET.connect('WalletConnect').then(function(res){console.log(res)}); 
 

@@ -1,4 +1,5 @@
 
+var myaccountText = chEnText.myaccount[lang];
 var tximg = "./images/Ellipse 93.png";
 
 $(function(){
@@ -25,7 +26,7 @@ $(function(){
 	
 	$("#changeName").click(function(){
 		var oName=$(".my-account-name").text();
-		$(".modify-ipt-tit").text(`當前暱稱：`+oName);
+		$(".modify-ipt-tit").text(myaccountText.nickName+oName);
 	});
 	
 	
@@ -39,7 +40,7 @@ $(function(){
 		
 		if(exchange == "name"){//修改昵称
 			if(newName ==""){
-				tips("昵稱不能為空")
+				tips(myaccountText.nickUnNull)
 			}else{
 				$.ajax({
 					type:"post",
@@ -77,7 +78,7 @@ $(function(){
 					}),
 					success:function(res){
 						if(res.code == 0){
-							success('修改成功');
+							success(myaccountText.editSuc);
 							setTimeout(function(){
 								window.location.href = 'login.html';
 							},1500)
@@ -96,7 +97,6 @@ $(function(){
 			
 			
 		} else {//其他修改
-			console.log("准备修改其他")
 		}
 
 	});

@@ -1,5 +1,5 @@
 var app = new Vue({
-	el: '#app',
+	el: '#myassets',
 	components: {
 		'mynft': httpVueLoader('mynft.vue'),
 		'history': httpVueLoader('history.vue'),
@@ -7,13 +7,37 @@ var app = new Vue({
 	},
 	data(){
 		return {
-			tabs: ['我的藏品','我的NFT','NFT操作記錄'],
-			selectedTab: 0
+			selectedTab: 0,
+			chEnTextHtml: {
+				"TC":{
+					title : "我的資產",
+					emil :"電子信箱地址*",
+					psw : "密碼*",
+					wjpsw : "忘記密碼？",
+					nozh : "還沒有帳號？",
+					zczh : "註冊新賬號",
+					tabs: ['我的藏品','我的NFT','NFT操作記錄']
+				},
+				"EN":{
+					title : "My Assets",
+					tabs: ["My Collection","My NFT","NFT Logs"]
+				}
+			},
+			lang:''
 		}
 	},
 	methods: {
 		toggleTab(item,idx) {
 			this.selectedTab = idx
+		}
+	},
+	created() {
+		let self = this;
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.lang == 'TC'){
+			document.title = '我的資產';
+		}else{
+			document.title = 'My Assets';
 		}
 	}
 });

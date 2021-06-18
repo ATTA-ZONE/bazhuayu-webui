@@ -15,9 +15,10 @@
 	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
 		.sign-input{
 			position:relative;
@@ -41,24 +42,66 @@
 	</style>
 </head>
 <body>
-	<div class="sign code flex">
-		<div class="sign-container flex">
-			<div class="sign-form code-form">
-				<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
-				<div class="sign-tit code-tit">輸入您的驗證碼</div>
-				<div class="sign-input">
-					<p><input id="code" type="text" data-click="0" placeholder="請輸入已發送到您的電子郵件的驗證碼" /><span class="sign-check-tip"></span></p>
-					<p class="reset-code">未收到驗證碼？<span onclick="reSend()">重新發送</span></p>
+	<div id="verificationCode" v-cloak>
+		<div class="sign code flex">
+			<div class="sign-container flex">
+				<div class="sign-form code-form">
+					<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
+					<div class="sign-tit code-tit">{{chEnTextHtml[lang].title}}</div>
+					<div class="sign-input">
+						<p><input id="code" type="text" data-click="0" :placeholder="chEnTextHtml[lang].placeholdertext" /><span class="sign-check-tip"></span></p>
+						<p class="reset-code">{{chEnTextHtml[lang].nocode}}<span onclick="reSend()">{{chEnTextHtml[lang].resend}}</span></p>
+					</div>
+					<div class="sign-btn code-btn flex">
+						<p class="sign-btn-register"><button type="button">{{chEnTextHtml[lang].submit}}</button></p>
+					</div>
+					<div class="sign-login">{{chEnTextHtml[lang].iszh}}<a href="login.html">{{chEnTextHtml[lang].login}}</a></div>
 				</div>
-				<div class="sign-btn code-btn flex">
-					<p class="sign-btn-register"><button type="button">提交</button></p>
-				</div>
-				<div class="sign-login">您有賬戶？<a href="login.html">登入</a></div>
 			</div>
 		</div>
+		
+		<div class="tips"></div>
 	</div>
-	
-	<div class="tips"></div>
 </body>
 <script src="./js/verificationCode.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#verificationCode',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					title : "輸入您的驗證碼",
+					placeholdertext : "請輸入已發送到您的電子郵件的驗證碼",
+					nocode : "未收到驗證碼？",
+					resend : "重新發送",
+					submit : "提交",
+					iszh : "您有賬戶？",
+					login : "登入",
+				},
+				"EN":{
+					title : "A verification code has been sent to your email",
+					placeholdertext : "Please enter your verification code",
+					nocode : "Haven't received？",
+					resend : "Resend",
+					submit : "Submit",
+					iszh : "Already have an account?",
+					login : "Log in now",
+				}
+			},
+			lang:''
+		}
+	},
+	created() {
+		let self = this;
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.lang == 'TC'){
+			document.title = '註冊';
+		}else{
+			document.title = 'Verification';
+		}
+	}
+})
+</script>
 </html>

@@ -19,10 +19,14 @@
 	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chainCommon.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./js/base.min(1).js" type="text/javascript" charset="utf-8" id="base-min" title="eth" data-mode="prod"></script>
-	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<style>
 		.contentbox{
@@ -79,14 +83,14 @@
 				<div class="modify-ipt contentbox" v-if="isshowicon">
 					<img src="./images/WalletConnect.png" alt="">
 					<span class="walletname">WalletConnect：</span>
-					<span class="modify-ipt-tit addressfs">{{walletIdvue}}</span>
-					<div class="h5showaddress">{{walletIdvue}}</div>
+					<span class="modify-ipt-tit addressfs">{{walletIdvue ? walletIdvue : 'null'}}</span>
+					<div class="h5showaddress">{{walletIdvue ? walletIdvue : 'null'}}</div>
 				</div>
 				<div class="modify-ipt contentbox" v-else>
 					<img src="./images/Metamask.png" alt="">
 					<span class="walletname">Metamask：</span>
-					<span class="modify-ipt-tit addressfs">{{walletIdvue}}</span>
-					<div class="h5showaddress">{{walletIdvue}}</div>
+					<span class="modify-ipt-tit addressfs">{{walletIdvue ? walletIdvue : 'null'}}</span>
+					<div class="h5showaddress">{{walletIdvue ? walletIdvue : 'null'}}</div>
 				</div>
 				<div class="modify-tips">
 					<span class="modify-tips-content" v-if="tipscon && status == 1">{{tipscon}}</span>
@@ -106,9 +110,9 @@
 	<div class="tips"></div>
 </div>
 </body>
-<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
-<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script> -->
 <script src="./js/showwallet.js" type="text/javascript" charset="utf-8"></script>
 
 </html>

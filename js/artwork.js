@@ -1,3 +1,5 @@
+var channelId = window.location.search.split("=")[1];
+var artworkText = chEnText.artwork[lang];
 //获取时间
 function formatDuring(mss) {
     var days = parseInt(mss / (1000 * 60 * 60 * 24));
@@ -16,7 +18,8 @@ function getArtworkList(current,pageSize,name,typeId){
 		current,
 		pageSize,
 		name,
-		typeId
+		typeId,
+		channelId
 	};
 	
 	
@@ -51,7 +54,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						var timeStatus;
 						var geshi = v.primaryPic.substr(v.primaryPic.lastIndexOf('.')+1);
 						
-						if(v.name=='徐冬冬 牛N.X潮玩 NFT限量版'){
+						if(v.name==artworkText.xdd){
 							v.edition = 200;
 						}
 						
@@ -93,13 +96,15 @@ function getArtworkList(current,pageSize,name,typeId){
 									</div>`;
 							
 							html +=`<div class="bzy-e-list-info-sale flex">
-										<span style="color:#CF3737;">已售罄</span>
+										<span style="color:#CF3737;">${artworkText.sellOut}</span>
 									</div>
 									<div class="bzy-e-list-info-creator flex">
 										<div><img src="./images/t8.png"></div>
 										<span>@ATTA</span>
 									</div>
-									<div class="bzy-e-list-info-btn flex">立即購買  -></div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
+									</div>
 								</div>
 							</a>
 						</li>`;
@@ -112,13 +117,16 @@ function getArtworkList(current,pageSize,name,typeId){
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
-										<span>預售</span>
+										<span>${artworkText.preSale}</span>
 									</div>
 									<div class="bzy-e-list-info-creator flex">
 										<div><img src="./images/t8.png" ></div>
 										<span>@ATTA</span>
 									</div>
-									<div class="bzy-e-list-info-btn flex">立即購買  -></div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
+										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">拍賣未開始</span>
+									</div>
 								</div>
 							</a>
 						</li>`;
@@ -139,7 +147,10 @@ function getArtworkList(current,pageSize,name,typeId){
 										<div><img src="./images/t8.png" ></div>
 										<span>@ATTA</span>
 									</div>
-									<div class="bzy-e-list-info-btn flex">立即購買  -></div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
+										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">${artworkText.auction}</span>
+									</div>
 								</div>
 							</a>
 						</li>`;
@@ -150,13 +161,16 @@ function getArtworkList(current,pageSize,name,typeId){
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
-										<span>銷售已結束</span>
+										<span>${artworkText.salesClosed}</span>
 									</div>
 									<div class="bzy-e-list-info-creator flex">
 										<div><img src="./images/t8.png" ></div>
 										<span>@ATTA</span>
 									</div>
-									<div class="bzy-e-list-info-btn flex">立即購買  -></div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
+										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">${artworkText.salesClosed}</span>
+									</div>
 								</div>
 							</a>
 						</li>`;
@@ -180,9 +194,8 @@ function getArtworkList(current,pageSize,name,typeId){
 
 // 获取类型
 function getTypeList(){
-	
 	$.ajax({
-		url:base_url+'/v2/commodity/type/list',
+		url:base_url+`/v2/commodity/type/list?channelId=${channelId}`,
 		success:function(res){
 			if(res.code==0){
 				var html_pc = ``;
@@ -196,8 +209,7 @@ function getTypeList(){
 				$('.bzy-d-head-left-mobile-list ul').append(html_mobile);
 			}
 		}
-	})
-	
+	})	
 }
 
 
@@ -212,8 +224,6 @@ function typeToggle(obj){
 	$('.bzy-e-list').html('');
 	getArtworkList(1,9,'',typeId);
 }
-
-
 
 $(function(){
 	var current = 1;

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>註冊</title>
+	<title></title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/normalize.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css"/>
@@ -16,8 +16,10 @@
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
 	<style>
 		.regType{
 			display: none;
@@ -65,47 +67,108 @@
 	
 </head>
 <body>
-	<div class="sign flex">
-		<div class="sign-container flex">
-			<div class="sign-form">
-				<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
-				<div class="sign-tit">註冊</div>
-				<div class="sign-tip">開始收集明星NFT數字藏品。</div>
-				<div class="sign-input">
-					<p><input id="nickname" type="text" placeholder="您的暱稱（向公眾展示）" /></p>
-					<p>
-						<input id="email" type="text" placeholder="電子信箱地址" />
-						<span class="sign-check-tip"></span>
-					</p>
-					<p style="position: relative;">
-						<input id="pwd" type="password" placeholder="密碼" oninput="judgepsw()"/>
-						<img style="display: none;" class="password-icon1" src="./images/refuse.png" />
-						<span style="display: none;" class="pswerror">密碼不符合要求</span>
-						<span class="sign-warn-check">密碼至少8位，請至少包含一個大寫字母和一個小寫字母</span>
-					</p>
-					<p>
-						<input id="pwd2" type="password" placeholder="再次輸入密碼" oninput="judgepsw()"/>
-						<img style="display: none;" class="password-icon2" src="./images/refuse.png" />
-						<span class="sign-check-tip2"></span>
-					</p>
-					<p class="regType"><input id="regType" type="text" name="regType" placeholder="邀請碼"/></p>
+	<div id="signup" v-cloak>
+		<div class="sign flex" id="signuppage">
+			<div class="sign-container flex">
+				<div class="sign-form">
+					<div class="sign-close"><a href="index.html"><img src="./images/Close.png" ></a></div>
+					<div class="sign-tit">{{chEnTextHtml[languageType].title}}</div>
+					<div class="sign-tip">{{chEnTextHtml[languageType].tips}}</div>
+					<div class="sign-input">
+						<p><input id="nickname" type="text" :placeholder="chEnTextHtml[languageType].nickname" /></p>
+						<p>
+							<input id="email" type="text" :placeholder="chEnTextHtml[languageType].email" />
+							<span class="sign-check-tip"></span>
+						</p>
+						<p style="position: relative;">
+							<input id="pwd" type="password" :placeholder="chEnTextHtml[languageType].psw" oninput="judgepsw()"/>
+							<img style="display: none;" class="password-icon1" src="./images/refuse.png" />
+							<span style="display: none;" class="pswerror">{{chEnTextHtml[languageType].pswerr}}</span>
+							<span class="sign-warn-check">{{chEnTextHtml[languageType].pswrule}}</span>
+						</p>
+						<p>
+							<input id="pwd2" type="password" :placeholder="chEnTextHtml[languageType].pswagrn" oninput="judgepsw()"/>
+							<img style="display: none;" class="password-icon2" src="./images/refuse.png" />
+							<span class="sign-check-tip2"></span>
+						</p>
+						<p class="regType"><input id="regType" type="text" name="regType" :placeholder="chEnTextHtml[languageType].yqmcode"/></p>
+					</div>
+					<div class="sign-btn flex">
+						<p class="sign-btn-register"><button type="button" data-click="0">{{chEnTextHtml[languageType].dj}}</button></p>
+					<!-- 	<p class="sign-btn-or">OR</p> 
+						<p class="sign-btn-facebook"><button type="button">Continue with Facebook</button></p>
+						<p class="sign-btn-google"><button type="button">Continue with Google</button></p> -->
+					</div>
+					<div class="sign-login sign-check">
+						<input type="checkbox" name="checkbox" id="agree">{{chEnTextHtml[languageType].me}}<a href="agreement.html">{{chEnTextHtml[languageType].userrule}}</a>{{chEnTextHtml[languageType].and}}<a href="privacy.html">{{chEnTextHtml[languageType].ysrule}}</a>
+					</div>
+					<div class="sign-login">{{chEnTextHtml[languageType].iszh}}<a href="login.html">{{chEnTextHtml[languageType].login}}</a></div>
 				</div>
-				<div class="sign-btn flex">
-					<p class="sign-btn-register"><button type="button" data-click="0">登記</button></p>
-				<!-- 	<p class="sign-btn-or">OR</p> 
-					<p class="sign-btn-facebook"><button type="button">Continue with Facebook</button></p>
-					<p class="sign-btn-google"><button type="button">Continue with Google</button></p> -->
-				</div>
-				<div class="sign-login sign-check">
-					<input type="checkbox" name="checkbox" id="agree">我已閱讀並同意<a href="agreement.html">《用戶協議》</a>及<a href="privacy.html">《 隱私政策》</a>
-				</div>
-				<div class="sign-login">您有賬戶？<a href="login.html">登 入</a></div>
 			</div>
 		</div>
+		
+		<div class="tips"></div>
 	</div>
-	
-	<div class="tips"></div>
 	
 </body>
 <script src="./js/signup.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#signup',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					title : "註冊",
+					tips:"開始收集明星NFT數字藏品。",
+					nickname:"您的暱稱（向公眾展示）",
+					email:"電子信箱地址",
+					psw:"密碼",
+					pswerr:"密碼不符合要求",
+					pswrule:"密碼至少8位，請至少包含一個大寫字母和一個小寫字母",
+					pswagrn:"再次輸入密碼",
+					yqmcode:"邀請碼",
+					dj:"登記",
+					me :"我已閱讀並同意",
+					userrule :"《用戶協議》",
+					and :"及",
+					ysrule :"《 隱私政策》",
+					iszh :"您有賬戶？",
+					login :"登 入"
+				},
+				"EN":{
+					title : "Register",
+					tips:"Start collecting NFT art pieces now",
+					nickname:"Your Nickname (show on profile)",
+					email:"E-mail address",
+					psw:"Password",
+					pswerr:"Doesn't meet the requirements",
+					pswrule:"At least 8 digits, must contain one upper case letter and one lower case letter",
+					pswagrn:"Re-enter your password",
+					yqmcode:"Invitation Code",
+					dj:"Submit",
+					me :"I have read and agree to",
+					userrule :'"User Agreement"',
+					and :"  and",
+					ysrule :'"Privacy Policy"',
+					iszh :"Already have an account?",
+					login :"Log in now"
+				}
+			},
+			languageType:''
+		}
+	},
+	created() {
+		let self = this;
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
+			document.title = '註冊';
+		}else{
+			document.title = 'REGISTER';
+		}
+	},
+	methods: {}
+})
+</script>
 </html>

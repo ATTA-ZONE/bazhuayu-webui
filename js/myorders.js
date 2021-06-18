@@ -1,4 +1,4 @@
-
+var myordersText = chEnText.myOrders[lang];
 
 var param = window.location.search.substr(1);
 parm = param.split('&');
@@ -19,15 +19,15 @@ $.each(arr,function(i,v){
 
 //询问弹窗
 function zfconfirm(){
-	hsycms.confirm('confirm','去我的資產核對',
+	hsycms.confirm('confirm',myordersText.myWallt,
 		function(res){            
-			hsycms.success('success','確認');
+			hsycms.success('success',myordersText.confirm);
 			setTimeout(function(){
 				window.location.href = 'myassets.html';
 			},1500)
 		},
 		function(res){
-			hsycms.error('error','取消');
+			hsycms.error('error',myordersText.cancel);
 		},
 	)
 };
@@ -58,7 +58,7 @@ function getOrderList(current,pageSize){
 				// var curTime = Date.now();
 				if(data.length==0){
 					html += `<li class="flex nothing">
-					<div>暫無搜索結果</div></li>`;
+					<div>${myordersText.noResults}</div></li>`;
 					$('.my-assets ul').css('padding-top','100px');
 				}else{
 					
@@ -74,8 +74,8 @@ function getOrderList(current,pageSize){
 						html += 
 						`<li class="flex" data-storage="`+v.storage+`" data-edition="`+v.edition+`">
 							<div class="my-orders-head none">
-								<div class="my-orders-time-mb flex newstyle-date"><span>購買日期：</span><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
-								<div class="my-orders-number-mb newstyle-id">訂單號 # `+v.orderNo+`</div>
+								<div class="my-orders-time-mb flex newstyle-date"><span>${myordersText.buyDate}</span><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
+								<div class="my-orders-number-mb newstyle-id">${myordersText.number}`+v.orderNo+`</div>
 							</div>
 							<div class="my-orders-body flex">
 								<div class="my-orders-left">`;
@@ -90,16 +90,16 @@ function getOrderList(current,pageSize){
 						
 						html+=	`</div>
 								<div class="my-orders-right">
-									<div class="my-orders-time flex"><span>購買日期：</span><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
+									<div class="my-orders-time flex"><span>${myordersText.buyDate}</span><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
 									<div class="my-orders-order">
-										<div class="my-orders-order-number">訂單號 # `+v.orderNo+`</div>
+										<div class="my-orders-order-number">${myordersText.number}`+v.orderNo+`</div>
 										<div class="my-orders-order-tit">`+v.name+`</div>
 									</div>
 									<div class="my-orders-tit-mb newstyle-name">`+v.name+`</div>
 									<div class="flex" style="flex-wrap: wrap;color:#fff;align-items: center;padding-bottom: 15px;">
 										<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
 										<span style="margin-right:10px;">@ATTA</span>
-										<p class="details-right-creator-edition" style="margin:0px;">已購第<span style="color: #9567FF;">`+(v.edition.split(',')).join('、')+`</span>版，共<span>`+v.endEdition+`</span>版</p>
+										<p class="details-right-creator-edition" style="margin:0px;">${myordersText.purchased}<span style="color: #9567FF;">`+(v.edition.split(',')).join('、')+`</span>${myordersText.version01}<span>`+v.endEdition+`</span>${myordersText.version02}</p>
 									</div>
 									<div class="my-orders-status">
 									`;
@@ -152,10 +152,10 @@ function getOrderList(current,pageSize){
 							// 		</div>`;
 						}
 						if (v.payMethod == 1) {
-							html +=`<div class="paymenttypebox">支付方式：<span>加密貨幣</span></div>
+							html +=`<div class="paymenttypebox">${myordersText.paymentMethod}<span>${myordersText.cryptocurrencies}</span></div>
 									<div class="countmoneybox">
 									<p class="moneryridebox">
-										單價：
+									${myordersText.price}
 										<span class="order-price-busd">BUSD `+moneyFormat(v.unitPriceUsdt)+` </span>
 									</p>
 									<p class="countetcbox">
@@ -164,13 +164,13 @@ function getOrderList(current,pageSize){
 										=
 									</p>
 								</div>
-								<p class="purchaseprice">購買價格 : BUSD `+moneyFormat(v.payPriceUsdt)+` </p>`
+								<p class="purchaseprice">${myordersText.purchasePrice}BUSD `+moneyFormat(v.payPriceUsdt)+` </p>`
 						}
 						if (v.payMethod == 2) {
-							html +=`<div class="paymenttypebox">支付方式：<span>銀行卡支付</span></div>
+							html +=`<div class="paymenttypebox">${myordersText.paymentMethod}<span>${myordersText.bankCard}</span></div>
 									<div class="countmoneybox">
 									<p class="moneryridebox">
-										單價：
+									${myordersText.price}
 										<span class="cur order-price-hdk">HK$`+moneyFormat(v.unitPriceHkd)+` </span>
 									</p>
 									<p class="countetcbox">
@@ -179,7 +179,7 @@ function getOrderList(current,pageSize){
 										=
 									</p>
 								</div>
-								<p class="purchaseprice">購買價格 : HK$ `+moneyFormat(v.payPriceHkd)+`  </p>`
+								<p class="purchaseprice">${myordersText.purchasePrice}HK$ `+moneyFormat(v.payPriceHkd)+`  </p>`
 						}
 						
 											
@@ -257,7 +257,7 @@ function payNow(obj){
 			if(result.code==0){
 				$('.busd-ye').text('BUSD '+moneyFormat(result.data.usdtRest));
 				if(Number(payPriceUsdt) > Number(result.data.usdtRest)){
-					$('.busd-tip').text('餘額不足');
+					$('.busd-tip').text(myordersText.balanceInsufficient);
 				}else{
 					$('.busd-tip').text('-'+moneyFormat(payPriceUsdt));
 				}
@@ -271,8 +271,6 @@ function payNow(obj){
 		$('.my-orders-btn-paynow').addClass('payment-btn-mobile');
 		
 		$('.payment-btn-mobile').on('click',function(){
-			// var status = $(this).data('status');
-			// console.log(status)
 			$('.payment').addClass('payment-active')
 			$('video').addClass('video-hidden');
 			$('.payment-page-left-img video').removeClass('video-hidden');
@@ -318,13 +316,13 @@ function payNow(obj){
 $(function(){
 	
 	if(success_status==1){
-		success('支付成功',1800);
+		success(myordersText.paySuc,1800);
 		setTimeout(function(){
 			zfconfirm();
 		},1800)
 		
 	}else if(success_status==0){
-		error('支付失敗',1800);
+		error(myordersText.payErr,1800);
 	}
 	
 	
@@ -378,22 +376,22 @@ $(function(){
 			$('.order-price .order-price-busd').hide();
 			$('.payment-page-right-select').show();
 			$('.payment-page-right-busd').hide();
-			$('.payment-page-right-btn p').text('您的信用卡將被立即授權');
+			$('.payment-page-right-btn p').text(myordersText.cardAuthorization);
 		};
 		
 		if(text==1){
 			$('.payment-page-right-btn').show();
 			$('.payment-page-right-btn button').addClass('can');
-			if($('.busd-tip').text()=='餘額不足'){
-				$('.payment-page-right-btn button').text('充值');
+			if($('.busd-tip').text()==myordersText.balanceInsufficient){
+				$('.payment-page-right-btn button').text(myordersText.recharge);
 			}else{
-				$('.payment-page-right-btn button').text('立即付款');
+				$('.payment-page-right-btn button').text(myordersText.payment);
 			}
 			$('.order-price .order-price-hdk').hide();
 			$('.order-price .order-price-busd').show();
 			$('.payment-page-right-select').hide();
 			$('.payment-page-right-busd').show();
-			$('.payment-page-right-btn p').text('您的錢包將立即得到授權');
+			$('.payment-page-right-btn p').text(myordersText.walletImpower);
 		}
 	});
 	
@@ -413,23 +411,23 @@ $(function(){
 					data:JSON.stringify({orderNo:orderNo}),
 					success:function(res){
 						if(res.code==0){
-							success('支付成功',1800);
+							success(myordersText.paySuc,1800);
 							setTimeout(function(){
-								$('.payment-page-right-tit').text('完成');
+								$('.payment-page-right-tit').text(myordersText.accomplis);
 								$('.payment-page-right-order').show();
 								$('.payment-page-right-pay').hide();
 								$('.payment-page-right-total').hide();
 								$('.payment-page-right-busd').hide();
-								$('.payment-page-right-btn button').text('去我的資產核對');
+								$('.payment-page-right-btn button').text(myordersText.toAssets);
 								$('.payment-page-right-order-je span').text(busd);
-								$('.payment-page-right-order-by span').text('餘額支付');
+								$('.payment-page-right-order-by span').text(myordersText.balancePayment);
 							},1800);
 						}
 					}
 				})
 			}else if(value=='充值'){
 				window.open('mywallet.html');
-			}else if(value=='去我的資產核對'){
+			}else if(value==myordersText.toAssets){
 				window.location.href = 'myassets.html';
 			}
 		}

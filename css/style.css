@@ -111,7 +111,6 @@ html {
 }
 
 .header-left {
-	width: 470px;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -121,14 +120,16 @@ html {
 }
 
 .header-left ul {
-	width: 180px;
+	margin-left: 20px;
 	justify-content: space-between;
 }
 
 .header-left ul li {
 	border-bottom: 1px solid #141414;
+	padding: 0 10px;
 	padding-bottom: 10px;
 	transition: all 0.3s;
+	margin: 0 10px;
 }
 
 .header-left ul li a {
@@ -166,7 +167,8 @@ html {
 }
 
 .header-right-login {
-	width: 76px;
+	/* width: 76px; */
+	padding: 0 7px;
 	height: 38px;
 	background: #9567FF;
 	border-radius: 2px;
@@ -2089,6 +2091,7 @@ html {
 
 .tc-login-right-form .form-ipt div {
 	align-items: center;
+	-webkit-user-select:text !important;
 }
 
 .tc-login-right-form .form-ipt div img {
@@ -3102,6 +3105,13 @@ html {
 	line-height: 150%;
 	color: #fff;
 	opacity: 0.7;
+	position: relative;
+}
+.copybtn{
+	position: absolute;
+	right: -8px;
+	bottom: 0;
+	cursor: pointer;
 }
 
 .modify-ipt input {
@@ -4057,7 +4067,7 @@ html {
 	white-space: nowrap;
 }
 input,div{
-	/* -moz-user-select:none;
-	-webkit-user-select:none;
-	user-select:none;   */
+	/* -moz-user-select:auto;
+	-webkit-user-select:auto;
+	user-select:auto;   */
 }

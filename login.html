@@ -13,45 +13,88 @@
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/media.css"/>
 	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/login.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-	<!-- log in -->
-	<div class="tc login">
-		<div class="tc-container flex">
-			<div class="tc-login flex">
-				<div class="tc-close" onclick="tcHide()"><img src="./images/Close.png" ></div>
-				<div class="tc-login-left flex"><img src="./images/Asset6.png" ></div>
-				<div class="tc-login-right flex">
-					<div class="tc-login-right-form">
-						<div class="form-tit flex"><span class="language-tc">登入</span><img class="none" src="./images/Close.png" onclick="tcHide()"></div>
-						<div class="form-ipt">
-							<div class="form-ipt-email flex"><img src="./images/Email.png" ><input id="email" type="text" placeholder="電子信箱地址*" /></div>
-							<div class="form-ipt-pwd flex"><img src="./images/Key.png" ><input id="pwd" type="password" placeholder="密碼*" /></div>
-						</div>
-						<div class="form-btn flex">
-							<a href="javascript:void(0);" class="form-btn-signin flex"><span type="button">登入</span></a>
-							<!--<a href="" class="form-btn-google flex"><img src="./images/Google.png" ><span type="button">Continue with Google</span></a>
-							<a href="" class="form-btn-facebook flex"><img src="./images/Facebook.png" ><span type="button">Continue with Facebook</span></a>-->
-						</div>
-						<div class="form-tip">
-							<div class="form-tip-forget"><a href="forgotPassword.html" style="color: rgba(255,255,255,0.7);">忘記密碼？</a></div>
-							<div class="form-tip-account flex"><span>還沒有帳號？</span><a href="signup.html">註冊新賬號</a></div>
+	<div id="login" v-cloak>
+		<!-- log in -->
+		<div class="tc login" id="loginpage">
+			<div class="tc-container flex">
+				<div class="tc-login flex">
+					<div class="tc-close" onclick="tcHide()"><img src="./images/Close.png" ></div>
+					<div class="tc-login-left flex"><img src="./images/Asset6.png" ></div>
+					<div class="tc-login-right flex">
+						<div class="tc-login-right-form">
+							<div class="form-tit flex"><span class="language-tc">{{chEnTextHtml[lang].title}}</span><img class="none" src="./images/Close.png" onclick="tcHide()"></div>
+							<div class="form-ipt">
+								<div class="form-ipt-email flex"><img src="./images/Email.png" ><input id="email" type="text" :placeholder="chEnTextHtml[lang].title+'*'" /></div>
+								<div class="form-ipt-pwd flex"><img src="./images/Key.png" ><input id="pwd" type="password" :placeholder="chEnTextHtml[lang].psw" /></div>
+							</div>
+							<div class="form-btn flex">
+								<a href="javascript:void(0);" class="form-btn-signin flex"><span type="button">{{chEnTextHtml[lang].title}}</span></a>
+								<!--<a href="" class="form-btn-google flex"><img src="./images/Google.png" ><span type="button">Continue with Google</span></a>
+								<a href="" class="form-btn-facebook flex"><img src="./images/Facebook.png" ><span type="button">Continue with Facebook</span></a>-->
+							</div>
+							<div class="form-tip">
+								<div class="form-tip-forget"><a href="forgotPassword.html" style="color: rgba(255,255,255,0.7);">{{chEnTextHtml[lang].wjpsw}}</a></div>
+								<div class="form-tip-account flex"><span>{{chEnTextHtml[lang].nozh}}</span><a href="signup.html">{{chEnTextHtml[lang].zczh}}</a></div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		<div class="tc-mask"></div>
+		
+		<div class="tips"></div>
 	</div>
 	
-	<div class="tc-mask"></div>
-	
-	<div class="tips"></div>
-	
 </body>
-<script src="./js/login.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#login',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					title : "登入",
+					emil :"電子信箱地址*",
+					psw : "密碼*",
+					wjpsw : "忘記密碼？",
+					nozh : "還沒有帳號？",
+					zczh : "註冊新賬號"
+				},
+				"EN":{
+					title : "Log in",
+					emil :"E-mail address*",
+					psw : "Password*",
+					wjpsw : "Forgot password？",
+					nozh : "Don't have an account?",
+					zczh : "Sign up now"
+				}
+			},
+			lang:''
+		}
+	},
+	created() {
+		let self = this;
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
+			document.title = '登入';
+		}else{
+			document.title = 'LOGIN IN';
+		}
+	}
+})
+</script>
 </html>
