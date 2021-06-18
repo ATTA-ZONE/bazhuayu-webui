@@ -74,7 +74,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						
 						html += 
 						`<li>
-							<a class="artwork-mask" href="artworkDetails.html?id=`+v.id+`"><div class="artwork-mask-wrap"></div>`;
+							<a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 						
 						if(geshi=='mp4'){
 							
@@ -88,7 +88,6 @@ function getArtworkList(current,pageSize,name,typeId){
 						
 									
 						if(timeStatus==0){
-							
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
@@ -103,11 +102,11 @@ function getArtworkList(current,pageSize,name,typeId){
 										<span>@ATTA</span>
 									</div>
 									<div class="flex btnbox">
-										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
-									</div>
-								</div>
-							</a>
-						</li>`;
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>`;
+										if (v.releaseType == 2) {
+											html += `<span class="pmstatus">${artworkText.auction}</span>`;
+										}
+								html += `</div></div></a></li>`;
 							
 						}else if(timeStatus==1){
 						
@@ -124,12 +123,11 @@ function getArtworkList(current,pageSize,name,typeId){
 										<span>@ATTA</span>
 									</div>
 									<div class="flex btnbox">
-										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
-										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">拍賣未開始</span>
-									</div>
-								</div>
-							</a>
-						</li>`;
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>`;
+									if (v.releaseType == 2) {
+										html += `<span class="pmstatus">${artworkText.auction}</span>`;
+									}
+							html += `</div></div></a></li>`;
 						
 						// html += `<div class="bzy-e-list-yushou flex"><span>發售預告</span><span>`+v.name+`</span></div>`;
 						
@@ -148,12 +146,11 @@ function getArtworkList(current,pageSize,name,typeId){
 										<span>@ATTA</span>
 									</div>
 									<div class="flex btnbox">
-										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
-										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">${artworkText.auction}</span>
-									</div>
-								</div>
-							</a>
-						</li>`;
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>`;
+										if (v.releaseType == 2) {
+											html += `<span class="pmstatus">${artworkText.auction}</span>`;
+										}
+							html += `</div></div></a></li>`;
 						}else if(timeStatus==3){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
@@ -168,12 +165,11 @@ function getArtworkList(current,pageSize,name,typeId){
 										<span>@ATTA</span>
 									</div>
 									<div class="flex btnbox">
-										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>
-										<span style="${v.releaseType == 2 ? 'display : inline-block' : 'display : none'}" class="pmstatus">${artworkText.salesClosed}</span>
-									</div>
-								</div>
-							</a>
-						</li>`;
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>`;
+										if (v.releaseType == 2) {
+											html += `<span class="pmstatus">${artworkText.auction}</span>`;
+										}
+										html += `</div></div></a></li>`;
 						};   
 					});
 					
