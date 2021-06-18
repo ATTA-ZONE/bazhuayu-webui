@@ -77,11 +77,9 @@ function getArtworkList(current,pageSize,name,typeId){
 							<a class="artwork-mask pcstyle" href="auctionDetails.html?id=`+v.id+`"><div class="artwork-mask-wrap"></div>`;
 						
 						if(geshi=='mp4'){
-							
-						  html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
+						  html+=`<video class="bzy-e-list-video" x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
 							
 						}else{
-							
 						  html+=`<img class="bzy-e-list-img" src="`+v.primaryPic+`" >`;
 						  
 						}
