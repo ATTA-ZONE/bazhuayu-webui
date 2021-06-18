@@ -671,14 +671,14 @@ var app = new Vue({
 					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
 				}
 
-				$('.payment-page-right-total').show();
-				$('.payment-page-right-total p').text(this.chEnTextHtml[this.languageType].paymentComing)
+				$('.payment-page-right-total').hide();
 				$('.payment-page-right-total .order-price').hide()
 				$('.order-price .order-price-hdk').hide();
 				$('.order-price .order-price-busd').show();
 				$('.payment-page-right-select').hide();
 				$('.payment-page-right-busd').hide();
-				//$('.wallet-payment-desc').show();
+				$('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
+				$('.wallet-payment-desc').show();
 				$('#cryptoBtn').attr('disabled', true)
 			}
 		}
