@@ -237,8 +237,8 @@ var chEnText = {
       "auction":"AUCTION",
       "wallet":"Wallet connecting",
       "unBind":"Unregistered",
-      "tips01":"Your wallet is connected to the [variable: current blockchain net]. To use BSC on Bazhuayu,please switch to ",
-      "tips02":"bsc-dataseed1.ninicoin.io"
+      "tips01":"Your wallet is connected to the [",
+      "tips02":"]. To use BSC on Bazhuayu, please switch to"
     }
   },
   "connectWallet":{
