@@ -155,7 +155,7 @@ var contractSetting = {
             },
     },
     'atta_ERC1155_Airdrop' : {
-        'proxy': None,
+        'proxy': '',
         'abi': c_atta_ERC1155_Airdrop_abi,
         56:
             {
@@ -170,7 +170,7 @@ var contractSetting = {
     },
     
     'atta_ERC1155_Airdrop_MerkleProof' : {
-        'proxy': None,
+        'proxy': '',
         'abi': c_atta_ERC1155_Airdrop_MerkleProof_abi,
         56:
             {
