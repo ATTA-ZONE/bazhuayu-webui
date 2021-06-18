@@ -82,6 +82,7 @@ var app = new Vue({
 					accomplish:"完成",
 					payment:"立即付款",
 					walletFirst:"請先連接錢包  ->",
+					paymentComing: "錢包直連支付功能準備中..."
 				},
 				"EN":{
 					home:'HOME',
@@ -139,6 +140,7 @@ var app = new Vue({
 					accomplish:"complete",
 					payment:"Pay now",
 					walletFirst:"Please connect your wallet first  ->",
+					paymentComing: "Function coming soon..."
 				}
 			}
 		}
@@ -652,7 +654,7 @@ var app = new Vue({
 			}
 			if (text == 2) {
 				$('.payment-page-right-btn').hide();
-				$('.payment-page-right-crypto').show();
+				//$('.payment-page-right-crypto').show();
 				if (getCookie('isConnect') != 'true') {
 					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
 					$('#cryptoBtn').attr('disabled', false)
@@ -667,12 +669,16 @@ var app = new Vue({
 				} else {
 					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
 				}
+
 				$('.payment-page-right-total').show();
+				$('.payment-page-right-total p').text(this.chEnTextHtml[this.languageType].paymentComing)
+				$('.payment-page-right-total .order-price').hide()
 				$('.order-price .order-price-hdk').hide();
 				$('.order-price .order-price-busd').show();
 				$('.payment-page-right-select').hide();
 				$('.payment-page-right-busd').hide();
-				$('.wallet-payment-desc').show();
+				//$('.wallet-payment-desc').show();
+				$('#cryptoBtn').attr('disabled', true)
 			}
 		}
 	}
