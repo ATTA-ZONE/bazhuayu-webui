@@ -8,7 +8,7 @@ url = url.substring(0,url.indexOf('.'));
 var base_url = '';
 var islogin;
 var walletId = '';
-var targetChainId = '';
+var targetChainId = 56;
 
 if (getCookie('islogin') != 'false') {
 	islogin = true;
@@ -18,11 +18,10 @@ if (getCookie('islogin') != 'false') {
 
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	base_url = 'http://localhost:8081';
-	targetChainId = 97;
 	if (window.location.href.indexOf('47.118.74.48:') > -1) {
 		base_url = 'http://47.118.74.48:'+window.location.port;
-		targetChainId = 56;
 	}
+	targetChainId = 97;
 }
 var lang = getCookie("lang")?getCookie("lang"):'TC';
 var commonText = chEnText.common[lang];
