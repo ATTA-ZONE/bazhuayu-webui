@@ -322,6 +322,7 @@ var app = new Vue({
 						var saleEndTimeMillis = res.data.saleEndTimeMillis; //销售结束时间
 						var systemTime = res.data.systemTime; //当前时间
 						var geshi = res.data.primaryPic.substr(res.data.primaryPic.lastIndexOf('.') + 1);
+						var maxeditionnum = res.data.edition > res.data.endEdition ? res.data.endEdition : res.data.edition;
 						self.selectarr.push(res.data.edition);
 						window.$selectarr = self.selectarr;
 						self.maxbannum = res.data.endEdition;
@@ -349,8 +350,8 @@ var app = new Vue({
 						if (res.data.name == '徐冬冬 牛N.X潮玩 NFT限量版' || res.data.name == 'Xu Dongdong_Nu N.X Trendy Play _Limited') {
 							res.data.edition = 200;
 						}
-						$('.details-right-creator-edition').text('Edition ' + res.data.edition + ' of ' + res.data.endEdition);
-						$('.selectarrnum').text(res.data.edition);
+						$('.details-right-creator-edition').text('Edition ' + maxeditionnum + ' of ' + res.data.endEdition);
+						$('.selectarrnum').text(maxeditionnum);
 						if(self.languageType == "TC"){
 							$('.order-introduce').html(res.data.introduce == '' ? '暫無介紹' : (res.data.introduce.replace(/;\|;/g, '<br>')));
 							$('.order-content').html(res.data.content == '' ? '暫無更多資訊' : (res.data.content.replace(/;\|;/g, '<br>')));
