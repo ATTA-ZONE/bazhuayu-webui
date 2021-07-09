@@ -463,7 +463,7 @@ function connectWallet(){
 		url:base_url+'/v2/user/account',
 		success:function(res){
 			if(res.code==0){
-				//var text = $('.header-right-wallet').text().trim();
+				var text = $('.header-right-wallet').text().trim();
 				if(text =='錢包連接中' || text == 'Wallet connecting'){
 					window.location.href = 'connectWallet.html';
 				}else{
