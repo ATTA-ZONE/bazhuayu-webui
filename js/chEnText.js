@@ -263,7 +263,7 @@ var chEnText = {
       "logWtllet":"Your default wallet has changed to:",
       "connectWallet":"Please connect your wallet",
       "walletAddress":"Wallet address：",
-      "tips01":"Note: The NFT asset you purchased will be sent the current default wallet only!",
+      "tips01":"Note: The NFT assets you purchased will be sent to the current default wallet only!",
       "tips02":"（ Please click the 'wallet connected' button to change to another wallet if you need. ）",
       "know":"Got it!",
       "changeWallet":"This wallet is the default wallet of an account, please try a defferent one.",
@@ -453,16 +453,16 @@ var chEnText = {
   },
   "showwallet":{
     "TC":{
-      "bindWallt":"當前綁定錢包地址如下：",
-      "NFTWallt":"當前購買的所有NFT資產將會默認發送至以上錢包地址",
+      "bindWallt":"當前默認錢包地址如下：",
+      "NFTWallt":"請注意：您購買的NFT資產只會發放至當前的默認錢包地址",
       "change":"更換",
       "delete":"刪除",
       "cancel":"取消",
       "deleteSuc":"删除成功"
     },
     "EN":{
-      "bindWallt":"Current wallet address：",
-      "NFTWallt":"All NFT assets you purchased will be sent to the address above.",
+      "bindWallt":"Current default wallet address：",
+      "NFTWallt":"Note: The NFT assets you purchased will be sent to the current default wallet only!",
       "change":"Change",
       "delete":"Delete",
       "cancel":"Cancel",
