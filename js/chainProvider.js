@@ -69,10 +69,11 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				var ads = arguments[0];
 
 				var t=getCookie(th.__wallet__);
+				var wallet=th[t];
 				if (th.isConnected(t)) {
 					var res =  await th.provider().request({ method: 'eth_accounts'});		
 				} else {
-					var res =  await th.enable();
+					var res =  await wallet.__enable();
 				}
 				var res = await th.provider().request({ method: 'eth_accounts' });
         		if (res.length > 0) {
@@ -86,11 +87,12 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 			__accounts: async function() {
 				var th=W.CHAIN.WALLET;
 				var t=getCookie(th.__wallet__);
+				var wallet=th[t];
 				if (th.isConnected(t)) {
-					var res =  await th.provider().request({ method: 'eth_accounts'});
+					var res = await th.provider().request({ method: 'eth_accounts'});
 					return res;
 				} else {
-					var res =  await th.enable();
+					var res =  await wallet.__enable();
 					return res;
 				}
 				// var res =  await th.provider().request({ method: 'eth_accounts'});
@@ -101,12 +103,13 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 			__chainId: async function() {
 				var th=W.CHAIN.WALLET;
 				var t=getCookie(th.__wallet__);
+				var wallet=th[t];
 				if (th.isConnected(t)) {
 					var res =  await th.provider().request({ method: 'eth_chainId'});
 					if (typeof(res)=='string') {res=Web3.utils.hexToNumber(res);}
 					return res;
 				} else {
-					await th.enable();
+					await wallet.__enable();
 					var res =  await th.provider().request({ method: 'eth_chainId'});
 					if (typeof(res)=='string') {res=Web3.utils.hexToNumber(res);}
 					return res;
