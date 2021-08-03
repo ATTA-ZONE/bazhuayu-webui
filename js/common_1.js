@@ -82,7 +82,7 @@ function closeBsc() {
 }
 
 function RPCSwitchHint(res) {
-	if (res != 56 && getCookie('isConnect')=='true') {
+	if (res != targetChainId && getCookie('isConnect')=='true') {
 		$('.rpcname').text(commonText.tips01+RPCSetting[res]['CHAIN_NAME']+commonText.tips02);
 		$('.target-rpcname').text(RPCSetting[targetChainId]['CHAIN_NAME']);
 		$('.bsc-tips').show()
