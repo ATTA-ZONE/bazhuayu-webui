@@ -60,13 +60,14 @@ var app = new Vue({
 			}, 300);
 		},
 		clickdelete2(){
+			let that = this;
 			$.ajax({
 				url: base_url + '/v2/user/wallet/delete',
 				type: 'POST',
 				dataType: 'json',
 				success: function (res) {
 					if (res.code == 0) {
-						success(this.deleteSuc, 1800);
+						success(that.deleteSuc, 1800);
 						// document.cookie = "isConnect=false";
 						setCookie("isConnect",false);
 						setTimeout(function () {
