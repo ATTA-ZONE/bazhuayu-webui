@@ -471,9 +471,7 @@ function connectWallet(){
 				}
 				
 			}else{
-			
 				tips(functionText.noLog);
-			
 			}
 		}
 	});
