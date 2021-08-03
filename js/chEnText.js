@@ -144,7 +144,8 @@ var chEnText = {
       "msg02":"轉到MetaMask的網站",
       "address01":"當前連接錢包地址為：",
       "address02":"當前頁面的競拍記錄以當前連接的錢包為準，如果您使用了其他錢包參與競拍，可以切換至其他錢包查看競拍記錄。",
-      "walletLose":"錢包連接已失效，請重新連接錢包"
+      "walletLose":"錢包連接已失效，請重新連接錢包",
+      "bidText":"請先連接錢包，連接錢包后才可完整顯示競標記錄。"
     },
     "EN":{
       "haveBid":"My offer",
@@ -162,7 +163,8 @@ var chEnText = {
       "msg02":"Go to metamask's website",
       "address01":"Current wallet address：",
       "address02":"The bidding records shown are attatched to current wallet. You can switch to other wallet if you want to check the bidding records related to other wallet.",
-      "walletLose":"Wallet connection has failed. Please re-connect your wallet"
+      "walletLose":"Wallet connection has failed. Please re-connect your wallet",
+      "bidText":"Please connect your wallet first to show complete bidding info."
     }
   },
   "auctionPayment":{
