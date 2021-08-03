@@ -313,7 +313,7 @@ function showwalletaddress(e){
 function displayWalletStatus(status, account){
 	if (status==0) {
 		// 钱包与 绑定钱包 相同
-		//setCookie('isConnect',true);
+		setCookie('isConnect',true);
 		$('.header-right-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">'+commonText.connectWallet+'</span><p class="walletIdshow">'+ account[0] +'</p>');
 		$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">'+commonText.connectWallet+'</a><p class="walletIdshow">'+ account[0] +'</p>');		
 			$('.mobile-connect-wallet').html('<img src="./images/point.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">'+commonText.connectWallet+'</a><p class="walletIdshow">'+ account[0] +'</p>');
