@@ -464,7 +464,7 @@ function connectWallet(){
 		success:function(res){
 			if(res.code==0){
 				var text = $('.header-right-wallet').text().trim();
-				if(text =='錢包連接中' || text == 'Wallet connecting'){
+				if(text==functionText.noConnectWallet){
 					window.location.href = 'connectWallet.html';
 				}else{
 					// tips('已連接');
