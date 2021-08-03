@@ -1,7 +1,7 @@
 var chEnText = {
   "mywallet":{
     "TC":{
-      "walletAddress":"當前綁定錢包地址：",
+      "walletAddress":"當前默認錢包地址：",
       "rechargeDataNull":"無法獲取充值信息",
       "deleteSuc":"删除成功",
       "connectWallet":"請連接錢包",
@@ -21,7 +21,7 @@ var chEnText = {
       "rechargeSuc":"充值已成功"
     },
     "EN":{
-      "walletAddress":"Current registered wallet：",
+      "walletAddress":"Current default wallet：",
       "rechargeDataNull":"Cannot get recharge info",
       "deleteSuc":"Delete successfully",
       "connectWallet":"Please connect your wallet",
@@ -217,7 +217,7 @@ var chEnText = {
       "home":"首頁",
       "auction":"拍賣",
       "wallet":"錢包連接中",
-      "unBind":"未綁定錢包",
+      "unBind":"非默認錢包",
       "tips01":"您的錢包當前連接的主網為：[",
       "tips02":"]，八爪娛平台當前僅支持BSC主網，點擊切換至BSC主網 ",
     },
@@ -236,20 +236,20 @@ var chEnText = {
       "home":"HOME",
       "auction":"AUCTION",
       "wallet":"Wallet connecting",
-      "unBind":"Unregistered",
+      "unBind":"Not default wallet",
       "tips01":"Your wallet is connected to the [",
       "tips02":"]. To use BSC on Bazhuayu, please switch to"
     }
   },
   "connectWallet":{
     "TC":{
-      "logWtllet":"您成功登記了一個錢包",
+      "logWtllet":"您的默認錢包已更換為如下地址",
       "connectWallet":"請連接錢包",
       "walletAddress":"錢包地址：",
-      "tips01":"請註意：您購買的NFT資產只會發放至當前登記的錢包",
+      "tips01":"請注意：您購買的NFT資產只會發放至當前的默認錢包",
       "tips02":"（ 如果您想使用其他錢包，請點擊右上角“已連接錢包”進行更換 ）",
       "know":"知道了",
-      "changeWallet":"該錢包已被綁定占有, 請更換錢包",
+      "changeWallet":"該錢包已是其他賬戶的默認錢包，請嘗試其他錢包",
       "emailErr":"郵箱未驗證",
       "loginNot":"登錄已失效，請重新登錄",
       "windowErr":"系統錯誤",
@@ -258,13 +258,13 @@ var chEnText = {
       "alert":"請使用任意錢包Dapp中自帶的瀏覽器訪問 bazhuayu.io，則可成功連接錢包。或請使用電腦，通過瀏覽器的錢包插件連接錢包。"
     },
     "EN":{
-      "logWtllet":"You successfully registered a wallet",
+      "logWtllet":"Your default wallet has changed to:",
       "connectWallet":"Please connect your wallet",
       "walletAddress":"Wallet address：",
-      "tips01":"Note: The NFT assets you purchased will be sent to the current wallet you connected only.",
+      "tips01":"Note: The NFT asset you purchased will be sent the current default wallet only!",
       "tips02":"（ Please click the 'wallet connected' button to change to another wallet if you need. ）",
       "know":"Got it!",
-      "changeWallet":"This wallet has been registered to an account, please try another wallet",
+      "changeWallet":"This wallet is the default wallet of an account, please try a defferent one.",
       "emailErr":"E-mail not verified",
       "loginNot":"Please log in first.",
       "windowErr":"System Error",
