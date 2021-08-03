@@ -376,28 +376,28 @@ $.ajax({
 					$('.bid-right-tip').data('address', userAddress);
 					if (res.code == 0) { //1002
 						if (res.data.address == null || res.data.address == '') {
-							$.ajax({
-								url: '/v2/user/wallet/bind',
-								type: 'POST',
-								contentType: 'application/json',
-								dataType: 'json',
-								data: JSON.stringify({
-									address: userAddress,
-									walletType: 'TOKEN POCKET'
-								}),
-								success: function (res) {
-									if (res.code == 0) {
-										setCookie('isConnect', true)
-										if (c) {
-											c();
-										} else {
-											window.location.href = document.referrer;
-										}
-									} else {
-										tips(res.message)
-									}
-								}
-							});
+							// $.ajax({
+							// 	url: '/v2/user/wallet/bind',
+							// 	type: 'POST',
+							// 	contentType: 'application/json',
+							// 	dataType: 'json',
+							// 	data: JSON.stringify({
+							// 		address: userAddress,
+							// 		walletType: 'TOKEN POCKET'
+							// 	}),
+							// 	success: function (res) {
+							// 		if (res.code == 0) {
+							// 			setCookie('isConnect', true)
+							// 			if (c) {
+							// 				c();
+							// 			} else {
+							// 				window.location.href = document.referrer;
+							// 			}
+							// 		} else {
+							// 			tips(res.message)
+							// 		}
+							// 	}
+							// });
 						} else if (userAddress != res.data.address) {
 							window.alert(auctionText.msg01 + res.data.address + "\n" + auctionText.msg02);
 						};
