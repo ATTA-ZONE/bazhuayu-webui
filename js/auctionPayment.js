@@ -4,7 +4,7 @@ var userPrice = urlauctionPayment[1].split("&id")[0];
 var urlid = urlauctionPayment[2].split("&tokenTypeId")[0];
 var tokenTypeId = urlauctionPayment[urlauctionPayment.length - 1];
 function backAuction() {
-	window.location.href = 'auction.html';
+	window.location.href = 'auctionDetails.html?id=5';
 }
 function bindWallet(targetAddress) {
 	$.ajax({
