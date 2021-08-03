@@ -2,10 +2,10 @@ var app = new Vue({
 	el: '#app',
 	data: function () {
 		return {
-			wallettitle:"當前綁定錢包地址如下：",
+			wallettitle:"當前默認錢包地址如下：",
 			isshowicon : false,
 			walletIdvue:'',
-			tipscon:"當前購買的所有NFT資產將會默認發送至以上錢包地址",
+			tipscon:"請注意：您購買的NFT資產只會發放至當前的默認錢包地址",
 			btn1name:"更換",
 			btn2name:"刪除",
 			btn3name:"取消",
@@ -18,8 +18,8 @@ var app = new Vue({
 		this.getwallettype();
 		this.lang = getCookie("lang")?getCookie("lang"):'TC';
 		if(this.lang == 'EN'){
-			this.wallettitle = "Current wallet address：";
-			this.tipscon = "All NFT assets you purchased will be sent to the address above.";
+			this.wallettitle = "Current default wallet address：";
+			this.tipscon = "Note: The NFT assets you purchased will be sent to the current default wallet only!";
 			this.btn1name = "Change";
 			this.btn2name = "Delete";
 			this.btn3name = "Cancel";
