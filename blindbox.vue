@@ -56,9 +56,9 @@
 		  <div class="purchasebox">
 			  <div class="between flex">
 				  <span>{{chEnTextHtml[lang].purchase1 + leftAmount + " / " + storge}}</span>
-				  <span>{{chEnTextHtml[lang].purchase2}}</span>
 				  <p class="between flex">
 					<span>{{chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2}}</span>
+					<img class="question" src="./images/question.png" alt="">
 					<button class="cjbtn">{{chEnTextHtml[lang].purchase5}}</button>
 				  </p>
 			  </div>
@@ -66,8 +66,12 @@
 				  <span>{{chEnTextHtml[lang].purchase3}}</span>
 				  <p class="between flex">
 					<span>{{chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1}}</span>
+					<img class="question" src="./images/question.png" alt="">
 					<button class="cjbtn">{{chEnTextHtml[lang].purchase5}}</button>
 				  </p>
+			  </div>
+			  <div class="tips1">
+				<span>{{chEnTextHtml[lang].purchase2}}</span>
 			  </div>
 		  </div>
 		  <div class="zscjbox between flex">
@@ -156,8 +160,8 @@ module.exports = {
 					},
 					"EN":{
 						luckdrawintroduce_con : "",
-						luckdrawintroduce_btn1 : "單抽",
-						luckdrawintroduce_btn2 : "十連抽",
+						luckdrawintroduce_btn1 : "單抽enen",
+						luckdrawintroduce_btn2 : "十連抽enen",
 						probability : "本张卡概率：",
 						gathertogether1 : "集齊RIta系列NFT即可能獲得開黑機會~",
 						gathertogether2 : "集齊爱萝莉系列NFT即可能獲得開黑機會~",
@@ -400,11 +404,20 @@ module.exports = {
 	color: #FFFFFF;
 	font-size: 24px;
 }
+.cardsbox .purchasebox .tips1{
+	text-align: right;
+	font-size: 20px;
+	margin-top: 32px;
+}
 .cardsbox .purchasebox button{
-	margin-left: 36px;
+	margin-left: 80px;
 }
 .cardsbox .purchasebox>.between:nth-child(2){
 	margin-top: 16px;
+}
+.cardsbox .purchasebox .between .question{
+	margin-left: 9.5px;
+	cursor: pointer;
 }
 .zscjbox{
 	text-align: center;
