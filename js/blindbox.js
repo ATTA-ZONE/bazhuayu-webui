@@ -189,7 +189,7 @@ var app = new Vue({
 			curUserOwned: 0,
 			oneUserCountLimit: 0,
 			onceCountLimit: 0,
-			payTabs: ['信用卡', '餘額支付', '錢包支付'],
+			payTabs: ['信用卡', '餘額支付'],
 			selectedPayMethod: 0,
 			basicId: 0,
 			visiable: [],
