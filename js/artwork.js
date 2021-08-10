@@ -58,7 +58,7 @@ function getArtworkList(current,pageSize,name,typeId){
 							v.edition = 200;
 						}
 						
-						if(v.endEdition - v.edition > 0){   //有库存
+						if(v.endEdition - v.edition >= 0){   //有库存
 							
 							if(systemTime < v.saleStartTimeMillis){
 								timeStatus = 1;    //未到销售时间
