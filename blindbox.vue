@@ -171,369 +171,382 @@
 </template>
 
 <script>
-
-module.exports = {
-  name: 'blindbox',
-  data: function () {
-		return {
-			series : [
-				{seImage : "./images/tv1.png",seName : "Rita 英雄聯盟官方解說",seDescription : "英雄联盟官方解说冯雨，艺名：Rita小雨桑，曾经是一名《英雄联盟》职业选手，随后转型为比赛解说，英雄联盟赛事职业解说。冯雨毕业于中央戏剧学院，曾以女子战队队员身份参加比赛，在2016年正式转型为比赛解说，在2017年荣获年度最佳新秀赛事解说。"},
-				{seImage : "./images/tv2.png",seName : "Rita 英雄聯盟官方解說",seDescription : "英雄联盟官方解说冯雨，艺名：Rita小雨桑，曾经是一名《英雄联盟》职业选手，随后转型为比赛解说，英雄联盟赛事职业解说。冯雨毕业于中央戏剧学院，曾以女子战队队员身份参加比赛，在2016年正式转型为比赛解说，在2017年荣获年度最佳新秀赛事解说。"},
-				{seImage : "./images/tv3.png",seName : "Rita 英雄聯盟官方解說",seDescription : "英雄联盟官方解说冯雨，艺名：Rita小雨桑，曾经是一名《英雄联盟》职业选手，随后转型为比赛解说，英雄联盟赛事职业解说。冯雨毕业于中央戏剧学院，曾以女子战队队员身份参加比赛，在2016年正式转型为比赛解说，在2017年荣获年度最佳新秀赛事解说。"},
-			],
-			cards1:[
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-			],
-			cards2:[
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-			],
-			cards3:[
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-				{primaryPic : "./images/tv5.png",introduce : "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",rateDes : "2%"},
-			],
-			chEnTextHtml: {
-				"TC":{
-						luckdrawintroduce_con : "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
-						luckdrawintroduce_btn1 : "單抽",
-						luckdrawintroduce_btn2 : "十連抽",
-						probability : "本张卡概率：",
-						gathertogether1 : "集齊RIta系列NFT即可能獲得開黑機會~",
-						gathertogether2 : "集齊爱萝莉系列NFT即可能獲得開黑機會~",
-						gathertogether3 : "集齊瞳夕系列NFT即可能獲得開黑機會~",
-						purchase1 : "盲盒剩餘：",
-						purchase2 : "白名單用戶每購買4次，可獲贈一次抽取機會",
-						purchase3 : "當前Staking獎勵池： BUSD 227,665",
-						purchase4 : "我的白名單獲贈抽取機會:",
-						purchase5 : "現在使用",
-						purchase6 : "盲盒價格：",
-						purchase7 : "空投獲贈抽取機會:",
-						edit:"修改",
-						clickedit:"點擊修改地址",
-						transfer:"轉移",
-						cancel:"取消",
-						home:'首頁',
-					auction:'拍賣',
-					noConnectWallet:"未連接錢包",
-					login:"登入/註冊",
-					myaccount:"我的帳戶",
-					myorders:"我的訂單",
-					myassets:"我的資產",
-					mywallet:"我的錢包",
-					logOut:"登出",
-					version:"第1版，共150版",
-					select:"已選第",
-					versionTxt:"版",
-					price:"单价：",
-					purchaseNow:"立即購買 ->",
-					saleEnds:"銷售結束於：",
-					details:"更多信息",
-					pay:"支付",
-					paySuc:"支付成功",
-					payErr:"支付失敗",
-					paid:"您的付款金額為",
-					byCreditCard:"信用卡支付",
-					pendingPayment:"這是待付款，您的付款金額為：",
-					saveFor:"保存以備將來購買",
-					purchasing:"由於您購買的是數字作品，一經售出概不退換",
-					payment:"立即付款",
-					currentUsing:"正在使用",
-					balance:"餘額",
-					notStore:"我們不會儲存您的錢包密鑰，未經您的授權，也無法使用您電子錢包中的貨幣。",
-					regSuc:"注册成功",
-					operationFailed:"操作失败",
-					// js部分
-					maximum:"已達到最大購買數量",
-					purchaseSuc:"购买成功",
-					seconds:"預計10秒內到賬",
-					comSoon:"即將開售",
-					start:"銷售開始於：",
-					end:"銷售結束於：",
-					salesClosed:"銷售已結束",
-					sellOut:"已售罄",
-					balanceInsufficient:"餘額不足",
-					least:"至少選擇一件噢",
-					reached:"已達到賬號購買數量限制",
-					limit:"已達到單次購買數量限制",
-					moment:"當前剩餘只可選擇1個",
-					quantity:"已達到最大購買數量",
-					asset:"去我的資產核對",
-					confirm:"確認",
-					cancel:"取消",
-					recharge:"充值",
-					noLog:"未登錄，請登入",
-					number:"訂單號 #：",
-					balancePayment:"餘額支付",
-					accomplish:"完成",
-					payment:"立即付款",
-					walletFirst:"請先連接錢包  ->",
-					paymentComing: "錢包直連支付功能準備中..."
+	module.exports = {
+			name: 'blindbox',
+			data: function () {
+				return {
+					series: [{
+							seImage: "./images/tv1.png",
+							seName: "Rita 英雄聯盟官方解說",
+							seDescription: "英雄联盟官方解说冯雨，艺名：Rita小雨桑，曾经是一名《英雄联盟》职业选手，随后转型为比赛解说，英雄联盟赛事职业解说。冯雨毕业于中央戏剧学院，曾以女子战队队员身份参加比赛，在2016年正式转型为比赛解说，在2017年荣获年度最佳新秀赛事解说。"
+						},
+						{
+							seImage: "./images/tv2.png",
+							seName: "Rita 英雄聯盟官方解說",
+							seDescription: "英雄联盟官方解说冯雨，艺名：Rita小雨桑，曾经是一名《英雄联盟》职业选手，随后转型为比赛解说，英雄联盟赛事职业解说。冯雨毕业于中央戏剧学院，曾以女子战队队员身份参加比赛，在2016年正式转型为比赛解说，在2017年荣获年度最佳新秀赛事解说。"
+						},
+						{
+							seImage: "./images/tv3.png",
+							seName: "Rita 英雄聯盟官方解說",
+							seDescription: "英雄联盟官方解说冯雨，艺名：Rita小雨桑，曾经是一名《英雄联盟》职业选手，随后转型为比赛解说，英雄联盟赛事职业解说。冯雨毕业于中央戏剧学院，曾以女子战队队员身份参加比赛，在2016年正式转型为比赛解说，在2017年荣获年度最佳新秀赛事解说。"
+						},
+					],
+					cards1: [{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+						{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+						{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+						{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+					],
+					cards2: [{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+						{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+						{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+						{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+					],
+					cards3: [{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+						{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+						{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+						{
+							primaryPic: "./images/tv5.png",
+							introduce: "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
+							rateDes: "2%"
+						},
+					],
+					chEnTextHtml: {
+						"TC": {
+							luckdrawintroduce_con: "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
+							luckdrawintroduce_btn1: "單抽",
+							luckdrawintroduce_btn2: "十連抽",
+							probability: "本张卡概率：",
+							gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
+							gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
+							gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
+							purchase1: "盲盒剩餘：",
+							purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
+							purchase3: "當前Staking獎勵池： BUSD 227,665",
+							purchase4: "我的白名單獲贈抽取機會:",
+							purchase5: "現在使用",
+							purchase6: "盲盒價格：",
+							purchase7: "空投獲贈抽取機會:",
+							edit: "修改",
+							clickedit: "點擊修改地址",
+							transfer: "轉移",
+							cancel: "取消",
+							home: '首頁',
+							auction: '拍賣',
+							noConnectWallet: "未連接錢包",
+							login: "登入/註冊",
+							myaccount: "我的帳戶",
+							myorders: "我的訂單",
+							myassets: "我的資產",
+							mywallet: "我的錢包",
+							logOut: "登出",
+							version: "第1版，共150版",
+							select: "已選第",
+							versionTxt: "版",
+							price: "单价：",
+							purchaseNow: "立即購買 ->",
+							saleEnds: "銷售結束於：",
+							details: "更多信息",
+							pay: "支付",
+							paySuc: "支付成功",
+							payErr: "支付失敗",
+							paid: "您的付款金額為",
+							byCreditCard: "信用卡支付",
+							pendingPayment: "這是待付款，您的付款金額為：",
+							saveFor: "保存以備將來購買",
+							purchasing: "由於您購買的是數字作品，一經售出概不退換",
+							payment: "立即付款",
+							currentUsing: "正在使用",
+							balance: "餘額",
+							notStore: "我們不會儲存您的錢包密鑰，未經您的授權，也無法使用您電子錢包中的貨幣。",
+							regSuc: "注册成功",
+							operationFailed: "操作失败",
+							// js部分
+							maximum: "已達到最大購買數量",
+							purchaseSuc: "购买成功",
+							seconds: "預計10秒內到賬",
+							comSoon: "即將開售",
+							start: "銷售開始於：",
+							end: "銷售結束於：",
+							salesClosed: "銷售已結束",
+							sellOut: "已售罄",
+							balanceInsufficient: "餘額不足",
+							least: "至少選擇一件噢",
+							reached: "已達到賬號購買數量限制",
+							limit: "已達到單次購買數量限制",
+							moment: "當前剩餘只可選擇1個",
+							quantity: "已達到最大購買數量",
+							asset: "去我的資產核對",
+							confirm: "確認",
+							cancel: "取消",
+							recharge: "充值",
+							noLog: "未登錄，請登入",
+							number: "訂單號 #：",
+							balancePayment: "餘額支付",
+							accomplish: "完成",
+							payment: "立即付款",
+							walletFirst: "請先連接錢包  ->",
+							paymentComing: "錢包直連支付功能準備中..."
+						},
+						"EN": {
+							luckdrawintroduce_con: "",
+							luckdrawintroduce_btn1: "單抽enen",
+							luckdrawintroduce_btn2: "十連抽enen",
+							probability: "本张卡概率：",
+							gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
+							gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
+							gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
+							purchase1: "盲盒剩餘：",
+							purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
+							purchase3: "當前Staking獎勵池： BUSD 227,665",
+							purchase4: "我的白名單獲贈抽取機會:",
+							purchase5: "現在使用",
+							purchase6: "盲盒價格：",
+							purchase7: "空投獲贈抽取機會:",
+							edit: "Edit",
+							clickedit: "Click to edit",
+							transfer: "Transfer",
+							cancel: "cancel",
+							home: 'HOME',
+							auction: 'AUCTION',
+							noConnectWallet: "Connect Wallet",
+							login: "Login/Sign up",
+							myaccount: "My Account",
+							myorders: "My Orders",
+							myassets: "My Assets",
+							mywallet: "My Wallet",
+							logOut: "Log out",
+							version: "Edition 1 of 150",
+							select: "Selected",
+							versionTxt: "th edition",
+							price: "Price：",
+							purchaseNow: "Purchase Now ->",
+							saleEnds: "Sale ends at：",
+							details: "Details",
+							pay: "Payment",
+							paySuc: "Payment successful",
+							payErr: "Payment failed",
+							paid: "Your paid",
+							byCreditCard: "By credit card",
+							pendingPayment: "Your pending payment is：",
+							saveFor: "Save for future purchase",
+							purchasing: "Since you're purchasing a digital creation, all sales are final.",
+							currentUsing: "Current using",
+							payment: "Pay now",
+							balance: "Balance",
+							notStore: "We will not store your wallet key, nor can we use the currency in your wallet without your authorization.",
+							regSuc: "registration success",
+							operationFailed: "operation failed",
+							// js部分
+							maximum: "Maximum purchase quantity has been reached",
+							purchaseSuc: "Successful purchase",
+							seconds: "Expected to arrive within 10 seconds",
+							comSoon: "Coming soon",
+							start: "Sales start at：",
+							end: "Sale ends at：",
+							salesClosed: "Sold out",
+							sellOut: "Sold out",
+							balanceInsufficient: "Insufficient balance",
+							least: "Choose at least one~",
+							reached: "The account purchase limit has been reached",
+							limit: "Reached the single purchase quantity limit",
+							moment: "Only 1 can be selected at the moment",
+							quantity: "Maximum purchase quantity has been reached",
+							asset: "Go to my asset to check",
+							confirm: "confirm",
+							cancel: "cancel",
+							recharge: "Add funds",
+							noLog: "Not logged in, please log in",
+							number: "Order #: ",
+							balancePayment: "Paid by balance",
+							accomplish: "complete",
+							payment: "Pay now",
+							walletFirst: "Please connect your wallet first  ->",
+							paymentComing: "Function coming soon..."
+						}
 					},
-					"EN":{
-						luckdrawintroduce_con : "",
-						luckdrawintroduce_btn1 : "單抽enen",
-						luckdrawintroduce_btn2 : "十連抽enen",
-						probability : "本张卡概率：",
-						gathertogether1 : "集齊RIta系列NFT即可能獲得開黑機會~",
-						gathertogether2 : "集齊爱萝莉系列NFT即可能獲得開黑機會~",
-						gathertogether3 : "集齊瞳夕系列NFT即可能獲得開黑機會~",
-						purchase1 : "盲盒剩餘：",
-						purchase2 : "白名單用戶每購買4次，可獲贈一次抽取機會",
-						purchase3 : "當前Staking獎勵池： BUSD 227,665",
-						purchase4 : "我的白名單獲贈抽取機會:",
-						purchase5 : "現在使用",
-						purchase6 : "盲盒價格：",
-						purchase7 : "空投獲贈抽取機會:",
-						edit:"Edit",
-						clickedit:"Click to edit",
-						transfer:"Transfer",
-						cancel:"cancel",
-						home:'HOME',
-					auction:'AUCTION',
-					noConnectWallet:"Connect Wallet",
-					login:"Login/Sign up",
-					myaccount:"My Account",
-					myorders:"My Orders",
-					myassets:"My Assets",
-					mywallet:"My Wallet",
-					logOut:"Log out",
-					version:"Edition 1 of 150",
-					select:"Selected",
-					versionTxt:"th edition",
-					price:"Price：",
-					purchaseNow:"Purchase Now ->",
-					saleEnds:"Sale ends at：",
-					details:"Details",
-					pay:"Payment",
-					paySuc:"Payment successful",
-					payErr:"Payment failed",
-					paid:"Your paid",
-					byCreditCard:"By credit card",
-					pendingPayment:"Your pending payment is：",
-					saveFor:"Save for future purchase",
-					purchasing:"Since you're purchasing a digital creation, all sales are final.",
-					currentUsing:"Current using",
-					payment:"Pay now",
-					balance:"Balance",
-					notStore:"We will not store your wallet key, nor can we use the currency in your wallet without your authorization.",
-					regSuc:"registration success",
-					operationFailed:"operation failed",
-					// js部分
-					maximum:"Maximum purchase quantity has been reached",
-					purchaseSuc:"Successful purchase",
-					seconds:"Expected to arrive within 10 seconds",
-					comSoon:"Coming soon",
-					start:"Sales start at：",
-					end:"Sale ends at：",
-					salesClosed:"Sold out",
-					sellOut:"Sold out",
-					balanceInsufficient:"Insufficient balance",
-					least:"Choose at least one~",
-					reached:"The account purchase limit has been reached",
-					limit:"Reached the single purchase quantity limit",
-					moment:"Only 1 can be selected at the moment",
-					quantity:"Maximum purchase quantity has been reached",
-					asset:"Go to my asset to check",
-					confirm:"confirm",
-					cancel:"cancel",
-					recharge:"Add funds",
-					noLog:"Not logged in, please log in",
-					number:"Order #: ",
-					balancePayment:"Paid by balance",
-					accomplish:"complete",
-					payment:"Pay now",
-					walletFirst:"Please connect your wallet first  ->",
-					paymentComing: "Function coming soon..."
+					lang: '',
+					bannerurl: "./images/Banner.png",
+					acDescription: "火爆來襲，更有LPL季後賽賽事staking大獎，等你來拿~",
+					acName: "LPL明星解說系列盲盒",
+					activityTitle: "明星解说盲盒介绍",
+					activityImg: "./images/tv4.png",
+					activityDetail: "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
+					drawPrice: 50,
+					hdkDrawPrice: 388,
+					leftAmount: 624,
+					storge: 1000,
+					address: '',
+					leftFreeCount: {
+						leftFreeCount1: 0,
+						type1: 1,
+						leftFreeCount2: 0,
+						type1: 2
+					},
+					id: '',
+					prev: -1,
+					success_status: -1,
+					walletType: '',
+					maxbannum: 0,
+					busdPrice: 0,
+					selectarr: [],
+					accountBalance: 0,
+					hkdPrice: 0,
+					curUserOwned: 0,
+					oneUserCountLimit: 0,
+					onceCountLimit: 0,
+					payTabs: ['信用卡', '餘額支付', '錢包支付'],
+					selectedPayMethod: 0,
+					basicId: 0,
+					visiable: [],
+					auctionAddress: '',
+					auctionContractInstance: null,
+					userAddress: '',
+					tokenLimits: [],
+					chainId: '',
+					activityId: 1
 				}
 			},
-			lang:'',
-			bannerurl : "./images/Banner.png",
-			acDescription : "火爆來襲，更有LPL季後賽賽事staking大獎，等你來拿~",
-			acName : "LPL明星解說系列盲盒",
-			activityTitle: "明星解说盲盒介绍",
-			activityImg: "./images/tv4.png",
-			activityDetail: "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
-			drawPrice: 50,
-			hdkDrawPrice: 388,
-			leftAmount: 624,
-			storge: 1000,
-			address : '',
-			leftFreeCount : {leftFreeCount1: 0,type1: 1,leftFreeCount2: 0,type1: 2},
-			id: '',
-			prev: -1,
-			success_status: -1,
-			walletType: '',
-			maxbannum: 0,
-			busdPrice: 0,
-			selectarr: [],
-			accountBalance: 0,
-			hkdPrice: 0,
-			curUserOwned: 0,
-			oneUserCountLimit: 0,
-			onceCountLimit: 0,
-			payTabs: ['信用卡', '餘額支付', '錢包支付'],
-			selectedPayMethod: 0,
-			basicId: 0,
-			visiable: [],
-			auctionAddress: '',
-			auctionContractInstance: null,
-			userAddress: '',
-			tokenLimits: [],
-			chainId: '',
-			activityId : 1 
-		}
-	},
-	
-	created() {
-		this.isConnect = getCookie('isConnect') == 'false' ? false : true
-		this.lang = getCookie("lang")?getCookie("lang"):'TC';
-		if(this.lang == "TC"){
-			document.title = "明星藏品詳情";
-			this.payTabs = ['信用卡', '餘額支付', '錢包支付'];
-		}else{
-			document.title = "collection detail";
-			this.payTabs = ['Credit card', 'Balance', 'Crypto wallet'];
-		}
-		self.initMediaCss()
-		var params = window.location.search.substr(1).split('&')
-		var arr = [];
-		for (var key in params) {
-			arr.push({
-				key: params[key].split('=')
-			});
-		}
-		$.each(arr, function (i, v) {
-			if (v.key[0] == 'id') {
-				self.id = v.key[1];
-			} else if (v.key[0] == 'prev') {
-				self.prev = v.key[1];
-			} else if (v.key[0] == 'success') {
-				self.success_status = v.key[1]
-			}
-		})
-		if (self.prev == '1') {
-			$('.pre-mask').show();
-		} else {
-			$('.pre-mask').hide();
-		}
 
-		if (self.success_status == 1) {
-			success(this.chEnTextHtml[this.lang].paySuc, 1800);
-			setTimeout(function () {
-				self.saveconfirm();
-			}, 1800)
-		} else if (self.success_status == 0) {
-			error(this.chEnTextHtml[this.lang].payErr, 1800);
-		}
-		$('.payment-page-right-balance').hide()
-		self.initAddress()
-	},
-	mounted() {
-		// window.tips("1111");
-		this.getAssetsList();
-	},
-	
-	methods: {
-		getAssetsList() {
-			var self = this;
-			CHAIN.WALLET.accounts()
-			.then(function(account){
-				if (account.length && getCookie('islogin') != 'false') {
-					self.address = account[0];
-					self.getdata();
-				}else{
-					self.getdata();
+			created() {
+				this.isConnect = getCookie('isConnect') == 'false' ? false : true
+				this.lang = getCookie("lang") ? getCookie("lang") : 'TC';
+				if (this.lang == "TC") {
+					document.title = "明星藏品詳情";
+					this.payTabs = ['信用卡', '餘額支付'];
+				} else {
+					document.title = "collection detail";
+					this.payTabs = ['Credit card', 'Balance'];
 				}
-			})
-			
-		},
-		getdata(){
-			var self = this
-			$.ajax({
-				url: base_url + '/v2/activity/activity_detail',
-				type: 'POST',
-				contentType: 'application/json',
-				dataType: 'json',
-				data:JSON.stringify({
-					id : self.activityId,
-					lang : self.lang,
-					address : self.address,
-				}),
-				success: function (res) {
-					if (res.code == 0) {
-						self.bannerurl = res.data.acBanner;
-						self.acDescription = res.data.acDescription;
-						self.acName = res.data.acName;
-						self.activityDetail = res.data.activityDetail;
-						self.activityImg = res.data.activityImg;
-						self.activityTitle = res.data.activityTitle;
-						self.drawPrice = res.data.drawPrice;
-						self.hdkDrawPrice = res.data.hdkDrawPrice;
-						self.leftAmount = res.data.leftAmount;
-						self.storge = res.data.storge;
-						self.series = res.data.series;
-						self.cards1 = res.data.series[0].commodities;
-						self.cards2 = res.data.series[1].commodities;
-						self.cards3 = res.data.series[2].commodities;
-						res.data.rewardCount.forEach(item=>{
-							if (item.type == 1) {
-								self.leftFreeCount.leftFreeCount1 = item.leftFreeCount;
-							}
-							if (item.type == 2) {
-								self.leftFreeCount.leftFreeCount2 = item.leftFreeCount;
+
+				$('.payment-page-right-balance').hide()
+				self.initAddress()
+			},
+			mounted() {
+				// window.tips("1111");
+				this.getAssetsList();
+			},
+
+			methods: {
+				getAssetsList() {
+					var self = this;
+					CHAIN.WALLET.accounts()
+						.then(function (account) {
+							if (account.length && getCookie('islogin') != 'false') {
+								self.address = account[0];
+								self.getdata();
+							} else {
+								self.getdata();
 							}
 						})
-					}
-				}
-			})
-
-		},
-		payCrypto() {
-			let self = this
-			if ($('#cryptoBtn').text() == '去我的資產核對' || $('#cryptoBtn').text() == 'Go to my asset to check') {
-				window.location.href = 'myassets.html';
-				return false
-			}
-			if ($('#cryptoBtn').text() == '請先連接錢包  ->' || $('#cryptoBtn').text() == 'Please connect your wallet first  ->') {
-				window.open('connectWallet.html');
-				return false
-			}
-			if ($('#cryptoBtn').text() == '立即付款  ->' || $('#cryptoBtn').text() == 'Pay now  ->') {
-				$.ajax({
-					url: base_url + '/v2/commodity/tokenLimit',
-					data: {
-						basicId: self.basicId
-					},
-					success: function (res) {
-						loading();
-						$('#cryptoBtn').attr('disabled', true)
-						self.tokenLimits = res.data.tokenLimit
-						self.authUser()
-					}
-				})
-			}
-		},
-		authUser() {
-			let self = this
-			var web3 = new Web3(CHAIN.WALLET.provider());
-			var busdAddress = contractSetting['busd_ERC20'][self.chainId].address;
-			var busdABI = contractSetting['busd_ERC20']['abi'];
-			var busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-			busdContractInstance.methods.allowance(self.userAddress, self.auctionAddress).call()
-				.then(function (res) {
-					loadingHide()
-					busdContractInstance.methods.balanceOf(self.userAddress).call().then(balancePrice =>{
-						if (web3.utils.fromWei(balancePrice, 'ether') < Number(self.busdPrice)) {
-							tips('钱包余额不足');
-							$('#cryptoBtn').attr('disabled', false)
-						} else {
+				},
+				getdata() {
+					var self = this
+					$.ajax({
+						url: base_url + '/v2/activity/activity_detail',
+						type: 'POST',
+						contentType: 'application/json',
+						dataType: 'json',
+						data: JSON.stringify({
+							id: self.activityId,
+							lang: self.lang,
+							address: self.address,
+						}),
+						success: function (res) {
+							if (res.code == 0) {
+								self.bannerurl = res.data.acBanner;
+								self.acDescription = res.data.acDescription;
+								self.acName = res.data.acName;
+								self.activityDetail = res.data.activityDetail;
+								self.activityImg = res.data.activityImg;
+								self.activityTitle = res.data.activityTitle;
+								self.drawPrice = res.data.drawPrice;
+								self.hdkDrawPrice = res.data.hdkDrawPrice;
+								self.leftAmount = res.data.leftAmount;
+								self.storge = res.data.storge;
+								self.series = res.data.series;
+								self.cards1 = res.data.series[0].commodities;
+								self.cards2 = res.data.series[1].commodities;
+								self.cards3 = res.data.series[2].commodities;
+								res.data.rewardCount.forEach(item => {
+									if (item.type == 1) {
+										self.leftFreeCount.leftFreeCount1 = item.leftFreeCount;
+									}
+									if (item.type == 2) {
+										self.leftFreeCount.leftFreeCount2 = item.leftFreeCount;
+									}
+								})
+							}
+						}
+					})
+				},
+				payCrypto() {
+					let self = this
+					$.ajax({
+						url: base_url + '/v2/commodity/tokenLimit',
+						data: {
+							basicId: self.basicId
+						},
+						success: function (res) {
+							loading();
+							$('#cryptoBtn').attr('disabled', true)
+							self.tokenLimits = res.data.tokenLimit
+							self.authUser()
+						}
+					})
+				},
+				authUser() {
+					let self = this
+					var web3 = new Web3(CHAIN.WALLET.provider());
+					var busdAddress = contractSetting['busd_ERC20'][self.chainId].address;
+					var busdABI = contractSetting['busd_ERC20']['abi'];
+					var busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
+					busdContractInstance.methods.allowance(self.userAddress, self.auctionAddress).call()
+						.then(function (res) {
+							loadingHide()
 							if (res < Number(self.busdPrice)) {
 								var num = web3.utils.toWei('999999999999999', 'ether');
 								//发起授权
@@ -541,348 +554,253 @@ module.exports = {
 										from: self.userAddress
 									})
 									.then(function () {
-										self.getOnSellToken()
+										self.getOnSellToken()∏
 									});
 							} else {
 								self.getOnSellToken()
 							}
-						}
-					})
-				})
-		},
-		initAddress() {
-			let self = this
-			var targetChainId = '';
-			if (window.location.href.indexOf('bazhuayu.io') == -1) {
-				targetChainId = 97;
-			} else {
-				targetChainId = 56;
-			}
-			var web3 = new Web3(CHAIN.WALLET.provider());
-			CHAIN.WALLET.accounts()
-				.then(function (accounts) {
-					self.userAddress = accounts[0]
-				})
-			CHAIN.WALLET.chainId()
-				.then(function (res) {
-					let id = ''
-					self.chainId = web3.utils.hexToNumber(res);
-					id = web3.utils.hexToNumber(res);
-					if (id == targetChainId) {
-						self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
-					}
-					var auctionABI = contractSetting['vending_machine']['abi'];
-					self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
-				})
-		},
-		getOnSellToken() {
-			let self = this
-			if (!self.tokenLimits) {
-				return false
-			}
-			self.auctionContractInstance.methods.getOnSellToken().call().then(arr => {
-				for (let i = 0; i < arr.length; i++) {
-					for (let j = 0; j < self.tokenLimits.length; j++) {
-						if (arr[i] >= self.tokenLimits[j].startTokenId && arr[i] <= self.tokenLimits[j].endTokenId) {
-							self.visiable.push(arr[i])
-						}
-					}
-				}
-				if (self.selectarr.length > self.visiable.length) {
-					tips(this.chEnTextHtml[this.languageType].maximum);
-					$('#cryptoBtn').attr('disabled', false)
-					return false
-				}
-				CHAIN.WALLET.accounts()
-					.then(function (accounts) {
-						self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr.length)).send({
-							from: accounts[0]
-						}).on('transactionHash', function (hash) {
-							success(this.chEnTextHtml[this.languageType].purchaseSuc, 1800);
-							setTimeout(function () {
-								tips(this.chEnTextHtml[this.languageType].seconds);
-								$('#cryptoBtn').attr('disabled', false)
-								setTimeout(function () {
-									window.location.reload();
-								}, 1500)
-							}, 1800);
 						})
-					})
-			})
-		},
-
-		getAccountInfo(res) {
-			let self = this
-			$.ajax({
-				url: base_url + '/v2/user/wallet/info',
-				success: function (result) {
-					if (result.code == 0) {
-						$('.busd-ye').text('BUSD ' + result.data.usdtRest);
-						self.accountBalance = result.data.usdtRest
-						if (res.data.price > result.data.usdtRest) {
-							$('.busd-tip').text(this.chEnTextHtml[this.languageType].balanceInsufficient);
-						} else {
-							$('.busd-tip').text('-' + res.data.price);
+				},
+				initAddress() {
+					let self = this
+					var targetChainId = '';
+					if (window.location.href.indexOf('bazhuayu.io') == -1) {
+						targetChainId = 97;
+					} else {
+						targetChainId = 56;
+					}
+					var web3 = new Web3(CHAIN.WALLET.provider());
+					CHAIN.WALLET.accounts()
+						.then(function (accounts) {
+							self.userAddress = accounts[0]
+						})
+					CHAIN.WALLET.chainId()
+						.then(function (res) {
+							let id = ''
+							self.chainId = web3.utils.hexToNumber(res);
+							id = web3.utils.hexToNumber(res);
+							if (id == targetChainId) {
+								self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
+							}
+							var auctionABI = contractSetting['vending_machine']['abi'];
+							self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
+						})
+				},
+				getOnSellToken() {
+					let self = this
+					if (!self.tokenLimits) {
+						return false
+					}
+					self.auctionContractInstance.methods.getOnSellToken().call().then(arr => {
+						for (let i = 0; i < arr.length; i++) {
+							for (let j = 0; j < self.tokenLimits.length; j++) {
+								if (arr[i] >= self.tokenLimits[j].startTokenId && arr[i] <= self.tokenLimits[j].endTokenId) {
+									self.visiable.push(arr[i])
+								}
+							}
 						}
-						$('.busd-tip').show();
-						self.walletType = result.data.walletType
-					}
-				}
-			})
-		},
-
-		changenum(type) {
-			let self = this
-			let str = '';
-			if (type == 1) {
-				if (self.selectarr.length < 2) {
-					tips(this.chEnTextHtml[this.languageType].least);
-				} else {
-					self.selectarr.pop();
-				}
-			}
-			if (type == 2) {
-				if (self.selectarr[self.selectarr.length - 1] < self.maxbannum) {
-					if (self.curUserOwned + self.selectarr.length >= self.oneUserCountLimit) {
-						tips(this.chEnTextHtml[this.languageType].reached);
-						return;
-					}
-					if (self.selectarr.length >= self.onceCountLimit) {
-						tips(this.chEnTextHtml[this.languageType].limit);
-						return;
-					}
-					self.selectarr.push(self.selectarr[self.selectarr.length - 1] + 1);
-				} else {
-					if (self.selectarr.length == 1) {
-						tips(this.chEnTextHtml[this.languageType].moment);
-					} else {
-						tips(this.chEnTextHtml[this.languageType].quantity);
-					}
-				}
-			}
-			self.selectarr.forEach((item, index) => {
-				if (index != 0) {
-					str += '、';
-				}
-				str += item;
-			})
-			$('.hkdPrice').text('HK$ ' + moneyFormat(self.hkdPrice * self.selectarr.length));
-			$('.busdPrice').text('BUSD ' + moneyFormat(self.busdPrice * self.selectarr.length));
-			$(".purchase_num").text(self.selectarr.length);
-			$('.selectarrnum').text(str);
-			$('.busd-tip').text('-' + self.busdPrice * self.selectarr.length);
-		},
-		//询问弹窗
-		saveconfirm() {
-			hsycms.confirm('confirm', this.chEnTextHtml[this.languageType].asset,
-				function (res) {
-					hsycms.success('success', this.chEnTextHtml[this.languageType].confirm);
-					setTimeout(function () {
-						window.location.href = 'myassets.html';
-					}, 1500)
+						if (self.selectarr.length > self.visiable.length) {
+							tips(this.chEnTextHtml[this.languageType].maximum);
+							$('#cryptoBtn').attr('disabled', false)
+							return false
+						}
+						CHAIN.WALLET.accounts()
+							.then(function (accounts) {
+								self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr
+									.length)).send({
+									from: accounts[0]
+								}).on('transactionHash', function (hash) {
+									success(this.chEnTextHtml[this.languageType].purchaseSuc, 1800);
+									setTimeout(function () {
+										tips(this.chEnTextHtml[this.languageType].seconds);
+										$('#cryptoBtn').attr('disabled', false)
+										setTimeout(function () {
+											window.location.reload();
+										}, 1500)
+									}, 1800);
+								})
+							})
+					})
 				},
-				function (res) {
-					hsycms.error('error', this.chEnTextHtml[this.languageType].cancel);
-				},
-			)
-		},
-		toggleBalanceCheck() {
-			var payButton = document.getElementById("balanceBtn");
-			var cryButton = document.getElementById("cryptoBtn");
-			if ($('#saveBalance').prop('checked')) {
-				payButton.disabled = false;
-				if (getCookie('isConnect') == 'true') {
-					cryButton.disabled = false;
-				}
-			} else {
-				cryButton.disabled = true;
-				if ($('#balanceBtn').text() == '立即付款 >' || $('#balanceBtn').text() == 'Pay now >') {
-					payButton.disabled = true;
-				}
-			}
-		},
-		//格式化时间
-		formatDuring(mss) {
-			var days = parseInt(mss / (1000 * 60 * 60 * 24));
-			var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-			var seconds = parseInt((mss % (1000 * 60)) / 1000);
-			return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-		},
-		toPay() {
-			if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance')|| this.accountBalance < this.busdPrice * this.selectarr.length) {
-				$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
-				$('#balanceBtn').attr('disabled', false)
-			}
-			$.ajax({
-				url: base_url + '/v2/user/account',
-				success: function (res) {
-					if (res.code == 0) {
-						$('.payment').fadeIn();
-						$('.payment').addClass('payment-active')
-						$('video').addClass('video-hidden');
-						$('.payment-page-left-img video').removeClass('video-hidden')
-					} else {
-						tips(this.chEnTextHtml[this.languageType].noLog);
-					}
-				}
-			})
-		},
 
-		initMediaCss() {
-			var mobile_width = $(window).width();
-			if (mobile_width <= 992) {
-				$('.details-right-btn').removeClass('payment-btn-pc');
-				$('.details-right-btn').addClass('payment-btn-mobile');
-				$('.payment-close-mobile').on('click', function () {
-					$('.payment').removeClass('payment-active');
-					$('video').removeClass('video-hidden');
-				})
-			}
-		},
-		//Additional Infomation 
-		showDetailInfo() {
-			var ele = $('.details-right-additional-show')
-			var status = ele.data('status');
-			if (status == 0) {
-				$('.details-right-additional-more').slideDown('fast');
-				ele.children('span').text('-');
-				ele.data('status', '1');
-			} else if (status == 1) {
-				$('.details-right-additional-more').slideUp('fast');
-				ele.children('span').text('+');
-				ele.data('status', '0');
-			}
-		},
-		//支付
-		payBalance() {
-			let self = this
-			var value = $('#balanceBtn').text().trim();
-			var busd = $('.order-price .order-price-busd').text().trim();
-			if (self.selectedPayMethod == 1) {
-				if (value == '立即付款 >') {
+				//询问弹窗
+				saveconfirm() {
+					hsycms.confirm('confirm', this.chEnTextHtml[this.languageType].asset,
+						function (res) {
+							hsycms.success('success', this.chEnTextHtml[this.languageType].confirm);
+							setTimeout(function () {
+								window.location.href = 'myassets.html';
+							}, 1500)
+						},
+						function (res) {
+							hsycms.error('error', this.chEnTextHtml[this.languageType].cancel);
+						},
+					)
+				},
+				toggleBalanceCheck() {
+					var payButton = document.getElementById("balanceBtn");
+					var cryButton = document.getElementById("cryptoBtn");
+					if ($('#saveBalance').prop('checked')) {
+						payButton.disabled = false;
+						if (getCookie('isConnect') == 'true') {
+							cryButton.disabled = false;
+						}
+					} else {
+						cryButton.disabled = true;
+						if ($('#balanceBtn').text() == '立即付款 >' || $('#balanceBtn').text() == 'Pay now >') {
+							payButton.disabled = true;
+						}
+					}
+				},
+				//格式化时间
+				formatDuring(mss) {
+					var days = parseInt(mss / (1000 * 60 * 60 * 24));
+					var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+					var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
+					var seconds = parseInt((mss % (1000 * 60)) / 1000);
+					return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+				},
+				toPay() {
 					$.ajax({
-						url: base_url + '/v2/order/order/pay/usdt',
+						url: base_url + '/v2/user/account',
+						success: function (res) {
+							if (res.code == 0) {
+								$('.payment').fadeIn();
+								$('.payment').addClass('payment-active')
+								$('video').addClass('video-hidden');
+								$('.payment-page-left-img video').removeClass('video-hidden')
+							} else {
+								tips(this.chEnTextHtml[this.languageType].noLog);
+							}
+						}
+					})
+				},
+				//支付
+				payBalance() {
+					let self = this
+					var value = $('#balanceBtn').text().trim();
+					var busd = $('.order-price .order-price-busd').text().trim();
+					if (self.selectedPayMethod == 1) {
+						if (value == '立即付款 >') {
+							$.ajax({
+								url: base_url + '/v2/order/order/pay/usdt',
+								type: 'POST',
+								contentType: 'application/json',
+								dataType: 'json',
+								data: JSON.stringify({
+									configCommodityId: self.id,
+									buyCount: self.selectarr.length,
+									connectStatus: getCookie('isConnect')
+								}),
+								success: function (res) {
+									if (res.code == 0) {
+										success(self.chEnTextHtml[self.languageType].paySuc, 1800);
+										setTimeout(function () {
+											$('.order-number').text(self.chEnTextHtml[self.languageType].number + res.data);
+											$('.payment-page-right-tit').text(self.chEnTextHtml[self.languageType].accomplish);
+											$('.payment-page-right-order').show();
+											$('.payment-page-right-pay').hide();
+											$('.payment-page-right-total').hide();
+											$('.payment-page-right-busd').hide();
+											$('.payment-page-right-balance').hide()
+											$('.payment-page-right-btn button').text(self.chEnTextHtml[self.languageType].asset);
+											$('.payment-page-right-order-je span').text(busd);
+											$('.payment-page-right-order-by span').text(self.chEnTextHtml[self.languageType]
+												.balancePayment);
+										}, 1800);
+									} else {
+										error(res.message, 1800);
+									}
+								}
+							})
+						}
+					}
+				},
+				togglePayMethod(text) {
+					this.selectedPayMethod = text
+					if (text == 0) {
+						$('.payment-page-right-btn').hide();
+						$('.order-price .order-price-hdk').show();
+						$('.order-price .order-price-busd').hide();
+						$('.payment-page-right-select').show();
+						$('.payment-page-right-busd').hide();
+						$('.payment-page-right-balance').hide()
+						$('.payment-page-right-btn').hide();
+						$('.wallet-payment-desc').hide();
+						$('.payment-page-right-crypto').hide();
+						$('.payment-page-right-total').show();
+					};
+
+					if (text == 1) {
+						$('.payment-page-right-btn').show();
+						$('.payment-page-right-crypto').hide();
+						$('.payment-page-right-total').show();
+						$('.payment-page-right-balance').show()
+						$('.payment-page-right-btn button').addClass('can');
+						if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') || this
+							.accountBalance < this.busdPrice * this.selectarr.length) {
+							$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
+							$('#balanceBtn').attr('disabled', false)
+						} else {
+							$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment + ' >');
+						}
+						$('.order-price .order-price-hdk').hide();
+						$('.order-price .order-price-busd').show();
+						$('.payment-page-right-select').hide();
+						$('.payment-page-right-busd').show();
+						$('.wallet-payment-desc').hide();
+					}
+					if (text == 2) {
+						$('.payment-page-right-btn').hide();
+						//$('.payment-page-right-crypto').show();
+						if (getCookie('isConnect') != 'true') {
+							$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
+							$('#cryptoBtn').attr('disabled', false)
+						} else {
+							$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].payment + '  ->')
+							$('#cryptoBtn').attr('disabled', false)
+						}
+						$('.payment-page-right-balance').hide()
+						$('.payment-page-right-crypto button').addClass('can');
+						if ($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') {
+							$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
+						} else {
+							$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment + ' >');
+						}
+
+						$('.payment-page-right-total').hide();
+						$('.payment-page-right-total .order-price').hide()
+						$('.order-price .order-price-hdk').hide();
+						$('.order-price .order-price-busd').show();
+						$('.payment-page-right-select').hide();
+						$('.payment-page-right-busd').hide();
+						$('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
+						$('.wallet-payment-desc').show();
+						$('#cryptoBtn').attr('disabled', true)
+					}
+				},
+				cqblindboxbtn(type, val) {
+					var self = this
+					$.ajax({
+						url: base_url + '/v2/activity/freeDraw',
 						type: 'POST',
 						contentType: 'application/json',
 						dataType: 'json',
 						data: JSON.stringify({
-							configCommodityId: self.id,
-							buyCount: self.selectarr.length,
-							connectStatus: getCookie('isConnect')
+							"type": type,
+							"activityId": self.activityId,
+							"address": self.address,
 						}),
 						success: function (res) {
 							if (res.code == 0) {
-								success(self.chEnTextHtml[self.languageType].paySuc, 1800);
-								setTimeout(function () {
-									$('.order-number').text(self.chEnTextHtml[self.languageType].number + res.data);
-									$('.payment-page-right-tit').text(self.chEnTextHtml[self.languageType].accomplish);
-									$('.payment-page-right-order').show();
-									$('.payment-page-right-pay').hide();
-									$('.payment-page-right-total').hide();
-									$('.payment-page-right-busd').hide();
-									$('.payment-page-right-balance').hide()
-									$('.payment-page-right-btn button').text(self.chEnTextHtml[self.languageType].asset);
-									$('.payment-page-right-order-je span').text(busd);
-									$('.payment-page-right-order-by span').text(self.chEnTextHtml[self.languageType].balancePayment);
-								}, 1800);
-							} else {
-								error(res.message, 1800);
+								window.tips("抽取成功");
+								self.getdata();
 							}
 						}
 					})
-				} else if (value == '充值' || value == 'Add funds') {
-					// window.open('mywallet.html');
-					window.location.href = 'mywallet.html?isframe=true';
-				} else if (value == this.chEnTextHtml[this.languageType].asset) {
-					window.location.href = 'myassets.html';
-				}
-			}
-		},
-		togglePayMethod(text) {
-			this.selectedPayMethod = text
-			if (text == 0) {
-				$('.payment-page-right-btn').hide();
-				$('.order-price .order-price-hdk').show();
-				$('.order-price .order-price-busd').hide();
-				$('.payment-page-right-select').show();
-				$('.payment-page-right-busd').hide();
-				$('.payment-page-right-balance').hide()
-				$('.payment-page-right-btn').hide();
-				$('.wallet-payment-desc').hide();
-				$('.payment-page-right-crypto').hide();
-				$('.payment-page-right-total').show();
-			};
-
-			if (text == 1) {
-				$('.payment-page-right-btn').show();
-				$('.payment-page-right-crypto').hide();
-				$('.payment-page-right-total').show();
-				$('.payment-page-right-balance').show()
-				$('.payment-page-right-btn button').addClass('can');
-				if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') || this.accountBalance < this.busdPrice * this.selectarr.length) {
-					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
-					$('#balanceBtn').attr('disabled', false)
-				} else {
-					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
-				}
-				$('.order-price .order-price-hdk').hide();
-				$('.order-price .order-price-busd').show();
-				$('.payment-page-right-select').hide();
-				$('.payment-page-right-busd').show();
-				$('.wallet-payment-desc').hide();
-			}
-			if (text == 2) {
-				$('.payment-page-right-btn').hide();
-				//$('.payment-page-right-crypto').show();
-				if (getCookie('isConnect') != 'true') {
-					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
-					$('#cryptoBtn').attr('disabled', false)
-				} else {
-					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].payment+'  ->')
-					$('#cryptoBtn').attr('disabled', false)
-				}
-				$('.payment-page-right-balance').hide()
-				$('.payment-page-right-crypto button').addClass('can');
-				if ($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') {
-					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
-				} else {
-					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
 				}
 
-				$('.payment-page-right-total').hide();
-				$('.payment-page-right-total .order-price').hide()
-				$('.order-price .order-price-hdk').hide();
-				$('.order-price .order-price-busd').show();
-				$('.payment-page-right-select').hide();
-				$('.payment-page-right-busd').hide();
-				$('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
-				$('.wallet-payment-desc').show();
-				$('#cryptoBtn').attr('disabled', true)
 			}
-		},
-		cqblindboxbtn(type,val){
-			var self = this
-			$.ajax({
-				url: base_url + '/v2/activity/freeDraw',
-				type: 'POST',
-				contentType: 'application/json',
-				dataType: 'json',
-				data:JSON.stringify({
-					"type": type,
-					"activityId": self.activityId,
-					"address" : self.address,
-				}),
-				success: function (res) {
-					if (res.code == 0) {
-						window.tips("抽取成功");
-						self.getdata();
-					}
-				}
-			})
-		}
-	
-}
 </script>
 
 <style>
@@ -890,13 +808,16 @@ module.exports = {
   justify-content: space-between;
   align-items: center;
 }
+
 .blindbox_box {
   min-height: calc(100vh - 338px);
 }
+
 .bannerbox {
   width: 100%;
   background-size: 100% auto;
 }
+
 .anchorintroduction {
   padding: 146px 14.93%;
   text-align: center;
@@ -904,27 +825,33 @@ module.exports = {
   font-style: normal;
   font-weight: 500;
 }
+
 .anchorintroduction .title {
   font-size: 96px;
   line-height: 100%;
   margin: 0;
 }
+
 .anchorintroduction .subtitle {
   font-size: 32px;
   line-height: 150%;
   margin: 80px 0;
 }
+
 .anchorintroduction .introducebox .tvbox:nth-child(2) {
   margin: 0 35px;
 }
+
 .anchorintroduction .introducebox .tvbox img {
   width: 100%;
 }
+
 .anchorintroduction .introducebox .tvbox .wordbox h5 {
   font-size: 28px;
   line-height: 150%;
   margin: 30px 0;
 }
+
 .anchorintroduction .introducebox .tvbox .wordbox p {
   font-size: 18px;
   line-height: 150%;
@@ -932,28 +859,34 @@ module.exports = {
   text-align: left;
   opacity: 0.8;
 }
+
 .luckdrawintroduce {
   padding: 0 14.93%;
   justify-content: space-between;
   position: relative;
 }
+
 .luckdrawintroduce .luckdraw_left {
   width: 50.48%;
   border-radius: 5px;
 }
+
 .luckdrawintroduce .luckdraw_right {
   width: 43%;
 }
+
 .luckdrawintroduce .luckdraw_right img {
   width: 60.5px;
   background-size: 100% auto;
 }
+
 .luckdrawintroduce .luckdraw_right h3 {
   margin: 48px 0;
   font-size: 48px;
   line-height: 110%;
   color: #ffffff;
 }
+
 .luckdrawintroduce .luckdraw_right p {
   font-size: 18px;
   line-height: 150%;
@@ -961,14 +894,17 @@ module.exports = {
   letter-spacing: -0.035em;
   color: rgba(255, 255, 255, 0.7);
 }
+
 .luckdrawintroduce .luckdraw_right .luckdraw_btns {
   position: absolute;
   bottom: 0;
 }
+
 .luckdrawintroduce .luckdraw_right .luckdraw_btns button {
   color: #ffffff;
   margin-right: 100px;
 }
+
 .cjbtn {
   border: none;
   background: #9567ff;
@@ -976,13 +912,16 @@ module.exports = {
   padding: 13px 50px;
   border-radius: 2px;
 }
+
 .cardsbox {
   padding: 81px 14.93%;
 }
+
 .cardsbox .cardslist {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
 .cardsbox .cardslist .tips {
   width: 100%;
   text-align: center;
@@ -991,15 +930,18 @@ module.exports = {
   font-size: 24px;
   color: #ffffff;
 }
+
 .cardsbox .cardslist .cardsevery {
   position: relative;
   width: 24%;
   margin-bottom: 20px;
 }
+
 .cardsbox .cardslist .cardsevery img {
   width: 100%;
   background-size: 100% auto;
 }
+
 .cardsbox .cardslist .cardsevery .mask {
   position: absolute;
   top: 0;
@@ -1012,36 +954,45 @@ module.exports = {
   padding: 43px 20px;
   transition: 0.5s all;
 }
+
 .cardsbox .cardslist .cardsevery:hover .mask {
   opacity: 0.6;
 }
+
 .cardsbox .cardslist .cardsevery .mask p {
   font-size: 18px;
   line-height: 150%;
 }
+
 .cardsbox .cardslist .cardsevery .mask p:nth-child(2) {
   margin-top: 20px;
 }
+
 .cardsbox .purchasebox {
   margin-top: 52px;
   color: #ffffff;
   font-size: 24px;
 }
+
 .cardsbox .purchasebox .tips1 {
   text-align: right;
   font-size: 20px;
   margin-top: 32px;
 }
+
 .cardsbox .purchasebox button {
   margin-left: 80px;
 }
+
 .cardsbox .purchasebox > .between:nth-child(2) {
   margin-top: 16px;
 }
+
 .cardsbox .purchasebox .between .question {
   margin-left: 9.5px;
   cursor: pointer;
 }
+
 .zscjbox {
   text-align: center;
   margin-top: 80px;
@@ -1050,14 +1001,17 @@ module.exports = {
   font-weight: 600;
   justify-content: center;
 }
+
 .zscjbox button {
   color: #fff;
   margin-left: 60px;
 }
+
 .bottombtn {
   text-align: center;
   margin-top: 80px;
 }
+
 .bottombtn button {
   padding: 16px 128px;
   background: transparent;
@@ -1066,6 +1020,7 @@ module.exports = {
   line-height: 150%;
   color: #9567ff;
 }
+
 @media only screen and (max-width: 992px) {
 }
 </style>
