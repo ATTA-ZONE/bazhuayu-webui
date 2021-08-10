@@ -533,7 +533,7 @@
 								$('video').addClass('video-hidden');
 								$('.payment-page-left-img video').removeClass('video-hidden')
 							} else {
-								window.tips(this.chEnTextHtml[self.lang].noLog);
+								window.tips(self.chEnTextHtml[self.lang].noLog);
 							}
 						}
 					})
