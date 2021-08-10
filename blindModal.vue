@@ -394,6 +394,11 @@ module.exports = {
 		this.initAddress()
 	},
 
+	mounted() {
+		$.getScript('./js/framesv2.min.js');
+		$.getScript('./js/frames.js');
+	},
+
 	methods: {
 		payCrypto() {
 			let self = this
