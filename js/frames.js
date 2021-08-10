@@ -207,7 +207,9 @@ function onCardTokenized(event) {
 			loadingHide();
 			if(res.code==0){
 				window.location.href = res.data.paytdsUrl;
-			}
+			}else{
+        tips(res.message)
+      }
 		}
 	});
 	
