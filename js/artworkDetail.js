@@ -537,6 +537,7 @@ var app = new Vue({
 				$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 				$('#balanceBtn').attr('disabled', false)
 			}
+			let self = this;
 			$.ajax({
 				url: base_url + '/v2/user/account',
 				success: function (res) {
@@ -546,7 +547,7 @@ var app = new Vue({
 						$('video').addClass('video-hidden');
 						$('.payment-page-left-img video').removeClass('video-hidden')
 					} else {
-						tips(this.chEnTextHtml[this.languageType].noLog);
+						tips(self.chEnTextHtml[self.languageType].noLog);
 					}
 				}
 			})

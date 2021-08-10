@@ -114,10 +114,10 @@
           " / BUSD " +
           drawPrice
         }}</span>
-        <button @click="toPay" class="cjbtn">
+        <button @click="toPay(1)" class="cjbtn">
           {{ chEnTextHtml[lang].luckdrawintroduce_btn1 }}
         </button>
-        <button class="cjbtn">
+        <button @click="toPay(10)" class="cjbtn">
           {{ chEnTextHtml[lang].luckdrawintroduce_btn2 }}
         </button>
       </div>
@@ -547,12 +547,14 @@ module.exports = {
         },
       });
     },
-    toPay() {
+    toPay(str) {
       var self = this;
       $.ajax({
         url: base_url + "/v2/user/account",
         success: function (res) {
           if (res.code == 0) {
+            $('.order-price-hdk').text('HK$ ' + self.hdkDrawPrice * str)
+            $('.order-price-busd').text('BUSD ' + self.drawPrice * str)
             $(".payment").fadeIn();
             $(".payment").addClass("payment-active");
             $("video").addClass("video-hidden");
