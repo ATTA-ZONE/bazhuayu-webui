@@ -28,7 +28,7 @@
 	  </div>
 	  <div class="cardsbox">
 		  <div class="cardslist flex">
-			  <div class="cardsevery" v-for="(item,index) in cards1" :key="index">
+			  <div class="cardsevery" v-for="(item,index) in cards1" :key="index + Math.random()">
 				  <img :src="item.primaryPic" alt="">
 				  <div class="mask">
 					  <p>{{item.introduce}}</p>
@@ -36,7 +36,7 @@
 				  </div>
 			  </div>
 			  <h3 class="tips">{{series[0].seTitle}}</h3>
-			  <div class="cardsevery" v-for="(item,index) in cards2" :key="index">
+			  <div class="cardsevery" v-for="(item,index) in cards2" :key="index + Math.random()">
 				  <img :src="item.primaryPic" alt="">
 				  <div class="mask">
 					  <p>{{item.introduce}}</p>
@@ -44,7 +44,7 @@
 				  </div>
 			  </div>
 			  <h3 class="tips">{{series[1].seTitle}}</h3>
-			  <div class="cardsevery" v-for="(item,index) in cards3" :key="index">
+			  <div class="cardsevery" v-for="(item,index) in cards3" :key="index + Math.random()">
 				  <img :src="item.primaryPic" alt="">
 				  <div class="mask">
 					  <p>{{item.introduce}}</p>
@@ -59,7 +59,7 @@
 				  <p class="between flex">
 					<span>{{chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2}}</span>
 					<img class="question" src="./images/question.png" alt="">
-					<button class="cjbtn">{{chEnTextHtml[lang].purchase5}}</button>
+					<button class="cjbtn" @click="cqblindboxbtn(2,leftFreeCount.leftFreeCount2)">{{chEnTextHtml[lang].purchase5}}</button>
 				  </p>
 			  </div>
 			  <div class="between flex">
@@ -67,7 +67,7 @@
 				  <p class="between flex">
 					<span>{{chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1}}</span>
 					<img class="question" src="./images/question.png" alt="">
-					<button class="cjbtn">{{chEnTextHtml[lang].purchase5}}</button>
+					<button class="cjbtn" @click="cqblindboxbtn(1,leftFreeCount.leftFreeCount1)">{{chEnTextHtml[lang].purchase5}}</button>
 				  </p>
 			  </div>
 			  <div class="tips1">
@@ -192,6 +192,8 @@ module.exports = {
 			storge: 1000,
 			address : '',
 			leftFreeCount : {leftFreeCount1: 0,type1: 1,leftFreeCount2: 0,type1: 2},
+			activityId : 1 ,
+			address : "",
 		}
 	},
 	
@@ -200,6 +202,7 @@ module.exports = {
 		this.lang = getCookie("lang")?getCookie("lang"):'TC';
 	},
 	mounted() {
+		// window.tips("1111");
 		this.getAssetsList();
 	},
 	
@@ -210,14 +213,14 @@ module.exports = {
 			.then(function(account){
 				if (account.length && getCookie('islogin') != 'false') {
 					self.address = account[0];
-					self.getdata(account[0]);
+					self.getdata();
 				}else{
-					self.getdata("");
+					self.getdata();
 				}
 			})
 			
 		},
-		getdata(address){
+		getdata(){
 			var self = this
 			$.ajax({
 				url: base_url + '/v2/activity/activity_detail',
@@ -225,9 +228,9 @@ module.exports = {
 				contentType: 'application/json',
 				dataType: 'json',
 				data:JSON.stringify({
-					id : 1,
+					id : self.activityId,
 					lang : self.lang,
-					address : address,
+					address : self.address,
 				}),
 				success: function (res) {
 					if (res.code == 0) {
@@ -257,6 +260,26 @@ module.exports = {
 				}
 			})
 
+		},
+		cqblindboxbtn(type,val){
+			var self = this
+			$.ajax({
+				url: base_url + '/v2/activity/freeDraw',
+				type: 'POST',
+				contentType: 'application/json',
+				dataType: 'json',
+				data:JSON.stringify({
+					"type": type,
+					"activityId": self.activityId,
+					"address" : self.address,
+				}),
+				success: function (res) {
+					if (res.code == 0) {
+						window.tips("抽取成功");
+						self.getdata();
+					}
+				}
+			})
 		}
 	}
 }
