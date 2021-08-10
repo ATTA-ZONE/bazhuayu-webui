@@ -405,6 +405,8 @@ var app = new Vue({
 							$('.details-right-time span:first-child').css('opacity', '0');
 							$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].sellOut);
 							$('.details-right-time-djs').css('color', '#cf3737');
+							//去掉标签中的onclick事件
+							$('.details-right-btn').css('pointer-events', 'none');
 						}
 						self.getAccountInfo(res)
 					}
