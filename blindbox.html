@@ -102,7 +102,7 @@
 						<div class="payment-page-close payment-close-pc" onclick="paymentClose()"><img src="./images/Close.png">
 						</div>
 						<div class="payment-page-top none flex">
-							<div class="payment-page-right-tit">{{chEnTextHtml[languageType].pay}}</div>
+							<div class="payment-page-right-tit">{{chEnTextHtml[lang].pay}}</div>
 							<div class="payment-close-mobile"><img src="./images/Close.png"></div>
 						</div>
 						<div class="payment-page-left">
@@ -110,25 +110,25 @@
 							<div class="payment-page-left-creator flex">
 								<div class="details-right-creator-img"><img src="./images/t8.png"></div>
 								<span>@ATTA</span>
-								<div class="details-right-creator-edition">{{chEnTextHtml[languageType].version}}</div>
+								<div class="details-right-creator-edition">{{chEnTextHtml[lang].version}}</div>
 							</div>
 							<div class="payment-page-left-img order-img"><img src=""></div>
 						</div>
 	
 						<div class="payment-page-right">
-							<div class="payment-page-right-tit">{{chEnTextHtml[languageType].pay}}</div>
+							<div class="payment-page-right-tit">{{chEnTextHtml[lang].pay}}</div>
 							<div class="payment-page-left-tit none payment-page-left-tit-mobile order-title">----</div>
 							<div class="payment-page-left-creator none payment-page-left-creator-mobile flex">
 								<div class="details-right-creator-img"><img src="./images/t8.png"></div>
 								<span>@ATTA</span>
-								<div class="details-right-creator-edition">{{chEnTextHtml[languageType].version}}</div>
+								<div class="details-right-creator-edition">{{chEnTextHtml[lang].version}}</div>
 							</div>
 	
 							<div class="payment-page-right-order none">
 								<p class="order-number">Order #：<span>----</span></p>
-								<p class="payment-page-right-order-tit">{{chEnTextHtml[languageType].paid}}</p>
+								<p class="payment-page-right-order-tit">{{chEnTextHtml[lang].paid}}</p>
 								<p class="payment-page-right-order-je"><span>----</span></p>
-								<p class="payment-page-right-order-by"><span>{{chEnTextHtml[languageType].byCreditCard}}</span></p>
+								<p class="payment-page-right-order-by"><span>{{chEnTextHtml[lang].byCreditCard}}</span></p>
 								<p class="payment-page-right-order-card none">----</p>
 							</div>
 							<div class="payment-page-right-pay flex">
@@ -136,7 +136,7 @@
 									@click="togglePayMethod(index)">{{item}}</span>
 							</div>
 							<div class="payment-page-right-total">
-								<p>{{chEnTextHtml[languageType].pendingPayment}}</p>
+								<p>{{chEnTextHtml[lang].pendingPayment}}</p>
 								<p class="order-price"><span class="order-price-hdk hkdPrice">HK$0 </span><span
 										class="order-price-busd none busdPrice">BUSD 0 </span></p>
 							</div>
@@ -184,15 +184,15 @@
 										</div>
 									</div>
 									<p class="flex pay-save"><input id="save" type="checkbox" /><label
-											for="save">{{chEnTextHtml[languageType].saveFor}}</label></p>
+											for="save">{{chEnTextHtml[lang].saveFor}}</label></p>
 									<div style="color: #FF1313;
 									display: flex;
 									align-items: center;
 									margin-top: 10px;"><input id="savetips"
-											type="checkbox" /><span>{{chEnTextHtml[languageType].purchasing}}</span></div>
+											type="checkbox" /><span>{{chEnTextHtml[lang].purchasing}}</span></div>
 	
 									<div>
-										<div class="pay-button"><button id="pay-button" disabled="">{{chEnTextHtml[languageType].payment}}
+										<div class="pay-button"><button id="pay-button" disabled="">{{chEnTextHtml[lang].payment}}
 												></button></div>
 										<span class="error-message error-message__card-number"></span>
 										<span class="error-message error-message__expiry-date"></span>
@@ -201,28 +201,28 @@
 								</form>
 							</div>
 							<div class="payment-page-right-busd none">
-								<div class="payment-page-right-busd-tit">{{chEnTextHtml[languageType].currentUsing}}</div>
+								<div class="payment-page-right-busd-tit">{{chEnTextHtml[lang].currentUsing}}</div>
 								<div class="payment-page-right-busd-con">
-									<span class="busd-balance">{{chEnTextHtml[languageType].balance}}</span>
+									<span class="busd-balance">{{chEnTextHtml[lang].balance}}</span>
 									<span class="busd-ye">BUSD 0</span>
 									<span class="busd-tip none">0</span>
 								</div>
 							</div>
-							<div class="wallet-payment-desc none">{{chEnTextHtml[languageType].notStore}}</div>
+							<div class="wallet-payment-desc none">{{chEnTextHtml[lang].notStore}}</div>
 							<div class="payment-page-right-balance" style="color: #FF1313;
 									display: flex;
 									align-items: center;
 									margin-top: 10px;">
 								<input id="saveBalance" @click="toggleBalanceCheck" type="checkbox" />
-								<span>{{chEnTextHtml[languageType].purchasing}}</span>
+								<span>{{chEnTextHtml[lang].purchasing}}</span>
 							</div>
 							<div class="payment-page-right-btn none" style="border-bottom: none !important;">
 								<button id="balanceBtn" @click="payBalance" disabled=""
-									type="button">{{chEnTextHtml[languageType].payment}} ></button>
+									type="button">{{chEnTextHtml[lang].payment}} ></button>
 							</div>
 							<div class="payment-page-right-crypto none">
 								<button id="cryptoBtn" @click="payCrypto" disabled=""
-									type="button">{{chEnTextHtml[languageType].payment}} ></button>
+									type="button">{{chEnTextHtml[lang].payment}} ></button>
 								<p></p>
 							</div>
 						</div>
@@ -252,7 +252,7 @@
 						points="14,25 23,34 36,18" stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
 			</div>
-			<div class="hsycms-model-text">{{chEnTextHtml[languageType].regSuc}}</div>
+			<div class="hsycms-model-text">{{chEnTextHtml[lang].regSuc}}</div>
 		</div>
 		<!--提交失败-->
 		<div class="hsycms-model-mask" id="mask-error"></div>
@@ -267,7 +267,7 @@
 						stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
 			</div>
-			<div class="hsycms-model-text">{{chEnTextHtml[languageType].operationFailed}}</div>
+			<div class="hsycms-model-text">{{chEnTextHtml[lang].operationFailed}}</div>
 		</div>
 		<div class="footerpage"></div>
 		<div class="tips"></div>

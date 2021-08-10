@@ -463,7 +463,7 @@
 				}
 
 				$('.payment-page-right-balance').hide()
-				self.initAddress()
+				this.initAddress()
 			},
 			mounted() {
 				// window.tips("1111");
@@ -523,143 +523,6 @@
 						}
 					})
 				},
-				payCrypto() {
-					let self = this
-					$.ajax({
-						url: base_url + '/v2/commodity/tokenLimit',
-						data: {
-							basicId: self.basicId
-						},
-						success: function (res) {
-							loading();
-							$('#cryptoBtn').attr('disabled', true)
-							self.tokenLimits = res.data.tokenLimit
-							self.authUser()
-						}
-					})
-				},
-				authUser() {
-					let self = this
-					var web3 = new Web3(CHAIN.WALLET.provider());
-					var busdAddress = contractSetting['busd_ERC20'][self.chainId].address;
-					var busdABI = contractSetting['busd_ERC20']['abi'];
-					var busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-					busdContractInstance.methods.allowance(self.userAddress, self.auctionAddress).call()
-						.then(function (res) {
-							loadingHide()
-							if (res < Number(self.busdPrice)) {
-								var num = web3.utils.toWei('999999999999999', 'ether');
-								//发起授权
-								busdContractInstance.methods.approve(self.auctionAddress, num).send({
-										from: self.userAddress
-									})
-									.then(function () {
-										self.getOnSellToken()∏
-									});
-							} else {
-								self.getOnSellToken()
-							}
-						})
-				},
-				initAddress() {
-					let self = this
-					var targetChainId = '';
-					if (window.location.href.indexOf('bazhuayu.io') == -1) {
-						targetChainId = 97;
-					} else {
-						targetChainId = 56;
-					}
-					var web3 = new Web3(CHAIN.WALLET.provider());
-					CHAIN.WALLET.accounts()
-						.then(function (accounts) {
-							self.userAddress = accounts[0]
-						})
-					CHAIN.WALLET.chainId()
-						.then(function (res) {
-							let id = ''
-							self.chainId = web3.utils.hexToNumber(res);
-							id = web3.utils.hexToNumber(res);
-							if (id == targetChainId) {
-								self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
-							}
-							var auctionABI = contractSetting['vending_machine']['abi'];
-							self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
-						})
-				},
-				getOnSellToken() {
-					let self = this
-					if (!self.tokenLimits) {
-						return false
-					}
-					self.auctionContractInstance.methods.getOnSellToken().call().then(arr => {
-						for (let i = 0; i < arr.length; i++) {
-							for (let j = 0; j < self.tokenLimits.length; j++) {
-								if (arr[i] >= self.tokenLimits[j].startTokenId && arr[i] <= self.tokenLimits[j].endTokenId) {
-									self.visiable.push(arr[i])
-								}
-							}
-						}
-						if (self.selectarr.length > self.visiable.length) {
-							tips(this.chEnTextHtml[this.languageType].maximum);
-							$('#cryptoBtn').attr('disabled', false)
-							return false
-						}
-						CHAIN.WALLET.accounts()
-							.then(function (accounts) {
-								self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr
-									.length)).send({
-									from: accounts[0]
-								}).on('transactionHash', function (hash) {
-									success(this.chEnTextHtml[this.languageType].purchaseSuc, 1800);
-									setTimeout(function () {
-										tips(this.chEnTextHtml[this.languageType].seconds);
-										$('#cryptoBtn').attr('disabled', false)
-										setTimeout(function () {
-											window.location.reload();
-										}, 1500)
-									}, 1800);
-								})
-							})
-					})
-				},
-
-				//询问弹窗
-				saveconfirm() {
-					hsycms.confirm('confirm', this.chEnTextHtml[this.languageType].asset,
-						function (res) {
-							hsycms.success('success', this.chEnTextHtml[this.languageType].confirm);
-							setTimeout(function () {
-								window.location.href = 'myassets.html';
-							}, 1500)
-						},
-						function (res) {
-							hsycms.error('error', this.chEnTextHtml[this.languageType].cancel);
-						},
-					)
-				},
-				toggleBalanceCheck() {
-					var payButton = document.getElementById("balanceBtn");
-					var cryButton = document.getElementById("cryptoBtn");
-					if ($('#saveBalance').prop('checked')) {
-						payButton.disabled = false;
-						if (getCookie('isConnect') == 'true') {
-							cryButton.disabled = false;
-						}
-					} else {
-						cryButton.disabled = true;
-						if ($('#balanceBtn').text() == '立即付款 >' || $('#balanceBtn').text() == 'Pay now >') {
-							payButton.disabled = true;
-						}
-					}
-				},
-				//格式化时间
-				formatDuring(mss) {
-					var days = parseInt(mss / (1000 * 60 * 60 * 24));
-					var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-					var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-					var seconds = parseInt((mss % (1000 * 60)) / 1000);
-					return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-				},
 				toPay() {
 					$.ajax({
 						url: base_url + '/v2/user/account',
@@ -670,115 +533,12 @@
 								$('video').addClass('video-hidden');
 								$('.payment-page-left-img video').removeClass('video-hidden')
 							} else {
-								tips(this.chEnTextHtml[this.languageType].noLog);
+								tips(this.chEnTextHtml[this.lang].noLog);
 							}
 						}
 					})
 				},
-				//支付
-				payBalance() {
-					let self = this
-					var value = $('#balanceBtn').text().trim();
-					var busd = $('.order-price .order-price-busd').text().trim();
-					if (self.selectedPayMethod == 1) {
-						if (value == '立即付款 >') {
-							$.ajax({
-								url: base_url + '/v2/order/order/pay/usdt',
-								type: 'POST',
-								contentType: 'application/json',
-								dataType: 'json',
-								data: JSON.stringify({
-									configCommodityId: self.id,
-									buyCount: self.selectarr.length,
-									connectStatus: getCookie('isConnect')
-								}),
-								success: function (res) {
-									if (res.code == 0) {
-										success(self.chEnTextHtml[self.languageType].paySuc, 1800);
-										setTimeout(function () {
-											$('.order-number').text(self.chEnTextHtml[self.languageType].number + res.data);
-											$('.payment-page-right-tit').text(self.chEnTextHtml[self.languageType].accomplish);
-											$('.payment-page-right-order').show();
-											$('.payment-page-right-pay').hide();
-											$('.payment-page-right-total').hide();
-											$('.payment-page-right-busd').hide();
-											$('.payment-page-right-balance').hide()
-											$('.payment-page-right-btn button').text(self.chEnTextHtml[self.languageType].asset);
-											$('.payment-page-right-order-je span').text(busd);
-											$('.payment-page-right-order-by span').text(self.chEnTextHtml[self.languageType]
-												.balancePayment);
-										}, 1800);
-									} else {
-										error(res.message, 1800);
-									}
-								}
-							})
-						}
-					}
-				},
-				togglePayMethod(text) {
-					this.selectedPayMethod = text
-					if (text == 0) {
-						$('.payment-page-right-btn').hide();
-						$('.order-price .order-price-hdk').show();
-						$('.order-price .order-price-busd').hide();
-						$('.payment-page-right-select').show();
-						$('.payment-page-right-busd').hide();
-						$('.payment-page-right-balance').hide()
-						$('.payment-page-right-btn').hide();
-						$('.wallet-payment-desc').hide();
-						$('.payment-page-right-crypto').hide();
-						$('.payment-page-right-total').show();
-					};
 
-					if (text == 1) {
-						$('.payment-page-right-btn').show();
-						$('.payment-page-right-crypto').hide();
-						$('.payment-page-right-total').show();
-						$('.payment-page-right-balance').show()
-						$('.payment-page-right-btn button').addClass('can');
-						if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') || this
-							.accountBalance < this.busdPrice * this.selectarr.length) {
-							$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
-							$('#balanceBtn').attr('disabled', false)
-						} else {
-							$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment + ' >');
-						}
-						$('.order-price .order-price-hdk').hide();
-						$('.order-price .order-price-busd').show();
-						$('.payment-page-right-select').hide();
-						$('.payment-page-right-busd').show();
-						$('.wallet-payment-desc').hide();
-					}
-					if (text == 2) {
-						$('.payment-page-right-btn').hide();
-						//$('.payment-page-right-crypto').show();
-						if (getCookie('isConnect') != 'true') {
-							$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
-							$('#cryptoBtn').attr('disabled', false)
-						} else {
-							$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].payment + '  ->')
-							$('#cryptoBtn').attr('disabled', false)
-						}
-						$('.payment-page-right-balance').hide()
-						$('.payment-page-right-crypto button').addClass('can');
-						if ($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') {
-							$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
-						} else {
-							$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment + ' >');
-						}
-
-						$('.payment-page-right-total').hide();
-						$('.payment-page-right-total .order-price').hide()
-						$('.order-price .order-price-hdk').hide();
-						$('.order-price .order-price-busd').show();
-						$('.payment-page-right-select').hide();
-						$('.payment-page-right-busd').hide();
-						$('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
-						$('.wallet-payment-desc').show();
-						$('#cryptoBtn').attr('disabled', true)
-					}
-				},
 				cqblindboxbtn(type, val) {
 					var self = this
 					$.ajax({
