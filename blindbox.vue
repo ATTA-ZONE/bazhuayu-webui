@@ -551,7 +551,8 @@ module.exports = {
         url: base_url + "/v2/user/account",
         success: function (res) {
           if (res.code == 0) {
-            window.blindNum = str
+            $('.order-price-hdk').text('HK$ ' + self.hdkDrawPrice * str)
+            $('.order-price-busd').text('BUSD ' + self.drawPrice * str)
             $(".payment").fadeIn();
             $(".payment").addClass("payment-active");
             $("video").addClass("video-hidden");
