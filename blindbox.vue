@@ -541,6 +541,17 @@
 
 				cqblindboxbtn(type, val) {
 					var self = this
+					if (getCookie('islogin') == 'false' || getCookie('islogin') == false) {
+						window.tips(self.chEnTextHtml[self.lang].noLog);
+						setTimeout(() => {
+							window.location.href = "./login.html";
+						}, 700);
+						return;
+					}
+					if (val <= 0) {
+						window.tips("次数不够");
+						return;
+					}
 					$.ajax({
 						url: base_url + '/v2/activity/freeDraw',
 						type: 'POST',
