@@ -371,7 +371,6 @@ module.exports = {
 			error(this.chEnTextHtml[this.lang].payErr, 1800);
 		}
 		$('.payment-page-right-balance').hide()
-		self.getComditInfo()
 		self.initAddress()
 	},
 	mounted() {
@@ -549,111 +548,7 @@ module.exports = {
 					})
 			})
 		},
-		getComditInfo() {
-			//商品详情业加载
-			let self = this
-			$.ajax({
-				url: base_url + '/v2/commodity/info',
-				data: {
-					id: self.id
-				},
-				success: function (res) {
-					if (res.code == 0) {
-						self.basicId = res.data.basicId
-						var content = res.data.content;
-						var saleStartTimeMillis = res.data.saleStartTimeMillis; //开始销售时间
-						var saleEndTimeMillis = res.data.saleEndTimeMillis; //销售结束时间
-						var systemTime = res.data.systemTime; //当前时间
-						var geshi = res.data.primaryPic.substr(res.data.primaryPic.lastIndexOf('.') + 1);
-						var maxeditionnum = res.data.edition > res.data.endEdition ? res.data.endEdition : res.data.edition;
-						self.selectarr.push(res.data.edition);
-						window.$selectarr = self.selectarr;
-						self.maxbannum = res.data.endEdition;
-						self.hkdPrice = res.data.hkdPrice;
-						self.busdPrice = res.data.price;
-						self.curUserOwned = res.data.curUserOwned;
-						self.oneUserCountLimit = res.data.oneUserCountLimit;
-						self.onceCountLimit = res.data.onceCountLimit;
-						if (geshi == 'mp4') {
-							$('.detail-media').css('display', 'block')
-							var html = `<video style="width:100%;" autoplay="autoplay" loop="loop" src="` + res.data.primaryPic + `" webkit-playsinline="true" muted="muted" ></video>
-								<video class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + res.data.primaryPic + `" muted="muted"></video>`;
 
-							$('.order-img').append(html);
-						} else {
-							$('.detail-media').css('display', 'none')
-							var html = `<img class="bzy-e-list-img" src="` + res.data.primaryPic + `" >
-								<img class="bzy-e-list-img mohu" src="` + res.data.primaryPic + `" >`;
-							$('.order-img').append(html);
-						}
-						// $('.order-img img').attr('src',res.data.primaryPic);
-						$('.order-title').text(res.data.name);
-						$('.order-price-hdk').text('HK$ ' + moneyFormat(res.data.hkdPrice));
-						$('.order-price-busd').text('BUSD ' + moneyFormat(res.data.price));
-						if (res.data.name == '徐冬冬 牛N.X潮玩 NFT限量版' || res.data.name == 'Xu Dongdong_Nu N.X Trendy Play _Limited') {
-							res.data.edition = 200;
-						}
-						$('.details-right-creator-edition').text('Edition ' + maxeditionnum + ' of ' + res.data.endEdition);
-						$('.selectarrnum').text(maxeditionnum);
-						if(self.languageType == "TC"){
-							$('.order-introduce').html(res.data.introduce == '' ? '暫無介紹' : (res.data.introduce.replace(/;\|;/g, '<br>')));
-							$('.order-content').html(res.data.content == '' ? '暫無更多資訊' : (res.data.content.replace(/;\|;/g, '<br>')));
-						}else{
-							$('.order-introduce').html(res.data.introduce == '' ? 'No introduction' : (res.data.introduce.replace(/;\|;/g, '<br>')));
-							$('.order-content').html(res.data.content == '' ? 'No more information' : (res.data.content.replace(/;\|;/g, '<br>')));
-						}
-						if (res.data.endEdition - res.data.edition > 0) { //还有库存
-							if (systemTime < saleStartTimeMillis) {
-								$('.details-right-btn').addClass('unclick')
-								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].comSoon)
-								$('.details-right-btn').data('status', '1')
-								var msTime = saleStartTimeMillis - systemTime;
-								var time = self.formatDuring(msTime);
-								$('.details-right-time span:first-child').text(self.chEnTextHtml[self.languageType].start);
-								$('.details-right-time-djs').text(time);
-								setInterval(function () {
-									var curTime = Date.now() + 1150;
-									var msTime = saleStartTimeMillis - curTime;
-									var time = self.formatDuring(msTime);
-									$('.details-right-time-djs').text(time);
-								}, 1000);
-
-							} else if (systemTime >= saleStartTimeMillis && systemTime <= saleEndTimeMillis) {
-								var msTime = saleEndTimeMillis - systemTime;
-								var time = self.formatDuring(msTime);
-								let ycdjs = time.split('d')[0];
-								if (ycdjs > 1825) {
-									$(".details-right-time").hide();
-								}
-								$('.details-right-time span:first-child').text(self.chEnTextHtml[self.languageType].end);
-								$('.details-right-time-djs').text(time);
-
-								setInterval(function () {
-									var curTime = Date.now() + 1150;
-									var msTime = saleEndTimeMillis - curTime;
-									var time = self.formatDuring(msTime);
-									$('.details-right-time-djs').text(time);
-								}, 1000);
-							} else if (systemTime > saleEndTimeMillis) {
-								$('.details-right-btn').addClass('unclick');
-								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].salesClosed);
-								$('.details-right-btn').data('status', '1')
-								$('.details-right-time span:first-child').css('opacity', '0');
-								$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].salesClosed);
-							}
-						} else { //没有库存
-							$('.details-right-btn').addClass('unclick');
-							$('.details-right-btn').text(self.chEnTextHtml[self.languageType].sellOut);
-							$('.details-right-btn').data('status', '1');
-							$('.details-right-time span:first-child').css('opacity', '0');
-							$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].sellOut);
-							$('.details-right-time-djs').css('color', '#cf3737');
-						}
-						self.getAccountInfo(res)
-					}
-				}
-			})
-		},
 		getAccountInfo(res) {
 			let self = this
 			$.ajax({
