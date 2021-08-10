@@ -1,110 +1,172 @@
 <template>
   <div class="blindbox_box">
-	  <img class="bannerbox" :src="bannerurl" alt="">
-	  <div class="anchorintroduction">
-		  <h1 class="title">{{acName}}</h1>
-		  <p class="subtitle">{{acDescription}}</p>
-		  <div class="introducebox flex">
-			  <div class="tvbox" v-for="(item,index) in series" :key="index">
-				  <img :src="item.seImage" alt="">
-				  <div class="wordbox">
-					  <h5>{{item.seName}}</h5>
-					  <p>{{item.seDescription}}</p>
-				  </div>
-			  </div>
-		  </div>
-	  </div>
-	  <div class="luckdrawintroduce flex">
-		  <img class="luckdraw_left" :src="activityImg" alt="">
-		  <div class="luckdraw_right">
-			  <img src="./images/Asset3.png" alt="">
-			  <h3>{{activityTitle}}</h3>
-			  <p>{{activityDetail}}</p>
-			  <div class="luckdraw_btns">
-				  <button class="cjbtn">{{chEnTextHtml[lang].luckdrawintroduce_btn1}}</button>
-				  <button class="cjbtn">{{chEnTextHtml[lang].luckdrawintroduce_btn2}}</button>
-			  </div>
-		  </div>
-	  </div>
-	  <div class="cardsbox">
-		  <div class="cardslist flex">
-			  <div class="cardsevery" v-for="(item,index) in cards1" :key="index + Math.random()">
-				  <img :src="item.primaryPic" alt="">
-				  <div class="mask">
-					  <p>{{item.introduce}}</p>
-					  <p>{{item.rateDes}}</p>
-				  </div>
-			  </div>
-			  <h3 class="tips">{{series[0].seTitle}}</h3>
-			  <div class="cardsevery" v-for="(item,index) in cards2" :key="index + Math.random()">
-				  <img :src="item.primaryPic" alt="">
-				  <div class="mask">
-					  <p>{{item.introduce}}</p>
-					  <p>{{item.rateDes}}</p>
-				  </div>
-			  </div>
-			  <h3 class="tips">{{series[1].seTitle}}</h3>
-			  <div class="cardsevery" v-for="(item,index) in cards3" :key="index + Math.random()">
-				  <img :src="item.primaryPic" alt="">
-				  <div class="mask">
-					  <p>{{item.introduce}}</p>
-					  <p>{{item.rateDes}}</p>
-				  </div>
-			  </div>
-			  <h3 class="tips">{{series[2].seTitle}}</h3>
-		  </div>
-		  <div class="purchasebox">
-			  <div class="between flex">
-				  <span>{{chEnTextHtml[lang].purchase1 + leftAmount + " / " + storge}}</span>
-				  <p class="between flex">
-					<span>{{chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2}}</span>
-					<img class="question" src="./images/question.png" alt="">
-					<button class="cjbtn" @click="cqblindboxbtn(2,leftFreeCount.leftFreeCount2)">{{chEnTextHtml[lang].purchase5}}</button>
-				  </p>
-			  </div>
-			  <div class="between flex">
-				  <span>{{chEnTextHtml[lang].purchase3}}</span>
-				  <p class="between flex">
-					<span>{{chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1}}</span>
-					<img class="question" src="./images/question.png" alt="">
-					<button class="cjbtn" @click="cqblindboxbtn(1,leftFreeCount.leftFreeCount1)">{{chEnTextHtml[lang].purchase5}}</button>
-				  </p>
-			  </div>
-			  <div class="tips1">
-				<span>{{chEnTextHtml[lang].purchase2}}</span>
-			  </div>
-		  </div>
-		  <div class="zscjbox between flex">
-				<span>{{chEnTextHtml[lang].purchase6 + "HK$ " + hdkDrawPrice + " / BUSD " + drawPrice}}</span>
-				<button @click="toPay" class="cjbtn">{{chEnTextHtml[lang].luckdrawintroduce_btn1}}</button>
-				<button class="cjbtn">{{chEnTextHtml[lang].luckdrawintroduce_btn2}}</button>
-		  </div>
-		  <div class="bottombtn">
-			  <button>Go Staking</button>
-		  </div>
-	  </div>
-		<!-- modify -->
-		<div class="modify none">
-			<div class="modify-container flex">
-				<div class="modify-form">
-					<div class="modify-tit flex" data-type="name"><span>title</span><img class="none" onclick="cancelMobile()" src="./images/Close.png" ></div>
-					<div class="modify-ipt"></div>
-					<div class="modify-tips"></div>
-					<div class="modify-btn flex">
-						<button class="add modify-btn-active" type="button" @click="editzyclick($event)"></button>
-						<button class="cancel" type="button" onclick="cancel()">{{chEnTextHtml[lang].cancel}}</button>
-						<button class="cancel cancel-mobile none" type="button" onclick="cancelMobile()">{{chEnTextHtml[lang].cancel}}</button>
-					</div>
-					<div class="modify-close" onclick="cancel()"><img src="./images/Close.png" ></div>
-				</div>
-			</div>
-		</div>
-		<!--提示弹窗-->
-		<div class="hsycms-model-mask" id="mask-tips"></div>
-			<div class="hsycms-model hsycms-model-tips" id="tips">
-			<div class="hsycms-model-text">这里是提示内容</div>
-		</div>
-		
+    <img class="bannerbox" :src="bannerurl" alt="" />
+    <div class="anchorintroduction">
+      <h1 class="title">{{ acName }}</h1>
+      <p class="subtitle">{{ acDescription }}</p>
+      <div class="introducebox flex">
+        <div class="tvbox" v-for="(item, index) in series" :key="index">
+          <img :src="item.seImage" alt="" />
+          <div class="wordbox">
+            <h5>{{ item.seName }}</h5>
+            <p>{{ item.seDescription }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="luckdrawintroduce flex">
+      <img class="luckdraw_left" :src="activityImg" alt="" />
+      <div class="luckdraw_right">
+        <img src="./images/Asset3.png" alt="" />
+        <h3>{{ activityTitle }}</h3>
+        <p>{{ activityDetail }}</p>
+        <div class="luckdraw_btns">
+          <button class="cjbtn">
+            {{ chEnTextHtml[lang].luckdrawintroduce_btn1 }}
+          </button>
+          <button class="cjbtn">
+            {{ chEnTextHtml[lang].luckdrawintroduce_btn2 }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="cardsbox">
+      <div class="cardslist flex">
+        <div
+          class="cardsevery"
+          v-for="(item, index) in cards1"
+          :key="index + Math.random()"
+        >
+          <img :src="item.primaryPic" alt="" />
+          <div class="mask">
+            <p>{{ item.introduce }}</p>
+            <p>{{ item.rateDes }}</p>
+          </div>
+        </div>
+        <h3 class="tips">{{ series[0].seTitle }}</h3>
+        <div
+          class="cardsevery"
+          v-for="(item, index) in cards2"
+          :key="index + Math.random()"
+        >
+          <img :src="item.primaryPic" alt="" />
+          <div class="mask">
+            <p>{{ item.introduce }}</p>
+            <p>{{ item.rateDes }}</p>
+          </div>
+        </div>
+        <h3 class="tips">{{ series[1].seTitle }}</h3>
+        <div
+          class="cardsevery"
+          v-for="(item, index) in cards3"
+          :key="index + Math.random()"
+        >
+          <img :src="item.primaryPic" alt="" />
+          <div class="mask">
+            <p>{{ item.introduce }}</p>
+            <p>{{ item.rateDes }}</p>
+          </div>
+        </div>
+        <h3 class="tips">{{ series[2].seTitle }}</h3>
+      </div>
+      <div class="purchasebox">
+        <div class="between flex">
+          <span>{{
+            chEnTextHtml[lang].purchase1 + leftAmount + " / " + storge
+          }}</span>
+          <p class="between flex">
+            <span>{{
+              chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2
+            }}</span>
+            <img class="question" src="./images/question.png" alt="" />
+            <button
+              class="cjbtn"
+              @click="cqblindboxbtn(2, leftFreeCount.leftFreeCount2)"
+            >
+              {{ chEnTextHtml[lang].purchase5 }}
+            </button>
+          </p>
+        </div>
+        <div class="between flex">
+          <span>{{ chEnTextHtml[lang].purchase3 }}</span>
+          <p class="between flex">
+            <span>{{
+              chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1
+            }}</span>
+            <img class="question" src="./images/question.png" alt="" />
+            <button
+              class="cjbtn"
+              @click="cqblindboxbtn(1, leftFreeCount.leftFreeCount1)"
+            >
+              {{ chEnTextHtml[lang].purchase5 }}
+            </button>
+          </p>
+        </div>
+        <div class="tips1">
+          <span>{{ chEnTextHtml[lang].purchase2 }}</span>
+        </div>
+      </div>
+      <div class="zscjbox between flex">
+        <span>{{
+          chEnTextHtml[lang].purchase6 +
+          "HK$ " +
+          hdkDrawPrice +
+          " / BUSD " +
+          drawPrice
+        }}</span>
+        <button @click="toPay" class="cjbtn">
+          {{ chEnTextHtml[lang].luckdrawintroduce_btn1 }}
+        </button>
+        <button class="cjbtn">
+          {{ chEnTextHtml[lang].luckdrawintroduce_btn2 }}
+        </button>
+      </div>
+      <div class="bottombtn">
+        <button>Go Staking</button>
+      </div>
+    </div>
+    <!-- modify -->
+    <div class="modify none">
+      <div class="modify-container flex">
+        <div class="modify-form">
+          <div class="modify-tit flex" data-type="name">
+            <span>title</span
+            ><img
+              class="none"
+              onclick="cancelMobile()"
+              src="./images/Close.png"
+            />
+          </div>
+          <div class="modify-ipt"></div>
+          <div class="modify-tips"></div>
+          <div class="modify-btn flex">
+            <button
+              class="add modify-btn-active"
+              type="button"
+              @click="editzyclick($event)"
+            ></button>
+            <button class="cancel" type="button" onclick="cancel()">
+              {{ chEnTextHtml[lang].cancel }}
+            </button>
+            <button
+              class="cancel cancel-mobile none"
+              type="button"
+              onclick="cancelMobile()"
+            >
+              {{ chEnTextHtml[lang].cancel }}
+            </button>
+          </div>
+          <div class="modify-close" onclick="cancel()">
+            <img src="./images/Close.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--提示弹窗-->
+    <div class="hsycms-model-mask" id="mask-tips"></div>
+    <div class="hsycms-model hsycms-model-tips" id="tips">
+      <div class="hsycms-model-text">这里是提示内容</div>
+    </div>
   </div>
 </template>
 
@@ -568,28 +630,7 @@ module.exports = {
 				}
 			})
 		},
-		toggleVideo() {
-			var voiceStatus = document.getElementsByTagName('video')[0].muted
-			document.getElementsByTagName('video')[0].muted = !voiceStatus
-			switch (voiceStatus) {
-				case true:
-					document.getElementsByClassName('voice')[0].src = './images/voice.png'
-					break;
-				case false:
-					document.getElementsByClassName('voice')[0].src = './images/mute.png'
-					break;
-			}
-		},
-		FullScreen() {
-			var ele = document.getElementsByTagName('video')[0];
-			if (ele.requestFullscreen) {
-				ele.requestFullscreen();
-			} else if (ele.mozRequestFullScreen) {
-				ele.mozRequestFullScreen();
-			} else if (ele.webkitRequestFullScreen) {
-				ele.webkitRequestFullScreen();
-			}
-		},
+
 		changenum(type) {
 			let self = this
 			let str = '';
@@ -845,188 +886,186 @@ module.exports = {
 </script>
 
 <style>
-.between{
-	justify-content: space-between;
-	align-items: center;
+.between {
+  justify-content: space-between;
+  align-items: center;
 }
-.blindbox_box{
-	min-height: calc(100vh - 338px);
+.blindbox_box {
+  min-height: calc(100vh - 338px);
 }
-.bannerbox{
-	width: 100%;
-	background-size: 100% auto;
+.bannerbox {
+  width: 100%;
+  background-size: 100% auto;
 }
-.anchorintroduction{
-	padding: 146px 14.93%;
-	text-align: center;
-	color: #FFFFFF;
-	font-style: normal;
-	font-weight: 500;
+.anchorintroduction {
+  padding: 146px 14.93%;
+  text-align: center;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: 500;
 }
-.anchorintroduction .title{
-	font-size: 96px;
-	line-height: 100%;
-	margin: 0;
+.anchorintroduction .title {
+  font-size: 96px;
+  line-height: 100%;
+  margin: 0;
 }
-.anchorintroduction .subtitle{
-	font-size: 32px;
-	line-height: 150%;
-	margin: 80px 0;
+.anchorintroduction .subtitle {
+  font-size: 32px;
+  line-height: 150%;
+  margin: 80px 0;
 }
-.anchorintroduction .introducebox .tvbox:nth-child(2){
-	margin: 0 35px;
+.anchorintroduction .introducebox .tvbox:nth-child(2) {
+  margin: 0 35px;
 }
-.anchorintroduction .introducebox .tvbox img{
-	width: 100%;
+.anchorintroduction .introducebox .tvbox img {
+  width: 100%;
 }
-.anchorintroduction .introducebox .tvbox .wordbox h5{
-	font-size: 28px;
-	line-height: 150%;
-	margin: 30px 0;
+.anchorintroduction .introducebox .tvbox .wordbox h5 {
+  font-size: 28px;
+  line-height: 150%;
+  margin: 30px 0;
 }
-.anchorintroduction .introducebox .tvbox .wordbox p{
-	font-size: 18px;
-	line-height: 150%;
-	letter-spacing: -0.035em;
-	text-align: left;
-	opacity: 0.8;
+.anchorintroduction .introducebox .tvbox .wordbox p {
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: -0.035em;
+  text-align: left;
+  opacity: 0.8;
 }
-.luckdrawintroduce{
-	padding: 0 14.93%;
-	justify-content: space-between;
-	position: relative;
+.luckdrawintroduce {
+  padding: 0 14.93%;
+  justify-content: space-between;
+  position: relative;
 }
-.luckdrawintroduce .luckdraw_left{
-	width: 50.48%;
-	border-radius: 5px;
+.luckdrawintroduce .luckdraw_left {
+  width: 50.48%;
+  border-radius: 5px;
 }
-.luckdrawintroduce .luckdraw_right{
-	width: 43%;
+.luckdrawintroduce .luckdraw_right {
+  width: 43%;
 }
-.luckdrawintroduce .luckdraw_right img{
-	width: 60.5px;
-	background-size: 100% auto;
+.luckdrawintroduce .luckdraw_right img {
+  width: 60.5px;
+  background-size: 100% auto;
 }
-.luckdrawintroduce .luckdraw_right h3{
-	margin: 48px 0;
-	font-size: 48px;
-	line-height: 110%;
-	color: #FFFFFF;
+.luckdrawintroduce .luckdraw_right h3 {
+  margin: 48px 0;
+  font-size: 48px;
+  line-height: 110%;
+  color: #ffffff;
 }
-.luckdrawintroduce .luckdraw_right p{
-	font-size: 18px;
-	line-height: 150%;
-	font-weight: 300;
-	letter-spacing: -0.035em;
-	color: rgba(255, 255, 255, 0.7);
+.luckdrawintroduce .luckdraw_right p {
+  font-size: 18px;
+  line-height: 150%;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  color: rgba(255, 255, 255, 0.7);
 }
-.luckdrawintroduce .luckdraw_right .luckdraw_btns{
-	position: absolute;
-	bottom: 0;
+.luckdrawintroduce .luckdraw_right .luckdraw_btns {
+  position: absolute;
+  bottom: 0;
 }
-.luckdrawintroduce .luckdraw_right .luckdraw_btns button{
-	color: #FFFFFF;
-	margin-right: 100px;
+.luckdrawintroduce .luckdraw_right .luckdraw_btns button {
+  color: #ffffff;
+  margin-right: 100px;
 }
-.cjbtn{
-	border: none;
-	background: #9567FF;
-	font-size: 14px;
-	padding: 13px 50px;
-	border-radius: 2px;
+.cjbtn {
+  border: none;
+  background: #9567ff;
+  font-size: 14px;
+  padding: 13px 50px;
+  border-radius: 2px;
 }
-.cardsbox{
-	padding: 81px 14.93%;
+.cardsbox {
+  padding: 81px 14.93%;
 }
-.cardsbox .cardslist{
-	flex-wrap: wrap;
-	justify-content: space-between;
+.cardsbox .cardslist {
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
-.cardsbox .cardslist .tips{
-	width: 100%;
-	text-align: center;
-	margin-top: 8px;
-	margin-bottom: 20px;
-	font-size: 24px;
-	color: #FFFFFF;
+.cardsbox .cardslist .tips {
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #ffffff;
 }
-.cardsbox .cardslist .cardsevery{
-	position: relative;
-	width: 24%;
-	margin-bottom: 20px;
+.cardsbox .cardslist .cardsevery {
+  position: relative;
+  width: 24%;
+  margin-bottom: 20px;
 }
-.cardsbox .cardslist .cardsevery img{
-	width: 100%;
-	background-size: 100% auto;
+.cardsbox .cardslist .cardsevery img {
+  width: 100%;
+  background-size: 100% auto;
 }
-.cardsbox .cardslist .cardsevery .mask{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #000000;
-	opacity: 0;
-	color: #fff;
-	padding: 43px 20px;
-	transition: 0.5s all;
+.cardsbox .cardslist .cardsevery .mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  opacity: 0;
+  color: #fff;
+  padding: 43px 20px;
+  transition: 0.5s all;
 }
-.cardsbox .cardslist .cardsevery:hover .mask{
-	opacity: 0.6;
+.cardsbox .cardslist .cardsevery:hover .mask {
+  opacity: 0.6;
 }
-.cardsbox .cardslist .cardsevery .mask p{
-	font-size: 18px;
-	line-height: 150%;
+.cardsbox .cardslist .cardsevery .mask p {
+  font-size: 18px;
+  line-height: 150%;
 }
-.cardsbox .cardslist .cardsevery .mask p:nth-child(2){
-	margin-top: 20px;
+.cardsbox .cardslist .cardsevery .mask p:nth-child(2) {
+  margin-top: 20px;
 }
-.cardsbox .purchasebox{
-	margin-top: 52px;
-	color: #FFFFFF;
-	font-size: 24px;
+.cardsbox .purchasebox {
+  margin-top: 52px;
+  color: #ffffff;
+  font-size: 24px;
 }
-.cardsbox .purchasebox .tips1{
-	text-align: right;
-	font-size: 20px;
-	margin-top: 32px;
+.cardsbox .purchasebox .tips1 {
+  text-align: right;
+  font-size: 20px;
+  margin-top: 32px;
 }
-.cardsbox .purchasebox button{
-	margin-left: 80px;
+.cardsbox .purchasebox button {
+  margin-left: 80px;
 }
-.cardsbox .purchasebox>.between:nth-child(2){
-	margin-top: 16px;
+.cardsbox .purchasebox > .between:nth-child(2) {
+  margin-top: 16px;
 }
-.cardsbox .purchasebox .between .question{
-	margin-left: 9.5px;
-	cursor: pointer;
+.cardsbox .purchasebox .between .question {
+  margin-left: 9.5px;
+  cursor: pointer;
 }
-.zscjbox{
-	text-align: center;
-	margin-top: 80px;
-	font-size: 36px;
-	color: #8A5CFF;
-	font-weight: 600;
-	justify-content: center;
+.zscjbox {
+  text-align: center;
+  margin-top: 80px;
+  font-size: 36px;
+  color: #8a5cff;
+  font-weight: 600;
+  justify-content: center;
 }
-.zscjbox button{
-	color: #fff;
-	margin-left: 60px;
+.zscjbox button {
+  color: #fff;
+  margin-left: 60px;
 }
 .bottombtn {
-	text-align: center;
-	margin-top: 80px;
+  text-align: center;
+  margin-top: 80px;
 }
-.bottombtn button{
-	padding: 16px 128px;
-	background:transparent;
-	border: 1px solid #9567FF;
-	font-size: 32px;
-	line-height: 150%;
-	color: #9567FF;
+.bottombtn button {
+  padding: 16px 128px;
+  background: transparent;
+  border: 1px solid #9567ff;
+  font-size: 32px;
+  line-height: 150%;
+  color: #9567ff;
 }
-@media only screen and (max-width: 992px){
-	
+@media only screen and (max-width: 992px) {
 }
-
 </style>
