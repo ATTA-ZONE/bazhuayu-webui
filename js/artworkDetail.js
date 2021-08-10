@@ -359,7 +359,7 @@ var app = new Vue({
 							$('.order-introduce').html(res.data.introduce == '' ? 'No introduction' : (res.data.introduce.replace(/;\|;/g, '<br>')));
 							$('.order-content').html(res.data.content == '' ? 'No more information' : (res.data.content.replace(/;\|;/g, '<br>')));
 						}
-						if (res.data.endEdition - res.data.edition > 0) { //还有库存
+						if (res.data.endEdition - res.data.edition >= 0) { //还有库存
 							if (systemTime < saleStartTimeMillis) {
 								$('.details-right-btn').addClass('unclick')
 								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].comSoon)
@@ -405,6 +405,8 @@ var app = new Vue({
 							$('.details-right-time span:first-child').css('opacity', '0');
 							$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].sellOut);
 							$('.details-right-time-djs').css('color', '#cf3737');
+							//去掉标签中的onclick事件
+							$('.details-right-btn').css('pointer-events', 'none');
 						}
 						self.getAccountInfo(res)
 					}
