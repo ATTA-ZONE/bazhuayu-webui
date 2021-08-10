@@ -463,7 +463,6 @@
 				}
 
 				$('.payment-page-right-balance').hide()
-				this.initAddress()
 			},
 			mounted() {
 				// window.tips("1111");
@@ -560,7 +559,7 @@
 					})
 				}
 
-			}
+			}}
 </script>
 
 <style>
