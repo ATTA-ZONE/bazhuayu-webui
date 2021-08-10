@@ -770,7 +770,7 @@ module.exports = {
                       }, 1500);
                     }, 1800);
                   })
-                  .on("receipt", function (receipt) {})
+                  .on("receipt", function (receipt) {console.log(receipt);})
                   .on("error", function (err) {});
               }, 500);
             }
