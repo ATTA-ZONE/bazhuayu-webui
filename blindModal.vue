@@ -42,8 +42,8 @@
 							</div>
 							<div class="payment-page-right-total">
 								<p>{{chEnTextHtml[lang].pendingPayment}}</p>
-								<p class="order-price"><span class="order-price-hdk hkdPrice">HK$0 </span><span
-										class="order-price-busd none busdPrice">BUSD 0 </span></p>
+								<p class="order-price"><span class="order-price-hdk hkdPrice">HK$388 </span><span
+										class="order-price-busd none busdPrice">BUSD 50 </span></p>
 							</div>
 	
 							<div class="payment-page-right-select modify-ipt-fream">
