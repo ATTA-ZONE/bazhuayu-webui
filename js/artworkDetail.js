@@ -359,7 +359,7 @@ var app = new Vue({
 							$('.order-introduce').html(res.data.introduce == '' ? 'No introduction' : (res.data.introduce.replace(/;\|;/g, '<br>')));
 							$('.order-content').html(res.data.content == '' ? 'No more information' : (res.data.content.replace(/;\|;/g, '<br>')));
 						}
-						if (res.data.endEdition - res.data.edition > 0) { //还有库存
+						if (res.data.endEdition - res.data.edition >= 0) { //还有库存
 							if (systemTime < saleStartTimeMillis) {
 								$('.details-right-btn').addClass('unclick')
 								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].comSoon)
