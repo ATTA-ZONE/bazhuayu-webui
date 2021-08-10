@@ -199,7 +199,7 @@
                   </div>
                 </form>
               </div>
-              
+
               <div class="wallet-payment-desc none">
                 {{ chEnTextHtml[lang].notStore }}
               </div>
@@ -722,22 +722,19 @@ module.exports = {
     payBalance() {
       let self = this;
       var value = $("#balanceBtn").text().trim();
-      var busd = $(".order-price .order-price-busd").text().trim();
       if (self.selectedPayMethod == 1) {
-        if (value == "立即付款 >") {
-          CHAIN.WALLET.accounts()
-							.then(function(accounts){
-								self.safeCharge(accounts)
-							})
-        }
+        CHAIN.WALLET.accounts().then(function (accounts) {
+          self.safeCharge(accounts);
+          loading();
+        });
       }
     },
 
     safeCharge(accounts) {
-			if (accounts.length < 1) {
-				return false
-			}
-      var cwallet = '0xccbc6228c6030C605973468F6F5cbD16819A1D8B'; //收款钱包 地址
+      if (accounts.length < 1) {
+        return false;
+      }
+      var cwallet = "0xccbc6228c6030C605973468F6F5cbD16819A1D8B"; //收款钱包 地址
       var web3 = new Web3(CHAIN.WALLET.provider());
 
       var chainId = "";
@@ -749,7 +746,7 @@ module.exports = {
         var busdABI = contractSetting["busd_ERC20"]["abi"];
 
         busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-        var amount = $('.order-price-busd').text().split('BUSD ')[1];
+        var amount = $(".order-price-busd").text().split("BUSD ")[1];
 
         var num = web3.utils.toWei(amount, "ether");
         busdContractInstance.methods
@@ -765,7 +762,7 @@ module.exports = {
                     from: accounts[0],
                   })
                   .on("transactionHash", function (hash) {
-										console.log(hash);
+                    console.log(hash);
                     //success('充值已發起,期間請勿更換錢包防止誤充', 1800);
                     setTimeout(function () {
                       setTimeout(function () {
@@ -777,6 +774,7 @@ module.exports = {
                   .on("error", function (err) {});
               }, 500);
             }
+            loadingHide();
           });
       });
     },
