@@ -523,6 +523,7 @@
 					})
 				},
 				toPay() {
+					var self = this;
 					$.ajax({
 						url: base_url + '/v2/user/account',
 						success: function (res) {
@@ -532,7 +533,7 @@
 								$('video').addClass('video-hidden');
 								$('.payment-page-left-img video').removeClass('video-hidden')
 							} else {
-								tips(this.chEnTextHtml[this.lang].noLog);
+								window.tips(this.chEnTextHtml[self.lang].noLog);
 							}
 						}
 					})
