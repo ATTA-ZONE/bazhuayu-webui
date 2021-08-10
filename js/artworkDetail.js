@@ -360,7 +360,7 @@ var app = new Vue({
 							$('.order-content').html(res.data.content == '' ? 'No more information' : (res.data.content.replace(/;\|;/g, '<br>')));
 						}
 						if (res.data.endEdition - res.data.edition >= 0) { //还有库存
-							if (systemTime < saleStartTimeMillis) {//即将开售
+							if (systemTime < saleStartTimeMillis) {
 								$('.details-right-btn').addClass('unclick')
 								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].comSoon)
 								$('.details-right-btn').data('status', '1')
@@ -391,14 +391,12 @@ var app = new Vue({
 									var time = self.formatDuring(msTime);
 									$('.details-right-time-djs').text(time);
 								}, 1000);
-							} else if (systemTime > saleEndTimeMillis) {//销售已结束
+							} else if (systemTime > saleEndTimeMillis) {
 								$('.details-right-btn').addClass('unclick');
 								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].salesClosed);
 								$('.details-right-btn').data('status', '1')
 								$('.details-right-time span:first-child').css('opacity', '0');
 								$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].salesClosed);
-								//去掉标签中的onclick事件
-								$('.details-right-btn').css('pointer-events', 'none');
 							}
 						} else { //没有库存
 							$('.details-right-btn').addClass('unclick');
@@ -539,6 +537,7 @@ var app = new Vue({
 				$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 				$('#balanceBtn').attr('disabled', false)
 			}
+			let self = this;
 			$.ajax({
 				url: base_url + '/v2/user/account',
 				success: function (res) {
@@ -548,7 +547,7 @@ var app = new Vue({
 						$('video').addClass('video-hidden');
 						$('.payment-page-left-img video').removeClass('video-hidden')
 					} else {
-						tips(this.chEnTextHtml[this.languageType].noLog);
+						tips(self.chEnTextHtml[self.languageType].noLog);
 					}
 				}
 			})
