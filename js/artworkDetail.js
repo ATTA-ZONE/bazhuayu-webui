@@ -497,15 +497,16 @@ var app = new Vue({
 		},
 		//询问弹窗
 		saveconfirm() {
+			let self = this;
 			hsycms.confirm('confirm', this.chEnTextHtml[this.languageType].asset,
 				function (res) {
-					hsycms.success('success', this.chEnTextHtml[this.languageType].confirm);
+					hsycms.success('success', self.chEnTextHtml[self.languageType].confirm);
 					setTimeout(function () {
 						window.location.href = 'myassets.html';
 					}, 1500)
 				},
 				function (res) {
-					hsycms.error('error', this.chEnTextHtml[this.languageType].cancel);
+					hsycms.error('error', self.chEnTextHtml[self.languageType].cancel);
 				},
 			)
 		},
