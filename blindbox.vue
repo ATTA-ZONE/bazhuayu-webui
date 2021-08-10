@@ -88,7 +88,7 @@
           </p>
         </div>
         <div class="between flex">
-          <span>{{ chEnTextHtml[lang].purchase3 }}</span>
+          <span>{{ chEnTextHtml[lang].purchase3 + stakingPool}}</span>
           <p class="between flex">
             <span>{{
               chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1
@@ -285,7 +285,7 @@ module.exports = {
           gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
           purchase1: "盲盒剩餘：",
           purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
-          purchase3: "當前Staking獎勵池： BUSD 227,665",
+          purchase3: "當前Staking獎勵池： BUSD ",
           purchase4: "我的白名單獲贈抽取機會 ：",
           purchase5: "現在使用",
           purchase6: "盲盒價格：",
@@ -362,7 +362,7 @@ module.exports = {
           gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
           purchase1: "盲盒剩餘：",
           purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
-          purchase3: "當前Staking獎勵池： BUSD 227,665",
+          purchase3: "當前Staking獎勵池： BUSD ",
           purchase4: "我的白名單獲贈抽取機會:",
           purchase5: "現在使用",
           purchase6: "盲盒價格：",
@@ -472,6 +472,7 @@ module.exports = {
       tokenLimits: [],
       chainId: "",
       activityId: 1,
+	  stakingPool : 0,
     };
   },
 
@@ -529,6 +530,7 @@ module.exports = {
             self.hdkDrawPrice = res.data.hdkDrawPrice;
             self.leftAmount = res.data.leftAmount;
             self.storge = res.data.storge;
+            self.stakingPool = res.data.stakingPool;
             self.series = res.data.series;
             self.cards1 = res.data.series[0].commodities;
             self.cards2 = res.data.series[1].commodities;
