@@ -360,7 +360,7 @@ var app = new Vue({
 							$('.order-content').html(res.data.content == '' ? 'No more information' : (res.data.content.replace(/;\|;/g, '<br>')));
 						}
 						if (res.data.endEdition - res.data.edition >= 0) { //还有库存
-							if (systemTime < saleStartTimeMillis) {
+							if (systemTime < saleStartTimeMillis) {//即将开售
 								$('.details-right-btn').addClass('unclick')
 								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].comSoon)
 								$('.details-right-btn').data('status', '1')
@@ -391,12 +391,14 @@ var app = new Vue({
 									var time = self.formatDuring(msTime);
 									$('.details-right-time-djs').text(time);
 								}, 1000);
-							} else if (systemTime > saleEndTimeMillis) {
+							} else if (systemTime > saleEndTimeMillis) {//销售已结束
 								$('.details-right-btn').addClass('unclick');
 								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].salesClosed);
 								$('.details-right-btn').data('status', '1')
 								$('.details-right-time span:first-child').css('opacity', '0');
 								$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].salesClosed);
+								//去掉标签中的onclick事件
+								$('.details-right-btn').css('pointer-events', 'none');
 							}
 						} else { //没有库存
 							$('.details-right-btn').addClass('unclick');
