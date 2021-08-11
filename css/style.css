@@ -452,9 +452,9 @@ html {
 	font-family: Aeonik TRIAL;
 	font-style: normal;
 	font-weight: normal;
-	font-size: 96px;
+	font-size: 56px;
 	color: #fff;
-	line-height: 110px;
+	line-height: 70px;
 	margin-bottom: 70px;
 	width: 80%;
 }
@@ -3708,6 +3708,8 @@ html {
 
 .bzy-e-lf {
 	width: 45%;
+	display:flex;
+	align-items: center;
 }
 
 .bzy-e-lf img {
@@ -3733,8 +3735,19 @@ html {
 	font-size: 18px;
 	line-height: 150%;
 	color: #fff;
-	opacity: 0.7;
 	text-align: justify;
+}
+
+.bzy-e-rt .bzy-e-rt-info p{
+	opacity: 0.7;
+}
+.bzy-e-rt .bzy-e-rt-info .bzy-e-rt-info-lol{
+	background-color: #9567ff;
+	color: #fff;
+	border:0;
+	padding:5px 10px;
+	border-radius: 5px;
+	margin-top: 50px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -3833,7 +3846,7 @@ html {
 
 @media screen and (min-width:1200px) and (max-width:1599px) {
 	.index-banner {
-		min-height: 540px;
+		min-height: 440px;
 	}
 
 	.banner-left-tit {
@@ -3843,19 +3856,19 @@ html {
 
 @media screen and (min-width:1600px) and (max-width:1800px) {
 	.index-banner {
-		min-height: 600px;
+		min-height: 500px;
 	}
 }
 
 @media screen and (min-width:1801px) and (max-width:1919px) {
 	.index-banner {
-		min-height: 650px;
+		min-height: 550px;
 	}
 }
 
 @media screen and (min-width:1920px) {
 	.index-banner {
-		min-height: 730px;
+		min-height: 630px;
 	}
 }
 

@@ -479,12 +479,9 @@ module.exports = {
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
       document.title = "明星藏品詳情";
-      this.payTabs = ["信用卡", "餘額支付"];
     } else {
       document.title = "collection detail";
-      this.payTabs = ["Credit card", "Balance"];
     }
-
     $(".payment-page-right-balance").hide();
     this.getAssetsList();
   },
@@ -562,8 +559,13 @@ module.exports = {
         url: base_url + "/v2/user/account",
         success: function (res) {
           if (res.code == 0) {
-            $(".order-price-hdk").text("HK$ " + self.hdkDrawPrice * str);
-            $(".order-price-busd").text("BUSD " + self.drawPrice * str);
+            $('.order-price-hdk').text('HK$ ' + self.hdkDrawPrice * str)
+            $('.order-price-busd').text('BUSD ' + self.drawPrice * str)
+            if (Number(str) == 1) {
+              $('.order-title').text('單抽-LPL明星解說系列盲盒')
+            } else {
+              $('.order-title').text('十連抽-LPL明星解說系列盲盒')
+            }
             $(".payment").fadeIn();
             $(".payment").addClass("payment-active");
             $("video").addClass("video-hidden");
