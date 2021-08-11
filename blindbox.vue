@@ -14,8 +14,12 @@
         </div>
       </div>
     </div>
+    <div class="line"></div>
     <div class="luckdrawintroduce flex">
-      <img class="luckdraw_left" :src="activityImg" />
+      <img
+        class="luckdraw_left"
+        :src="activityImg"
+      />
       <div class="luckdraw_right">
         <img src="./images/Asset3.png" />
         <h3>{{ activityTitle }}</h3>
@@ -66,6 +70,7 @@
         </div>
         <h3 class="tips">{{ series[2].seTitle }}</h3>
       </div>
+      <div class="line"></div>
       <div class="purchasebox">
         <div class="between flex">
           <span>{{
@@ -99,6 +104,40 @@
             </button>
           </p>
         </div>
+        <div class="dbcqword">
+          <p class="cq">
+            {{ chEnTextHtml[lang].purchase1 + leftAmount + " / " + storge }}
+          </p>
+          <p class="cq">{{ chEnTextHtml[lang].purchase3 + stakingPool }}</p>
+          <p class="flex numbox">
+            <span>{{
+              chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2
+            }}</span>
+            <img class="question" src="./images/question.png" />
+          </p>
+          <button
+            class="cjbtn"
+            @click="cqblindboxbtn(2, leftFreeCount.leftFreeCount2)"
+          >
+            {{ chEnTextHtml[lang].purchase5 }}
+          </button>
+          <p class="flex numbox">
+            <span>{{
+              chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1
+            }}</span>
+            <img class="question" src="./images/question.png" />
+          </p>
+          <button
+            class="cjbtn"
+            @click="cqblindboxbtn(1, leftFreeCount.leftFreeCount1)"
+          >
+            {{ chEnTextHtml[lang].purchase5 }}
+          </button>
+        </div>
+        <div class="">
+          
+        </div>
+
         <div class="tips1">
           <span>{{ chEnTextHtml[lang].purchase2 }}</span>
         </div>
@@ -363,7 +402,7 @@ module.exports = {
           purchase3: "Current voting reward pool: BUSD ",
           purchase4: "Available Whitelist Drawing Chances:",
           purchase5: "Use Now",
-          purchase6: "Mystery Box remaining: ",
+          purchase6: "Price: ",
           purchase7: "Available Airdrop Drawing Chances:",
           edit: "Edit",
           clickedit: "Click to edit",
@@ -493,9 +532,8 @@ module.exports = {
     getAssetsList() {
       var self = this;
       if (getCookie("islogin") != "false") {
-        CHAIN.WALLET.accounts()
-        .then(function (accounts) {
-          self.account_address = accounts.length > 0 ? accounts[0] : '';
+        CHAIN.WALLET.accounts().then(function (accounts) {
+          self.account_address = accounts.length > 0 ? accounts[0] : "";
           self.getdata();
         });
       } else {
@@ -540,13 +578,13 @@ module.exports = {
                   self.leftFreeCount.leftFreeCount2 = item.leftFreeCount;
                 }
               });
-            }else{
+            } else {
               self.leftFreeCount = {
                 leftFreeCount1: 0,
                 type1: 1,
                 leftFreeCount2: 0,
                 type1: 2,
-              }
+              };
             }
           }
         },
@@ -559,12 +597,12 @@ module.exports = {
         url: base_url + "/v2/user/account",
         success: function (res) {
           if (res.code == 0) {
-            $('.order-price-hdk').text('HK$ ' + self.hdkDrawPrice * str)
-            $('.order-price-busd').text('BUSD ' + self.drawPrice * str)
+            $(".order-price-hdk").text("HK$ " + self.hdkDrawPrice * str);
+            $(".order-price-busd").text("BUSD " + self.drawPrice * str);
             if (Number(str) == 1) {
-              $('.order-title').text('單抽-LPL明星解說系列盲盒')
+              $(".order-title").text("單抽-LPL明星解說系列盲盒");
             } else {
-              $('.order-title').text('十連抽-LPL明星解說系列盲盒')
+              $(".order-title").text("十連抽-LPL明星解說系列盲盒");
             }
             $(".payment").fadeIn();
             $(".payment").addClass("payment-active");
@@ -612,7 +650,7 @@ module.exports = {
         },
       });
     },
-  }
+  },
 };
 </script>
 
@@ -681,7 +719,7 @@ module.exports = {
 
 .luckdrawintroduce .luckdraw_left {
   width: 50.48%;
-  border-radius: 5px;
+  border-radius: 7px;
 }
 
 .luckdrawintroduce .luckdraw_right {
@@ -833,7 +871,155 @@ module.exports = {
   line-height: 150%;
   color: #9567ff;
 }
+.line {
+  width: calc(100% - 66px);
+  height: 1px;
+  background: #9567ff;
+  margin: 0 auto;
+  display: none;
+}
 
 @media only screen and (max-width: 992px) {
+  .line {
+    display: block;
+  }
+  .blindbox_box {
+    margin-top: 60px;
+  }
+  .anchorintroduction {
+    padding: 32px 10px;
+    text-align: left;
+  }
+  .anchorintroduction .title {
+    font-size: 22px;
+  }
+  .anchorintroduction .subtitle {
+    margin: 5px 0 21px 0;
+    font-size: 16px;
+  }
+  .introducebox {
+    flex-direction: column;
+    padding: 0 23px;
+  }
+  .anchorintroduction .introducebox .tvbox .wordbox h5 {
+    text-align: center;
+    margin: 7px 0 8px 0;
+  }
+  .anchorintroduction .introducebox .tvbox .wordbox p,
+  .luckdrawintroduce .luckdraw_right p {
+    font-size: 16px;
+  }
+  .luckdrawintroduce {
+    flex-direction: column;
+    padding: 28px 33px 0 33px;
+  }
+  .luckdrawintroduce .luckdraw_left,
+  .luckdrawintroduce .luckdraw_right {
+    width: 100%;
+  }
+  .luckdrawintroduce .luckdraw_right img {
+    width: 27px;
+  }
+  .luckdrawintroduce .luckdraw_right h3 {
+    font-size: 24px;
+    margin: 9.5px 0 20px 0;
+  }
+  .luckdrawintroduce .luckdraw_right .luckdraw_btns {
+    position: relative;
+    text-align: center;
+    margin-top: 35px;
+  }
+  .luckdrawintroduce .luckdraw_right .luckdraw_btns button {
+    margin-right: 0;
+  }
+  .cardsbox {
+    padding: 35px 31px 0 31px;
+  }
+  .cardsbox .cardslist {
+    margin-bottom: 29px;
+  }
+  .cardsbox .line {
+    width: 100%;
+  }
+  .cardsbox .cardslist .cardsevery {
+    width: 49%;
+    margin-bottom: 8px;
+  }
+  .cardsbox .cardslist .cardsevery:focus .mask {
+    opacity: 0.6;
+  }
+  .cardsbox .cardslist .cardsevery .mask {
+    padding: 29px 16px;
+  }
+  .cardsbox .cardslist .cardsevery .mask p {
+    font-size: 12px;
+  }
+  .cardsbox .cardslist .tips {
+    font-size: 16px;
+    margin: 7px 0 15px 0;
+  }
+  .cardsbox .purchasebox {
+    margin-top: 31px;
+    font-size: 16px;
+  }
+  .cardsbox .purchasebox .between {
+    display: none;
+  }
+  .cardsbox .purchasebox .dbcqword{
+    width: 100%;
+  }
+  .cardsbox .purchasebox .dbcqword p{
+    margin: 0;
+  }
+  .cardsbox .purchasebox .dbcqword .cq{
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom : 9px;
+  }
+  .cardsbox .purchasebox .dbcqword .numbox{
+    margin-top: 10px;
+    align-items: center;
+    margin-bottom : 15px;
+
+  }
+  .cardsbox .purchasebox .dbcqword .numbox img{
+    margin-left: 9px;
+    width: 17px;
+    height: 17px;
+  }
+  .cjbtn{
+    font-size: 12px;
+    padding: 5px 18px;
+  }
+  .cardsbox .purchasebox button{
+    margin-left: calc((100% - 83px) / 2);
+  }
+  .cardsbox .purchasebox .tips1{
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin-top: 9px;
+  }
+  .zscjbox{
+    margin-top: 19px;
+    flex-wrap: wrap;
+    font-size: 20px;
+    justify-content: space-evenly;
+  }
+  .zscjbox span{
+    width: 100%;
+    display: inline-block;
+  }
+  .zscjbox button{
+    margin-top: 19px;
+    margin-left: 0;
+    padding: 5px 12px;
+  }
+  .bottombtn{
+    margin-top: 35px;
+  }
+  .bottombtn button{
+    font-size: 20px;
+    padding: 10px 52px;
+  }
 }
 </style>
