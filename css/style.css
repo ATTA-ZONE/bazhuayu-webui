@@ -3846,7 +3846,7 @@ html {
 
 @media screen and (min-width:1200px) and (max-width:1599px) {
 	.index-banner {
-		min-height: 540px;
+		min-height: 450px;
 	}
 
 	.banner-left-tit {
@@ -3856,19 +3856,19 @@ html {
 
 @media screen and (min-width:1600px) and (max-width:1800px) {
 	.index-banner {
-		min-height: 600px;
+		min-height: 485px;
 	}
 }
 
 @media screen and (min-width:1801px) and (max-width:1919px) {
 	.index-banner {
-		min-height: 650px;
+		min-height: 542px;
 	}
 }
 
 @media screen and (min-width:1920px) {
 	.index-banner {
-		min-height: 730px;
+		min-height: 554px;
 	}
 }
 

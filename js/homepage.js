@@ -19,7 +19,7 @@ $(function () {
 					if (geshi == 'mp4') {
 						html += `	<video x5-playsinline="true" x5-video-player-type="h5" webkit-playsinline="true" class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + v.pic + `" muted="muted"></video>`;
 					} else {
-						html += `	<img src="` + v.pic + `" alt="">`
+						html += `	<img src="http://47.118.74.48:8081/upload/v2data/2021-08-11/0f9ed6e4-405f-44e4-92a5-9629cfd2da81.jpg" alt="">`
 					}
 					html += `</a>
 								<div class="banner-right-tit flex none"><span>` + (i + 1) + `</span><span>` + v.name + `</span></div>
@@ -30,7 +30,7 @@ $(function () {
 					if (geshi == 'mp4') {
 						html_mobile += `	<video x5-playsinline="true" x5-video-player-type="h5" webkit-playsinline="true" class="mohu" style="width:100%;" autoplay="autoplay" loop="loop" src="` + v.pic + `" muted="muted"></video>`;
 					} else {
-						html_mobile += `	<img src="` + v.pic + `" alt="">`
+						html_mobile += `	<img src="http://47.118.74.48:8081/upload/v2data/2021-08-11/0f9ed6e4-405f-44e4-92a5-9629cfd2da81.jpg" alt="">`
 					}
 					html_mobile += `	<p>` + (i + 1) + ` ` + v.name + `</p>
 										</a>
