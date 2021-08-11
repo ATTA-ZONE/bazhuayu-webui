@@ -21,11 +21,8 @@
         <h3>{{ activityTitle }}</h3>
         <p>{{ activityDetail }}</p>
         <div class="luckdraw_btns">
-          <button class="cjbtn">
-            {{ chEnTextHtml[lang].luckdrawintroduce_btn1 }}
-          </button>
-          <button class="cjbtn">
-            {{ chEnTextHtml[lang].luckdrawintroduce_btn2 }}
+          <button class="cjbtn" onClick="window.scrollTo(0,document.body.clientHeight); ">
+            coming soon
           </button>
         </div>
       </div>
