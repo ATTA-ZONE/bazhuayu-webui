@@ -452,9 +452,9 @@ html {
 	font-family: Aeonik TRIAL;
 	font-style: normal;
 	font-weight: normal;
-	font-size: 96px;
+	font-size: 56px;
 	color: #fff;
-	line-height: 110px;
+	line-height: 70px;
 	margin-bottom: 70px;
 	width: 80%;
 }
@@ -3747,7 +3747,7 @@ html {
 	border:0;
 	padding:5px 10px;
 	border-radius: 5px;
-	margin-top: 15px;
+	margin-top: 50px;
 }
 
 @media only screen and (max-width: 767px) {
