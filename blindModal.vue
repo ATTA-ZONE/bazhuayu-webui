@@ -538,6 +538,7 @@ module.exports = {
     $.getScript("./js/framesv2.min.js");
     $.getScript("./js/blindFrame.js");
     $('.payment-page-right-balance').hide()
+    this.initAddress()
   },
 
   methods: {
