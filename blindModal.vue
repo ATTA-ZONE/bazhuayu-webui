@@ -500,6 +500,7 @@ module.exports = {
         },
       },
       lang: "",
+			orderNo:'',
       bannerurl: "./images/Banner.png",
       acDescription: "火爆來襲，更有LPL季後賽賽事staking大獎，等你來拿~",
       acName: "LPL明星解說系列盲盒",
@@ -721,7 +722,19 @@ module.exports = {
     //支付
     payBalance() {
       let self = this;
-      var value = $("#balanceBtn").text().trim();
+      $.ajax({
+        url: base_url + "/v2/activity/preOrder",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({
+          "activityId": 1,
+  				"count": window.blindNum
+        }),
+        success: function (res) {
+          self.orderNo = res.data
+        }
+      })
       if (self.selectedPayMethod == 1) {
         CHAIN.WALLET.accounts().then(function (accounts) {
           self.safeCharge(accounts);
@@ -731,6 +744,7 @@ module.exports = {
     },
 
     safeCharge(accounts) {
+			let self = this
       if (accounts.length < 1) {
         return false;
       }
@@ -738,8 +752,8 @@ module.exports = {
       var web3 = new Web3(CHAIN.WALLET.provider());
 
       var chainId = "";
-      CHAIN.WALLET.chainId().then(function (res1) {
-        chainId = web3.utils.hexToNumber(res1);
+      CHAIN.WALLET.chainId().then(function (res) {
+        chainId = web3.utils.hexToNumber(res);
 
         // busdAddress 供外界使用
         var busdAddress = contractSetting["busd_ERC20"][chainId].address;
@@ -762,7 +776,6 @@ module.exports = {
                     from: accounts[0],
                   })
                   .on("transactionHash", function (hash) {
-                    console.log(hash);
                     //success('充值已發起,期間請勿更換錢包防止誤充', 1800);
                     setTimeout(function () {
                       setTimeout(function () {
@@ -770,8 +783,41 @@ module.exports = {
                       }, 1500);
                     }, 1800);
                   })
-                  .on("receipt", function (receipt) {console.log(receipt);})
-                  .on("error", function (err) {});
+                  .on("receipt", function (receipt) {
+										console.log(receipt, '======');
+										$.ajax({
+												url: base_url + "/v2/activity/draw",
+												type: "POST",
+												contentType: "application/json",
+												dataType: "json",
+												data: JSON.stringify({
+													"activityId": 1,
+													"address": accounts[0],
+													"orderNo": self.orderNo,
+													"txhash": hash
+												}),
+												success: function (resu) {
+													console.log(resu, '----');
+												},
+												error: function (resutt) {
+													console.log(resutt, '----');
+												},
+											})
+									}) 
+                  .on("error", function (err) {
+										$.ajax({
+												url: base_url + "/v2/activity/cancelOrder",
+												type: "POST",
+												contentType: "application/json",
+												dataType: "json",
+												data: JSON.stringify({
+													"orderNo": self.orderNo
+												}),
+												success: function (res) {
+													console.log(res);
+												}
+											})
+									});
               }, 500);
             }
             loadingHide();

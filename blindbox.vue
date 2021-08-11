@@ -549,6 +549,7 @@ module.exports = {
     },
     toPay(str) {
       var self = this;
+      window.blindNum = str
       $.ajax({
         url: base_url + "/v2/user/account",
         success: function (res) {
