@@ -185,7 +185,7 @@
 
                   <div>
                     <div class="pay-button">
-                      <button id="pay-button">
+                      <button id="pay-button" @click="creditPay">
                         {{ chEnTextHtml[lang].payment }} >
                       </button>
                     </div>
@@ -251,19 +251,13 @@
     </div>
     <!-- 播放视频 -->
     <div class="video-mask none"></div>
-    <div class="video-model none" onclick="closeVideo()">
+    <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <img
-            onclick="closeVideo()"
-            class="video-close"
-            src="./images/Close.png"
-          />
           <video
-            autoplay="autoplay"
-            loop="loop"
             src=""
-            controls="controls"
+            autoplay
+            muted
           ></video>
         </div>
       </div>
@@ -521,10 +515,12 @@ module.exports = {
       tokenLimits: [],
       chainId: "",
       activityId: 1,
+      success_status: -1
     };
   },
 
   created() {
+    let self = this;
     this.isConnect = getCookie("isConnect") == "false" ? false : true;
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
@@ -538,15 +534,62 @@ module.exports = {
     $.getScript("./js/framesv2.min.js");
     $.getScript("./js/blindFrame.js");
     $('.payment-page-right-balance').hide()
+    $('#pay-button').on('click',function(){
+      preSku()
+    })
     this.initAddress()
+    this.getCreditInfo()
   },
 
   methods: {
+    playVideo() {
+      var src = 'https://v-cdn.zjol.com.cn/280443.mp4';
+      $('.video-model video').attr('src', src);
+      $('.video-mask').fadeIn('fast');
+      $('.video-model').fadeIn('fast');
+      $('.video-model video')[0].play();
+      $('.video-model video')[0].addEventListener('ended', function () {
+          $('.video-mask').fadeOut('fast');
+          $('.video-model').fadeOut('fast');
+      }, false);
+    },
     enablePay(){
       if ($("#savetips").prop("checked")) {
         $("#pay-button").attr("disabled", false);
       } else {
         $("#pay-button").attr("disabled", true);
+      }
+    },
+    creditPay(){
+      loading();
+      this.preSku()
+    },
+    getCreditInfo(){
+      let self = this;
+      var params = window.location.search.substr(1).split('&')
+      var arr = [];
+      for (var key in params) {
+        arr.push({
+          key: params[key].split('=')
+        });
+      }
+      $.each(arr, function (i, v) {
+        if (v.key[0] == 'success') {
+          self.success_status = v.key[1]
+        }
+      })
+
+      if (self.success_status == 1) {
+        success(this.chEnTextHtml[this.lang].paySuc, 1800);
+        setTimeout(function () {
+          self.playVideo()
+          CHAIN.WALLET.accounts().then(function (accounts) {
+            self.drawSku(accounts)
+          });
+        }, 1800)
+      } else if (self.success_status == 0) {
+        self.cancelSku()
+        error(this.chEnTextHtml[this.lang].payErr, 1800);
       }
     },
     payCrypto() {
@@ -703,8 +746,7 @@ module.exports = {
       var seconds = parseInt((mss % (1000 * 60)) / 1000);
       return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
     },
-    //支付
-    payBalance() {
+    preSku(){
       let self = this;
       $.ajax({
         url: base_url + "/v2/activity/preOrder",
@@ -717,8 +759,43 @@ module.exports = {
         }),
         success: function (res) {
           self.orderNo = res.data;
-        },
+        }
       });
+    },
+    drawSku(accounts,hash){
+      let self = this;
+      $.ajax({
+        url: base_url + "/v2/activity/draw",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({
+          activityId: 1,
+          address: accounts[0],
+          orderNo: self.orderNo,
+          txhash: hash || '',
+        }),
+        success: function (resu) {
+          self.blindBoxData = resu.data;
+        }
+      });
+    },
+    cancelSku(){
+      let self = this;
+      $.ajax({
+        url: base_url + "/v2/activity/cancelOrder",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({
+          orderNo: self.orderNo,
+        })
+      })
+    },
+    //支付
+    payBalance() {
+      let self = this;
+      self.preSku()
       if (self.selectedPayMethod == 1) {
         CHAIN.WALLET.accounts().then(function (accounts) {
           self.safeCharge(accounts);
@@ -761,36 +838,11 @@ module.exports = {
                   })
                   .then((result) => {
                     $(".payment").fadeOut();
-                    $.ajax({
-                      url: base_url + "/v2/activity/draw",
-                      type: "POST",
-                      contentType: "application/json",
-                      dataType: "json",
-                      data: JSON.stringify({
-                        activityId: 1,
-                        address: accounts[0],
-                        orderNo: self.orderNo,
-                        txhash: result.blockHash,
-                      }),
-                      success: function (resu) {
-                        self.blindBoxData = resu.data;
-                      },
-                    });
+                    self.drawSku(accounts, result.blockHash)
                     loadingHide();
                   })
-                  .catch((err) => {
-                    $.ajax({
-                      url: base_url + "/v2/activity/cancelOrder",
-                      type: "POST",
-                      contentType: "application/json",
-                      dataType: "json",
-                      data: JSON.stringify({
-                        orderNo: self.orderNo,
-                      }),
-                      success: function (res) {
-                        console.log(res);
-                      },
-                    });
+                  .catch(() => {
+                    self.cancelSku()
                     loadingHide();
                   });
               }, 500);

@@ -76,25 +76,6 @@ function onValidationChanged(event) {
     setErrorMessage(e);
   }
 }
-// function onValidationChanged(event) {
-//   var e = event.element;
-
-//   if (event.isValid || event.isEmpty) {
-//     if (e === "card-number" && !event.isEmpty) {
-//       showPaymentMethodIcon();
-//     }
-//     setDefaultIcon(e);
-//     clearErrorIcon(e);
-//     clearErrorMessage(e);
-//   } else {
-//     if (e === "card-number") {
-//       clearPaymentMethodIcon();
-//     }
-//     setDefaultErrorIcon(e);
-//     setErrorIcon(e);
-//     setErrorMessage(e);
-//   }
-// }
 
 function clearErrorMessage(el) {
   var selector = ".error-message__" + el;
@@ -175,18 +156,9 @@ $('.pay-button').click(function(){
 });
 Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, onCardTokenized);
 function onCardTokenized(event) {
-  // var el = document.querySelector(".success-payment-message");
-  // el.innerHTML =
-  //   "Card tokenization completed<br>" +
-  //   'Your card token is: <span class="token">' +
-  //   event.token +
-  //   "</span>";
-	
-	var orderNo = $('.order-number span').text().trim();
 	var saveCard = $('#save').prop('checked');
 	var ctoken = event.token;
 	var useLast = false;
-  var id = window.location.search.substring(1).split('=')[1];
 	var data = {
 		// orderNo,
     activityId: 1,
