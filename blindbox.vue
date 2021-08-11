@@ -878,9 +878,12 @@ module.exports = {
   margin: 0 auto;
   display: none;
 }
+.cardsbox .purchasebox .dbcqword{
+  display: none;
+}
 
 @media only screen and (max-width: 992px) {
-  .line {
+  .line ,.cardsbox .purchasebox .dbcqword{
     display: block;
   }
   .blindbox_box {
