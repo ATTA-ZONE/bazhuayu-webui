@@ -511,7 +511,7 @@ module.exports = {
       curUserOwned: 0,
       oneUserCountLimit: 0,
       onceCountLimit: 0,
-      payTabs: ["信用卡", "餘額支付"],
+      payTabs: ["信用卡", "錢包支付"],
       selectedPayMethod: 0,
       basicId: 0,
       visiable: [],
@@ -528,12 +528,10 @@ module.exports = {
     this.isConnect = getCookie("isConnect") == "false" ? false : true;
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
-      this.payTabs = ["信用卡", "钱包支付"];
+      this.payTabs = ["信用卡", "錢包支付"];
     } else {
       this.payTabs = ["Credit card", "Balance"];
     }
-
-    this.initAddress();
   },
 
   mounted() {

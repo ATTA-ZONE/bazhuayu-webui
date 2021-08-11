@@ -549,6 +549,11 @@ module.exports = {
           if (res.code == 0) {
             $('.order-price-hdk').text('HK$ ' + self.hdkDrawPrice * str)
             $('.order-price-busd').text('BUSD ' + self.drawPrice * str)
+            if (Number(str) == 1) {
+              $('.order-title').text('單抽-LPL明星解說系列盲盒')
+            } else {
+              $('.order-title').text('十連抽-LPL明星解說系列盲盒')
+            }
             $(".payment").fadeIn();
             $(".payment").addClass("payment-active");
             $("video").addClass("video-hidden");
