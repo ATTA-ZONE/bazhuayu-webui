@@ -422,7 +422,7 @@ var app = new Vue({
 						$('.busd-ye').text('BUSD ' + result.data.usdtRest);
 						self.accountBalance = result.data.usdtRest
 						if (res.data.price > result.data.usdtRest) {
-							$('.busd-tip').text(this.chEnTextHtml[this.languageType].balanceInsufficient);
+							$('.busd-tip').text(self.chEnTextHtml[self.languageType].balanceInsufficient);
 						} else {
 							$('.busd-tip').text('-' + res.data.price);
 						}
@@ -534,11 +534,11 @@ var app = new Vue({
 			return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 		},
 		toPay() {
+			let self = this;
 			if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance')|| this.accountBalance < this.busdPrice * this.selectarr.length) {
 				$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 				$('#balanceBtn').attr('disabled', false)
 			}
-			let self = this;
 			$.ajax({
 				url: base_url + '/v2/user/account',
 				success: function (res) {
