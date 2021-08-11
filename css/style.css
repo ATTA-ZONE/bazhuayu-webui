@@ -3708,6 +3708,8 @@ html {
 
 .bzy-e-lf {
 	width: 45%;
+	display:flex;
+	align-items: center;
 }
 
 .bzy-e-lf img {
@@ -3733,8 +3735,19 @@ html {
 	font-size: 18px;
 	line-height: 150%;
 	color: #fff;
-	opacity: 0.7;
 	text-align: justify;
+}
+
+.bzy-e-rt .bzy-e-rt-info p{
+	opacity: 0.7;
+}
+.bzy-e-rt .bzy-e-rt-info .bzy-e-rt-info-lol{
+	background-color: #9567ff;
+	color: #fff;
+	border:0;
+	padding:5px 10px;
+	border-radius: 5px;
+	margin-top: 15px;
 }
 
 @media only screen and (max-width: 767px) {
