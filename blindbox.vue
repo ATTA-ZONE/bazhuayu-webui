@@ -21,8 +21,11 @@
         <h3>{{ activityTitle }}</h3>
         <p>{{ activityDetail }}</p>
         <div class="luckdraw_btns">
-          <button class="cjbtn" onClick="window.scrollTo(0,document.body.clientHeight); ">
-            coming soon
+          <button
+            class="cjbtn"
+            onClick="window.scrollTo(0,document.body.clientHeight); "
+          >
+            Coming soon
           </button>
         </div>
       </div>
@@ -36,8 +39,7 @@
         >
           <img :src="item.primaryPic" />
           <div class="mask">
-            <p>{{ item.introduce }}</p>
-            <p>{{ item.rateDes }}</p>
+            <p v-html="item.introduce"></p>
           </div>
         </div>
         <h3 class="tips">{{ series[0].seTitle }}</h3>
@@ -48,8 +50,7 @@
         >
           <img :src="item.primaryPic" />
           <div class="mask">
-            <p>{{ item.introduce }}</p>
-            <p>{{ item.rateDes }}</p>
+            <p v-html="item.introduce"></p>
           </div>
         </div>
         <h3 class="tips">{{ series[1].seTitle }}</h3>
@@ -60,8 +61,7 @@
         >
           <img :src="item.primaryPic" />
           <div class="mask">
-            <p>{{ item.introduce }}</p>
-            <p>{{ item.rateDes }}</p>
+            <p v-html="item.introduce"></p>
           </div>
         </div>
         <h3 class="tips">{{ series[2].seTitle }}</h3>
@@ -85,7 +85,7 @@
           </p>
         </div>
         <div class="between flex">
-          <span>{{ chEnTextHtml[lang].purchase3 + stakingPool}}</span>
+          <span>{{ chEnTextHtml[lang].purchase3 + stakingPool }}</span>
           <p class="between flex">
             <span>{{
               chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1
@@ -351,19 +351,20 @@ module.exports = {
         },
         EN: {
           luckdrawintroduce_con: "",
-          luckdrawintroduce_btn1: "單抽enen",
-          luckdrawintroduce_btn2: "十連抽enen",
+          luckdrawintroduce_btn1: "Single Draw",
+          luckdrawintroduce_btn2: " 10 Consecutive Draws",
           probability: "本张卡概率：",
           gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
           gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
           gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
-          purchase1: "盲盒剩餘：",
-          purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
-          purchase3: "當前Staking獎勵池： BUSD ",
-          purchase4: "我的白名單獲贈抽取機會:",
-          purchase5: "現在使用",
-          purchase6: "盲盒價格：",
-          purchase7: "空投獲贈抽取機會:",
+          purchase1: "Mystery Box remaining: ",
+          purchase2:
+            "Whitelisted Users can enjoy the “Buy 4 get 1 free” Discount",
+          purchase3: "Current voting reward pool: BUSD ",
+          purchase4: "Available Whitelist Drawing Chances:",
+          purchase5: "Use Now",
+          purchase6: "Mystery Box remaining: ",
+          purchase7: "Available Airdrop Drawing Chances:",
           edit: "Edit",
           clickedit: "Click to edit",
           transfer: "Transfer",
@@ -440,7 +441,7 @@ module.exports = {
       hdkDrawPrice: 388,
       leftAmount: 624,
       storge: 1000,
-      address: "",
+      account_address: "",
       leftFreeCount: {
         leftFreeCount1: 0,
         type1: 1,
@@ -469,7 +470,7 @@ module.exports = {
       tokenLimits: [],
       chainId: "",
       activityId: 1,
-	  stakingPool : 0,
+      stakingPool: 0,
     };
   },
 
@@ -485,23 +486,24 @@ module.exports = {
     }
 
     $(".payment-page-right-balance").hide();
+    this.getAssetsList();
   },
   mounted() {
-    // window.tips("1111");
-    this.getAssetsList();
+    CHAIN.WALLET.accountsChangedAssign(this.getAssetsList);
   },
 
   methods: {
     getAssetsList() {
       var self = this;
-      CHAIN.WALLET.accounts().then(function (account) {
-        if (account.length && getCookie("islogin") != "false") {
-          self.address = account[0];
+      if (getCookie("islogin") != "false") {
+        CHAIN.WALLET.accounts()
+        .then(function (accounts) {
+          self.account_address = accounts.length > 0 ? accounts[0] : '';
           self.getdata();
-        } else {
-          self.getdata();
-        }
-      });
+        });
+      } else {
+        self.getdata();
+      }
     },
     getdata() {
       var self = this;
@@ -513,7 +515,7 @@ module.exports = {
         data: JSON.stringify({
           id: self.activityId,
           lang: self.lang,
-          address: self.address,
+          address: self.account_address,
         }),
         success: function (res) {
           if (res.code == 0) {
@@ -532,27 +534,36 @@ module.exports = {
             self.cards1 = res.data.series[0].commodities;
             self.cards2 = res.data.series[1].commodities;
             self.cards3 = res.data.series[2].commodities;
-            res.data.rewardCount.forEach((item) => {
-              if (item.type == 1) {
-                self.leftFreeCount.leftFreeCount1 = item.leftFreeCount;
+            if (res.data.rewardCount.length) {
+              res.data.rewardCount.forEach((item) => {
+                if (item.type == 1) {
+                  self.leftFreeCount.leftFreeCount1 = item.leftFreeCount;
+                }
+                if (item.type == 2) {
+                  self.leftFreeCount.leftFreeCount2 = item.leftFreeCount;
+                }
+              });
+            }else{
+              self.leftFreeCount = {
+                leftFreeCount1: 0,
+                type1: 1,
+                leftFreeCount2: 0,
+                type1: 2,
               }
-              if (item.type == 2) {
-                self.leftFreeCount.leftFreeCount2 = item.leftFreeCount;
-              }
-            });
+            }
           }
         },
       });
     },
     toPay(str) {
       var self = this;
-      window.blindNum = str
+      window.blindNum = str;
       $.ajax({
         url: base_url + "/v2/user/account",
         success: function (res) {
           if (res.code == 0) {
-            $('.order-price-hdk').text('HK$ ' + self.hdkDrawPrice * str)
-            $('.order-price-busd').text('BUSD ' + self.drawPrice * str)
+            $(".order-price-hdk").text("HK$ " + self.hdkDrawPrice * str);
+            $(".order-price-busd").text("BUSD " + self.drawPrice * str);
             $(".payment").fadeIn();
             $(".payment").addClass("payment-active");
             $("video").addClass("video-hidden");
@@ -573,6 +584,10 @@ module.exports = {
         }, 700);
         return;
       }
+      if (!self.account_address) {
+        window.location.href = "./connectWallet.html";
+        return;
+      }
       if (val <= 0) {
         window.tips("次数不够");
         return;
@@ -585,7 +600,7 @@ module.exports = {
         data: JSON.stringify({
           type: type,
           activityId: self.activityId,
-          address: self.address,
+          address: self.account_address,
         }),
         success: function (res) {
           if (res.code == 0) {
@@ -595,7 +610,7 @@ module.exports = {
         },
       });
     },
-  },
+  }
 };
 </script>
 
