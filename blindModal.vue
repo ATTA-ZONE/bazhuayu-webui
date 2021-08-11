@@ -500,30 +500,10 @@ module.exports = {
         },
       },
       lang: "",
-			orderNo:'',
-      bannerurl: "./images/Banner.png",
-      acDescription: "火爆來襲，更有LPL季後賽賽事staking大獎，等你來拿~",
-      acName: "LPL明星解說系列盲盒",
-      activityTitle: "明星解说盲盒介绍",
-      activityImg: "./images/tv4.png",
-      activityDetail:
-        "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
-      drawPrice: 50,
-      hdkDrawPrice: 388,
-      leftAmount: 624,
-      storge: 1000,
+      orderNo: "",
+      blindBoxData: [],
       address: "",
-      leftFreeCount: {
-        leftFreeCount1: 0,
-        type1: 1,
-        leftFreeCount2: 0,
-        type1: 2,
-      },
       id: "",
-      prev: -1,
-      success_status: -1,
-      walletType: "",
-      maxbannum: 0,
       busdPrice: 0,
       selectarr: [],
       accountBalance: 0,
@@ -728,13 +708,13 @@ module.exports = {
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify({
-          "activityId": 1,
-  				"count": window.blindNum
+          activityId: 1,
+          count: window.blindNum,
         }),
         success: function (res) {
-          self.orderNo = res.data
-        }
-      })
+          self.orderNo = res.data;
+        },
+      });
       if (self.selectedPayMethod == 1) {
         CHAIN.WALLET.accounts().then(function (accounts) {
           self.safeCharge(accounts);
@@ -744,7 +724,7 @@ module.exports = {
     },
 
     safeCharge(accounts) {
-			let self = this
+      let self = this;
       if (accounts.length < 1) {
         return false;
       }
@@ -775,52 +755,42 @@ module.exports = {
                     //转账
                     from: accounts[0],
                   })
-                  .on("transactionHash", function (hash) {
-                    //success('充值已發起,期間請勿更換錢包防止誤充', 1800);
-                    setTimeout(function () {
-                      setTimeout(function () {
-                        $(".payment").fadeOut();
-                      }, 1500);
-                    }, 1800);
+                  .then((result) => {
+                    $(".payment").fadeOut();
+                    $.ajax({
+                      url: base_url + "/v2/activity/draw",
+                      type: "POST",
+                      contentType: "application/json",
+                      dataType: "json",
+                      data: JSON.stringify({
+                        activityId: 1,
+                        address: accounts[0],
+                        orderNo: self.orderNo,
+                        txhash: result.blockHash,
+                      }),
+                      success: function (resu) {
+                        self.blindBoxData = resu.data;
+                      },
+                    });
+                    loadingHide();
                   })
-                  .on("receipt", function (receipt) {
-										console.log(receipt, '======');
-										$.ajax({
-												url: base_url + "/v2/activity/draw",
-												type: "POST",
-												contentType: "application/json",
-												dataType: "json",
-												data: JSON.stringify({
-													"activityId": 1,
-													"address": accounts[0],
-													"orderNo": self.orderNo,
-													"txhash": hash
-												}),
-												success: function (resu) {
-													console.log(resu, '----');
-												},
-												error: function (resutt) {
-													console.log(resutt, '----');
-												},
-											})
-									}) 
-                  .on("error", function (err) {
-										$.ajax({
-												url: base_url + "/v2/activity/cancelOrder",
-												type: "POST",
-												contentType: "application/json",
-												dataType: "json",
-												data: JSON.stringify({
-													"orderNo": self.orderNo
-												}),
-												success: function (res) {
-													console.log(res);
-												}
-											})
-									});
+                  .catch((err) => {
+                    $.ajax({
+                      url: base_url + "/v2/activity/cancelOrder",
+                      type: "POST",
+                      contentType: "application/json",
+                      dataType: "json",
+                      data: JSON.stringify({
+                        orderNo: self.orderNo,
+                      }),
+                      success: function (res) {
+                        console.log(res);
+                      },
+                    });
+                    loadingHide();
+                  });
               }, 500);
             }
-            loadingHide();
           });
       });
     },
