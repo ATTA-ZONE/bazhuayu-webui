@@ -478,16 +478,12 @@ module.exports = {
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
       document.title = "明星藏品詳情";
-      this.payTabs = ["信用卡", "餘額支付"];
     } else {
       document.title = "collection detail";
-      this.payTabs = ["Credit card", "Balance"];
     }
 
-    $(".payment-page-right-balance").hide();
   },
   mounted() {
-    // window.tips("1111");
     this.getAssetsList();
   },
 

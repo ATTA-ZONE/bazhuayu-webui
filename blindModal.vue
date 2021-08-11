@@ -178,14 +178,14 @@
                       margin-top: 10px;
                     "
                   >
-                    <input id="savetips" type="checkbox" /><span>{{
+                    <input id="savetips" @click="enablePay" type="checkbox" /><span>{{
                       chEnTextHtml[lang].purchasing
                     }}</span>
                   </div>
 
                   <div>
                     <div class="pay-button">
-                      <button id="pay-button" disabled="">
+                      <button id="pay-button">
                         {{ chEnTextHtml[lang].payment }} >
                       </button>
                     </div>
@@ -528,23 +528,28 @@ module.exports = {
     this.isConnect = getCookie("isConnect") == "false" ? false : true;
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
-      document.title = "明星藏品詳情";
-      this.payTabs = ["信用卡", "餘額支付"];
+      this.payTabs = ["信用卡", "钱包支付"];
     } else {
-      document.title = "collection detail";
       this.payTabs = ["Credit card", "Balance"];
     }
 
-    $(".payment-page-right-balance").hide();
     this.initAddress();
   },
 
   mounted() {
     $.getScript("./js/framesv2.min.js");
-    $.getScript("./js/frames.js");
+    $.getScript("./js/blindFrame.js");
+    $('.payment-page-right-balance').hide()
   },
 
   methods: {
+    enablePay(){
+      if ($("#savetips").prop("checked")) {
+        $("#pay-button").attr("disabled", false);
+      } else {
+        $("#pay-button").attr("disabled", true);
+      }
+    },
     payCrypto() {
       let self = this;
       $.ajax({
