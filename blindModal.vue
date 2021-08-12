@@ -534,26 +534,23 @@ module.exports = {
       loading();
       let res = await this.preSku();
       if (!res) {
-        loadingHide()
+        loadingHide();
         return false;
       }
     },
+    getQueryString(name) {
+      let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      let r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+        return decodeURIComponent(r[2]);
+      }
+      return null;
+    },
     getCreditInfo() {
       let self = this;
-      var params = window.location.search.substr(1).split("&");
-      var arr = [];
-      for (var key in params) {
-        arr.push({
-          key: params[key].split("="),
-        });
-      }
-      $.each(arr, function (i, v) {
-        if (v.key[0] == "success") {
-          self.success_status = v.key[1];
-        }
-      });
-
-      if (self.success_status == 1) {
+      self.success_status = self.getQueryString("success");
+      self.orderNo = self.getQueryString("orderNo");
+      if (self.success_status == 1 && self.orderNo) {
         success(this.chEnTextHtml[this.lang].paySuc, 1800);
         setTimeout(function () {
           self.playVideo();
@@ -741,11 +738,11 @@ module.exports = {
             }
           },
           error: function (err) {
-            reject(err)
+            reject(err);
             setTimeout(function () {
-              loadingHide()
-            },1000)
-          }
+              loadingHide();
+            }, 1000);
+          },
         });
       });
     },
