@@ -178,9 +178,11 @@
                       margin-top: 10px;
                     "
                   >
-                    <input id="savetips" @click="enablePay" type="checkbox" /><span>{{
-                      chEnTextHtml[lang].purchasing
-                    }}</span>
+                    <input
+                      id="savetips"
+                      @click="enablePay"
+                      type="checkbox"
+                    /><span>{{ chEnTextHtml[lang].purchasing }}</span>
                   </div>
 
                   <div>
@@ -254,11 +256,7 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video
-            src=""
-            autoplay
-            muted
-          ></video>
+          <video src="" autoplay muted></video>
         </div>
       </div>
     </div>
@@ -337,21 +335,6 @@ module.exports = {
     return {
       chEnTextHtml: {
         TC: {
-          luckdrawintroduce_con:
-            "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
-          luckdrawintroduce_btn1: "單抽",
-          luckdrawintroduce_btn2: "十連抽",
-          probability: "本张卡概率：",
-          gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
-          gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
-          gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
-          purchase1: "盲盒剩餘：",
-          purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
-          purchase3: "當前Staking獎勵池： BUSD 227,665",
-          purchase4: "我的白名單獲贈抽取機會:",
-          purchase5: "現在使用",
-          purchase6: "盲盒價格：",
-          purchase7: "空投獲贈抽取機會:",
           edit: "修改",
           clickedit: "點擊修改地址",
           transfer: "轉移",
@@ -415,20 +398,6 @@ module.exports = {
           paymentComing: "錢包直連支付功能準備中...",
         },
         EN: {
-          luckdrawintroduce_con: "",
-          luckdrawintroduce_btn1: "單抽enen",
-          luckdrawintroduce_btn2: "十連抽enen",
-          probability: "本张卡概率：",
-          gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
-          gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
-          gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
-          purchase1: "盲盒剩餘：",
-          purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
-          purchase3: "當前Staking獎勵池： BUSD 227,665",
-          purchase4: "我的白名單獲贈抽取機會:",
-          purchase5: "現在使用",
-          purchase6: "盲盒價格：",
-          purchase7: "空投獲贈抽取機會:",
           edit: "Edit",
           clickedit: "Click to edit",
           transfer: "Transfer",
@@ -516,12 +485,10 @@ module.exports = {
       chainId: "",
       activityId: 1,
       success_status: -1,
-      continuePay: false
     };
   },
 
   created() {
-    let self = this;
     this.isConnect = getCookie("isConnect") == "false" ? false : true;
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
@@ -535,62 +502,67 @@ module.exports = {
     let self = this;
     $.getScript("./js/framesv2.min.js");
     $.getScript("./js/blindFrame.js");
-    $('.payment-page-right-balance').hide()
-    $('#pay-button').on('click',function(){
-      self.preSku()
-    })
-    this.initAddress()
-    this.getCreditInfo()
+    $(".payment-page-right-balance").hide();
+    this.initAddress();
+    this.getCreditInfo();
   },
 
   methods: {
     playVideo() {
-      var src = 'https://v-cdn.zjol.com.cn/280443.mp4';
-      $('.video-model video').attr('src', src);
-      $('.video-mask').fadeIn('fast');
-      $('.video-model').fadeIn('fast');
-      $('.video-model video')[0].play();
-      $('.video-model video')[0].addEventListener('ended', function () {
-          $('.video-mask').fadeOut('fast');
-          $('.video-model').fadeOut('fast');
-      }, false);
+      var src = "https://v-cdn.zjol.com.cn/280443.mp4";
+      $(".video-model video").attr("src", src);
+      $(".video-mask").fadeIn("fast");
+      $(".video-model").fadeIn("fast");
+      $(".video-model video")[0].play();
+      $(".video-model video")[0].addEventListener(
+        "ended",
+        function () {
+          $(".video-mask").fadeOut("fast");
+          $(".video-model").fadeOut("fast");
+        },
+        false
+      );
     },
-    enablePay(){
+    enablePay() {
       if ($("#savetips").prop("checked")) {
         $("#pay-button").attr("disabled", false);
       } else {
         $("#pay-button").attr("disabled", true);
       }
     },
-    creditPay(){
+    async creditPay() {
       loading();
-      this.preSku()
+      let res = await this.preSku();
+      if (!res) {
+        loadingHide()
+        return false;
+      }
     },
-    getCreditInfo(){
+    getCreditInfo() {
       let self = this;
-      var params = window.location.search.substr(1).split('&')
+      var params = window.location.search.substr(1).split("&");
       var arr = [];
       for (var key in params) {
         arr.push({
-          key: params[key].split('=')
+          key: params[key].split("="),
         });
       }
       $.each(arr, function (i, v) {
-        if (v.key[0] == 'success') {
-          self.success_status = v.key[1]
+        if (v.key[0] == "success") {
+          self.success_status = v.key[1];
         }
-      })
+      });
 
       if (self.success_status == 1) {
         success(this.chEnTextHtml[this.lang].paySuc, 1800);
         setTimeout(function () {
-          self.playVideo()
+          self.playVideo();
           CHAIN.WALLET.accounts().then(function (accounts) {
-            self.drawSku(accounts,'',2)
+            self.drawSku(accounts, "", 2);
           });
-        }, 1800)
+        }, 1800);
       } else if (self.success_status == 0) {
-        self.cancelSku()
+        self.cancelSku();
         error(this.chEnTextHtml[this.lang].payErr, 1800);
       }
     },
@@ -748,53 +720,60 @@ module.exports = {
       var seconds = parseInt((mss % (1000 * 60)) / 1000);
       return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
     },
-    preSku(){
+    preSku() {
       let self = this;
-      $.ajax({
-        url: base_url + "/v2/activity/preOrder",
-        type: "POST",
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify({
-          activityId: 1,
-          count: window.blindNum,
-        }),
-        success: function (res) {
-          if (res.data) {
-            self.orderNo = res.data;
-            self.continuePay = true
-          } else {
-            tips(res.message);
+      return new Promise((resolve, reject) => {
+        $.ajax({
+          url: base_url + "/v2/activity/preOrder",
+          type: "POST",
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify({
+            activityId: 1,
+            count: window.blindNum,
+          }),
+          success: function (res) {
+            if (res.data) {
+              self.orderNo = res.data;
+              resolve(res.data);
+            } else {
+              tips(res.message);
+            }
+          },
+          error: function (err) {
+            reject(err)
+            setTimeout(function () {
+              loadingHide()
+            },1000)
           }
-        }
+        });
       });
     },
-    drawSku(accounts,hash,type){
+    drawSku(accounts, hash, type) {
       let self = this;
-      if (!self.continuePay) {
-        return false;
+      if (self.orderNo) {
+        $.ajax({
+          url: base_url + "/v2/activity/draw",
+          type: "POST",
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify({
+            activityId: 1,
+            address: accounts[0],
+            orderNo: self.orderNo,
+            txhash: hash || "",
+            type: type,
+          }),
+          success: function (resu) {
+            self.blindBoxData = resu.data;
+            if (type == 2) {
+              location.search = "";
+            }
+          },
+        });
       }
-      $.ajax({
-        url: base_url + "/v2/activity/draw",
-        type: "POST",
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify({
-          activityId: 1,
-          address: accounts[0],
-          orderNo: self.orderNo,
-          txhash: hash || '',
-          type: type
-        }),
-        success: function (resu) {
-          self.blindBoxData = resu.data;
-          if (type == 2) {
-            location.search = ''
-          }
-        }
-      });
     },
-    cancelSku(){
+    cancelSku() {
       let self = this;
       $.ajax({
         url: base_url + "/v2/activity/cancelOrder",
@@ -803,13 +782,16 @@ module.exports = {
         dataType: "json",
         data: JSON.stringify({
           orderNo: self.orderNo,
-        })
-      })
+        }),
+      });
     },
     //支付
-    payBalance() {
+    async payBalance() {
       let self = this;
-      self.preSku()
+      let res = await self.preSku();
+      if (!res) {
+        return false;
+      }
       if (self.selectedPayMethod == 1) {
         CHAIN.WALLET.accounts().then(function (accounts) {
           self.safeCharge(accounts);
@@ -852,11 +834,11 @@ module.exports = {
                   })
                   .then((result) => {
                     $(".payment").fadeOut();
-                    self.drawSku(accounts, result.blockHash,3)
+                    self.drawSku(accounts, result.blockHash, 3);
                     loadingHide();
                   })
                   .catch(() => {
-                    self.cancelSku()
+                    self.cancelSku();
                     loadingHide();
                   });
               }, 500);
