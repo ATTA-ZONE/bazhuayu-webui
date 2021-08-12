@@ -1200,6 +1200,7 @@ html {
 
 .bzy-e-list-info-price {
 	margin-bottom: 20px;
+	justify-content: space-between;
 }
 
 .bzy-e-list-info-price span {
@@ -3847,7 +3848,7 @@ html {
 
 @media screen and (min-width:1200px) and (max-width:1599px) {
 	.index-banner {
-		min-height: 440px;
+		min-height: 450px;
 	}
 
 	.banner-left-tit {
