@@ -796,7 +796,7 @@ module.exports = {
   transition: 0.5s all;
   background-image: url(./images/tv6.png);
   background-size: 100% auto;
-  border-radius: 5px;
+  border-radius: 22px;
 }
 .cardsbox .cardslist .cardsevery .noimgword {
   position: absolute;
