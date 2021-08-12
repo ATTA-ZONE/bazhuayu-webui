@@ -526,9 +526,9 @@ module.exports = {
     this.isConnect = getCookie("isConnect") == "false" ? false : true;
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
-      document.title = "明星藏品詳情";
+      document.title = "盲盒";
     } else {
-      document.title = "collection detail";
+      document.title = "Mystery Box";
     }
     $(".payment-page-right-balance").hide();
     this.getAssetsList();
