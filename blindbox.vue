@@ -320,7 +320,7 @@ module.exports = {
           quantity: "已達到最大購買數量",
           asset: "去我的資產核對",
           confirm: "確認",
-          cancel: "取消",
+          cancel: "知道了",
           recharge: "充值",
           noLog: "未登錄，請登入",
           number: "訂單號 #：",
