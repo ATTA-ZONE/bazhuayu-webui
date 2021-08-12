@@ -437,6 +437,7 @@ html {
 }
 
 .banner {
+	margin-top: 80px;
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 140px;
@@ -3856,19 +3857,19 @@ html {
 
 @media screen and (min-width:1600px) and (max-width:1800px) {
 	.index-banner {
-		min-height: 500px;
+		min-height: 485px;
 	}
 }
 
 @media screen and (min-width:1801px) and (max-width:1919px) {
 	.index-banner {
-		min-height: 550px;
+		min-height: 542px;
 	}
 }
 
 @media screen and (min-width:1920px) {
 	.index-banner {
-		min-height: 630px;
+		min-height: 554px;
 	}
 }
 
