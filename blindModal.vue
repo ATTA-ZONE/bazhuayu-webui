@@ -831,6 +831,7 @@ module.exports = {
                   })
                   .then((result) => {
                     $(".payment").fadeOut();
+                    self.playVideo();
                     self.drawSku(accounts, result.blockHash, 3);
                     loadingHide();
                   })
