@@ -586,7 +586,7 @@ module.exports = {
         setTimeout(function () {
           self.playVideo()
           CHAIN.WALLET.accounts().then(function (accounts) {
-            self.drawSku(accounts)
+            self.drawSku(accounts,'',2)
           });
         }, 1800)
       } else if (self.success_status == 0) {
@@ -760,8 +760,8 @@ module.exports = {
           count: window.blindNum,
         }),
         success: function (res) {
-          self.orderNo = res.data;
-          if (res.code == 0) {
+          if (res.data) {
+            self.orderNo = res.data;
             self.continuePay = true
           } else {
             tips(res.message);
@@ -769,9 +769,9 @@ module.exports = {
         }
       });
     },
-    drawSku(accounts,hash){
+    drawSku(accounts,hash,type){
       let self = this;
-      if (!continuePay) {
+      if (!self.continuePay) {
         return false;
       }
       $.ajax({
@@ -784,10 +784,13 @@ module.exports = {
           address: accounts[0],
           orderNo: self.orderNo,
           txhash: hash || '',
+          type: type
         }),
         success: function (resu) {
           self.blindBoxData = resu.data;
-          location.search = ''
+          if (type == 2) {
+            location.search = ''
+          }
         }
       });
     },
@@ -849,7 +852,7 @@ module.exports = {
                   })
                   .then((result) => {
                     $(".payment").fadeOut();
-                    self.drawSku(accounts, result.blockHash)
+                    self.drawSku(accounts, result.blockHash,3)
                     loadingHide();
                   })
                   .catch(() => {
