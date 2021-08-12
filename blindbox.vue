@@ -41,9 +41,12 @@
           v-for="(item, index) in cards1"
           :key="index + Math.random()"
         >
-          <img :src="item.primaryPic" />
-          <div class="mask">
+          <img :src="item.primaryPic ? item.primaryPic : './images/tv6.png'" />
+          <div class="mask" v-if="item.primaryPic">
             <p v-html="item.introduce"></p>
+          </div>
+          <div class="noimgword" v-else>
+            Coming soon
           </div>
         </div>
         <h3 class="tips">{{ series[0].seTitle }}</h3>
@@ -52,9 +55,12 @@
           v-for="(item, index) in cards2"
           :key="index + Math.random()"
         >
-          <img :src="item.primaryPic" />
-          <div class="mask">
+          <img :src="item.primaryPic ? item.primaryPic : './images/tv6.png'" />
+          <div class="mask" v-if="item.primaryPic">
             <p v-html="item.introduce"></p>
+          </div>
+          <div class="noimgword" v-else>
+            Coming soon
           </div>
         </div>
         <h3 class="tips">{{ series[1].seTitle }}</h3>
@@ -63,9 +69,12 @@
           v-for="(item, index) in cards3"
           :key="index + Math.random()"
         >
-          <img :src="item.primaryPic" />
-          <div class="mask">
+          <img :src="item.primaryPic ? item.primaryPic : './images/tv6.png'" />
+          <div class="mask" v-if="item.primaryPic">
             <p v-html="item.introduce"></p>
+          </div>
+          <div class="noimgword" v-else>
+            Coming soon
           </div>
         </div>
         <h3 class="tips">{{ series[2].seTitle }}</h3>
@@ -158,7 +167,7 @@
         </button>
       </div>
       <div class="bottombtn">
-        <button>Go Staking</button>
+        <button>Go Voting</button>
       </div>
     </div>
     <!-- modify -->
@@ -804,6 +813,18 @@ module.exports = {
   color: #fff;
   padding: 43px 20px;
   transition: 0.5s all;
+}
+.cardsbox .cardslist .cardsevery .noimgword{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.32);
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cardsbox .cardslist .cardsevery:hover .mask {
