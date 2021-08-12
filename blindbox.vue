@@ -256,7 +256,7 @@ module.exports = {
           noimgword: "敬请期待",
           purchase1: "盲盒剩餘：",
           purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
-          purchase3: "當前Staking獎勵池： BUSD ",
+          purchase3: "當前投票獎勵池： BUSD ",
           purchase4: "我的白名單獲贈抽取機會 ：",
           purchase5: "現在使用",
           purchase6: "盲盒價格：",
@@ -792,8 +792,11 @@ module.exports = {
   background: #000000;
   opacity: 0;
   color: #fff;
-  padding: 43px 20px;
+  padding: 43px 30px;
   transition: 0.5s all;
+  background-image: url(./images/tv6.png);
+  background-size: 100% auto;
+  border-radius: 5px;
 }
 .cardsbox .cardslist .cardsevery .noimgword {
   position: absolute;
@@ -813,7 +816,7 @@ module.exports = {
 }
 
 .cardsbox .cardslist .cardsevery .mask p {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 150%;
   text-align: justify;
 }
