@@ -151,9 +151,6 @@ function onCardTokenizationFailed(error) {
   Frames.enableSubmitForm();
 }
 
-$('.pay-button').click(function(){
-	loading();
-});
 Frames.addEventHandler(Frames.Events.CARD_TOKENIZED, onCardTokenized);
 function onCardTokenized(event) {
 	var saveCard = $('#save').prop('checked');

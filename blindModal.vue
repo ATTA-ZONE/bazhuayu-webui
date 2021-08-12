@@ -515,7 +515,8 @@ module.exports = {
       tokenLimits: [],
       chainId: "",
       activityId: 1,
-      success_status: -1
+      success_status: -1,
+      continuePay: false
     };
   },
 
@@ -531,11 +532,12 @@ module.exports = {
   },
 
   mounted() {
+    let self = this;
     $.getScript("./js/framesv2.min.js");
     $.getScript("./js/blindFrame.js");
     $('.payment-page-right-balance').hide()
     $('#pay-button').on('click',function(){
-      preSku()
+      self.preSku()
     })
     this.initAddress()
     this.getCreditInfo()
@@ -759,11 +761,19 @@ module.exports = {
         }),
         success: function (res) {
           self.orderNo = res.data;
+          if (res.code == 0) {
+            self.continuePay = true
+          } else {
+            tips(res.message);
+          }
         }
       });
     },
     drawSku(accounts,hash){
       let self = this;
+      if (!continuePay) {
+        return false;
+      }
       $.ajax({
         url: base_url + "/v2/activity/draw",
         type: "POST",
@@ -777,6 +787,7 @@ module.exports = {
         }),
         success: function (resu) {
           self.blindBoxData = resu.data;
+          location.search = ''
         }
       });
     },
