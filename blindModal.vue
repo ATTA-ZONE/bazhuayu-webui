@@ -760,8 +760,8 @@ module.exports = {
           count: window.blindNum,
         }),
         success: function (res) {
-          self.orderNo = res.data;
-          if (res.code == 0) {
+          if (res.data) {
+            self.orderNo = res.data;
             self.continuePay = true
           } else {
             tips(res.message);
@@ -771,7 +771,7 @@ module.exports = {
     },
     drawSku(accounts,hash){
       let self = this;
-      if (!continuePay) {
+      if (!self.continuePay) {
         return false;
       }
       $.ajax({
