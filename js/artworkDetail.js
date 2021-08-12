@@ -359,7 +359,7 @@ var app = new Vue({
 							$('.order-introduce').html(res.data.introduce == '' ? 'No introduction' : (res.data.introduce.replace(/;\|;/g, '<br>')));
 							$('.order-content').html(res.data.content == '' ? 'No more information' : (res.data.content.replace(/;\|;/g, '<br>')));
 						}
-						if (res.data.endEdition - res.data.edition > 0) { //还有库存
+						if (res.data.endEdition - res.data.edition >= 0) { //还有库存
 							if (systemTime < saleStartTimeMillis) {
 								$('.details-right-btn').addClass('unclick')
 								$('.details-right-btn').text(self.chEnTextHtml[self.languageType].comSoon)
@@ -405,6 +405,8 @@ var app = new Vue({
 							$('.details-right-time span:first-child').css('opacity', '0');
 							$('.details-right-time-djs').text(self.chEnTextHtml[self.languageType].sellOut);
 							$('.details-right-time-djs').css('color', '#cf3737');
+							//去掉标签中的onclick事件
+							$('.details-right-btn').css('pointer-events', 'none');
 						}
 						self.getAccountInfo(res)
 					}
@@ -420,7 +422,7 @@ var app = new Vue({
 						$('.busd-ye').text('BUSD ' + result.data.usdtRest);
 						self.accountBalance = result.data.usdtRest
 						if (res.data.price > result.data.usdtRest) {
-							$('.busd-tip').text(this.chEnTextHtml[this.languageType].balanceInsufficient);
+							$('.busd-tip').text(self.chEnTextHtml[self.languageType].balanceInsufficient);
 						} else {
 							$('.busd-tip').text('-' + res.data.price);
 						}
@@ -495,15 +497,16 @@ var app = new Vue({
 		},
 		//询问弹窗
 		saveconfirm() {
+			let self = this;
 			hsycms.confirm('confirm', this.chEnTextHtml[this.languageType].asset,
 				function (res) {
-					hsycms.success('success', this.chEnTextHtml[this.languageType].confirm);
+					hsycms.success('success', self.chEnTextHtml[self.languageType].confirm);
 					setTimeout(function () {
 						window.location.href = 'myassets.html';
 					}, 1500)
 				},
 				function (res) {
-					hsycms.error('error', this.chEnTextHtml[this.languageType].cancel);
+					hsycms.error('error', self.chEnTextHtml[self.languageType].cancel);
 				},
 			)
 		},
@@ -531,6 +534,7 @@ var app = new Vue({
 			return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 		},
 		toPay() {
+			let self = this;
 			if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance')|| this.accountBalance < this.busdPrice * this.selectarr.length) {
 				$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 				$('#balanceBtn').attr('disabled', false)
@@ -544,7 +548,7 @@ var app = new Vue({
 						$('video').addClass('video-hidden');
 						$('.payment-page-left-img video').removeClass('video-hidden')
 					} else {
-						tips(this.chEnTextHtml[this.languageType].noLog);
+						tips(self.chEnTextHtml[self.languageType].noLog);
 					}
 				}
 			})
