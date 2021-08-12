@@ -74,7 +74,7 @@
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
-            Coming soon
+            {{chEnTextHtml[lang].noimgword}}
           </div>
         </div>
         <h3 class="tips">{{ series[2].seTitle }}</h3>
@@ -328,6 +328,7 @@ module.exports = {
           gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
           gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
           gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
+          noimgword: "敬请期待",
           purchase1: "盲盒剩餘：",
           purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
           purchase3: "當前Staking獎勵池： BUSD ",
@@ -405,6 +406,7 @@ module.exports = {
           gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
           gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
           gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
+          noimgword: "Coming soon",
           purchase1: "Mystery Box remaining: ",
           purchase2:
             "Whitelisted Users can enjoy the “Buy 4 get 1 free” Discount",
