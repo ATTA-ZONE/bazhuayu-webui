@@ -692,7 +692,7 @@ module.exports = {
 }
 
 .anchorintroduction .title {
-  font-size: 96px;
+  font-size: 70px;
   line-height: 100%;
   margin: 0;
 }
@@ -702,9 +702,11 @@ module.exports = {
   line-height: 150%;
   margin: 80px 0;
 }
-
-.anchorintroduction .introducebox .tvbox:nth-child(2) {
-  margin: 0 35px;
+.anchorintroduction .introducebox {
+  justify-content: space-between;
+}
+.anchorintroduction .introducebox .tvbox {
+  width: 32%;
 }
 
 .anchorintroduction .introducebox .tvbox img {
@@ -937,6 +939,9 @@ module.exports = {
   .anchorintroduction .introducebox .tvbox .wordbox p,
   .luckdrawintroduce .luckdraw_right p {
     font-size: 16px;
+  }
+  .anchorintroduction .introducebox .tvbox{
+    width: 100%;
   }
   .luckdrawintroduce {
     flex-direction: column;
