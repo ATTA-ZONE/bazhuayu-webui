@@ -89,7 +89,7 @@
             <span>{{
               chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2
             }}</span>
-            <img class="question" src="./images/question.png" />
+            <img class="question" src="./images/question.png" onClick="tips('提示信息')"/>
             <button
               class="cjbtn"
               @click="cqblindboxbtn(2, leftFreeCount.leftFreeCount2)"
@@ -104,7 +104,7 @@
             <span>{{
               chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1
             }}</span>
-            <img class="question" src="./images/question.png" />
+            <img class="question" src="./images/question.png" onClick="tips('提示信息')" />
             <button
               class="cjbtn"
               @click="cqblindboxbtn(1, leftFreeCount.leftFreeCount1)"
@@ -167,7 +167,7 @@
         </button>
       </div>
       <div class="bottombtn">
-        <button>Go Voting</button>
+        <button @click="jumppage()">Go Voting</button>
       </div>
     </div>
     <!-- modify -->
@@ -659,6 +659,9 @@ module.exports = {
         },
       });
     },
+    jumppage(){
+      window.open('https://www.atta.zone/loading');
+    }
   },
 };
 </script>
