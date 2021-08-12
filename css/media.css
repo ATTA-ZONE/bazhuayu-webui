@@ -375,7 +375,7 @@
 	.faqs{
 		margin-top:90px;
 	}
-	.payment{
+	.payment, .paymeny-result-modal{
 		z-index:100;
 		top:auto;
 		bottom:-100%;
