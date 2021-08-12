@@ -535,9 +535,9 @@ module.exports = {
     playVideo() {
       var src = "";
       if (window.getCookie('blindNum') < 2) {
-        src="./images/one.mp4"
+        src="/upload/other/one_draw.mp4"
       } else {
-        src="./images/ten.mp4"
+        src="/upload/other/ten_draw.mp4"
       }
       $(".payment").fadeOut("fast");
       $(".video-model video").attr("src", src);
