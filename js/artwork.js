@@ -92,6 +92,7 @@ function getArtworkList(current,pageSize,name,typeId){
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 							
 							html +=`<div class="bzy-e-list-info-sale flex">
@@ -114,6 +115,7 @@ function getArtworkList(current,pageSize,name,typeId){
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
 										<span>${artworkText.preSale}</span>
@@ -138,6 +140,7 @@ function getArtworkList(current,pageSize,name,typeId){
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 									
 							html +=`
@@ -156,6 +159,7 @@ function getArtworkList(current,pageSize,name,typeId){
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
 										<span>${artworkText.salesClosed}</span>

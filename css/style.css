@@ -1210,6 +1210,9 @@ html {
 	line-height: 150%;
 	color: #fff;
 }
+.bzy-e-list-info-price span:nth-child(2){
+	margin-left: 30px;
+}
 
 /* .bzy-e-list-info-price span:last-child{
 	opacity:0.7;
