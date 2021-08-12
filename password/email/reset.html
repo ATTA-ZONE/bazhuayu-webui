@@ -16,6 +16,7 @@
 	<script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
 	<style>
@@ -51,11 +52,11 @@
 					<div class="sign-input">
 						<p>
 							<label for="pwd">{{chEnTextHtml[languageType].psw01}}</label>
-							<input id="pwd" type="password" placeholder="{{chEnTextHtml[languageType].psw01}}" />
+							<input id="pwd" type="password" :placeholder="chEnTextHtml[languageType].psw01" />
 						</p>
 						<p>
 							<label for="newPwd">{{chEnTextHtml[languageType].psw02}}</label>
-							<input id="newPwd" type="password" placeholder="{{chEnTextHtml[languageType].psw02}}" />
+							<input id="newPwd" type="password" :placeholder="chEnTextHtml[languageType].psw02" />
 						</p>
 					</div>
 					<div class="sign-btn flex">
@@ -94,14 +95,14 @@
 	data: function () {
 		return {
 			chEnTextHtml: {
-				"ch":{
+				"TC":{
 					title : "設置密碼",
 					psw01 :"輸入新密碼",
 					psw02 :"重複新密碼",
 					subbtn : "確認",
 					zcsuccess : "注册成功"
 				},
-				"en":{
+				"EN":{
 					title : "Password Setting",
 					psw01 :"New password",
 					psw02 :"Repeat your new password",
