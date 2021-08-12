@@ -533,7 +533,13 @@ module.exports = {
 
   methods: {
     playVideo() {
-      var src = "https://v-cdn.zjol.com.cn/280443.mp4";
+      var src = "";
+      if (window.getCookie('blindNum') < 2) {
+        src="./images/one.mp4"
+      } else {
+        src="./images/ten.mp4"
+      }
+      $(".payment").fadeOut("fast");
       $(".video-model video").attr("src", src);
       $(".video-mask").fadeIn("fast");
       $(".video-model").fadeIn("fast");
@@ -789,7 +795,7 @@ module.exports = {
               $('.user-result-imgs img').addClass('one-imgs')
             }
             if (type == 2) {
-              window.setCookies('orderNo','')
+              window.setCookie('orderNo','')
             }
           },
         });
