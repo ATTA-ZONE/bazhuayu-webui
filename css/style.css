@@ -1200,6 +1200,7 @@ html {
 
 .bzy-e-list-info-price {
 	margin-bottom: 20px;
+	justify-content: space-between;
 }
 
 .bzy-e-list-info-price span {
