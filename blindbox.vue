@@ -1,5 +1,5 @@
 <template>
-  <div class="blindbox_box">
+  <div class="blindbox_box" v-cloak>
     <img class="bannerbox" :src="bannerurl" />
     <div class="anchorintroduction">
       <h1 class="title">{{ acName }}</h1>
@@ -9,17 +9,14 @@
           <img :src="item.seImage" />
           <div class="wordbox">
             <h5>{{ item.seName }}</h5>
-            <p>{{ item.seDescription }}</p>
+            <p v-html="item.seDescription"></p>
           </div>
         </div>
       </div>
     </div>
     <div class="line"></div>
     <div class="luckdrawintroduce flex">
-      <img
-        class="luckdraw_left"
-        :src="activityImg"
-      />
+      <img class="luckdraw_left" :src="activityImg" />
       <div class="luckdraw_right">
         <img src="./images/Asset3.png" />
         <h3>{{ activityTitle }}</h3>
@@ -46,10 +43,10 @@
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
-            Coming soon
+            {{ chEnTextHtml[lang].noimgword }}
           </div>
         </div>
-        <h3 class="tips">{{ series[0].seTitle }}</h3>
+        <h3 class="tips" v-if="series[0]">{{ series[0].seTitle }}</h3>
         <div
           class="cardsevery"
           v-for="(item, index) in cards2"
@@ -60,10 +57,10 @@
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
-            Coming soon
+            {{ chEnTextHtml[lang].noimgword }}
           </div>
         </div>
-        <h3 class="tips">{{ series[1].seTitle }}</h3>
+        <h3 class="tips" v-if="series[1]">{{ series[1].seTitle }}</h3>
         <div
           class="cardsevery"
           v-for="(item, index) in cards3"
@@ -74,10 +71,10 @@
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
-            {{chEnTextHtml[lang].noimgword}}
+            {{ chEnTextHtml[lang].noimgword }}
           </div>
         </div>
-        <h3 class="tips">{{ series[2].seTitle }}</h3>
+        <h3 class="tips" v-if="series[2]">{{ series[2].seTitle }}</h3>
       </div>
       <div class="line"></div>
       <div class="purchasebox">
@@ -89,7 +86,11 @@
             <span>{{
               chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2
             }}</span>
-            <img class="question" src="./images/question.png" onClick="tips('提示信息')"/>
+            <img
+              class="question"
+              src="./images/question.png"
+              @click="tktips(1)"
+            />
             <button
               class="cjbtn"
               @click="cqblindboxbtn(2, leftFreeCount.leftFreeCount2)"
@@ -104,7 +105,11 @@
             <span>{{
               chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1
             }}</span>
-            <img class="question" src="./images/question.png" onClick="tips('提示信息')" />
+            <img
+              class="question"
+              src="./images/question.png"
+              @click="tktips(2)"
+            />
             <button
               class="cjbtn"
               @click="cqblindboxbtn(1, leftFreeCount.leftFreeCount1)"
@@ -122,7 +127,11 @@
             <span>{{
               chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2
             }}</span>
-            <img class="question" src="./images/question.png" />
+            <img
+              class="question"
+              src="./images/question.png"
+              @click="tktips(1)"
+            />
           </p>
           <button
             class="cjbtn"
@@ -134,7 +143,11 @@
             <span>{{
               chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1
             }}</span>
-            <img class="question" src="./images/question.png" />
+            <img
+              class="question"
+              src="./images/question.png"
+              @click="tktips(2)"
+            />
           </p>
           <button
             class="cjbtn"
@@ -143,10 +156,6 @@
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
         </div>
-        <div class="">
-          
-        </div>
-
         <div class="tips1">
           <span>{{ chEnTextHtml[lang].purchase2 }}</span>
         </div>
@@ -175,21 +184,31 @@
       <div class="modify-container flex">
         <div class="modify-form">
           <div class="modify-tit flex" data-type="name">
-            <span>title</span
-            ><img
+            <span>{{
+              istkshow == 1
+                ? chEnTextHtml[lang].tips0
+                : chEnTextHtml[lang].tips01
+            }}</span>
+            <img
               class="none"
               onclick="cancelMobile()"
               src="./images/Close.png"
             />
           </div>
-          <div class="modify-ipt"></div>
-          <div class="modify-tips"></div>
+          <div class="modify-ipt">
+            <p>
+              {{
+                istkshow == 1
+                  ? chEnTextHtml[lang].tips1
+                  : chEnTextHtml[lang].tips5
+              }}
+            </p>
+            <p>{{ chEnTextHtml[lang].tips2 }}</p>
+            <p>{{ chEnTextHtml[lang].tips3 }}</p>
+            <p>{{ chEnTextHtml[lang].tips4 }}</p>
+          </div>
+          <!-- <div class="modify-tips"></div> -->
           <div class="modify-btn flex">
-            <button
-              class="add modify-btn-active"
-              type="button"
-              @click="editzyclick($event)"
-            ></button>
             <button class="cancel" type="button" onclick="cancel()">
               {{ chEnTextHtml[lang].cancel }}
             </button>
@@ -220,104 +239,10 @@ module.exports = {
   name: "blindbox",
   data: function () {
     return {
-      series: [
-        {
-          seImage: "./images/tv1.png",
-          seName: "Rita 英雄聯盟官方解說",
-          seDescription:
-            "英雄联盟官方解说冯雨，艺名：Rita小雨桑，曾经是一名《英雄联盟》职业选手，随后转型为比赛解说，英雄联盟赛事职业解说。冯雨毕业于中央戏剧学院，曾以女子战队队员身份参加比赛，在2016年正式转型为比赛解说，在2017年荣获年度最佳新秀赛事解说。",
-        },
-        {
-          seImage: "./images/tv2.png",
-          seName: "Rita 英雄聯盟官方解說",
-          seDescription:
-            "英雄联盟官方解说冯雨，艺名：Rita小雨桑，曾经是一名《英雄联盟》职业选手，随后转型为比赛解说，英雄联盟赛事职业解说。冯雨毕业于中央戏剧学院，曾以女子战队队员身份参加比赛，在2016年正式转型为比赛解说，在2017年荣获年度最佳新秀赛事解说。",
-        },
-        {
-          seImage: "./images/tv3.png",
-          seName: "Rita 英雄聯盟官方解說",
-          seDescription:
-            "英雄联盟官方解说冯雨，艺名：Rita小雨桑，曾经是一名《英雄联盟》职业选手，随后转型为比赛解说，英雄联盟赛事职业解说。冯雨毕业于中央戏剧学院，曾以女子战队队员身份参加比赛，在2016年正式转型为比赛解说，在2017年荣获年度最佳新秀赛事解说。",
-        },
-      ],
-      cards1: [
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-      ],
-      cards2: [
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-      ],
-      cards3: [
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-        {
-          primaryPic: "./images/tv5.png",
-          introduce:
-            "童曦小姐姐化身色拉芬妮，粉粉的头发，海克斯配色的服饰。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰更加凸显高贵。",
-          rateDes: "2%",
-        },
-      ],
+      series: [],
+      cards1: [],
+      cards2: [],
+      cards3: [],
       chEnTextHtml: {
         TC: {
           luckdrawintroduce_con:
@@ -336,10 +261,17 @@ module.exports = {
           purchase5: "現在使用",
           purchase6: "盲盒價格：",
           purchase7: "空投獲贈抽取機會 ：",
+          tips0: "領取規則（空投）",
+          tips01: "領取規則（白名單）",
+          tips1: "參與盲盒空投活動且獲取到空投資格的用戶",
+          tips5: "參與买四赠一白名单活動且獲取到白名单資格的用戶",
+          tips2: "抽取時間：8月19號20點~20號12點",
+          tips3: "過期將不支持抽取盲盒",
+          tips4: "*了解更多信息，請聯系ATTA客服：atta_official",
           edit: "修改",
           clickedit: "點擊修改地址",
           transfer: "轉移",
-          cancel: "取消",
+          cancel: "知道啦",
           home: "首頁",
           auction: "拍賣",
           noConnectWallet: "未連接錢包",
@@ -415,6 +347,11 @@ module.exports = {
           purchase5: "Use Now",
           purchase6: "Price: ",
           purchase7: "Available Airdrop Drawing Chances:",
+          tips1: "參與盲盒空投活動且獲取到空投資格的用戶",
+          tips5: "參與买四赠一白名单活動且獲取到白名单資格的用戶",
+          tips2: "抽取時間：8月19號20點~20號12點",
+          tips3: "過期將不支持抽取盲盒",
+          tips4: "*了解更多信息，請聯系ATTA客服：atta_official",
           edit: "Edit",
           clickedit: "Click to edit",
           transfer: "Transfer",
@@ -521,6 +458,7 @@ module.exports = {
       chainId: "",
       activityId: 1,
       stakingPool: 0,
+      istkshow: 1,
     };
   },
 
@@ -628,6 +566,9 @@ module.exports = {
 
     cqblindboxbtn(type, val) {
       var self = this;
+      var now = new Date();
+      var startnow = new Date('2021/8/19 20:00');
+      var endDate = new Date("2021/8/20 12:00");
       if (getCookie("islogin") == "false" || getCookie("islogin") == false) {
         window.tips(self.chEnTextHtml[self.lang].noLog);
         setTimeout(() => {
@@ -637,6 +578,14 @@ module.exports = {
       }
       if (!self.account_address) {
         window.location.href = "./connectWallet.html";
+        return;
+      }
+      if (startnow.getTime() > now.getTime()) {
+        tips('活动还未开始');
+        return;
+      }
+      if (endDate.getTime() < now.getTime()) {
+        tips('活动已结束');
         return;
       }
       if (val <= 0) {
@@ -661,14 +610,38 @@ module.exports = {
         },
       });
     },
-    jumppage(){
-      window.open('https://www.atta.zone/loading');
+    jumppage() {
+      window.open("https://www.atta.zone/loading");
+    },
+    tktips(type) {
+      let dom = document.querySelector(".modify");
+      dom.style.display = "block";
+      this.istkshow = type;
     }
   },
 };
 </script>
 
 <style>
+.modify {
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+.modify .modify-form .modify-tit {
+  justify-content: center;
+}
+.modify .modify-form .modify-ipt {
+  font-size: 18px;
+  line-height: 150%;
+}
+.modify .modify-form .modify-btn .cancel {
+  background: #a8deee;
+  border: none;
+  color: #fff;
+}
+.modify .modify-form .modify-ipt p:nth-last-child(1) {
+  margin-top: 20px;
+}
 .between {
   justify-content: space-between;
   align-items: center;
@@ -723,7 +696,7 @@ module.exports = {
   font-size: 18px;
   line-height: 150%;
   letter-spacing: -0.035em;
-  text-align: left;
+  text-align: justify;
   opacity: 0.8;
 }
 
@@ -760,6 +733,7 @@ module.exports = {
   font-weight: 300;
   letter-spacing: -0.035em;
   color: rgba(255, 255, 255, 0.7);
+  text-align: justify;
 }
 
 .luckdrawintroduce .luckdraw_right .luckdraw_btns {
@@ -821,7 +795,7 @@ module.exports = {
   padding: 43px 20px;
   transition: 0.5s all;
 }
-.cardsbox .cardslist .cardsevery .noimgword{
+.cardsbox .cardslist .cardsevery .noimgword {
   position: absolute;
   top: 0;
   left: 0;
@@ -841,6 +815,7 @@ module.exports = {
 .cardsbox .cardslist .cardsevery .mask p {
   font-size: 18px;
   line-height: 150%;
+  text-align: justify;
 }
 
 .cardsbox .cardslist .cardsevery .mask p:nth-child(2) {
@@ -906,12 +881,17 @@ module.exports = {
   margin: 0 auto;
   display: none;
 }
-.cardsbox .purchasebox .dbcqword{
+.cardsbox .purchasebox .dbcqword {
   display: none;
 }
 
 @media only screen and (max-width: 992px) {
-  .line ,.cardsbox .purchasebox .dbcqword{
+  .modify .modify-form .modify-tit {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .line,
+  .cardsbox .purchasebox .dbcqword {
     display: block;
   }
   .blindbox_box {
@@ -940,7 +920,7 @@ module.exports = {
   .luckdrawintroduce .luckdraw_right p {
     font-size: 16px;
   }
-  .anchorintroduction .introducebox .tvbox{
+  .anchorintroduction .introducebox .tvbox {
     width: 100%;
   }
   .luckdrawintroduce {
@@ -999,59 +979,58 @@ module.exports = {
   .cardsbox .purchasebox .between {
     display: none;
   }
-  .cardsbox .purchasebox .dbcqword{
+  .cardsbox .purchasebox .dbcqword {
     width: 100%;
   }
-  .cardsbox .purchasebox .dbcqword p{
+  .cardsbox .purchasebox .dbcqword p {
     margin: 0;
   }
-  .cardsbox .purchasebox .dbcqword .cq{
+  .cardsbox .purchasebox .dbcqword .cq {
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom : 9px;
+    margin-bottom: 9px;
   }
-  .cardsbox .purchasebox .dbcqword .numbox{
+  .cardsbox .purchasebox .dbcqword .numbox {
     margin-top: 10px;
     align-items: center;
-    margin-bottom : 15px;
-
+    margin-bottom: 15px;
   }
-  .cardsbox .purchasebox .dbcqword .numbox img{
+  .cardsbox .purchasebox .dbcqword .numbox img {
     margin-left: 9px;
     width: 17px;
     height: 17px;
   }
-  .cjbtn{
+  .cjbtn {
     font-size: 12px;
     padding: 5px 18px;
   }
-  .cardsbox .purchasebox button{
+  .cardsbox .purchasebox button {
     margin-left: calc((100% - 83px) / 2);
   }
-  .cardsbox .purchasebox .tips1{
+  .cardsbox .purchasebox .tips1 {
     font-size: 12px;
     color: rgba(255, 255, 255, 0.7);
     text-align: center;
     margin-top: 9px;
   }
-  .zscjbox{
+  .zscjbox {
     margin-top: 19px;
     flex-wrap: wrap;
     font-size: 20px;
     justify-content: space-evenly;
   }
-  .zscjbox span{
+  .zscjbox span {
     width: 100%;
     display: inline-block;
   }
-  .zscjbox button{
+  .zscjbox button {
     margin-top: 19px;
     margin-left: 0;
     padding: 5px 12px;
   }
-  .bottombtn{
+  .bottombtn {
     margin-top: 35px;
   }
-  .bottombtn button{
+  .bottombtn button {
     font-size: 20px;
     padding: 10px 52px;
   }
