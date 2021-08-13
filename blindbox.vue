@@ -38,8 +38,8 @@
           v-for="(item, index) in cards1"
           :key="index + Math.random()"
         >
-          <img :src="item.secondPic ? item.secondPic : './images/tv6.png'" />
-          <div class="mask" v-if="item.secondPic">
+          <img :src="item.secondPic ? item.secondPic : './images/tv6_'+(index + 1) +'.png'" />
+          <div class="mask" v-if="item.secondPic" :style="'backgroundImage: url(./images/tv6_'+(index+1)+'.png);'">
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
@@ -52,8 +52,8 @@
           v-for="(item, index) in cards2"
           :key="index + Math.random()"
         >
-          <img :src="item.secondPic ? item.secondPic : './images/tv6.png'" />
-          <div class="mask" v-if="item.secondPic">
+          <img :src="item.secondPic ? item.secondPic : './images/tv6_'+(index + 1) +'.png'" />
+          <div class="mask" v-if="item.secondPic" :style="'backgroundImage: url(./images/tv6_'+(index+1)+'.png);'">
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
@@ -66,8 +66,8 @@
           v-for="(item, index) in cards3"
           :key="index + Math.random()"
         >
-          <img :src="item.secondPic ? item.secondPic : './images/tv6.png'" />
-          <div class="mask" v-if="item.secondPic">
+          <img :src="item.secondPic ? item.secondPic : './images/tv6_'+(index + 1 )+'.png'" />
+          <div class="mask" v-if="item.secondPic" :style="'backgroundImage: url(./images/tv6_'+(index+1)+'.png);'">
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
