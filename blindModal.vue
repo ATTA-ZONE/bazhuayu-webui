@@ -810,7 +810,7 @@ module.exports = {
           }),
           success: function (resu) {
             self.blindBoxData = resu.data;
-            if (resu.data.list.length > 1) {
+            if (resu.data.list.length == 1) {
               $(".success-titl").text(resu.data.list[0].name);
             }
             if (type == 2) {
