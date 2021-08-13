@@ -75,15 +75,14 @@ function getArtworkList(current,pageSize,name,typeId){
 						html += 
 						`<li>
 							<a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
-						
 						if(geshi=='mp4'){
-							
-						  html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
-							
+							if(v.secondPic){
+								html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
+							}else{
+								html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
+							}
 						}else{
-							
-						  html+=`<img class="bzy-e-list-img" src="`+v.primaryPic+`" >`;
-						  
+						  html+=`<img class="bzy-e-list-img" src="`+(v.secondPic?v.secondPic:v.primaryPic)+`" >`;
 						}
 						
 									
@@ -155,7 +154,27 @@ function getArtworkList(current,pageSize,name,typeId){
 										}
 							html += `</div></div></a></li>`;
 						}else if(timeStatus==3){
-						html +=	`<div class="bzy-e-list-info">
+							if(v.releaseType == 2){
+								html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
+									<div class="bzy-e-list-info-price flex">
+										<span>BUSD `+(v.id==5?moneyFormat(22000):moneyFormat(v.price))+` </span>
+									</div>`;
+							html +=`<div class="bzy-e-list-info-sale flex">
+										<span>${artworkText.auctionClosed}</span>
+									</div>
+									<div class="bzy-e-list-info-creator flex">
+										<div><img src="./images/t8.png" ></div>
+										<span>@ATTA</span>
+									</div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>`;
+										if (v.releaseType == 2) {
+											html += `<span class="pmstatus">${artworkText.auction}</span>`;
+										}
+										html += `</div></div></a></li>`;
+							}else{
+								html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
@@ -174,6 +193,7 @@ function getArtworkList(current,pageSize,name,typeId){
 											html += `<span class="pmstatus">${artworkText.auction}</span>`;
 										}
 										html += `</div></div></a></li>`;
+							}
 						};   
 					});
 					
