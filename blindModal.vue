@@ -326,8 +326,8 @@
             <div class="payment-page-right-total">
               <h3>{{ chEnTextHtml[lang].paid }}</h3>
               <h3>
-                <span class="order-price-hdk hkdPrice">HK$388 </span
-                ><span class="order-price-busd none busdPrice">BUSD 50 </span>
+                <span v-if="selectedPayMethod == 0" class="order-price-hdk hkdPrice">HK$388 </span
+                ><span v-if="selectedPayMethod == 1" class="order-price-busd none busdPrice">BUSD 50 </span>
               </h3>
               <h4 class="info-desc">
                 {{ chEnTextHtml[lang].payTip}}
@@ -495,7 +495,7 @@ module.exports = {
       },
       lang: "",
       orderNo: "",
-      blindBoxData: [],
+      blindBoxData: {},
       address: "",
       id: "",
       busdPrice: 0,
@@ -799,7 +799,7 @@ module.exports = {
           success: function (resu) {
             self.blindBoxData = resu.data;
             if (resu.data.list.length > 1) {
-              $(".success-titl").text(res.data.name)
+              $(".success-titl").text(resu.data.name)
               $(".user-result-imgs img").addClass("ten-imgs");
             } else {
               $(".user-result-imgs img").addClass("one-imgs");
