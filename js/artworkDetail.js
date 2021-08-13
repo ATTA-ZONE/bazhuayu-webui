@@ -539,6 +539,7 @@ var app = new Vue({
 				$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 				$('#balanceBtn').attr('disabled', false)
 			}
+			let self = this;
 			$.ajax({
 				url: base_url + '/v2/user/account',
 				success: function (res) {

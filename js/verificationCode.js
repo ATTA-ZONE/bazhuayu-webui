@@ -20,8 +20,6 @@ function reSend(){
 }
 
 $(function(){
-	
-	
 	$('#code').on('input',function(){
 		var emailRegValidateCode = $(this).val().trim();
 		if(emailRegValidateCode!=''){
