@@ -659,7 +659,7 @@ var app = new Vue({
 			}
 			if (text == 2) {
 				$('.payment-page-right-btn').hide();
-				//$('.payment-page-right-crypto').show();
+				$('.payment-page-right-crypto').show();
 				if (getCookie('isConnect') != 'true') {
 					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
 					$('#cryptoBtn').attr('disabled', false)
@@ -675,15 +675,14 @@ var app = new Vue({
 					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
 				}
 
-				$('.payment-page-right-total').hide();
-				$('.payment-page-right-total .order-price').hide()
+				// $('.payment-page-right-total').hide();
+				// $('.payment-page-right-total .order-price').hide()
 				$('.order-price .order-price-hdk').hide();
 				$('.order-price .order-price-busd').show();
 				$('.payment-page-right-select').hide();
 				$('.payment-page-right-busd').hide();
-				$('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
-				$('.wallet-payment-desc').show();
-				$('#cryptoBtn').attr('disabled', true)
+				// $('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
+				// $('.wallet-payment-desc').show();
 			}
 		}
 	}
