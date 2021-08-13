@@ -555,9 +555,7 @@ module.exports = {
           if (res.code == 0) {
             $(".order-price-hdk").text("HK$ " + self.hdkDrawPrice * str);
             $(".order-price-busd").text("BUSD " + self.drawPrice * str);
-            if (Number(str) == 1) {
-              $(".success-titl").text(self.chEnTextHtml[self.lang].orderTit + self.chEnTextHtml[self.lang].orderInfo);
-            } else {
+            if (Number(str) == 10) {
               $(".success-titl").text(self.chEnTextHtml[self.lang].orderTit);
             }
             $(".payment").fadeIn();
