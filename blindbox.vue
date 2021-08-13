@@ -135,7 +135,7 @@
           </p>
           <button
             class="cjbtn"
-            @click="cqblindboxbtn(2, leftFreeCount.leftFreeCount2)"
+            @click="playVideo(2, leftFreeCount.leftFreeCount2)"
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
@@ -151,7 +151,7 @@
           </p>
           <button
             class="cjbtn"
-            @click="cqblindboxbtn(1, leftFreeCount.leftFreeCount1)"
+            @click="playVideo(1, leftFreeCount.leftFreeCount1)"
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
@@ -231,6 +231,106 @@
     <div class="hsycms-model hsycms-model-tips" id="tips">
       <div class="hsycms-model-text">这里是提示内容</div>
     </div>
+    <!-- 播放视频 -->
+    <div class="video-mask none"></div>
+    <div class="video-model none">
+      <div class="video-model-container flex">
+        <div>
+          <video webkit-playsinline="true" src="http://47.118.74.48:8081/upload/other/one_draw.mp4" autoplay muted></video>
+        </div>
+      </div>
+    </div>
+    <div class="payment-result-modal none">
+      <div class="payment-container flex">
+        <div class="payment-page flex">
+          <div
+            class="payment-page-close payment-close-pc"
+            onclick="paymentClose()"
+          >
+            <img src="./images/Close.png" />
+          </div>
+          <div class="payment-page-top none flex">
+            <div class="payment-page-right-tit">
+              {{ chEnTextHtml[lang].pay }}
+            </div>
+            <div class="payment-close-mobile">
+              <img src="./images/Close.png" />
+            </div>
+          </div>
+          <div class="payment-page-left">
+            <div class="payment-page-left-tit order-title success-titl">
+              {{ blindBoxData.list && blindBoxData.list.length > 0 ? blindBoxData.list[0].name : chEnTextHtml[lang].orderTit}}
+            </div>
+            <div class="payment-page-left-creator flex">
+              <div class="details-right-creator-img">
+                <img src="./images/t8.png" />
+              </div>
+              <span>@ATTA</span>
+            </div>
+            <div class="user-result-imgs">
+              <img
+                v-for="(item, idx) in blindBoxData.list"
+                :key="idx"
+                :src="'http://47.118.74.48:8081'+item.primaryPic"
+              />
+            </div>
+          </div>
+
+          <div class="payment-page-right">
+            <div class="payment-page-right-tit">
+              {{ chEnTextHtml[lang].accomplish }}
+            </div>
+            <div
+              class="
+                payment-page-left-tit
+                none
+                payment-page-left-tit-mobile
+                order-title
+              "
+            >
+              {{ blindBoxData.list && blindBoxData.list.length > 0 ? blindBoxData.list[0].name : chEnTextHtml[lang].orderTit}}
+            </div>
+            <div
+              class="
+                payment-page-left-creator
+                none
+                payment-page-left-creator-mobile
+                flex
+              "
+            >
+              <div class="details-right-creator-img">
+                <img src="./images/t8.png" />
+              </div>
+              <span>@ATTA</span>
+            </div>
+            <div class="payment-page-right-total">
+              <p class="ordernum">{{chEnTextHtml[lang].idno + blindBoxData.orderNo}}</p>
+              <h3>{{ chEnTextHtml[lang].paid }}</h3>
+              <h3>
+                <span class="order-price-hdk hkdPrice">{{chEnTextHtml[lang].free}}</span
+                ><span class="order-price-busd none busdPrice">{{chEnTextHtml[lang].free}}</span>
+              </h3>
+              <h4 class="info-desc">
+                {{ chEnTextHtml[lang].payTip}}
+              </h4>
+              <h4 class="user-address user-address-title">{{chEnTextHtml[lang].walletPay}}</h4>
+              <h4 class="user-address">{{ blindBoxData.address }}</h4>
+            </div>
+
+            <div class="payment-page-right-select modify-ipt-fream">
+              <div class="pay-button">
+                <button
+                  class="jumpzcbtn"
+                  onClick="window.location.href = './myassets.html'"
+                >
+                  {{ chEnTextHtml[lang].asset }} >
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -291,6 +391,7 @@ module.exports = {
           pay: "支付",
           paySuc: "支付成功",
           payErr: "支付失敗",
+          idno: "訂單號：",
           paid: "您的付款金額為",
           byCreditCard: "信用卡支付",
           pendingPayment: "這是待付款，您的付款金額為：",
@@ -331,8 +432,14 @@ module.exports = {
           paymentComing: "錢包直連支付功能準備中...",
           orderTit: "ATTA x 英雄联盟主播系列NFT盲盒",
           orderInfo: " - Rita系列S卡",
+          walletPay: '錢包支付',
+          payTip: '您抽中的NFT將在短時間內發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
+          free: '免费',
         },
         EN: {
+          free: 'free',
+          walletPay: 'Wallet payment',
+          payTip: 'The NFT you have drawn will be sent to your default wallet within a short period of time. It can be viewed under My Assets - My NFTs.',
           orderTit: "ATTA x LOL Streamer NFT Collection",
           orderInfo: " - Rita series S card",
           luckdrawintroduce_con: "",
@@ -381,6 +488,7 @@ module.exports = {
           pay: "Payment",
           paySuc: "Payment successful",
           payErr: "Payment failed",
+          idno: "Order number:",
           paid: "Your paid",
           byCreditCard: "By credit card",
           pendingPayment: "Your pending payment is：",
@@ -465,6 +573,7 @@ module.exports = {
       activityId: 1,
       stakingPool: 0,
       istkshow: 1,
+      blindBoxData : {}
     };
   },
 
@@ -572,11 +681,27 @@ module.exports = {
         },
       });
     },
+    playVideo(type, val) {
+      $(".blindbox_box video").removeClass("video-hidden");
+      $(".blindbox_box .video-model video")[0].play();
+      $(".blindbox_box .video-mask").fadeIn("fast");
+      $(".blindbox_box .video-model").fadeIn("fast");
 
+      $(".video-model video")[0].addEventListener(
+        "ended",
+        function () {
+          $(".blindbox_box .video-mask").fadeOut("fast");
+          $(".blindbox_box .video-model").fadeOut("fast");
+          this.cqblindboxbtn(type, val);
+        },
+        false
+      );
+    },
     cqblindboxbtn(type, val) {
       var self = this;
       var now = new Date();
-      var startnow = new Date('2021/8/19 20:00');
+      var startnow = new Date('2021/8/12 20:00');
+      // var startnow = new Date('2021/8/19 20:00');
       var endDate = new Date("2021/8/20 12:00");
       if (getCookie("islogin") == "false" || getCookie("islogin") == false) {
         window.tips(self.chEnTextHtml[self.lang].noLog);
@@ -613,7 +738,9 @@ module.exports = {
         }),
         success: function (res) {
           if (res.code == 0) {
-            window.tips("抽取成功");
+            self.blindBoxData = res.data;
+            console.log(self.blindBoxData);
+            $(".blindbox_box .payment-result-modal").fadeIn("fast");
             self.getdata();
           }
         },
@@ -896,7 +1023,21 @@ module.exports = {
 .cardsbox .purchasebox .dbcqword {
   display: none;
 }
-
+.ordernum{
+  font-size: 14px !important;
+  opacity: 0.4 !important;
+}
+.jumpzcbtn{
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  font-weight: bold;
+  height: 48px;
+  width: 100%;
+  background-color: #9567FF;
+  /* box-shadow: 0 1px 3px 0 rgb(19 57 94 / 40%); */
+  font-size: 14px;
+}
 @media only screen and (max-width: 992px) {
   .modify .modify-form .modify-tit {
     justify-content: space-between;
