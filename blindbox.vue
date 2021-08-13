@@ -38,8 +38,8 @@
           v-for="(item, index) in cards1"
           :key="index + Math.random()"
         >
-          <img :src="item.primaryPic ? item.primaryPic : './images/tv6.png'" />
-          <div class="mask" v-if="item.primaryPic">
+          <img :src="item.secondPic ? item.secondPic : './images/tv6.png'" />
+          <div class="mask" v-if="item.secondPic">
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
@@ -52,8 +52,8 @@
           v-for="(item, index) in cards2"
           :key="index + Math.random()"
         >
-          <img :src="item.primaryPic ? item.primaryPic : './images/tv6.png'" />
-          <div class="mask" v-if="item.primaryPic">
+          <img :src="item.secondPic ? item.secondPic : './images/tv6.png'" />
+          <div class="mask" v-if="item.secondPic">
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
@@ -66,8 +66,8 @@
           v-for="(item, index) in cards3"
           :key="index + Math.random()"
         >
-          <img :src="item.primaryPic ? item.primaryPic : './images/tv6.png'" />
-          <div class="mask" v-if="item.primaryPic">
+          <img :src="item.secondPic ? item.secondPic : './images/tv6.png'" />
+          <div class="mask" v-if="item.secondPic">
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
@@ -347,11 +347,13 @@ module.exports = {
           purchase5: "Use Now",
           purchase6: "Price: ",
           purchase7: "Available Airdrop Drawing Chances:",
-          tips1: "參與盲盒空投活動且獲取到空投資格的用戶",
-          tips5: "參與买四赠一白名单活動且獲取到白名单資格的用戶",
-          tips2: "抽取時間：8月19號20點~20號12點",
-          tips3: "過期將不支持抽取盲盒",
-          tips4: "*了解更多信息，請聯系ATTA客服：atta_official",
+          tips0: "Rules for Mystery Box Draw (Airdrop)",
+          tips01: "Rules for Mystery Box Draw (Whitelist)",
+          tips1: "For users who are eligible to receive the Mystery Box airdop",
+          tips5: 'For users who are whitelisted and can enjoy the "Buy 4 Get 1 Free" discount',
+          tips2: "Draw Time: August 19th, 20:00PM ~ August 20th 12:00PM (UTC+8)",
+          tips3: "After the deadline, drawing of Mystery Box will be closed",
+          tips4: "*For more information, please contact ATTA customer service at Telegram: https://t.me/attaofficialeng1",
           edit: "Edit",
           clickedit: "Click to edit",
           transfer: "Transfer",
