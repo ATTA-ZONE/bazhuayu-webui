@@ -271,7 +271,7 @@
               <img
                 v-for="(item, idx) in blindBoxData.list"
                 :key="idx"
-                :src="'http://47.118.74.48:8081'+item.primaryPic"
+                :src="item.primaryPic"
               />
             </div>
           </div>
@@ -435,8 +435,10 @@ module.exports = {
           walletPay: '錢包支付',
           payTip: '您抽中的NFT將在短時間內發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
           free: '免费',
+          frequency : "您當前沒有免費抽取機會。"
         },
         EN: {
+          frequency : "Currently, you don't have any free draws.",
           free: 'free',
           walletPay: 'Wallet payment',
           payTip: 'The NFT you have drawn will be sent to your default wallet within a short period of time. It can be viewed under My Assets - My NFTs.',
@@ -682,12 +684,10 @@ module.exports = {
       });
     },
     playVideo(type, val) {
-      $(".blindbox_box video").removeClass("video-hidden");
-      $(".blindbox_box .video-model video")[0].play();
       $(".blindbox_box .video-mask").fadeIn("fast");
       $(".blindbox_box .video-model").fadeIn("fast");
 
-      $(".video-model video")[0].addEventListener(
+      $(".blindbox_box .video-model video")[0].addEventListener(
         "ended",
         function () {
           $(".blindbox_box .video-mask").fadeOut("fast");
@@ -723,7 +723,7 @@ module.exports = {
         return;
       }
       if (val <= 0) {
-        window.tips("次数不够");
+        tips(self.chEnTextHtml[self.lang].frequency);
         return;
       }
       $.ajax({
@@ -771,7 +771,7 @@ module.exports = {
   line-height: 150%;
 }
 .modify .modify-form .modify-btn .cancel {
-  background: #a8deee;
+  background: #9567ff;
   border: none;
   color: #fff;
 }
@@ -1037,6 +1037,9 @@ module.exports = {
   background-color: #9567FF;
   /* box-shadow: 0 1px 3px 0 rgb(19 57 94 / 40%); */
   font-size: 14px;
+}
+.modify {
+  background:rgba(0, 0, 0, 0.7);
 }
 @media only screen and (max-width: 992px) {
   .modify .modify-form .modify-tit {
