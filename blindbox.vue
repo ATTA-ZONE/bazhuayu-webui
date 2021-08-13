@@ -735,9 +735,11 @@ module.exports = {
           }
         },
       });
+      debugger
       $(".blindbox_box .video-model video")[0].addEventListener(
         "ended",
         function () {
+          debugger
           $(".blindbox_box .video-mask").fadeOut("fast");
           $(".blindbox_box .video-model").fadeOut("fast");
           $(".blindbox_box .payment-result-modal").fadeIn("fast");
