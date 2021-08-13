@@ -20,16 +20,13 @@
             </div>
             <div class="payment-page-left">
               <div class="payment-page-left-tit order-title">
-                單抽-LPL明星解說系列盲盒
+                {{ chEnTextHtml[lang].orderTit}}
               </div>
               <div class="payment-page-left-creator flex">
                 <div class="details-right-creator-img">
                   <img src="./images/t8.png" />
                 </div>
                 <span>@ATTA</span>
-                <div class="details-right-creator-edition">
-                  {{ chEnTextHtml[lang].version }}
-                </div>
               </div>
               <div class="payment-page-left-img order-img">
                 <img src="./images/paymentImg.png" />
@@ -62,9 +59,6 @@
                   <img src="./images/t8.png" />
                 </div>
                 <span>@ATTA</span>
-                <div class="details-right-creator-edition">
-                  {{ chEnTextHtml[lang].version }}
-                </div>
               </div>
 
               <div class="payment-page-right-order none">
@@ -256,100 +250,106 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video webkit-playsinline="true" src="" autoplay muted>
-          </video>
+          <video webkit-playsinline="true" src="" autoplay muted></video>
         </div>
       </div>
     </div>
     <div class="payment-result-modal none">
-        <div class="payment-container flex">
-          <div class="payment-page flex">
-            <div
-              class="payment-page-close payment-close-pc"
-              onclick="paymentClose()"
-            >
+      <div class="payment-container flex">
+        <div class="payment-page flex">
+          <div
+            class="payment-page-close payment-close-pc"
+            onclick="paymentClose()"
+          >
+            <img src="./images/Close.png" />
+          </div>
+          <div class="payment-page-top none flex">
+            <div class="payment-page-right-tit">
+              {{ chEnTextHtml[lang].pay }}
+            </div>
+            <div class="payment-close-mobile">
               <img src="./images/Close.png" />
             </div>
-            <div class="payment-page-top none flex">
-              <div class="payment-page-right-tit">
-                {{ chEnTextHtml[lang].pay }}
+          </div>
+          <div class="payment-page-left">
+            <div class="payment-page-left-tit order-title success-titl">
+              {{ chEnTextHtml[lang].orderTit}}
+            </div>
+            <div class="payment-page-left-creator flex">
+              <div class="details-right-creator-img">
+                <img src="./images/t8.png" />
               </div>
-              <div class="payment-close-mobile">
-                <img src="./images/Close.png" />
+              <span>@ATTA</span>
+              <div class="details-right-creator-edition">
+                {{ chEnTextHtml[lang].version }}
               </div>
             </div>
-            <div class="payment-page-left">
-              <div class="payment-page-left-tit order-title">
-                單抽-LPL明星解說系列盲盒
+            <div class="user-result-imgs">
+              <img
+                v-for="(item, idx) in blindBoxData.list"
+                :key="idx"
+                :src="item.primaryPic"
+              />
+            </div>
+          </div>
+
+          <div class="payment-page-right">
+            <div class="payment-page-right-tit">
+              {{ chEnTextHtml[lang].accomplish }}
+            </div>
+            <div
+              class="
+                payment-page-left-tit
+                none
+                payment-page-left-tit-mobile
+                order-title
+              "
+            >
+              {{ chEnTextHtml[lang].orderTit}}
+            </div>
+            <div
+              class="
+                payment-page-left-creator
+                none
+                payment-page-left-creator-mobile
+                flex
+              "
+            >
+              <div class="details-right-creator-img">
+                <img src="./images/t8.png" />
               </div>
-              <div class="payment-page-left-creator flex">
-                <div class="details-right-creator-img">
-                  <img src="./images/t8.png" />
-                </div>
-                <span>@ATTA</span>
-                <div class="details-right-creator-edition">
-                  {{ chEnTextHtml[lang].version }}
-                </div>
-              </div>
-              <div class="user-result-imgs">
-                <img v-for="(item, idx) in blindBoxData.list" :key="idx" :src="item.primaryPic" />
+              <span>@ATTA</span>
+              <div class="details-right-creator-edition">
+                {{ chEnTextHtml[lang].version }}
               </div>
             </div>
+            <div class="payment-page-right-total">
+              <h3>{{ chEnTextHtml[lang].paid }}</h3>
+              <h3>
+                <span class="order-price-hdk hkdPrice">HK$388 </span
+                ><span class="order-price-busd none busdPrice">BUSD 50 </span>
+              </h3>
+              <h4 class="info-desc">
+                {{ chEnTextHtml[lang].payTip}}
+              </h4>
+              <h4 class="user-address user-address-title">{{chEnTextHtml[lang].walletPay}}</h4>
+              <h4 class="user-address">{{ blindBoxData.address }}</h4>
+            </div>
 
-            <div class="payment-page-right">
-              <div class="payment-page-right-tit">
-                {{ chEnTextHtml[lang].accomplish }}
-              </div>
-              <div
-                class="
-                  payment-page-left-tit
-                  none
-                  payment-page-left-tit-mobile
-                  order-title
-                "
-              >
-                單抽-LPL明星解說系列盲盒
-              </div>
-              <div
-                class="
-                  payment-page-left-creator
-                  none
-                  payment-page-left-creator-mobile
-                  flex
-                "
-              >
-                <div class="details-right-creator-img">
-                  <img src="./images/t8.png" />
-                </div>
-                <span>@ATTA</span>
-                <div class="details-right-creator-edition">
-                  {{ chEnTextHtml[lang].version }}
-                </div>
-              </div>
-              <div class="payment-page-right-total">
-                <h3>{{ chEnTextHtml[lang].paid }}</h3>
-                <h3>
-                  <span class="order-price-hdk hkdPrice">HK$388 </span
-                  ><span class="order-price-busd none busdPrice">BUSD 50 </span>
-                </h3>
-                <h4 class="info-desc">您抽中的NFT將在短時間內發送至您的默認錢包。可在我的資產-我的NFT下可查看。</h4>
-                <h4 class="user-address user-address-title">
-                  钱包支付
-                </h4>
-                <h4 class="user-address">{{blindBoxData.address}}</h4>
-              </div>
-
-              <div class="payment-page-right-select modify-ipt-fream">
-                <div class="pay-button">
-                      <button id="pay-button" @click="window.location.href = 'myassets.html'">
-                        {{ chEnTextHtml[lang].asset }} >
-                      </button>
-                    </div>
+            <div class="payment-page-right-select modify-ipt-fream">
+              <div class="pay-button">
+                <button
+                  id="pay-button"
+                  @click="window.location.href = 'myassets.html'"
+                >
+                  {{ chEnTextHtml[lang].asset }} >
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -421,8 +421,14 @@ module.exports = {
           payment: "立即付款",
           walletFirst: "請先連接錢包  ->",
           paymentComing: "錢包直連支付功能準備中...",
+          orderTit: "ATTA x 英雄联盟主播系列NFT盲盒",
+          payTip: '您抽中的NFT將在短時間內發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
+          walletPay: '錢包支付'
         },
         EN: {
+          walletPay: 'Wallet payment',
+          payTip: 'The NFT you have drawn will be sent to your default wallet within a short period of time. It can be viewed under My Assets - My NFTs.',
+          orderTit: "ATTA x LOL Streamer NFT Collection",
           edit: "Edit",
           clickedit: "Click to edit",
           transfer: "Transfer",
@@ -509,7 +515,7 @@ module.exports = {
       tokenLimits: [],
       chainId: "",
       activityId: 1,
-      success_status: -1
+      success_status: -1,
     };
   },
 
@@ -519,7 +525,7 @@ module.exports = {
     if (this.lang == "TC") {
       this.payTabs = ["信用卡", "錢包支付"];
     } else {
-      this.payTabs = ["Credit card", "Balance"];
+      this.payTabs = ["Credit card", "Wallet payment"];
     }
   },
 
@@ -535,20 +541,19 @@ module.exports = {
   methods: {
     playVideo() {
       $(".payment").fadeOut("fast");
-      if (window.getCookie('blindNum') < 2) {
-        var videoUrl="/upload/other/one_draw.mp4"
+      if (window.getCookie("blindNum") < 2) {
+        var videoUrl = "/upload/other/one_draw.mp4";
         //var videoUrl="https://v-cdn.zjol.com.cn/276982.mp4"
       } else {
-        var videoUrl="/upload/other/ten_draw.mp4"
+        var videoUrl = "/upload/other/ten_draw.mp4";
       }
-      $('.video-model video').attr('src', videoUrl);
-      $('video').removeClass('video-hidden');
-      $('.video-model video')[0].play();
-      $('.video-mask').fadeIn('fast');
-      $('.video-model').fadeIn('fast');
-      
+      $(".video-model video").attr("src", videoUrl);
+      $("video").removeClass("video-hidden");
+      $(".video-model video")[0].play();
+      $(".video-mask").fadeIn("fast");
+      $(".video-model").fadeIn("fast");
 
-      $('.video-model video')[0].addEventListener(
+      $(".video-model video")[0].addEventListener(
         "ended",
         function () {
           $(".video-mask").fadeOut("fast");
@@ -794,12 +799,12 @@ module.exports = {
           success: function (resu) {
             self.blindBoxData = resu.data;
             if (resu.data.list.length > 1) {
-              $('.user-result-imgs img').addClass('ten-imgs')
+              $(".user-result-imgs img").addClass("ten-imgs");
             } else {
-              $('.user-result-imgs img').addClass('one-imgs')
+              $(".user-result-imgs img").addClass("one-imgs");
             }
             if (type == 2) {
-              window.setCookie('orderNo','')
+              window.setCookie("orderNo", "");
             }
           },
         });

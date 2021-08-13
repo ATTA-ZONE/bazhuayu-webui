@@ -329,8 +329,12 @@ module.exports = {
           payment: "立即付款",
           walletFirst: "請先連接錢包  ->",
           paymentComing: "錢包直連支付功能準備中...",
+          orderTit: "ATTA x 英雄联盟主播系列NFT盲盒",
+          orderInfo: " - Rita系列S卡",
         },
         EN: {
+          orderTit: "ATTA x LOL Streamer NFT Collection",
+          orderInfo: " - Rita series S card",
           luckdrawintroduce_con: "",
           luckdrawintroduce_btn1: "Single Draw",
           luckdrawintroduce_btn2: " 10 Consecutive Draws",
@@ -552,9 +556,9 @@ module.exports = {
             $(".order-price-hdk").text("HK$ " + self.hdkDrawPrice * str);
             $(".order-price-busd").text("BUSD " + self.drawPrice * str);
             if (Number(str) == 1) {
-              $(".order-title").text("單抽-LPL明星解說系列盲盒");
+              $(".success-titl").text(self.chEnTextHtml[self.lang].orderTit + self.chEnTextHtml[self.lang].orderInfo);
             } else {
-              $(".order-title").text("十連抽-LPL明星解說系列盲盒");
+              $(".success-titl").text(self.chEnTextHtml[self.lang].orderTit);
             }
             $(".payment").fadeIn();
             $(".payment").addClass("payment-active");
