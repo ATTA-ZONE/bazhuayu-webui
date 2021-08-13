@@ -793,7 +793,7 @@ module.exports = {
           }),
           success: function (resu) {
             self.blindBoxData = resu.data;
-            if (resu.data.length > 1) {
+            if (resu.data.list.length > 1) {
               $('.user-result-imgs img').addClass('ten-imgs')
             } else {
               $('.user-result-imgs img').addClass('one-imgs')
