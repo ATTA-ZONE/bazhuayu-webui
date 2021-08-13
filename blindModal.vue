@@ -350,7 +350,7 @@
               <div>
                 <button
                   class="assets-button"
-                  @click="window.location.href = 'myassets.html'"
+                  @click="toAssets"
                 >
                   {{ chEnTextHtml[lang].asset }} >
                 </button>
@@ -893,6 +893,9 @@ module.exports = {
             }
           });
       });
+    },
+    toAssets(){
+      window.location.href = 'myassets.html'
     },
     togglePayMethod(text) {
       this.selectedPayMethod = text;
