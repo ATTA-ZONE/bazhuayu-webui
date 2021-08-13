@@ -289,6 +289,7 @@
                 v-for="(item, idx) in blindBoxData.list"
                 :key="idx"
                 :src="item.primaryPic"
+                :class="{blindBoxData.list > 1 'ten-imgs':'one-imgs'}"
               />
             </div>
           </div>
@@ -799,13 +800,7 @@ module.exports = {
           success: function (resu) {
             self.blindBoxData = resu.data;
             if (resu.data.list.length > 1) {
-              $(".success-titl").text(resu.data.name)
-              $(".user-result-imgs img").css({
-                'width': '23%',
-                'margin': '0 1% 10px 1%'
-              })
-            } else {
-              $(".user-result-imgs img").addClass("one-imgs");
+              $(".success-titl").text(resu.data.name) 
             }
             if (type == 2) {
               window.setCookie("orderNo", "");
