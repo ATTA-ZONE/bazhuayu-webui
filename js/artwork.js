@@ -155,7 +155,27 @@ function getArtworkList(current,pageSize,name,typeId){
 										}
 							html += `</div></div></a></li>`;
 						}else if(timeStatus==3){
-						html +=	`<div class="bzy-e-list-info">
+							if(v.releaseType == 2){
+								html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
+									<div class="bzy-e-list-info-price flex">
+										<span>BUSD `+(v.id==5?moneyFormat(22000):moneyFormat(v.price))+` </span>
+									</div>`;
+							html +=`<div class="bzy-e-list-info-sale flex">
+										<span>${artworkText.auctionClosed}</span>
+									</div>
+									<div class="bzy-e-list-info-creator flex">
+										<div><img src="./images/t8.png" ></div>
+										<span>@ATTA</span>
+									</div>
+									<div class="flex btnbox">
+										<span class="bzy-e-list-info-btn ljgmbtn">${artworkText.purchaseNow}  -></span>`;
+										if (v.releaseType == 2) {
+											html += `<span class="pmstatus">${artworkText.auction}</span>`;
+										}
+										html += `</div></div></a></li>`;
+							}else{
+								html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
@@ -174,6 +194,7 @@ function getArtworkList(current,pageSize,name,typeId){
 											html += `<span class="pmstatus">${artworkText.auction}</span>`;
 										}
 										html += `</div></div></a></li>`;
+							}
 						};   
 					});
 					
