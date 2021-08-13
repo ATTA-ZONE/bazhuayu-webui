@@ -800,7 +800,10 @@ module.exports = {
             self.blindBoxData = resu.data;
             if (resu.data.list.length > 1) {
               $(".success-titl").text(resu.data.name)
-              $(".user-result-imgs img").addClass("ten-imgs");
+              $(".user-result-imgs img").css({
+                'width': '23%',
+                'margin': '0 1% 10px 1%'
+              })
             } else {
               $(".user-result-imgs img").addClass("one-imgs");
             }
