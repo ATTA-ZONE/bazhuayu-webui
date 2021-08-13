@@ -346,10 +346,10 @@
               <h4 class="user-address">{{ blindBoxData.address }}</h4>
             </div>
 
-            <div class="payment-page-right-select modify-ipt-fream">
-              <div class="pay-button">
+            <div>
+              <div>
                 <button
-                  id="pay-button"
+                  class="assets-button"
                   @click="window.location.href = 'myassets.html'"
                 >
                   {{ chEnTextHtml[lang].asset }} >

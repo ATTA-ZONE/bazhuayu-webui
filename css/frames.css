@@ -155,7 +155,7 @@ div+button {
 	font-weight: 300;
 }
 
-#pay-button {
+#pay-button, .assets-button {
 	border: none;
 	border-radius: 2px;
 	color: #fff;
