@@ -256,7 +256,9 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video src="" muted></video>
+          <video src="" autoplay muted>
+            <source>
+          </video>
         </div>
       </div>
     </div>
@@ -540,11 +542,14 @@ module.exports = {
         src="/upload/other/ten_draw.mp4"
       }
       $(".payment").fadeOut("fast");
-      $(".video-model video").attr("src", src);
+      var vdo = $(".video-model video")[0]
+      vdo.attr("src", src);
       $(".video-mask").fadeIn("fast");
       $(".video-model").fadeIn("fast");
-      $(".video-model video")[0].play();
-      $(".video-model video")[0].addEventListener(
+      vdo.oncanplay = function(){
+        this.play();
+      };
+      vdo.addEventListener(
         "ended",
         function () {
           $(".video-mask").fadeOut("fast");
