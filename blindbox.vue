@@ -740,9 +740,7 @@ module.exports = {
       debugger
       $(".blindbox_box .video-model video")[0].addEventListener(
         "ended",
-        function(){
-          self.cqblindboxbtn();
-        }
+        self.cqblindboxbtn
       );
     },
     cqblindboxbtn() {
@@ -753,15 +751,15 @@ module.exports = {
       $(".blindbox_box .payment-result-modal").fadeIn("fast");
       self.getdata();
       
-      $(".blindbox_box .video-model video")[0].removeEventListener(
-        "ended",
-        function(){
-          $(".blindbox_box .video-mask").fadeOut("fast");
-          $(".blindbox_box .video-model").fadeOut("fast");
-          $(".blindbox_box .payment-result-modal").fadeOut("fast");
-        },
-        false
-      );
+      // $(".blindbox_box .video-model video")[0].removeEventListener(
+      //   "ended",
+      //   function(){
+      //     $(".blindbox_box .video-mask").fadeOut("fast");
+      //     $(".blindbox_box .video-model").fadeOut("fast");
+      //     $(".blindbox_box .payment-result-modal").fadeOut("fast");
+      //   },
+      //   false
+      // );
     },
     jumppage() {
       window.open("https://www.atta.zone/loading");
