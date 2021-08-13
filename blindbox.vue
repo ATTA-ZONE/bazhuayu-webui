@@ -562,6 +562,10 @@ module.exports = {
             $(".payment-page-left-img video").removeClass("video-hidden");
           } else {
             window.tips(self.chEnTextHtml[self.lang].noLog);
+            setTimeout(() => {
+              window.location.href = "./login.html";
+            }, 700);
+            return;
           }
         },
       });
