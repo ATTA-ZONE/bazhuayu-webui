@@ -20,7 +20,7 @@
             </div>
             <div class="payment-page-left">
               <div class="payment-page-left-tit order-title">
-                {{ chEnTextHtml[lang].orderTit}}
+                {{ chEnTextHtml[lang].orderTit }}
               </div>
               <div class="payment-page-left-creator flex">
                 <div class="details-right-creator-img">
@@ -273,7 +273,7 @@
           </div>
           <div class="payment-page-left">
             <div class="payment-page-left-tit order-title success-titl">
-              {{ chEnTextHtml[lang].orderTit}}
+              {{ chEnTextHtml[lang].orderTit }}
             </div>
             <div class="payment-page-left-creator flex">
               <div class="details-right-creator-img">
@@ -289,6 +289,7 @@
                 v-for="(item, idx) in blindBoxData.list"
                 :key="idx"
                 :src="item.primaryPic"
+                :class="[blindBoxData.list.length > 1 ? 'ten-imgs':'one-imgs']"
               />
             </div>
           </div>
@@ -305,7 +306,7 @@
                 order-title
               "
             >
-              {{ chEnTextHtml[lang].orderTit}}
+              {{ chEnTextHtml[lang].orderTit }}
             </div>
             <div
               class="
@@ -326,21 +327,30 @@
             <div class="payment-page-right-total">
               <h3>{{ chEnTextHtml[lang].paid }}</h3>
               <h3>
-                <span class="order-price-hdk hkdPrice">HK$388 </span
-                ><span class="order-price-busd none busdPrice">BUSD 50 </span>
+                <span
+                  v-if="selectedPayMethod == 0"
+                  class="order-price-hdk hkdPrice"
+                  >HK$388 </span
+                ><span
+                  v-if="selectedPayMethod == 1"
+                  class="order-price-busd none busdPrice"
+                  >BUSD 50
+                </span>
               </h3>
               <h4 class="info-desc">
-                {{ chEnTextHtml[lang].payTip}}
+                {{ chEnTextHtml[lang].payTip }}
               </h4>
-              <h4 class="user-address user-address-title">{{chEnTextHtml[lang].walletPay}}</h4>
+              <h4 class="user-address user-address-title">
+                {{ chEnTextHtml[lang].walletPay }}
+              </h4>
               <h4 class="user-address">{{ blindBoxData.address }}</h4>
             </div>
 
-            <div class="payment-page-right-select modify-ipt-fream">
-              <div class="pay-button">
+            <div>
+              <div>
                 <button
-                  id="pay-button"
-                  @click="window.location.href = 'myassets.html'"
+                  class="assets-button"
+                  @click="toAssets"
                 >
                   {{ chEnTextHtml[lang].asset }} >
                 </button>
@@ -422,12 +432,14 @@ module.exports = {
           walletFirst: "請先連接錢包  ->",
           paymentComing: "錢包直連支付功能準備中...",
           orderTit: "ATTA x 英雄联盟主播系列NFT盲盒",
-          payTip: '您抽中的NFT將在短時間內發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
-          walletPay: '錢包支付'
+          payTip:
+            "您抽中的NFT將在短時間內發送至您的默認錢包。可在我的資產-我的NFT下可查看。",
+          walletPay: "錢包支付",
         },
         EN: {
-          walletPay: 'Wallet payment',
-          payTip: 'The NFT you have drawn will be sent to your default wallet within a short period of time. It can be viewed under My Assets - My NFTs.',
+          walletPay: "Wallet payment",
+          payTip:
+            "The NFT you have drawn will be sent to your default wallet within a short period of time. It can be viewed under My Assets - My NFTs.",
           orderTit: "ATTA x LOL Streamer NFT Collection",
           edit: "Edit",
           clickedit: "Click to edit",
@@ -495,7 +507,7 @@ module.exports = {
       },
       lang: "",
       orderNo: "",
-      blindBoxData: [],
+      blindBoxData: { list: [] },
       address: "",
       id: "",
       busdPrice: 0,
@@ -798,11 +810,8 @@ module.exports = {
           }),
           success: function (resu) {
             self.blindBoxData = resu.data;
-            if (resu.data.list.length > 1) {
-              $(".success-titl").text(res.data.name)
-              $(".user-result-imgs img").addClass("ten-imgs");
-            } else {
-              $(".user-result-imgs img").addClass("one-imgs");
+            if (resu.data.list.length == 1) {
+              $(".success-titl").text(resu.data.list[0].name);
             }
             if (type == 2) {
               window.setCookie("orderNo", "");
@@ -855,8 +864,7 @@ module.exports = {
         var busdABI = contractSetting["busd_ERC20"]["abi"];
 
         busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-        var amount = $(".order-price-busd").text().split("BUSD ")[1];
-
+        var amount = $(".payment .busdPrice").text().split("BUSD ")[1];
         var num = web3.utils.toWei(amount, "ether");
         busdContractInstance.methods
           .balanceOf(accounts[0])
@@ -885,6 +893,9 @@ module.exports = {
             }
           });
       });
+    },
+    toAssets(){
+      window.location.href = 'myassets.html'
     },
     togglePayMethod(text) {
       this.selectedPayMethod = text;
