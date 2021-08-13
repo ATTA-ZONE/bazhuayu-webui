@@ -256,7 +256,7 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video src="" autoplay muted>
+          <video webkit-playsinline="true" src="" autoplay muted>
           </video>
         </div>
       </div>
@@ -534,21 +534,21 @@ module.exports = {
 
   methods: {
     playVideo() {
-      var videoUrl = "";
-      if (window.getCookie('blindNum') < 2) {
-        videoUrl="/upload/other/one_draw.mp4"
-      } else {
-        videoUrl="/upload/other/ten_draw.mp4"
-      }
       $(".payment").fadeOut("fast");
-      var vdo = $(".video-model video")[0]
-      vdo.src = videoUrl;
-      $(".video-mask").fadeIn("fast");
-      $(".video-model").fadeIn("fast");
-      vdo.oncanplay = function(){
-        this.play();
-      };
-      vdo.addEventListener(
+      if (window.getCookie('blindNum') < 2) {
+        var videoUrl="/upload/other/one_draw.mp4"
+        //var videoUrl="https://v-cdn.zjol.com.cn/276982.mp4"
+      } else {
+        var videoUrl="/upload/other/ten_draw.mp4"
+      }
+      $('.video-model video').attr('src', videoUrl);
+      $('video').removeClass('video-hidden');
+      $('.video-model video')[0].play();
+      $('.video-mask').fadeIn('fast');
+      $('.video-model').fadeIn('fast');
+      
+
+      $('.video-model video')[0].addEventListener(
         "ended",
         function () {
           $(".video-mask").fadeOut("fast");
@@ -583,10 +583,10 @@ module.exports = {
       if (self.success_status == 1 && self.orderNo) {
         success(this.chEnTextHtml[this.lang].paySuc, 1800);
         setTimeout(function () {
-          self.playVideo();
           CHAIN.WALLET.accounts().then(function (accounts) {
             self.drawSku(accounts, "", 2);
           });
+          self.playVideo();
         }, 1800);
       } else if (self.success_status == 0) {
         self.cancelSku();
