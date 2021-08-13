@@ -535,15 +535,15 @@ module.exports = {
 
   methods: {
     playVideo() {
-      var src = "";
+      var videoUrl = "";
       if (window.getCookie('blindNum') < 2) {
-        src="https://v-cdn.zjol.com.cn/280443.mp4"
+        videoUrl="/upload/other/one_draw.mp4"
       } else {
-        src="/upload/other/ten_draw.mp4"
+        videoUrl="/upload/other/ten_draw.mp4"
       }
       $(".payment").fadeOut("fast");
       var vdo = $(".video-model video")[0]
-      vdo.attr("src", src);
+      vdo.src = videoUrl;
       $(".video-mask").fadeIn("fast");
       $(".video-model").fadeIn("fast");
       vdo.oncanplay = function(){
@@ -866,12 +866,13 @@ module.exports = {
                     from: accounts[0],
                   })
                   .then((result) => {
+                    self.drawSku(accounts, result.blockHash, 3);
                     $(".payment").fadeOut();
                     self.playVideo();
-                    self.drawSku(accounts, result.blockHash, 3);
                     loadingHide();
                   })
-                  .catch(() => {
+                  .catch((err) => {
+                    console.log(err);
                     self.cancelSku();
                     loadingHide();
                   });
