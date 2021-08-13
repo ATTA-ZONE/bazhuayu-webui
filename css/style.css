@@ -252,16 +252,19 @@ html {
 	font-size: 10px;
 	color: rgba(255, 255, 255, 0.8);
 }
-.header-right-yidl-info p{
+
+.header-right-yidl-info p {
 	display: flex;
-    flex-direction: column;
+	flex-direction: column;
 }
-.header-right-yidl-info p .my-email{
+
+.header-right-yidl-info p .my-email {
 	font-size: 10px;
-	color: rgba(255,255,255,0.8);
+	color: rgba(255, 255, 255, 0.8);
 }
-.header-right-yidl-info div img{
-	width:100%;
+
+.header-right-yidl-info div img {
+	width: 100%;
 	height: 100%;
 }
 
@@ -279,13 +282,14 @@ html {
 .header-right-yidl-info:hover span {
 	color: #9567FF;
 }
-.header-right-yidl-my{
-	width:70%;
-	position:absolute;
-	left:0;
-	top:70px;
-	z-index:1000;
-	box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+
+.header-right-yidl-my {
+	width: 70%;
+	position: absolute;
+	left: 0;
+	top: 70px;
+	z-index: 1000;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .header-right-yidl-my span {
@@ -386,7 +390,7 @@ html {
 	font-weight: 600;
 	font-size: 18px;
 	line-height: 22px;
-	color:#fff;
+	color: #fff;
 	width: 100%;
 	display: inline-block;
 }
@@ -910,6 +914,7 @@ html {
 	width: 33.33%;
 	flex-direction: column;
 }
+
 .footer-right-follow {
 	width: 33.33%;
 	flex-direction: column;
@@ -1082,9 +1087,11 @@ html {
 	column-count: 3;
 	column-gap: 48px;
 }
+
 .artwork-mask {
 	position: relative;
 }
+
 .artwork-mask-wrap {
 	position: absolute;
 	top: 0;
@@ -1093,13 +1100,14 @@ html {
 	height: 100%;
 	z-index: 999;
 }
-.bzy-e-list li{
-	width:100%;
-	transition:all 0.5s;
-	margin-bottom:60px;
-	-moz-page-break-inside:avoid;
-	-webkit-column-break-inside:avoid;
-	break-inside:avoid;
+
+.bzy-e-list li {
+	width: 100%;
+	transition: all 0.5s;
+	margin-bottom: 60px;
+	-moz-page-break-inside: avoid;
+	-webkit-column-break-inside: avoid;
+	break-inside: avoid;
 }
 
 .artwork-mask-wrap {
@@ -1210,7 +1218,8 @@ html {
 	line-height: 150%;
 	color: #fff;
 }
-.bzy-e-list-info-price span:nth-child(2){
+
+.bzy-e-list-info-price span:nth-child(2) {
 	margin-left: 30px;
 }
 
@@ -1336,6 +1345,22 @@ html {
 .details-left {
 	width: 50%;
 	position: relative;
+}
+
+.user-result-imgs {
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+}
+
+.ten-imgs {
+	width: 23%;
+  margin: 0 1% 10px 1%;
+}
+
+.one-img {
+	width: 100%;
+	box-shadow:0 0 40px 10px rgb(0 0 0 / 30%);
 }
 
 .order-img {
@@ -1571,20 +1596,23 @@ html {
 	font-size: 16px;
 	line-height: 150%;
 }
-.payment{
-	width:100%;
-	height:100%;
-	position:fixed;
-	top:0;
-	left:0;
-	background:#141414;
-	z-index:50;
+
+.payment,
+.payment-result-modal {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #141414;
+	z-index: 50;
 }
-.payment-container{
+
+.payment-container {
 	align-items: self-start;
-	justify-content:center;
-	width:100%;
-	height:100%;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
 	overflow: auto;
 }
 
@@ -1681,6 +1709,21 @@ html {
 	color: #fff;
 }
 
+.payment-page-right-total h4,
+.payment-page-right-total h5,
+.payment-page-right-total h3 {
+	color: #fff !important;
+}
+
+.user-address {
+	opacity: 0.4;
+}
+
+.info-desc {
+	margin: 30px 0;
+	line-height: 1.6;
+}
+
 .payment-page-right-total p:first-child {
 	font-family: Inter;
 	font-style: normal;
@@ -1759,7 +1802,8 @@ html {
 	opacity: 0.7;
 }
 
-.payment-page-right-btn button, .payment-page-right-crypto button {
+.payment-page-right-btn button,
+.payment-page-right-crypto button {
 	width: 100%;
 	background: rgba(255, 255, 255, 0.3);
 	border: 0;
@@ -1774,7 +1818,8 @@ html {
 	margin-bottom: 20px;
 }
 
-.payment-page-right-btn .can, .payment-page-right-crypto .can {
+.payment-page-right-btn .can,
+.payment-page-right-crypto .can {
 	background: #9567FF;
 	color: #fff;
 }
@@ -2051,16 +2096,18 @@ html {
 	align-items: center;
 	position: relative;
 }
-.tc-login-left{
-	width:339px;
+
+.tc-login-left {
+	width: 339px;
 	height: 615px;
-	align-items:center;
+	align-items: center;
 	justify-content: center;
 	background: rgb(36, 36, 36);
 }
-.tc-login-left img{
-	width:124px;
-	flex-shrink:0;
+
+.tc-login-left img {
+	width: 124px;
+	flex-shrink: 0;
 }
 
 .tc-login-right {
@@ -2096,7 +2143,7 @@ html {
 
 .tc-login-right-form .form-ipt div {
 	align-items: center;
-	-webkit-user-select:text !important;
+	-webkit-user-select: text !important;
 }
 
 .tc-login-right-form .form-ipt div img {
@@ -2408,7 +2455,7 @@ html {
 
 .my-assets-right-creator-edition {
 	word-wrap: break-word;
-    word-break: break-all;
+	word-break: break-all;
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
@@ -2479,7 +2526,7 @@ html {
 
 .my-assets-claim-wrap {
 	flex-direction: column;
-  width: 49%;
+	width: 49%;
 }
 
 .my-assets-right-btn a {
@@ -2885,11 +2932,13 @@ html {
 	border: none;
 	margin-top: 5px;
 }
-.my-wallet-jumptip{
+
+.my-wallet-jumptip {
 	border: none;
 	margin-top: 5px;
 }
-.my-wallet-tip p{
+
+.my-wallet-tip p {
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
@@ -2908,12 +2957,14 @@ html {
 	font-size: 14px;
 	line-height: 22px;
 }
-.my-wallet-jumptip a{
+
+.my-wallet-jumptip a {
 	font-size: 12px;
 	cursor: pointer;
 }
-.my-wallet-tip a:hover{
-	text-decoration:underline;
+
+.my-wallet-tip a:hover {
+	text-decoration: underline;
 }
 
 .my-wallet-connect {
@@ -3112,7 +3163,8 @@ html {
 	opacity: 0.7;
 	position: relative;
 }
-.copybtn{
+
+.copybtn {
 	position: absolute;
 	right: -8px;
 	bottom: 0;
@@ -3134,16 +3186,18 @@ html {
 	line-height: 22px;
 	color: rgba(255, 255, 255, 0.4);
 }
-.modify-tips-content{
+
+.modify-tips-content {
 	color: rgba(255, 56, 56, 0.92);
-    font-size: 22px;
-    position: relative;
-    top: 10px;
+	font-size: 22px;
+	position: relative;
+	top: 10px;
 }
-.modify-btn-tips-content{
+
+.modify-btn-tips-content {
 	font-size: 10px;
-    color: rgba(255,255,255,0.82);
-    margin-top: 5px;
+	color: rgba(255, 255, 255, 0.82);
+	margin-top: 5px;
 }
 
 .modify-btn {
@@ -3293,12 +3347,13 @@ html {
 	margin-bottom: 32px;
 	position: relative;
 }
-.sign-input p input{
-	height:46px;
-	background:#282828;
-	border:0;
-	width:100%;
-	border-radius:2px;
+
+.sign-input p input {
+	height: 46px;
+	background: #282828;
+	border: 0;
+	width: 100%;
+	border-radius: 2px;
 	padding: 0 12px;
 	font-family: Inter;
 	font-style: normal;
@@ -3307,26 +3362,31 @@ html {
 	line-height: 22px;
 	color: rgba(255, 255, 255, 0.4);
 }
-.sign-check-tip,.sign-check-tip2{
-	position:absolute;
-	display:block;
-	bottom:-20px;
-	font-size:12px;
-	width:100%;
-	left:0;
+
+.sign-check-tip,
+.sign-check-tip2 {
+	position: absolute;
+	display: block;
+	bottom: -20px;
+	font-size: 12px;
+	width: 100%;
+	left: 0;
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	color: #FF0000;
 }
-.password-icon1, .password-icon2 {
+
+.password-icon1,
+.password-icon2 {
 	position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 18px;
-    border-radius: 50%;
+	top: 14px;
+	right: 14px;
+	width: 18px;
+	border-radius: 50%;
 }
-.pswerror{
+
+.pswerror {
 	position: absolute;
 	right: 42px;
 	top: 15px;
@@ -3335,23 +3395,24 @@ html {
 }
 
 .sign-warn-check {
-	position:absolute;
-	display:block;
-	bottom:-24px;
-	font-size:12px;
-	width:100%;
-	left:0;
+	position: absolute;
+	display: block;
+	bottom: -24px;
+	font-size: 12px;
+	width: 100%;
+	left: 0;
 	font-family: Inter;
 	font-style: normal;
 	font-weight: normal;
 	color: #fff;
 	opacity: 0.4;
 }
-.sign-btn{
-	border-top:1px solid rgba(255,255,255,0.15);
-	padding-top:24px;
-	align-items:center;
-	flex-direction:column;
+
+.sign-btn {
+	border-top: 1px solid rgba(255, 255, 255, 0.15);
+	padding-top: 24px;
+	align-items: center;
+	flex-direction: column;
 }
 
 .sign-btn button {
@@ -3712,7 +3773,7 @@ html {
 
 .bzy-e-lf {
 	width: 45%;
-	display:flex;
+	display: flex;
 	align-items: center;
 }
 
@@ -3742,14 +3803,15 @@ html {
 	text-align: justify;
 }
 
-.bzy-e-rt .bzy-e-rt-info p{
+.bzy-e-rt .bzy-e-rt-info p {
 	opacity: 0.7;
 }
-.bzy-e-rt .bzy-e-rt-info .bzy-e-rt-info-lol{
+
+.bzy-e-rt .bzy-e-rt-info .bzy-e-rt-info-lol {
 	background-color: #9567ff;
 	color: #fff;
-	border:0;
-	padding:5px 10px;
+	border: 0;
+	padding: 5px 10px;
 	border-radius: 5px;
 	margin-top: 50px;
 }
@@ -3777,7 +3839,13 @@ html {
 	.bzy-e-rt .bzy-e-rt-info {
 		font-size: 14px;
 	}
-	.paymenttypebox,.moneryridebox,.countmoneybox .moneryridebox span,.countmoneybox .countetcbox span,.countmoneybox .countetcbox,.purchaseprice{
+
+	.paymenttypebox,
+	.moneryridebox,
+	.countmoneybox .moneryridebox span,
+	.countmoneybox .countetcbox span,
+	.countmoneybox .countetcbox,
+	.purchaseprice {
 		font-size: 12px !important;
 	}
 }
@@ -3790,7 +3858,13 @@ html {
 	.wx-code {
 		right: calc((100% - 270px) / 2)
 	}
-	.paymenttypebox,.moneryridebox,.countmoneybox .moneryridebox span,.countmoneybox .countetcbox span,.countmoneybox .countetcbox,.purchaseprice{
+
+	.paymenttypebox,
+	.moneryridebox,
+	.countmoneybox .moneryridebox span,
+	.countmoneybox .countetcbox span,
+	.countmoneybox .countetcbox,
+	.purchaseprice {
 		font-size: 12px !important;
 	}
 }
@@ -3803,7 +3877,13 @@ html {
 	.wx-code {
 		right: calc((100% - 270px) / 2)
 	}
-	.paymenttypebox,.moneryridebox,.countmoneybox .moneryridebox span,.countmoneybox .countetcbox span,.countmoneybox .countetcbox,.purchaseprice{
+
+	.paymenttypebox,
+	.moneryridebox,
+	.countmoneybox .moneryridebox span,
+	.countmoneybox .countetcbox span,
+	.countmoneybox .countetcbox,
+	.purchaseprice {
 		font-size: 12px !important;
 	}
 }
@@ -3904,8 +3984,9 @@ html {
 		display: flex;
 	}
 }
+
 .swiper-midia-mask {
-	
+
 	width: fit-content;
 	height: fit-content;
 	display: block;
@@ -3914,6 +3995,7 @@ html {
 	left: 0;
 	z-index: 9999;
 }
+
 .swiper-container {
 	width: 100%;
 	height: 100%;
@@ -3969,13 +4051,15 @@ html {
 	position: relative;
 	height: 100%;
 }
-.checknumbox{
+
+.checknumbox {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	margin-bottom: 9px;
 }
-.checknumbox .purchasenumbox{
+
+.checknumbox .purchasenumbox {
 	border: 1px solid #7A7A7A;
 	box-sizing: border-box;
 	border-radius: 4px;
@@ -3985,107 +4069,130 @@ html {
 	margin-bottom: 10px;
 	margin-right: 22px;
 }
-.checknumbox .purchasenumbox button{
+
+.checknumbox .purchasenumbox button {
 	background: none;
 	border: none;
 	width: 33.33%;
 }
-.checknumbox .purchasenumbox span{
+
+.checknumbox .purchasenumbox span {
 	width: 33.33%;
 	text-align: center;
 	font-weight: 500;
 	font-size: 20px;
 	color: #9567FF;
 }
-.checknumbox .selectnumbox{
+
+.checknumbox .selectnumbox {
 	font-weight: 600;
 	font-size: 18px;
 	color: #FFFFFF;
 	margin-bottom: 10px;
 }
-.checknumbox .selectnumbox span{
+
+.checknumbox .selectnumbox span {
 	color: #9567FF;
 }
-.countmoneybox{
+
+.countmoneybox {
 	display: flex;
 	align-items: center;
 	/* justify-content: space-between; */
 	margin-bottom: 10px;
 }
-.countmoneybox .moneryridebox{
+
+.countmoneybox .moneryridebox {
 	font-weight: 300;
 	font-size: 18px;
 	color: #FFFFFF;
 }
-.countmoneybox .moneryridebox span{
+
+.countmoneybox .moneryridebox span {
 	font-size: 16px;
 	color: rgba(255, 255, 255, 0.64);
 }
-.countmoneybox .countetcbox{
+
+.countmoneybox .countetcbox {
 	font-size: 24px;
 	color: #FFFFFF;
 	display: flex;
-    align-items: center;
+	align-items: center;
 	margin-left: 10px;
 }
-.countmoneybox .countetcbox span{
+
+.countmoneybox .countetcbox span {
 	font-size: 18px;
 	margin: 0 9px;
 }
-.paymenttypebox{
+
+.paymenttypebox {
 	font-weight: 300;
 	font-size: 16px;
-	color: rgba(255, 255, 255,0.7);
+	color: rgba(255, 255, 255, 0.7);
 }
-.purchaseprice{
+
+.purchaseprice {
 	font-size: 24px;
 	font-weight: 600;
 	color: #fff;
 }
-.newstyle-date{
+
+.newstyle-date {
 	opacity: 1;
 	font-size: 14px;
 }
-.newstyle-id{
+
+.newstyle-id {
 	border-top: 1px solid #fff;
 	padding-top: 8px;
 	margin-top: 8px;
 }
-.newstyle-name{
+
+.newstyle-name {
 	border: none;
 	margin: 0;
 }
-.my-orders-status .countmoneybox{
+
+.my-orders-status .countmoneybox {
 	justify-content: normal;
 }
-.my-orders-status .countmoneybox .countetcbox{
+
+.my-orders-status .countmoneybox .countetcbox {
 	margin-left: 10px;
 }
-.switchlanguagebox{
+
+.switchlanguagebox {
 	font-weight: 600;
 	font-size: 14px;
 	margin-left: 32px;
 	color: #fff;
 }
-.switchlanguagebox .separate{
+
+.switchlanguagebox .separate {
 	margin: 0 16px;
 }
-.switchlanguagebox a{
+
+.switchlanguagebox a {
 	color: #fff;
 	cursor: pointer;
 }
-.switchlanguage_mobile a{
+
+.switchlanguage_mobile a {
 	width: auto !important;
 }
-.walletIdshow{
+
+.walletIdshow {
 	width: 85px;
 	color: rgba(255, 255, 255, 0.6);
 	font-size: 10px;
 	overflow: hidden;
-	text-overflow:ellipsis;
+	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-input,div{
+
+input,
+div {
 	/* -moz-user-select:auto;
 	-webkit-user-select:auto;
 	user-select:auto;   */

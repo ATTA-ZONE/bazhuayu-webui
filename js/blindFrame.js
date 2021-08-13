@@ -174,6 +174,7 @@ function onCardTokenized(event) {
 		success:function(res){
 			loadingHide();
 			if(res.code==0){
+        window.setCookie('orderNo',res.data.orderNo);
 				window.location.href = res.data.paytdsUrl;
 			}else{
         tips(res.message)

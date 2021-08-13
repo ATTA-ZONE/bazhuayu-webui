@@ -256,75 +256,101 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video src="" autoplay muted></video>
+          <video src="" autoplay muted>
+            <source>
+          </video>
         </div>
       </div>
     </div>
-    <!--提交成功-->
-    <div class="hsycms-model-mask" id="mask-success"></div>
-    <div class="hsycms-model hsycms-model-success" id="success">
-      <div class="hsycms-model-icon">
-        <svg width="50" height="50">
-          <circle
-            class="hsycms-alert-svgcircle"
-            cx="25"
-            cy="25"
-            r="24"
-            fill="none"
-            stroke="#ffffff"
-            stroke-width="2"
-          ></circle>
-          <polyline
-            class="hsycms-alert-svggou"
-            fill="none"
-            stroke="#ffffff"
-            stroke-width="2.5"
-            points="14,25 23,34 36,18"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+    <div class="payment-result-modal none">
+        <div class="payment-container flex">
+          <div class="payment-page flex">
+            <div
+              class="payment-page-close payment-close-pc"
+              onclick="paymentClose()"
+            >
+              <img src="./images/Close.png" />
+            </div>
+            <div class="payment-page-top none flex">
+              <div class="payment-page-right-tit">
+                {{ chEnTextHtml[lang].pay }}
+              </div>
+              <div class="payment-close-mobile">
+                <img src="./images/Close.png" />
+              </div>
+            </div>
+            <div class="payment-page-left">
+              <div class="payment-page-left-tit order-title">
+                單抽-LPL明星解說系列盲盒
+              </div>
+              <div class="payment-page-left-creator flex">
+                <div class="details-right-creator-img">
+                  <img src="./images/t8.png" />
+                </div>
+                <span>@ATTA</span>
+                <div class="details-right-creator-edition">
+                  {{ chEnTextHtml[lang].version }}
+                </div>
+              </div>
+              <div class="user-result-imgs">
+                <img v-for="(item, idx) in blindBoxData" :key="idx" :src="item.primaryPic" />
+              </div>
+            </div>
+
+            <div class="payment-page-right">
+              <div class="payment-page-right-tit">
+                {{ chEnTextHtml[lang].accomplish }}
+              </div>
+              <div
+                class="
+                  payment-page-left-tit
+                  none
+                  payment-page-left-tit-mobile
+                  order-title
+                "
+              >
+                單抽-LPL明星解說系列盲盒
+              </div>
+              <div
+                class="
+                  payment-page-left-creator
+                  none
+                  payment-page-left-creator-mobile
+                  flex
+                "
+              >
+                <div class="details-right-creator-img">
+                  <img src="./images/t8.png" />
+                </div>
+                <span>@ATTA</span>
+                <div class="details-right-creator-edition">
+                  {{ chEnTextHtml[lang].version }}
+                </div>
+              </div>
+              <div class="payment-page-right-total">
+                <h3>{{ chEnTextHtml[lang].paid }}</h3>
+                <h3>
+                  <span class="order-price-hdk hkdPrice">HK$388 </span
+                  ><span class="order-price-busd none busdPrice">BUSD 50 </span>
+                </h3>
+                <h4 class="info-desc">您抽中的NFT將在短時間內發送至您的默認錢包。可在我的資產-我的NFT下可查看。</h4>
+                <h4 class="user-address user-address-title">
+                  钱包支付
+                </h4>
+                <h4 class="user-address">{{userAddress}}</h4>
+              </div>
+
+              <div class="payment-page-right-select modify-ipt-fream">
+                <div class="pay-button">
+                      <button id="pay-button" @click="window.location.href = 'myassets.html'">
+                        {{ chEnTextHtml[lang].asset }} >
+                      </button>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hsycms-model-text">{{ chEnTextHtml[lang].regSuc }}</div>
-    </div>
-    <!--提交失败-->
-    <div class="hsycms-model-mask" id="mask-error"></div>
-    <div class="hsycms-model hsycms-model-error" id="error">
-      <div class="hsycms-model-icon">
-        <svg width="50" height="50">
-          <circle
-            class="hsycms-alert-svgcircle"
-            cx="25"
-            cy="25"
-            r="24"
-            fill="none"
-            stroke="#f54655"
-            stroke-width="2"
-          ></circle>
-          <polyline
-            class="hsycms-alert-svgca1"
-            fill="none"
-            stroke="#f54655"
-            stroke-width="2.5"
-            points="18,17 32,35"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <polyline
-            class="hsycms-alert-svgca2"
-            fill="none"
-            stroke="#f54655"
-            stroke-width="2.5"
-            points="18,35 32,17"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
-      <div class="hsycms-model-text">
-        {{ chEnTextHtml[lang].operationFailed }}
-      </div>
-    </div>
   </div>
 </template>
 
@@ -484,7 +510,7 @@ module.exports = {
       tokenLimits: [],
       chainId: "",
       activityId: 1,
-      success_status: -1,
+      success_status: -1
     };
   },
 
@@ -509,16 +535,26 @@ module.exports = {
 
   methods: {
     playVideo() {
-      var src = "https://v-cdn.zjol.com.cn/280443.mp4";
-      $(".video-model video").attr("src", src);
+      var src = "";
+      if (window.getCookie('blindNum') < 2) {
+        src="/upload/other/one_draw.mp4"
+      } else {
+        src="/upload/other/ten_draw.mp4"
+      }
+      $(".payment").fadeOut("fast");
+      var vdo = $(".video-model video")[0]
+      vdo.attr("src", src);
       $(".video-mask").fadeIn("fast");
       $(".video-model").fadeIn("fast");
-      $(".video-model video")[0].play();
-      $(".video-model video")[0].addEventListener(
+      vdo.oncanplay = function(){
+        this.play();
+      };
+      vdo.addEventListener(
         "ended",
         function () {
           $(".video-mask").fadeOut("fast");
           $(".video-model").fadeOut("fast");
+          $(".payment-result-modal").fadeIn("fast");
         },
         false
       );
@@ -530,13 +566,8 @@ module.exports = {
         $("#pay-button").attr("disabled", true);
       }
     },
-    async creditPay() {
+    creditPay() {
       loading();
-      let res = await this.preSku();
-      if (!res) {
-        loadingHide();
-        return false;
-      }
     },
     getQueryString(name) {
       let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -549,7 +580,7 @@ module.exports = {
     getCreditInfo() {
       let self = this;
       self.success_status = self.getQueryString("success");
-      self.orderNo = self.getQueryString("orderNo");
+      self.orderNo = window.getCookie("orderNo");
       if (self.success_status == 1 && self.orderNo) {
         success(this.chEnTextHtml[this.lang].paySuc, 1800);
         setTimeout(function () {
@@ -763,8 +794,13 @@ module.exports = {
           }),
           success: function (resu) {
             self.blindBoxData = resu.data;
+            if (resu.data.length > 1) {
+              $('.user-result-imgs img').addClass('ten-imgs')
+            } else {
+              $('.user-result-imgs img').addClass('one-imgs')
+            }
             if (type == 2) {
-              location.search = "";
+              window.setCookie('orderNo','')
             }
           },
         });
