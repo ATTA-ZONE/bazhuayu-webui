@@ -855,8 +855,7 @@ module.exports = {
         var busdABI = contractSetting["busd_ERC20"]["abi"];
 
         busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-        var amount = $(".order-price-busd").text().split("BUSD ")[1];
-
+        var amount = $(".payment .busdPrice").text().split("BUSD ")[1];
         var num = web3.utils.toWei(amount, "ether");
         busdContractInstance.methods
           .balanceOf(accounts[0])
