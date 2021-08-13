@@ -256,7 +256,7 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video src="" autoplay muted></video>
+          <video src="" muted></video>
         </div>
       </div>
     </div>
