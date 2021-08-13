@@ -738,37 +738,27 @@ module.exports = {
       debugger
       $(".blindbox_box .video-model video")[0].addEventListener(
         "ended",
-        function () {
-          debugger
-          $(".blindbox_box .video-mask").fadeOut("fast");
-          $(".blindbox_box .video-model").fadeOut("fast");
-          $(".blindbox_box .payment-result-modal").fadeIn("fast");
-          self.getdata();
-          self.isshowclick = true;
-        },
+        self.cqblindboxbtn(),
         false
       );
     },
-    cqblindboxbtn(type, val) {
-      var self = this;
-      $.ajax({
-        url: base_url + "/v2/activity/freeDraw",
-        type: "POST",
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify({
-          type: type,
-          activityId: self.activityId,
-          address: self.account_address,
-        }),
-        success: function (res) {
-          if (res.code == 0) {
-            self.blindBoxData = res.data;
-            $(".blindbox_box .payment-result-modal").fadeIn("fast");
-            self.getdata();
-          }
-        },
-      });
+    cqblindboxbtn() {
+      debugger
+      let self = this;
+      $(".blindbox_box .video-mask").fadeOut("fast");
+      $(".blindbox_box .video-model").fadeOut("fast");
+      $(".blindbox_box .payment-result-modal").fadeIn("fast");
+      self.getdata();
+      self.isshowclick = true;
+      // $(".blindbox_box .video-model video")[0].removeEventListener(
+      //   "ended",
+      //   function(){
+      //     $(".blindbox_box .video-mask").fadeOut("fast");
+      //     $(".blindbox_box .video-model").fadeOut("fast");
+      //     $(".blindbox_box .payment-result-modal").fadeOut("fast");
+      //   },
+      //   false
+      // );
     },
     jumppage() {
       window.open("https://www.atta.zone/loading");
