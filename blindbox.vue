@@ -236,7 +236,7 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video webkit-playsinline="true" src="http://47.118.74.48:8081/upload/other/one_draw.mp4" autoplay muted></video>
+          <video webkit-playsinline="true" src="/upload/other/one_draw.mp4" autoplay muted></video>
         </div>
       </div>
     </div>
