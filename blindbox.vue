@@ -685,21 +685,6 @@ module.exports = {
     },
     playVideo(type, val) {
       let self = this;
-      $(".blindbox_box .video-model video")[0].play();
-      $(".blindbox_box .video-mask").fadeIn("fast");
-      $(".blindbox_box .video-model").fadeIn("fast");
-      $(".blindbox_box .video-model video")[0].addEventListener(
-        "ended",
-        function () {
-          $(".blindbox_box .video-mask").fadeOut("fast");
-          $(".blindbox_box .video-model").fadeOut("fast");
-          self.cqblindboxbtn(type, val);
-        },
-        false
-      );
-    },
-    cqblindboxbtn(type, val) {
-      var self = this;
       var now = new Date();
       var startnow = new Date('2021/8/12 20:00');
       // var startnow = new Date('2021/8/19 20:00');
@@ -727,6 +712,20 @@ module.exports = {
         tips(self.chEnTextHtml[self.lang].frequency);
         return;
       }
+      $(".blindbox_box .video-mask").fadeIn("fast");
+      $(".blindbox_box .video-model").fadeIn("fast");
+      $(".blindbox_box .video-model video")[0].addEventListener(
+        "ended",
+        function () {
+          $(".blindbox_box .video-mask").fadeOut("fast");
+          $(".blindbox_box .video-model").fadeOut("fast");
+          self.cqblindboxbtn(type, val);
+        },
+        false
+      );
+    },
+    cqblindboxbtn(type, val) {
+      var self = this;
       $.ajax({
         url: base_url + "/v2/activity/freeDraw",
         type: "POST",
