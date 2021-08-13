@@ -93,7 +93,7 @@
             />
             <button
               class="cjbtn"
-              @click="cqblindboxbtn(2, leftFreeCount.leftFreeCount2)"
+              @click="playVideo(2, leftFreeCount.leftFreeCount2)"
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -112,7 +112,7 @@
             />
             <button
               class="cjbtn"
-              @click="cqblindboxbtn(1, leftFreeCount.leftFreeCount1)"
+              @click="playVideo(1, leftFreeCount.leftFreeCount1)"
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -236,7 +236,7 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video webkit-playsinline="true" src="http://47.118.74.48:8081/upload/other/one_draw.mp4" autoplay muted></video>
+          <video webkit-playsinline="true" src="/upload/other/one_draw.mp4" autoplay muted></video>
         </div>
       </div>
     </div>
@@ -684,16 +684,16 @@ module.exports = {
       });
     },
     playVideo(type, val) {
+      let self = this;
       $(".blindbox_box .video-model video")[0].play();
       $(".blindbox_box .video-mask").fadeIn("fast");
       $(".blindbox_box .video-model").fadeIn("fast");
-      debugger
       $(".blindbox_box .video-model video")[0].addEventListener(
         "ended",
         function () {
           $(".blindbox_box .video-mask").fadeOut("fast");
           $(".blindbox_box .video-model").fadeOut("fast");
-          this.cqblindboxbtn(type, val);
+          self.cqblindboxbtn(type, val);
         },
         false
       );
