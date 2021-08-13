@@ -257,7 +257,6 @@
       <div class="video-model-container flex">
         <div>
           <video src="" autoplay muted>
-            <source>
           </video>
         </div>
       </div>
