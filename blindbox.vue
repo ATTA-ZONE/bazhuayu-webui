@@ -685,6 +685,7 @@ module.exports = {
       });
     },
     playVideo(type, val) {
+      debugger
       let self = this;
       var now = new Date();
       var startnow = new Date('2021/8/12 20:00');
@@ -732,14 +733,16 @@ module.exports = {
         success: function (res) {
           if (res.code == 0) {
             self.blindBoxData = res.data;
+            self.isshowclick = true;
           }
         },
       });
       debugger
       $(".blindbox_box .video-model video")[0].addEventListener(
         "ended",
-        self.cqblindboxbtn(),
-        false
+        function(){
+          self.cqblindboxbtn();
+        }
       );
     },
     cqblindboxbtn() {
@@ -749,7 +752,7 @@ module.exports = {
       $(".blindbox_box .video-model").fadeOut("fast");
       $(".blindbox_box .payment-result-modal").fadeIn("fast");
       self.getdata();
-      self.isshowclick = true;
+      
       // $(".blindbox_box .video-model video")[0].removeEventListener(
       //   "ended",
       //   function(){
