@@ -537,7 +537,7 @@ module.exports = {
     playVideo() {
       var src = "";
       if (window.getCookie('blindNum') < 2) {
-        src="/upload/other/one_draw.mp4"
+        src="https://v-cdn.zjol.com.cn/280443.mp4"
       } else {
         src="/upload/other/ten_draw.mp4"
       }
