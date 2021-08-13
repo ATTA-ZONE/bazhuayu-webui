@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bindmodalbox">
     <div>
       <div class="payment none">
         <div class="payment-container flex">
@@ -539,47 +539,47 @@ module.exports = {
     let self = this;
     $.getScript("./js/framesv2.min.js");
     $.getScript("./js/blindFrame.js");
-    $(".payment-page-right-balance").hide();
+    $(".bindmodalbox .payment-page-right-balance").hide();
     this.initAddress();
     this.getCreditInfo();
   },
 
   methods: {
     playVideo() {
-      $(".payment").fadeOut("fast");
+      $(".bindmodalbox .payment").fadeOut("fast");
       if (window.getCookie("blindNum") < 2) {
         var videoUrl = "/upload/other/one_draw.mp4";
         //var videoUrl="https://v-cdn.zjol.com.cn/276982.mp4"
       } else {
         var videoUrl = "/upload/other/ten_draw.mp4";
       }
-      $(".video-model video").attr("src", videoUrl);
-      $("video").removeClass("video-hidden");
-      $(".video-model video")[0].play();
-      $(".video-mask").fadeIn("fast");
-      $(".video-model").fadeIn("fast");
+      $(".bindmodalbox .video-model video").attr("src", videoUrl);
+      $(".bindmodalbox video").removeClass("video-hidden");
+      $(".bindmodalbox .video-model video")[0].play();
+      $(".bindmodalbox .video-mask").fadeIn("fast");
+      $(".bindmodalbox .video-model").fadeIn("fast");
       if (this.selectedPayMethod == 0) {
-        $('.hkd-price').show()
-        $('.busd-price').hide()
+        $('.bindmodalbox .hkd-price').show()
+        $('.bindmodalbox .busd-price').hide()
       } else {
-        $('.hkd-price').hide()
-        $('.busd-price').show()
+        $('.bindmodalbox .hkd-price').hide()
+        $('.bindmodalbox .busd-price').show()
       }
-      $(".video-model video")[0].addEventListener(
+      $(".bindmodalbox .video-model video")[0].addEventListener(
         "ended",
         function () {
-          $(".video-mask").fadeOut("fast");
-          $(".video-model").fadeOut("fast");
-          $(".payment-result-modal").fadeIn("fast");
+          $(".bindmodalbox .video-mask").fadeOut("fast");
+          $(".bindmodalbox .video-model").fadeOut("fast");
+          $(".bindmodalbox .payment-result-modal").fadeIn("fast");
         },
         false
       );
     },
     enablePay() {
-      if ($("#savetips").prop("checked")) {
-        $("#pay-button").attr("disabled", false);
+      if ($(".bindmodalbox #savetips").prop("checked")) {
+        $(".bindmodalbox #pay-button").attr("disabled", false);
       } else {
-        $("#pay-button").attr("disabled", true);
+        $(".bindmodalbox #pay-button").attr("disabled", true);
       }
     },
     creditPay() {
@@ -619,7 +619,7 @@ module.exports = {
         },
         success: function (res) {
           loading();
-          $("#cryptoBtn").attr("disabled", true);
+          $(".bindmodalbox #cryptoBtn").attr("disabled", true);
           self.tokenLimits = res.data.tokenLimit;
           self.authUser();
         },
@@ -699,7 +699,7 @@ module.exports = {
           }
           if (self.selectarr.length > self.visiable.length) {
             tips(this.chEnTextHtml[this.lang].maximum);
-            $("#cryptoBtn").attr("disabled", false);
+            $(".bindmodalbox #cryptoBtn").attr("disabled", false);
             return false;
           }
           CHAIN.WALLET.accounts().then(function (accounts) {
@@ -712,7 +712,7 @@ module.exports = {
                 success(this.chEnTextHtml[this.lang].purchaseSuc, 1800);
                 setTimeout(function () {
                   tips(this.chEnTextHtml[this.lang].seconds);
-                  $("#cryptoBtn").attr("disabled", false);
+                  $(".bindmodalbox #cryptoBtn").attr("disabled", false);
                   setTimeout(function () {
                     window.location.reload();
                   }, 1500);
@@ -741,7 +741,7 @@ module.exports = {
     toggleBalanceCheck() {
       var payButton = document.getElementById("balanceBtn");
       var cryButton = document.getElementById("cryptoBtn");
-      if ($("#saveBalance").prop("checked")) {
+      if ($(".bindmodalbox #saveBalance").prop("checked")) {
         payButton.disabled = false;
         if (getCookie("isConnect") == "true") {
           cryButton.disabled = false;
@@ -749,8 +749,8 @@ module.exports = {
       } else {
         cryButton.disabled = true;
         if (
-          $("#balanceBtn").text() == "立即付款 >" ||
-          $("#balanceBtn").text() == "Pay now >"
+          $(".bindmodalbox #balanceBtn").text() == "立即付款 >" ||
+          $(".bindmodalbox #balanceBtn").text() == "Pay now >"
         ) {
           payButton.disabled = true;
         }
@@ -811,7 +811,7 @@ module.exports = {
           success: function (resu) {
             self.blindBoxData = resu.data;
             if (resu.data.list.length == 1) {
-              $(".success-titl").text(resu.data.list[0].name);
+              $(".bindmodalbox .success-titl").text(resu.data.list[0].name);
             }
             if (type == 2) {
               window.setCookie("orderNo", "");
@@ -864,7 +864,7 @@ module.exports = {
         var busdABI = contractSetting["busd_ERC20"]["abi"];
 
         busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-        var amount = $(".payment .busdPrice").text().split("BUSD ")[1];
+        var amount = $(".bindmodalbox .payment .busdPrice").text().split("BUSD ")[1];
         var num = web3.utils.toWei(amount, "ether");
         busdContractInstance.methods
           .balanceOf(accounts[0])
@@ -880,7 +880,7 @@ module.exports = {
                   })
                   .then((result) => {
                     self.drawSku(accounts, result.blockHash, 3);
-                    $(".payment").fadeOut();
+                    $(".bindmodalbox .payment").fadeOut();
                     self.playVideo();
                     loadingHide();
                   })
@@ -900,43 +900,43 @@ module.exports = {
     togglePayMethod(text) {
       this.selectedPayMethod = text;
       if (text == 0) {
-        $(".payment-page-right-btn").hide();
-        $(".order-price .order-price-hdk").show();
-        $(".order-price .order-price-busd").hide();
-        $(".payment-page-right-select").show();
-        $(".payment-page-right-busd").hide();
-        $(".payment-page-right-balance").hide();
-        $(".payment-page-right-btn").hide();
-        $(".wallet-payment-desc").hide();
-        $(".payment-page-right-crypto").hide();
-        $(".payment-page-right-total").show();
+        $(".bindmodalbox .payment-page-right-btn").hide();
+        $(".bindmodalbox .order-price .order-price-hdk").show();
+        $(".bindmodalbox .order-price .order-price-busd").hide();
+        $(".bindmodalbox .payment-page-right-select").show();
+        $(".bindmodalbox .payment-page-right-busd").hide();
+        $(".bindmodalbox .payment-page-right-balance").hide();
+        $(".bindmodalbox .payment-page-right-btn").hide();
+        $(".bindmodalbox .wallet-payment-desc").hide();
+        $(".bindmodalbox .payment-page-right-crypto").hide();
+        $(".bindmodalbox .payment-page-right-total").show();
       }
 
       if (text == 1) {
-        $(".payment-page-right-btn").show();
-        $(".payment-page-right-crypto").hide();
-        $(".payment-page-right-total").show();
-        $(".payment-page-right-balance").show();
-        $(".payment-page-right-btn button").addClass("can");
+        $(".bindmodalbox .payment-page-right-btn").show();
+        $(".bindmodalbox .payment-page-right-crypto").hide();
+        $(".bindmodalbox .payment-page-right-total").show();
+        $(".bindmodalbox .payment-page-right-balance").show();
+        $(".bindmodalbox .payment-page-right-btn button").addClass("can");
         if (
-          $(".busd-tip").text() == "餘額不足" ||
-          $(".busd-tip").text() == "Insufficient balance" ||
+          $(".bindmodalbox .busd-tip").text() == "餘額不足" ||
+          $(".bindmodalbox .busd-tip").text() == "Insufficient balance" ||
           this.accountBalance < this.busdPrice * this.selectarr.length
         ) {
-          $(".payment-page-right-btn button").text(
+          $(".bindmodalbox .payment-page-right-btn button").text(
             this.chEnTextHtml[this.lang].recharge
           );
-          $("#balanceBtn").attr("disabled", false);
+          $(".bindmodalbox #balanceBtn").attr("disabled", false);
         } else {
-          $(".payment-page-right-btn button").text(
+          $(".bindmodalbox .payment-page-right-btn button").text(
             this.chEnTextHtml[this.lang].payment + " >"
           );
         }
-        $(".order-price .order-price-hdk").hide();
-        $(".order-price .order-price-busd").show();
-        $(".payment-page-right-select").hide();
-        $(".payment-page-right-busd").show();
-        $(".wallet-payment-desc").hide();
+        $(".bindmodalbox .order-price .order-price-hdk").hide();
+        $(".bindmodalbox .order-price .order-price-busd").show();
+        $(".bindmodalbox .payment-page-right-select").hide();
+        $(".bindmodalbox .payment-page-right-busd").show();
+        $(".bindmodalbox .wallet-payment-desc").hide();
       }
     },
   },

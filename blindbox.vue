@@ -665,15 +665,15 @@ module.exports = {
         url: base_url + "/v2/user/account",
         success: function (res) {
           if (res.code == 0) {
-            $(".order-price-hdk").text("HK$ " + self.hdkDrawPrice * str);
-            $(".order-price-busd").text("BUSD " + self.drawPrice * str);
+            $(".bindmodalbox .order-price-hdk").text("HK$ " + self.hdkDrawPrice * str);
+            $(".bindmodalbox .order-price-busd").text("BUSD " + self.drawPrice * str);
             if (Number(str) == 10) {
               $(".success-titl").text(self.chEnTextHtml[self.lang].orderTit);
             }
-            $(".payment").fadeIn();
-            $(".payment").addClass("payment-active");
-            $("video").addClass("video-hidden");
-            $(".payment-page-left-img video").removeClass("video-hidden");
+            $(".bindmodalbox .payment").fadeIn();
+            $(".bindmodalbox .payment").addClass("payment-active");
+            $(".bindmodalbox video").addClass("video-hidden");
+            $(".bindmodalbox .payment-page-left-img video").removeClass("video-hidden");
           } else {
             window.tips(self.chEnTextHtml[self.lang].noLog);
             setTimeout(() => {
