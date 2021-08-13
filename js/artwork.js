@@ -85,7 +85,7 @@ function getArtworkList(current,pageSize,name,typeId){
 							
 						}else{
 							
-						  html+=`<img class="bzy-e-list-img" src="`+v.secondPic?v.secondPic:v.primaryPic+`" >`;
+						  html+=`<img class="bzy-e-list-img" src="`+(v.secondPic?v.secondPic:v.primaryPic)+`" >`;
 						  
 						}
 						
