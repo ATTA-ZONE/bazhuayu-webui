@@ -717,7 +717,7 @@ module.exports = {
         tips(self.chEnTextHtml[self.lang].frequency);
         return;
       }
-      self.isshowclick = false;
+      // self.isshowclick = false;
       $(".blindbox_box .video-mask").fadeIn("fast");
       $(".blindbox_box .video-model").fadeIn("fast");
       $.ajax({
@@ -733,7 +733,7 @@ module.exports = {
         success: function (res) {
           if (res.code == 0) {
             self.blindBoxData = res.data;
-            self.isshowclick = true;
+            // self.isshowclick = true;
           }
         },
       });
