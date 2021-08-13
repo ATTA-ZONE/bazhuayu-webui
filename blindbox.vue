@@ -575,7 +575,8 @@ module.exports = {
       activityId: 1,
       stakingPool: 0,
       istkshow: 1,
-      blindBoxData : {}
+      blindBoxData : {},
+      isshowclick : true,
     };
   },
 
@@ -689,6 +690,9 @@ module.exports = {
       var startnow = new Date('2021/8/12 20:00');
       // var startnow = new Date('2021/8/19 20:00');
       var endDate = new Date("2021/8/20 12:00");
+      if (!self.isshowclick) {
+        return ;
+      }
       if (getCookie("islogin") == "false" || getCookie("islogin") == false) {
         window.tips(self.chEnTextHtml[self.lang].noLog);
         setTimeout(() => {
@@ -712,14 +716,33 @@ module.exports = {
         tips(self.chEnTextHtml[self.lang].frequency);
         return;
       }
+      self.isshowclick = false;
       $(".blindbox_box .video-mask").fadeIn("fast");
       $(".blindbox_box .video-model").fadeIn("fast");
+      $.ajax({
+        url: base_url + "/v2/activity/freeDraw",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({
+          type: type,
+          activityId: self.activityId,
+          address: self.account_address,
+        }),
+        success: function (res) {
+          if (res.code == 0) {
+            self.blindBoxData = res.data;
+          }
+        },
+      });
       $(".blindbox_box .video-model video")[0].addEventListener(
         "ended",
         function () {
           $(".blindbox_box .video-mask").fadeOut("fast");
           $(".blindbox_box .video-model").fadeOut("fast");
-          self.cqblindboxbtn(type, val);
+          $(".blindbox_box .payment-result-modal").fadeIn("fast");
+          self.getdata();
+          self.isshowclick = true;
         },
         false
       );
