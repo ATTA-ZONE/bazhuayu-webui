@@ -325,10 +325,10 @@
               <h3>{{ chEnTextHtml[lang].paid }}</h3>
               <h3>
                 <span
-                  class="order-price-hdk hkdPrice"
+                  class="order-price-hdk none hk-Price"
                   >HK$388 </span
                 ><span
-                  class="order-price-busd none busdPrice"
+                  class="order-price-busd none busd-price"
                   >BUSD 50
                 </span>
               </h3>
@@ -508,7 +508,6 @@ module.exports = {
       busdPrice: 0,
       selectarr: [],
       accountBalance: 0,
-      hkdPrice: 0,
       curUserOwned: 0,
       oneUserCountLimit: 0,
       onceCountLimit: 0,
@@ -559,7 +558,13 @@ module.exports = {
       $(".video-model video")[0].play();
       $(".video-mask").fadeIn("fast");
       $(".video-model").fadeIn("fast");
-
+      if (this.selectedPayMethod == 0) {
+        $('.hkd-price').show()
+        $('.busd-price').hide()
+      } else {
+        $('.hkd-price').hide()
+        $('.busd-price').show()
+      }
       $(".video-model video")[0].addEventListener(
         "ended",
         function () {
@@ -932,43 +937,6 @@ module.exports = {
         $(".payment-page-right-select").hide();
         $(".payment-page-right-busd").show();
         $(".wallet-payment-desc").hide();
-      }
-      if (text == 2) {
-        $(".payment-page-right-btn").hide();
-        //$('.payment-page-right-crypto').show();
-        if (getCookie("isConnect") != "true") {
-          $("#cryptoBtn").text(this.chEnTextHtml[this.lang].walletFirst);
-          $("#cryptoBtn").attr("disabled", false);
-        } else {
-          $("#cryptoBtn").text(this.chEnTextHtml[this.lang].payment + "  ->");
-          $("#cryptoBtn").attr("disabled", false);
-        }
-        $(".payment-page-right-balance").hide();
-        $(".payment-page-right-crypto button").addClass("can");
-        if (
-          $(".busd-tip").text() == "餘額不足" ||
-          $(".busd-tip").text() == "Insufficient balance"
-        ) {
-          $(".payment-page-right-btn button").text(
-            this.chEnTextHtml[this.lang].recharge
-          );
-        } else {
-          $(".payment-page-right-btn button").text(
-            this.chEnTextHtml[this.lang].payment + " >"
-          );
-        }
-
-        $(".payment-page-right-total").hide();
-        $(".payment-page-right-total .order-price").hide();
-        $(".order-price .order-price-hdk").hide();
-        $(".order-price .order-price-busd").show();
-        $(".payment-page-right-select").hide();
-        $(".payment-page-right-busd").hide();
-        $(".wallet-payment-desc").text(
-          this.chEnTextHtml[this.lang].paymentComing
-        );
-        $(".wallet-payment-desc").show();
-        $("#cryptoBtn").attr("disabled", true);
       }
     },
   },
