@@ -292,7 +292,7 @@
                 </div>
               </div>
               <div class="user-result-imgs">
-                <img v-for="(item, idx) in blindBoxData" :key="idx" :src="item.primaryPic" />
+                <img v-for="(item, idx) in blindBoxData.list" :key="idx" :src="item.primaryPic" />
               </div>
             </div>
 
@@ -336,7 +336,7 @@
                 <h4 class="user-address user-address-title">
                   钱包支付
                 </h4>
-                <h4 class="user-address">{{userAddress}}</h4>
+                <h4 class="user-address">{{blindBoxData.address}}</h4>
               </div>
 
               <div class="payment-page-right-select modify-ipt-fream">
