@@ -717,7 +717,7 @@ module.exports = {
         tips(self.chEnTextHtml[self.lang].frequency);
         return;
       }
-      self.isshowclick = false;
+      // self.isshowclick = false;
       $(".blindbox_box .video-mask").fadeIn("fast");
       $(".blindbox_box .video-model").fadeIn("fast");
       $.ajax({
@@ -733,7 +733,7 @@ module.exports = {
         success: function (res) {
           if (res.code == 0) {
             self.blindBoxData = res.data;
-            self.isshowclick = true;
+            // self.isshowclick = true;
           }
         },
       });
@@ -753,15 +753,15 @@ module.exports = {
       $(".blindbox_box .payment-result-modal").fadeIn("fast");
       self.getdata();
       
-      // $(".blindbox_box .video-model video")[0].removeEventListener(
-      //   "ended",
-      //   function(){
-      //     $(".blindbox_box .video-mask").fadeOut("fast");
-      //     $(".blindbox_box .video-model").fadeOut("fast");
-      //     $(".blindbox_box .payment-result-modal").fadeOut("fast");
-      //   },
-      //   false
-      // );
+      $(".blindbox_box .video-model video")[0].removeEventListener(
+        "ended",
+        function(){
+          $(".blindbox_box .video-mask").fadeOut("fast");
+          $(".blindbox_box .video-model").fadeOut("fast");
+          $(".blindbox_box .payment-result-modal").fadeOut("fast");
+        },
+        false
+      );
     },
     jumppage() {
       window.open("https://www.atta.zone/loading");
