@@ -280,9 +280,6 @@
                 <img src="./images/t8.png" />
               </div>
               <span>@ATTA</span>
-              <div class="details-right-creator-edition">
-                {{ chEnTextHtml[lang].version }}
-              </div>
             </div>
             <div class="user-result-imgs">
               <img
@@ -328,11 +325,9 @@
               <h3>{{ chEnTextHtml[lang].paid }}</h3>
               <h3>
                 <span
-                  v-if="selectedPayMethod == 0"
                   class="order-price-hdk hkdPrice"
                   >HK$388 </span
                 ><span
-                  v-if="selectedPayMethod == 1"
                   class="order-price-busd none busdPrice"
                   >BUSD 50
                 </span>
