@@ -50,8 +50,8 @@
 							<div class="inputbox flex between">
 								<div class="srkbox">
 									<input type="text" readonly :value="json.status == 1 ? chEnTextHtml[lang].jsaddress+ (json.receiver ? json.receiver : chEnTextHtml[lang].jsaddress2) : chEnTextHtml[lang].inwallet +walletId">
-									<button v-if="json.status == 1" :data-json="JSON.stringify(json)" onclick="editnftaddress(event)">{{chEnTextHtml[lang].edit}}</button>
-									<span v-if="json.status == 1" :data-json="JSON.stringify(json)" class="clickedit" onclick="editnftaddress(event)">{{chEnTextHtml[lang].clickedit}}</span>
+									<button v-if="json.status == 1" :data-json="JSON.stringify(json)" onclick="editnftaddress(event,walletId)">{{chEnTextHtml[lang].edit}}</button>
+									<span v-if="json.status == 1" :data-json="JSON.stringify(json)" class="clickedit" onclick="editnftaddress(event,walletId)">{{chEnTextHtml[lang].clickedit}}</span>
 								</div>
 								<button class="ntfbtn kxbor" v-if="json.status == 1">{{chEnTextHtml[lang].mint}}</button>
 								<button class="ntfbtn" v-if="json.status == 2" :data-endedition="item.endEdition" :data-json="JSON.stringify(json)" onclick="zhuanyiaddress(event)">{{chEnTextHtml[lang].transfer}}</button>
@@ -527,6 +527,7 @@ module.exports = {
 }
 .modify-tips-content{
 	color: rgba(255, 255, 255, 0.7);
+	word-wrap: break-word;
 }
 .dqaddress{
 	font-size: 16px;
