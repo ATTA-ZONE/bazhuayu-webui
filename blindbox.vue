@@ -176,7 +176,10 @@
         </button>
       </div>
       <div class="bottombtn">
-        <button @click="jumppage()">Go Voting</button>
+        <button @click="jumppage()">
+          <p>{{ chEnTextHtml[lang].btn1 }}</p>
+          <p>{{ chEnTextHtml[lang].btn2 }}</p>
+        </button>
       </div>
     </div>
     <!-- modify -->
@@ -345,6 +348,8 @@ module.exports = {
       cards3: [],
       chEnTextHtml: {
         TC: {
+          btn1 : "使用NFT投票",
+          btn2 : "预测比赛胜负",
           luckdrawintroduce_con:
             "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
           luckdrawintroduce_btn1: "單抽",
@@ -355,7 +360,7 @@ module.exports = {
           gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
           noimgword: "敬请期待",
           purchase1: "盲盒剩餘：",
-          purchase2: "白名單用戶每購買4次，可獲贈一次抽取機會",
+          purchase2: "白名单用户每购买4个盲盒，可获赠1次抽取机会（最多可获赠4次）",
           purchase3: "當前投票獎勵池： BUSD ",
           purchase4: "我的白名單獲贈抽取機會 ：",
           purchase5: "現在使用",
@@ -367,7 +372,7 @@ module.exports = {
           tips5: "參與买四赠一白名单活動且獲取到白名单資格的用戶",
           tips2: "抽取時間：8月19號20點~20號12點",
           tips3: "過期將不支持抽取盲盒",
-          tips4: "*了解更多信息，請聯系ATTA客服：atta_official",
+          tips4: "*了解更多信息，請聯系ATTA客服微信：atta_official",
           edit: "修改",
           clickedit: "點擊修改地址",
           transfer: "轉移",
@@ -433,15 +438,17 @@ module.exports = {
           orderTit: "ATTA x 英雄联盟主播系列NFT盲盒",
           orderInfo: " - Rita系列S卡",
           walletPay: '錢包支付',
-          payTip: '您抽中的NFT將在短時間內發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
+          payTip: '您抽中的NFT將在盲盒活动结束后24小时内發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
           free: '免费',
           frequency : "您當前沒有免費抽取機會。"
         },
         EN: {
+          btn1 : "Vote with NFT",
+          btn2 : "Predict Match Result",
           frequency : "Currently, you don't have any free draws.",
           free: 'free',
           walletPay: 'Wallet payment',
-          payTip: 'The NFT you have drawn will be sent to your default wallet within a short period of time. It can be viewed under My Assets - My NFTs.',
+          payTip: 'The NFT you have drawn will be sent to your wallet within 24 hours after the purchasing is closed. It can be viewed under My Assets - My NFTs.',
           orderTit: "ATTA x LOL Streamer NFT Collection",
           orderInfo: " - Rita series S card",
           luckdrawintroduce_con: "",
@@ -454,7 +461,7 @@ module.exports = {
           noimgword: "Coming soon",
           purchase1: "Mystery Box remaining: ",
           purchase2:
-            "Whitelisted Users can enjoy the “Buy 4 get 1 free” Discount",
+            "Whitelisted users can get 1 free draw for every 4 Mystery Boxes purchased (maximum 4 free drawing chances)",
           purchase3: "Current voting reward pool: BUSD ",
           purchase4: "Available Whitelist Drawing Chances:",
           purchase5: "Use Now",
@@ -856,7 +863,7 @@ module.exports = {
 .luckdrawintroduce .luckdraw_right {
   width: 43%;
   margin-left: 30px;
-  min-height: 480px;
+  min-height: 550px;
 }
 
 .luckdrawintroduce .luckdraw_right img {
@@ -1017,7 +1024,7 @@ module.exports = {
   padding: 16px 128px;
   background: transparent;
   border: 1px solid #9567ff;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 150%;
   color: #9567ff;
 }
