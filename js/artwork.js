@@ -53,10 +53,10 @@ function getArtworkList(current,pageSize,name,typeId){
 					$.each(records,function(i,v){
 						var timeStatus;
 						var geshi = v.primaryPic.substr(v.primaryPic.lastIndexOf('.')+1);
-						
-						if(v.name==artworkText.xdd){
-							v.edition = 200;
-						}
+						// 徐冬冬特殊处理
+						// if(v.name==artworkText.xdd){
+						// 	v.edition = 200;
+						// }
 						
 						if(v.endEdition - v.edition >= 0){   //有库存
 							
