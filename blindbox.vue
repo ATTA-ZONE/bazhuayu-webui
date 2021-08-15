@@ -845,16 +845,18 @@ module.exports = {
   padding: 0 14.93%;
   justify-content: space-between;
   position: relative;
+  align-items: flex-start;
 }
 
 .luckdrawintroduce .luckdraw_left {
-  width: 50.48%;
+  /* width: 50.48%; */
   border-radius: 7px;
 }
 
 .luckdrawintroduce .luckdraw_right {
   width: 43%;
-  min-height: 485px;
+  margin-left: 30px;
+  min-height: 480px;
 }
 
 .luckdrawintroduce .luckdraw_right img {
@@ -1046,6 +1048,15 @@ module.exports = {
 }
 .modify {
   background:rgba(0, 0, 0, 0.7);
+}
+@media only screen and (max-width: 1260px) {
+  .luckdrawintroduce .luckdraw_right {
+    min-height: 585px;
+  }
+  .luckdrawintroduce .luckdraw_right h3{
+    margin: 30px 0;
+    font-size: 35px;
+  }
 }
 @media only screen and (max-width: 992px) {
   .modify .modify-form .modify-tit {
