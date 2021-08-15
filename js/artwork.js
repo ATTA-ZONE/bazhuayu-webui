@@ -54,9 +54,11 @@ function getArtworkList(current,pageSize,name,typeId){
 						var timeStatus;
 						var geshi = v.secondPic.substr(v.secondPic.lastIndexOf('.')+1);
 						
-						if(v.name==artworkText.xdd){
-							v.edition = 200;
-						}
+						
+						// 徐冬冬数据特殊处理
+						// if(v.name==artworkText.xdd){
+						// 	v.edition = 200;
+						// }
 						
 						if(v.endEdition - v.edition >= 0){   //有库存
 							
