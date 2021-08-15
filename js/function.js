@@ -320,14 +320,14 @@ function changeName(){
 }
 
 
-function editnftaddress(e){
+function editnftaddress(e,walletIdval){
 	var functionText = chEnText.function[lang];
 	let obj = JSON.parse(e.target.dataset.json);
 	$('.modify-tit span').text(functionText.changeNFT);
 	var html = ``;
 	html += `<div class="modify-ipt-add">
 				<div class="modify-ipt-tit dqaddress">${functionText.currentAddress}<span>`+(obj.receiver ? obj.receiver : functionText.noAddress)+`</span></div>
-				<div class="modify-ipt-tit newaddress">${functionText.newAddress}<input type="text" value=`+walletId+`></div>
+				<div class="modify-ipt-tit newaddress">${functionText.newAddress}<input type="text" value=`+walletIdval+`></div>
 			</div>`;
 			
 	$('.modify-ipt').html(html);
