@@ -240,7 +240,7 @@ var chEnText = {
       "noConnectWallet":"Connect Wallet",
       "home":"HOME",
       "auction":"AUCTION",
-      "blindbox":"Mystery Box",
+      "blindbox":"MYSTERY BOX",
       "wallet":"Wallet connecting",
       "unBind":"Not default wallet",
       "tips01":"Your wallet is connected to the [",
