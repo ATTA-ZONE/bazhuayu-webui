@@ -771,6 +771,9 @@ module.exports = {
 </script>
 
 <style>
+.blindbox_box *{
+  font-family: "Inter" !important;
+}
 .modify {
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
