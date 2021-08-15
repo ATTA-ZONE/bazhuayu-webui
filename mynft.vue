@@ -238,39 +238,47 @@ module.exports = {
 				scansite_base_url = 'https://api.bscscan.com'
 			}
 			auctionAddress = contractSetting['atta_ERC721'][targetChainId].address;
+			auctionAddress2 = contractSetting['blindbox_ERC721'][targetChainId].address;
 			$.ajax({
-				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + this.walletId + '&sort=desc',
+				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + self.walletId + '&sort=desc',
 				success: function(res) {
 					let nftData = res.result;
-					let obj = {},arr = [],tokenarr = [];
-					for (let i = 0; i < nftData.length; i++) {
-						if (!obj[nftData[i].tokenID]) {
-							obj[nftData[i].tokenID] = true;
-							arr.push({tokenID : nftData[i].tokenID,listdata :  [nftData[i]],tojia : 0,fromjian : 0});
-						}else{
+					$.ajax({
+						url : scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress2 + '&address=' + self.walletId + '&sort=desc',
+						success : function(res2){
+							nftData = nftData.concat(res2.result);
+							console.log(nftData);
+							let obj = {},arr = [],tokenarr = [];
+							for (let i = 0; i < nftData.length; i++) {
+								if (!obj[nftData[i].tokenID]) {
+									obj[nftData[i].tokenID] = true;
+									arr.push({tokenID : nftData[i].tokenID,listdata :  [nftData[i]],tojia : 0,fromjian : 0});
+								}else{
+									arr.forEach(item => {
+										if (item.tokenID == nftData[i].tokenID) {
+											item.listdata.push(nftData[i]);
+										}
+									});
+								}
+							}
 							arr.forEach(item => {
-								if (item.tokenID == nftData[i].tokenID) {
-									item.listdata.push(nftData[i]);
+								item.listdata.forEach(json => {
+									if (json.to.toUpperCase() == window.walletId.toUpperCase()) {
+										item.tojia += 1 ;
+									}
+									if (json.from.toUpperCase() == window.walletId.toUpperCase()) {
+										item.fromjian -= 1 ;
+									}
+								});
+								item.jsnum = item.tojia + item.fromjian;
+								if (item.jsnum == 1) {
+									tokenarr.push(item.tokenID)
 								}
 							});
+							self.tokenarr = tokenarr;
+							self.getAssetsList(tokenarr);
 						}
-					}
-					arr.forEach(item => {
-						item.listdata.forEach(json => {
-							if (json.to.toUpperCase() == window.walletId.toUpperCase()) {
-								item.tojia += 1 ;
-							}
-							if (json.from.toUpperCase() == window.walletId.toUpperCase()) {
-								item.fromjian -= 1 ;
-							}
-						});
-						item.jsnum = item.tojia + item.fromjian;
-						if (item.jsnum == 1) {
-							tokenarr.push(item.tokenID)
-						}
-					});
-					self.tokenarr = tokenarr;
-					self.getAssetsList(tokenarr);
+					})
 				}
 			})
 		},
