@@ -391,7 +391,7 @@ module.exports = {
 				}),
 				success: function (res) {
 					if (res.code == 0) {
-						tips(this.chEnTextHtml[this.lang].tipsjs3);
+						tips(self.chEnTextHtml[self.lang].tipsjs3);
 						setTimeout(function(){
 							cancelMobile();
 							self.geteveryqkl();
@@ -412,21 +412,21 @@ module.exports = {
 						CHAIN.WALLET.switchRPCSettings(targetChainId);
 					}
 					// var netVer = netVers[0];
-					ERC721Address = contractSetting['atta_ERC721'][chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+					ERC721Address = obj.contract; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
 					var ERC721ABI = contractSetting['atta_ERC721']['abi'];
 					
 					ERC721ContractInstance = new web3.eth.Contract(ERC721ABI, ERC721Address);        
 					// busdAddress 供外界使用
 					
-					ERC721ContractInstance.methods.safeTransferFrom(this.walletId,newaddress,obj.tokenId).send({ 
-						from: this.walletId
+					ERC721ContractInstance.methods.safeTransferFrom(self.walletId,newaddress,obj.tokenId).send({ 
+						from: self.walletId
 					})
 					.then(function (res) {
-						tips(this.chEnTextHtml[this.lang].tipsjs4);
+						tips(self.chEnTextHtml[self.lang].tipsjs4);
 						self.geteveryqkl();
 					});
 					setTimeout(() => {
-						tips(this.chEnTextHtml[this.lang].tipsjs5);
+						tips(self.chEnTextHtml[self.lang].tipsjs5);
 						setTimeout(function(){
 							cancelMobile();
 						},1800);
