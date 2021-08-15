@@ -854,6 +854,7 @@ module.exports = {
 
 .luckdrawintroduce .luckdraw_right {
   width: 43%;
+  min-height: 485px;
 }
 
 .luckdrawintroduce .luckdraw_right img {
@@ -1091,6 +1092,7 @@ module.exports = {
   .luckdrawintroduce .luckdraw_left,
   .luckdrawintroduce .luckdraw_right {
     width: 100%;
+    min-height: auto;
   }
   .luckdrawintroduce .luckdraw_right img {
     width: 27px;
