@@ -440,9 +440,13 @@ module.exports = {
           walletPay: '錢包支付',
           payTip: '您抽中的NFT將在盲盒活动结束后24小时内發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
           free: '免费',
-          frequency : "您當前沒有免費抽取機會。"
+          frequency : "您當前沒有免費抽取機會。",
+          activitytips1 : "活動未開始",
+          activitytips2 : "活動已結束",
         },
         EN: {
+          activitytips1 : "Activity not started",
+          activitytips2 : "Activity ended",
           btn1 : "Vote with NFT",
           btn2 : "Predict Match Result",
           frequency : "Currently, you don't have any free draws.",
@@ -712,11 +716,11 @@ module.exports = {
         return;
       }
       if (startnow.getTime() > now.getTime()) {
-        tips('活动还未开始');
+        tips(self.chEnTextHtml[self.lang].activitytips1);
         return;
       }
       if (endDate.getTime() < now.getTime()) {
-        tips('活动已结束');
+        tips(self.chEnTextHtml[self.lang].activitytips2);
         return;
       }
       if (val <= 0 || num <= 0) {
@@ -771,6 +775,9 @@ module.exports = {
 </script>
 
 <style>
+.blindbox_box *{
+  font-family: "Inter" !important;
+}
 .modify {
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
