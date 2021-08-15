@@ -93,7 +93,7 @@
             />
             <button
               class="cjbtn"
-              @click="playVideo(2, leftFreeCount.leftFreeCount2)"
+              @click="playVideo(2, leftFreeCount.leftFreeCount2,leftAmount)"
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -112,7 +112,7 @@
             />
             <button
               class="cjbtn"
-              @click="playVideo(1, leftFreeCount.leftFreeCount1)"
+              @click="playVideo(1, leftFreeCount.leftFreeCount1,leftAmount)"
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -135,7 +135,7 @@
           </p>
           <button
             class="cjbtn"
-            @click="playVideo(2, leftFreeCount.leftFreeCount2)"
+            @click="playVideo(2, leftFreeCount.leftFreeCount2,leftAmount)"
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
@@ -151,7 +151,7 @@
           </p>
           <button
             class="cjbtn"
-            @click="playVideo(1, leftFreeCount.leftFreeCount1)"
+            @click="playVideo(1, leftFreeCount.leftFreeCount1,leftAmount)"
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
@@ -684,7 +684,7 @@ module.exports = {
         },
       });
     },
-    playVideo(type, val) {
+    playVideo(type, val,num) {
       let self = this;
       var now = new Date();
       var startnow = new Date('2021/8/12 20:00');
@@ -712,14 +712,10 @@ module.exports = {
         tips('活动已结束');
         return;
       }
-      if (val <= 0) {
+      if (val <= 0 || num <= 0) {
         tips(self.chEnTextHtml[self.lang].frequency);
         return;
       }
-      self.isshowclick = false;
-      $(".video-model video")[0].play();
-      $(".blindbox_box .video-mask").fadeIn("fast");
-      $(".blindbox_box .video-model").fadeIn("fast");
       $.ajax({
         url: base_url + "/v2/activity/freeDraw",
         type: "POST",
@@ -733,20 +729,27 @@ module.exports = {
         success: function (res) {
           if (res.code == 0) {
             self.blindBoxData = res.data;
+             self.isshowclick = false;
+            $(".video-model video")[0].play();
+            $(".blindbox_box .video-mask").fadeIn("fast");
+            $(".blindbox_box .video-model").fadeIn("fast");
+            $(".blindbox_box .video-model video")[0].addEventListener(
+              "ended",
+              function(){
+                $(".blindbox_box .video-mask").fadeOut("fast");
+                $(".blindbox_box .video-model").fadeOut("fast");
+                $(".blindbox_box .payment-result-modal").fadeIn("fast");
+                self.getdata();
+                self.isshowclick = true;
+              },
+              false
+            );
+          }else{
+            tips(res.message);
           }
         },
       });
-      $(".blindbox_box .video-model video")[0].addEventListener(
-        "ended",
-        function(){
-          $(".blindbox_box .video-mask").fadeOut("fast");
-          $(".blindbox_box .video-model").fadeOut("fast");
-          $(".blindbox_box .payment-result-modal").fadeIn("fast");
-          self.getdata();
-          self.isshowclick = true;
-        },
-        false
-      );
+      
     },
     jumppage() {
       window.open("https://www.atta.zone/loading");
