@@ -522,7 +522,6 @@ module.exports = {
     let self = this;
     $.getScript("./js/framesv2.min.js");
     $.getScript("./js/blindFrame.js");
-    $(".bindmodalbox .payment-page-right-balance").hide();
     this.initAddress();
     this.getCreditInfo();
     this.togglePayMethod(0);
@@ -771,7 +770,6 @@ module.exports = {
           .balanceOf(accounts[0])
           .call() //查询余额
           .then(function (res2) {
-            console.log(res2)
             if (Number(res2) >= Number(num)) {
               setTimeout(function () {
                 busdContractInstance.methods
@@ -784,7 +782,6 @@ module.exports = {
                     self.saveHash(accounts, hash, 3);
                   })
                   .then((result) => {
-                    console.log(result);
                     self.drawSku(accounts, result.transactionHash, 3);
                     $(".bindmodalbox .payment").fadeOut();
                     self.playVideo();
