@@ -444,7 +444,7 @@ module.exports = {
   background-color: #ffe;
 }
 .between{
-	justify-content: space-between;
+	justify-content: space-evenly;
 	align-items: flex-start;
 }
 .titlebox{

@@ -2369,20 +2369,27 @@ html {
 }
 
 .my-assets ul li .my-assets-left {
-	width: 50%;
+	width: 465px;
+	height: 465px;
 	position: relative;
 }
 
 .my-assets ul li .my-assets-left img {
-	width: 100%;
+	height: 100%;
+	width:auto;
 	position: relative;
 	z-index: 3;
+	margin: 0 auto;
+	display:block;
 }
 
 .my-assets ul li .my-assets-left video {
-	width: 100%;
+	height: 100%;
+	width:auto;
 	position: relative;
 	z-index: 3;
+	margin: 0 auto;
+	display:block;
 }
 
 .my-assets ul li .my-assets-left .mohu {
@@ -2421,7 +2428,7 @@ html {
 	font-family: Aeonik TRIAL;
 	font-style: normal;
 	font-weight: normal;
-	font-size: 48px;
+	font-size: 30px;
 	line-height: 110%;
 	color: #fff;
 	margin-bottom: 36px;
