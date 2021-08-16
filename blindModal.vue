@@ -228,17 +228,6 @@
                   {{ chEnTextHtml[lang].payment }} >
                 </button>
               </div>
-              <div class="payment-page-right-crypto none">
-                <button
-                  id="cryptoBtn"
-                  @click="payCrypto"
-                  disabled=""
-                  type="button"
-                >
-                  {{ chEnTextHtml[lang].payment }} >
-                </button>
-                <p></p>
-              </div>
             </div>
           </div>
         </div>
@@ -609,61 +598,7 @@ module.exports = {
         error(this.chEnTextHtml[this.lang].payErr, 1800);
       }
     },
-    payCrypto() {
-      let self = this;
-      $.ajax({
-        url: base_url + "/v2/commodity/tokenLimit",
-        data: {
-          basicId: self.basicId,
-        },
-        success: function (res) {
-          loading();
-          $(".bindmodalbox #cryptoBtn").attr("disabled", true);
-          self.tokenLimits = res.data.tokenLimit;
-          self.authUser();
-        },
-      });
-    },
-    authUser() {
-      let self = this;
-      var web3 = new Web3(CHAIN.WALLET.provider());
-      var busdAddress = contractSetting["busd_ERC20"][self.chainId].address;
-      var busdABI = contractSetting["busd_ERC20"]["abi"];
-      var busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-      busdContractInstance.methods
-        .allowance(self.userAddress, self.auctionAddress)
-        .call()
-        .then(function (res) {
-          loadingHide();
-          busdContractInstance.methods
-            .balanceOf(self.userAddress)
-            .call()
-            .then((balancePrice) => {
-              if (
-                web3.utils.fromWei(balancePrice, "ether") <
-                Number(self.busdPrice)
-              ) {
-                tips("钱包余额不足");
-                $("#cryptoBtn").attr("disabled", false);
-              } else {
-                if (res < Number(self.busdPrice)) {
-                  var num = web3.utils.toWei("999999999999999", "ether");
-                  //发起授权
-                  busdContractInstance.methods
-                    .approve(self.auctionAddress, num)
-                    .send({
-                      from: self.userAddress,
-                    })
-                    .then(function () {
-                      self.getOnSellToken();
-                    });
-                } else {
-                  self.getOnSellToken();
-                }
-              }
-            });
-        });
-    },
+
     initAddress() {
       let self = this;
       var targetChainId = "";
@@ -690,76 +625,12 @@ module.exports = {
         );
       });
     },
-    getOnSellToken() {
-      let self = this;
-      if (!self.tokenLimits) {
-        return false;
-      }
-      self.auctionContractInstance.methods
-        .getOnSellToken()
-        .call()
-        .then((arr) => {
-          for (let i = 0; i < arr.length; i++) {
-            for (let j = 0; j < self.tokenLimits.length; j++) {
-              if (
-                arr[i] >= self.tokenLimits[j].startTokenId &&
-                arr[i] <= self.tokenLimits[j].endTokenId
-              ) {
-                self.visiable.push(arr[i]);
-              }
-            }
-          }
-          if (self.selectarr.length > self.visiable.length) {
-            tips(this.chEnTextHtml[this.lang].maximum);
-            $(".bindmodalbox #cryptoBtn").attr("disabled", false);
-            return false;
-          }
-          CHAIN.WALLET.accounts().then(function (accounts) {
-            self.auctionContractInstance.methods
-              .safeBatchBuyToken(self.visiable.slice(0, self.selectarr.length))
-              .send({
-                from: accounts[0],
-              })
-              .on("transactionHash", function (hash) {
-                success(this.chEnTextHtml[this.lang].purchaseSuc, 1800);
-                setTimeout(function () {
-                  tips(this.chEnTextHtml[this.lang].seconds);
-                  $(".bindmodalbox #cryptoBtn").attr("disabled", false);
-                  setTimeout(function () {
-                    window.location.reload();
-                  }, 1500);
-                }, 1800);
-              });
-          });
-        });
-    },
 
-    //询问弹窗
-    saveconfirm() {
-      hsycms.confirm(
-        "confirm",
-        this.chEnTextHtml[this.lang].asset,
-        function (res) {
-          hsycms.success("success", this.chEnTextHtml[this.lang].confirm);
-          setTimeout(function () {
-            window.location.href = "myassets.html";
-          }, 1500);
-        },
-        function (res) {
-          hsycms.error("error", this.chEnTextHtml[this.lang].cancel);
-        }
-      );
-    },
     toggleBalanceCheck() {
       var payButton = document.getElementById("balanceBtn");
-      var cryButton = document.getElementById("cryptoBtn");
       if ($(".bindmodalbox #saveBalance").prop("checked")) {
         payButton.disabled = false;
-        if (getCookie("isConnect") == "true") {
-          cryButton.disabled = false;
-        }
       } else {
-        cryButton.disabled = true;
         if (
           $(".bindmodalbox #balanceBtn").text() == "立即付款 >" ||
           $(".bindmodalbox #balanceBtn").text() == "Pay now >"
@@ -870,11 +741,9 @@ module.exports = {
       var chainId = "";
       CHAIN.WALLET.chainId().then(function (res) {
         chainId = web3.utils.hexToNumber(res);
-
         // busdAddress 供外界使用
         var busdAddress = contractSetting["busd_ERC20"][chainId].address;
         var busdABI = contractSetting["busd_ERC20"]["abi"];
-
         busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
         var amount = $(".bindmodalbox .payment .busdPrice")
           .text()
@@ -884,6 +753,7 @@ module.exports = {
           .balanceOf(accounts[0])
           .call() //查询余额
           .then(function (res2) {
+            console.log(res2)
             if (Number(res2) >= Number(num)) {
               setTimeout(function () {
                 busdContractInstance.methods
@@ -904,6 +774,9 @@ module.exports = {
                     loadingHide();
                   });
               }, 500);
+            } else {
+              loadingHide();
+              tips(self.chEnTextHtml[self.lang].balanceInsufficient)
             }
           });
       });
@@ -922,30 +795,20 @@ module.exports = {
         $(".bindmodalbox .payment-page-right-balance").hide();
         $(".bindmodalbox .payment-page-right-btn").hide();
         $(".bindmodalbox .wallet-payment-desc").hide();
-        $(".bindmodalbox .payment-page-right-crypto").hide();
         $(".bindmodalbox .payment-page-right-total").show();
       }
 
       if (text == 0) {
+        $('.payment-page-right-balance').show()
         $(".bindmodalbox .payment-page-right-btn").show();
-        $(".bindmodalbox .payment-page-right-crypto").hide();
         $(".bindmodalbox .payment-page-right-total").show();
-        $(".bindmodalbox .payment-page-right-balance").show();
+        $(".payment-page .payment-page-right-balance").show();
         $(".bindmodalbox .payment-page-right-btn button").addClass("can");
-        if (
-          $(".bindmodalbox .busd-tip").text() == "餘額不足" ||
-          $(".bindmodalbox .busd-tip").text() == "Insufficient balance" ||
-          this.accountBalance < this.busdPrice * this.selectarr.length
-        ) {
-          $(".bindmodalbox .payment-page-right-btn button").text(
-            this.chEnTextHtml[this.lang].recharge
-          );
-          $(".bindmodalbox #balanceBtn").attr("disabled", false);
-        } else {
-          $(".bindmodalbox .payment-page-right-btn button").text(
-            this.chEnTextHtml[this.lang].payment + " >"
-          );
-        }
+        
+        $(".bindmodalbox .payment-page-right-btn button").text(
+          this.chEnTextHtml[this.lang].payment + " >"
+        );
+        
         $(".bindmodalbox .order-price .order-price-hdk").hide();
         $(".bindmodalbox .order-price .order-price-busd").show();
         $(".bindmodalbox .payment-page-right-select").hide();
