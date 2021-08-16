@@ -39,9 +39,9 @@
 				<div class="tablistbox" v-if="item.mintList && item.mintList.length">
 					<p class="titlebox flex between">
 						<span>{{chEnTextHtml[lang].currentlyholds}}({{item.mintList.length}}):</span>
-						<img src="./images/arrow.png" alt="" :class="item.ishide ? 'ishide' : ''" @click="changeishide(item.ishide,idx)">
+						<img src="./images/arrow.png" alt="" :class="item.ishide ? '' : 'ishide'" @click="changeishide(item.ishide,idx)">
 					</p>
-					<div class="listbox" v-if="!item.ishide">
+					<div class="listbox" v-if="item.ishide">
 						<div class="everydatabox" v-for="(json,index) in item.mintList" :key="index">
 							<p class="tit">
 								<span>Token ID :  {{json.edition}}  of {{item.endEdition}}</span>
@@ -68,11 +68,14 @@
 			</li>
 		</ul>
 		<div class="bzy-e-more" v-if="assetsList.total > 9">
-			<div class="flex assets-list-load" @click="getMoreList">
+			<div class="fenyebox flex">
+				<span v-for="(item,index) in assetsList.pages" :key="index" @click="getMoreList(item)" :class="item == current ? 'hightliang' : ''">{{item}}</span>
+			</div>
+			<!-- <div class="flex assets-list-load" @click="getMoreList">
 				<span class="language-tc">{{chEnTextHtml[lang].more}}</span>
 				<img src="./images/next.png">
 				<img src="./images/xiala2.png">
-			</div>
+			</div> -->
 		</div>
 
 		<!-- modify -->
@@ -98,9 +101,6 @@
 		</div>
 		<!-- foot -->
 		<div class="footerpage"></div>
-
-		<!-- <div class="tips"></div> -->
-		
   </div>
 </template>
 
@@ -307,10 +307,11 @@ module.exports = {
 				this.showMoreInfo = idx
 			}
 		},
-		getMoreList() {
-			this.current += 1
+		getMoreList(num) {
+			let dom = document.body;
+			this.current = num;
 			this.getAssetsList(this.tokenarr);
-			
+			dom.scrollIntoView(true);
 		},
 		getCookie(cookieName) {
 			const strCookie = document.cookie
@@ -561,6 +562,25 @@ module.exports = {
 }
 .ishide{
 	transform: rotate(180deg);
+}
+.bzy-e-more{
+	margin: 10px 0 50px;
+}
+.bzy-e-more div span{
+	border: 1px solid rgba(255,255,255,0.7);
+    padding: 5px 15px;
+	margin: 10px;
+}
+.bzy-e-more div:hover span {
+	color: #fff;
+}
+.bzy-e-more div span:hover {
+	color: #9567FF;
+	border-color: #9567FF;
+}
+.hightliang {
+	color: #9567FF !important;
+	border-color: #9567FF !important;
 }
 @media only screen and (max-width: 992px){
 	.mobilflex{
