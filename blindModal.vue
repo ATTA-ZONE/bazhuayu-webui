@@ -259,7 +259,7 @@
         <div class="payment-page flex">
           <div
             class="payment-page-close payment-close-pc"
-            onclick="paymentClose()"
+            @click="paymentResultClose"
           >
             <img src="./images/Close.png" />
           </div>
@@ -286,7 +286,9 @@
                 v-for="(item, idx) in blindBoxData.list"
                 :key="idx"
                 :src="item.primaryPic"
-                :class="[blindBoxData.list.length > 1 ? 'ten-imgs':'one-imgs']"
+                :class="[
+                  blindBoxData.list.length > 1 ? 'ten-imgs' : 'one-imgs',
+                ]"
               />
             </div>
           </div>
@@ -324,13 +326,8 @@
             <div class="payment-page-right-total">
               <h3>{{ chEnTextHtml[lang].paid }}</h3>
               <h3>
-                <span
-                  class="order-price-hdk none hk-Price"
-                  >HK$388 </span
-                ><span
-                  class="order-price-busd none busd-price"
-                  >BUSD 50
-                </span>
+                <span class="order-price-hdk none hk-Price">HK$388 </span
+                ><span class="order-price-busd none busd-price">BUSD 50 </span>
               </h3>
               <h4 class="info-desc">
                 {{ chEnTextHtml[lang].payTip }}
@@ -343,10 +340,7 @@
 
             <div>
               <div>
-                <button
-                  class="assets-button"
-                  @click="toAssets"
-                >
+                <button class="assets-button" @click="toAssets">
                   {{ chEnTextHtml[lang].asset }} >
                 </button>
               </div>
@@ -511,7 +505,7 @@ module.exports = {
       curUserOwned: 0,
       oneUserCountLimit: 0,
       onceCountLimit: 0,
-      payTabs: ["信用卡", "錢包支付"],
+      payTabs: ["錢包支付", "信用卡"],
       selectedPayMethod: 0,
       basicId: 0,
       visiable: [],
@@ -529,9 +523,9 @@ module.exports = {
     this.isConnect = getCookie("isConnect") == "false" ? false : true;
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
-      this.payTabs = ["信用卡", "錢包支付"];
+      this.payTabs = ["錢包支付", "信用卡"];
     } else {
-      this.payTabs = ["Credit card", "Wallet payment"];
+      this.payTabs = ["Wallet payment", "Credit card"];
     }
   },
 
@@ -542,9 +536,14 @@ module.exports = {
     $(".bindmodalbox .payment-page-right-balance").hide();
     this.initAddress();
     this.getCreditInfo();
+    this.togglePayMethod(0);
   },
 
   methods: {
+    paymentResultClose() {
+      $(".payment-result-modal").hide();
+      location.reload();
+    },
     playVideo() {
       $(".bindmodalbox .payment").fadeOut("fast");
       if (window.getCookie("blindNum") < 2) {
@@ -558,12 +557,12 @@ module.exports = {
       $(".bindmodalbox .video-model video")[0].play();
       $(".bindmodalbox .video-mask").fadeIn("fast");
       $(".bindmodalbox .video-model").fadeIn("fast");
-      if (this.selectedPayMethod == 0) {
-        $('.bindmodalbox .hkd-price').show()
-        $('.bindmodalbox .busd-price').hide()
+      if (this.selectedPayMethod == 1) {
+        $(".bindmodalbox .hkd-price").show();
+        $(".bindmodalbox .busd-price").hide();
       } else {
-        $('.bindmodalbox .hkd-price').hide()
-        $('.bindmodalbox .busd-price').show()
+        $(".bindmodalbox .hkd-price").hide();
+        $(".bindmodalbox .busd-price").show();
       }
       $(".bindmodalbox .video-model video")[0].addEventListener(
         "ended",
@@ -636,20 +635,33 @@ module.exports = {
         .call()
         .then(function (res) {
           loadingHide();
-          if (res < Number(self.busdPrice)) {
-            var num = web3.utils.toWei("999999999999999", "ether");
-            //发起授权
-            busdContractInstance.methods
-              .approve(self.auctionAddress, num)
-              .send({
-                from: self.userAddress,
-              })
-              .then(function () {
-                self.getOnSellToken();
-              });
-          } else {
-            self.getOnSellToken();
-          }
+          busdContractInstance.methods
+            .balanceOf(self.userAddress)
+            .call()
+            .then((balancePrice) => {
+              if (
+                web3.utils.fromWei(balancePrice, "ether") <
+                Number(self.busdPrice)
+              ) {
+                tips("钱包余额不足");
+                $("#cryptoBtn").attr("disabled", false);
+              } else {
+                if (res < Number(self.busdPrice)) {
+                  var num = web3.utils.toWei("999999999999999", "ether");
+                  //发起授权
+                  busdContractInstance.methods
+                    .approve(self.auctionAddress, num)
+                    .send({
+                      from: self.userAddress,
+                    })
+                    .then(function () {
+                      self.getOnSellToken();
+                    });
+                } else {
+                  self.getOnSellToken();
+                }
+              }
+            });
         });
     },
     initAddress() {
@@ -839,7 +851,7 @@ module.exports = {
       if (!res) {
         return false;
       }
-      if (self.selectedPayMethod == 1) {
+      if (self.selectedPayMethod == 0) {
         CHAIN.WALLET.accounts().then(function (accounts) {
           self.safeCharge(accounts);
           loading();
@@ -864,7 +876,9 @@ module.exports = {
         var busdABI = contractSetting["busd_ERC20"]["abi"];
 
         busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-        var amount = $(".bindmodalbox .payment .busdPrice").text().split("BUSD ")[1];
+        var amount = $(".bindmodalbox .payment .busdPrice")
+          .text()
+          .split("BUSD ")[1];
         var num = web3.utils.toWei(amount, "ether");
         busdContractInstance.methods
           .balanceOf(accounts[0])
@@ -894,12 +908,12 @@ module.exports = {
           });
       });
     },
-    toAssets(){
-      window.location.href = 'myassets.html'
+    toAssets() {
+      window.location.href = "myassets.html";
     },
     togglePayMethod(text) {
       this.selectedPayMethod = text;
-      if (text == 0) {
+      if (text == 1) {
         $(".bindmodalbox .payment-page-right-btn").hide();
         $(".bindmodalbox .order-price .order-price-hdk").show();
         $(".bindmodalbox .order-price .order-price-busd").hide();
@@ -912,7 +926,7 @@ module.exports = {
         $(".bindmodalbox .payment-page-right-total").show();
       }
 
-      if (text == 1) {
+      if (text == 0) {
         $(".bindmodalbox .payment-page-right-btn").show();
         $(".bindmodalbox .payment-page-right-crypto").hide();
         $(".bindmodalbox .payment-page-right-total").show();

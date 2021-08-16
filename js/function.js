@@ -119,7 +119,6 @@ function payment(){
 
 function paymentClose(){
 	$('.payment').hide();
-	$('.payment-result-modal').hide();
 }
 
 
