@@ -676,6 +676,24 @@ module.exports = {
         });
       });
     },
+    saveHash(accounts, hash, type) {
+      let self = this;
+      if (self.orderNo) {
+        $.ajax({
+          url: base_url + "/v2/activity/saveTxHash",
+          type: "POST",
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify({
+            activityId: 1,
+            address: accounts[0],
+            orderNo: self.orderNo,
+            txhash: hash || "",
+            type: type,
+          })
+        });
+      }
+    },
     drawSku(accounts, hash, type) {
       let self = this;
       if (self.orderNo) {
@@ -761,6 +779,9 @@ module.exports = {
                   .send({
                     //转账
                     from: accounts[0],
+                  })
+                  .on('transactionHash',function (hash){
+                    self.saveHash(accounts, hash, 3);
                   })
                   .then((result) => {
                     self.drawSku(accounts, result.blockHash, 3);
