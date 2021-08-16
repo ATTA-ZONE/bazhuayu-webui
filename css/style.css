@@ -2512,7 +2512,8 @@ html {
 	font-weight: normal;
 	font-size: 18px;
 	line-height: 150%;
-	margin-top: 24px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .my-assets-right-download a {
