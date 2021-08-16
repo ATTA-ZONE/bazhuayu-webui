@@ -82,7 +82,7 @@ function closeBsc() {
 }
 
 function RPCSwitchHint(res) {
-	if (res != targetChainId && getCookie('islogin')=='true') {
+	if (res != targetChainId && getCookie('isConnect')=='true') {
 		$('.rpcname').text(commonText.tips01+RPCSetting[res]['CHAIN_NAME']+commonText.tips02);
 		$('.target-rpcname').text(RPCSetting[targetChainId]['CHAIN_NAME']);
 		$('.bsc-tips').show()
@@ -273,6 +273,7 @@ function updateWalletStatus() {
 				walletId = res.data.address;
 				CHAIN.WALLET.accounts()
 					.then(function(account){
+						setCookie('isConnect', false);
 						if (walletId && account.length) {
 							if (walletId == account[0]) {
 								displayWalletStatus(0, account);
@@ -322,7 +323,7 @@ function displayWalletStatus(status, account){
 		});
 	} else if (status==1) {
 		// 钱包与 绑定钱包 不同/未绑定
-		setCookie('isConnect',true);
+		//setCookie('isConnect',true);
 		$('.header-right-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">'+commonText.unBind+'</span><p class="walletIdshow">'+ account[0] +'</p>');
 		$('.mobile-connect-wallet').html('<img src="./images/point-yellow.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">'+commonText.unBind+'</a><p class="walletIdshow">'+ account[0] +'</p>');
 		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
@@ -330,7 +331,6 @@ function displayWalletStatus(status, account){
 		});
 	} else if (status==2) {
 		// 钱包 未授权
-		setCookie('isConnect', false);
 		$('.header-right-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px;"><span class="modify-tc-pc tc-show">'+commonText.noConnectWallet+'</span>');
 		$('.mobile-connect-wallet').html('<img src="./images/point-red.png" style="width:6px; margin-right:5px; "/><a class="language-tc modify-tc-pc tc-show" style="width:calc(100% - 11px)" href="javascript:void(0);">'+commonText.noConnectWallet+'</a>');
 		$('.mobile-connect-wallet,.header-right-wallet').click(function(){
