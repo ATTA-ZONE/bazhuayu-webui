@@ -1556,12 +1556,11 @@ html {
 }
 
 .details-right-des {
-	/* margin-bottom:30px; */
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 300;
 	font-size: 16px;
-	line-height: 150%;
+	line-height: 1.5;
 	color: #fff;
 	opacity: 0.4;
 }
@@ -1571,7 +1570,7 @@ html {
 }
 
 .details-right-additional {
-	padding: 30px 0;
+	padding: 15px 0;
 	/* border-top:1px solid rgba(255,255,255,0.15); */
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 	font-family: Inter;
@@ -2474,8 +2473,6 @@ html {
 }
 
 .my-assets-right-price {
-	margin-top: 36px;
-	padding-bottom: 36px;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 	margin-bottom: 35px;
 }
