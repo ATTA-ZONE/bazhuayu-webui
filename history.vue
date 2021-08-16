@@ -16,7 +16,7 @@
     </div>
     <div class="history-items">
       <div>
-        <div class="history-item" v-for="(item, index) in computedData" :key="index" v-if="item.status != 1">
+        <div class="history-item" v-for="(item, index) in computedData" :key="index">
           <div class="history-title">
             <div class="title-info">
               <span class="title-info-name">{{ item.name }}</span>
@@ -49,7 +49,7 @@
             >
               <div>
                 {{chEnTextHtml[lang].startmint}}
-                <a @click="cancelNft(item.mintFlow)" class="recoverRequest">{{chEnTextHtml[lang].nomint}}</a>
+                <!-- <a @click="cancelNft(item.mintFlow)" class="recoverRequest">{{chEnTextHtml[lang].nomint}}</a> -->
               </div>
             </div>
             <div
