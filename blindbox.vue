@@ -349,7 +349,7 @@ module.exports = {
       chEnTextHtml: {
         TC: {
           btn1 : "使用NFT投票",
-          btn2 : "预测比赛胜负",
+          btn2 : "預測比賽勝負",
           luckdrawintroduce_con:
             "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
           luckdrawintroduce_btn1: "單抽",
@@ -358,9 +358,9 @@ module.exports = {
           gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
           gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
           gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
-          noimgword: "敬请期待",
+          noimgword: "敬請期待",
           purchase1: "盲盒剩餘：",
-          purchase2: "白名单用户每购买4个盲盒，可获赠1次抽取机会（最多可获赠4次）",
+          purchase2: "白名單用戶每購買4個盲盒，可獲贈1次抽取機會（最多可獲贈4次）",
           purchase3: "當前投票獎勵池： BUSD ",
           purchase4: "我的白名單獲贈抽取機會 ：",
           purchase5: "現在使用",
@@ -369,7 +369,7 @@ module.exports = {
           tips0: "領取規則（空投）",
           tips01: "領取規則（白名單）",
           tips1: "參與盲盒空投活動且獲取到空投資格的用戶",
-          tips5: "參與买四赠一白名单活動且獲取到白名单資格的用戶",
+          tips5: "參與買四贈一白名單活動且獲取到白名單資格的用戶",
           tips2: "抽取時間：8月19號20點~20號12點",
           tips3: "過期將不支持抽取盲盒",
           tips4: "*了解更多信息，請聯系ATTA客服微信：atta_official",
@@ -439,7 +439,7 @@ module.exports = {
           orderInfo: " - Rita系列S卡",
           walletPay: '錢包支付',
           payTip: '您抽中的NFT將在盲盒活动结束后24小时内發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
-          free: '免费',
+          free: '免費',
           frequency : "您當前沒有免費抽取機會。",
           activitytips1 : "活動未開始",
           activitytips2 : "活動已結束",
