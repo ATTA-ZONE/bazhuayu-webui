@@ -599,7 +599,6 @@ module.exports = {
     } else {
       document.title = "Mystery Box";
     }
-    $(".payment-page-right-balance").hide();
     this.getAssetsList();
   },
   mounted() {

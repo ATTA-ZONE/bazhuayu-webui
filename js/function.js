@@ -420,9 +420,9 @@ function checkTip(obj,text){
 
 
 //显示loading
-function loading(){
-
-	hsycms.loading('loading','loading');
+function loading(txt){
+	var str = txt || 'loading'
+	hsycms.loading('loading', str);
 
 	//2秒后隐藏
 	// setTimeout(res=>{
