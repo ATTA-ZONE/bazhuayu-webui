@@ -49,6 +49,16 @@
 			top: 162px;
 			right: 0;
 		}
+		.wallet-tips{
+			color: #ff0000;
+			margin-bottom: 10px;
+		}
+		.my-wallet-number{
+			margin-bottom: 25px;
+		}
+		.metamask-wallet.wallet-li,.nowallet-wallet,.walletconnect-wallet{
+			padding-bottom: 20px !important;
+		}
 	</style>
 </head>
 <body>
@@ -91,6 +101,7 @@
 						<span>Metamask</span>
 					</div>
 					<div class="my-wallet-number wallet-address">---</div>
+					<div class="wallet-tips">{{chEnTextHtml[lang].wallettips}}</div>
 					<div class="my-wallet-btn flex">
 						<a class="flex change" href="connectWallet.html"><span class="language-tc">{{chEnTextHtml[lang].switch}}</span></a>
 						<a class="flex delete modify-tc-pc tc-show" href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">{{chEnTextHtml[lang].delect}}</span></a>
@@ -103,6 +114,7 @@
 						<span>WalletConnect</span>
 					</div>
 					<div class="my-wallet-number wallet-address">---</div>
+					<div class="wallet-tips">{{chEnTextHtml[lang].wallettips}}</div>
 					<div class="my-wallet-btn flex">
 						<a class="flex change " href="connectWallet.html"><span class="language-tc">{{chEnTextHtml[lang].switch}}</span></a>
 						<a class="flex delete modify-tc-pc tc-show" href="javascript:void(0);" onclick="deleteWallet()"><span class="language-tc">{{chEnTextHtml[lang].delect}}</span></a>
@@ -114,6 +126,7 @@
 						<span>{{chEnTextHtml[lang].connectwallet}}</span>
 					</div>
 					<div class="my-wallet-number wallet-address">---</div>
+					<div class="wallet-tips">{{chEnTextHtml[lang].wallettips}}</div>
 					<div class="my-wallet-btn flex">
 						<a class="flex addbtn tc-show" href="connectWallet.html"><span class="language-tc">{{chEnTextHtml[lang].connectwallet}}</span></a>
 					</div>
@@ -237,6 +250,7 @@
 					recharge : "充值",
 					drawing : "提款",
 					card : "信用卡",
+					wallettips : "注意：您所購買的所有NFT將會發送至您的默認錢包地址。支付錢包可以與默認錢包不同。",
 					switch : "更換",
 					delect : "刪除",
 					add : "添加",
@@ -251,6 +265,7 @@
 					recharge : "Add funds",
 					drawing : "Withdraw",
 					card : "Credit card",
+					wallettips : "Notice: All NFTs you purchased will be sent to your default wallet. You may use a different wallet to make payments.",
 					switch : "Change",
 					delect : "Delete",
 					add : "Add",

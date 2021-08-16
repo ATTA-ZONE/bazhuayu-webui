@@ -2839,7 +2839,7 @@ html {
 	border-radius: 4px;
 	padding: 0 48px;
 	margin-bottom: 40px;
-	height: 280px;
+	min-height: 280px;
 }
 
 .my-wallet-tit {
@@ -2924,8 +2924,8 @@ html {
 
 .my-wallet-tip {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-	padding-bottom: 32px;
-	margin-bottom: 32px;
+	padding-bottom: 20px;
+	/* margin-bottom: 32px; */
 }
 
 .my-wallet-jumptip {
