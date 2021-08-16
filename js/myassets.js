@@ -26,9 +26,15 @@ var app = new Vue({
 			lang:''
 		}
 	},
+	mounted(){
+		if (getCookie('selectedTab') && getCookie('selectedTab') != 'null') {
+			this.selectedTab = getCookie('selectedTab');
+		}
+	},
 	methods: {
 		toggleTab(item,idx) {
-			this.selectedTab = idx
+			window.setCookie('selectedTab',null);
+			this.selectedTab = idx;
 		}
 	},
 	created() {
