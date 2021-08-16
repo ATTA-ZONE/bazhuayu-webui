@@ -784,7 +784,8 @@ module.exports = {
                     self.saveHash(accounts, hash, 3);
                   })
                   .then((result) => {
-                    self.drawSku(accounts, result.blockHash, 3);
+                    console.log(result);
+                    self.drawSku(accounts, result.transactionHash, 3);
                     $(".bindmodalbox .payment").fadeOut();
                     self.playVideo();
                     loadingHide();
