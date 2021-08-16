@@ -803,6 +803,7 @@ module.exports = {
       });
     },
     toAssets() {
+      window.setCookie('selectedTab',1);
       window.location.href = "myassets.html";
     },
     togglePayMethod(text) {
