@@ -67,7 +67,7 @@
 				<div>{{chEnTextHtml[lang].norecord}}</div>
 			</li>
 		</ul>
-		<div class="bzy-e-more" v-if="assetsList.total > 9">
+		<div class="bzy-e-more" v-if="assetsList.total > 10">
 			<div class="fenyebox flex">
 				<span v-for="(item,index) in assetsList.pages" :key="index" @click="getMoreList(item)" :class="item == current ? 'hightliang' : ''">{{item}}</span>
 			</div>
@@ -113,7 +113,7 @@ module.exports = {
 			assetsList: {},
 			isConnect: false,
 			current: 1,
-			pageSize: 9,
+			pageSize: 10,
 			showMoreInfo: -1,
 			selectedNftName:'',
 			selectedNft: null,
