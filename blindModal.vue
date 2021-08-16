@@ -413,8 +413,10 @@ module.exports = {
           payTip:
             "您抽中的NFT將在短時間內發送至您的默認錢包。可在我的資產-我的NFT下可查看。",
           walletPay: "錢包支付",
+          loadingText: "支付需耗時10-20秒鐘，請耐心等待~",
         },
         EN: {
+          loadingText: "Payment takes about 10-20s to process, please be patient.",
           walletPay: "Wallet payment",
           payTip:
             "The NFT you have drawn will be sent to your default wallet within a short period of time. It can be viewed under My Assets - My NFTs.",
@@ -770,6 +772,7 @@ module.exports = {
           .balanceOf(accounts[0])
           .call() //查询余额
           .then(function (res2) {
+            loadingHide()
             if (Number(res2) >= Number(num)) {
               setTimeout(function () {
                 busdContractInstance.methods
@@ -779,6 +782,7 @@ module.exports = {
                     from: accounts[0],
                   })
                   .on('transactionHash',function (hash){
+                    loading(self.chEnTextHtml[self.lang].loadingText);
                     self.saveHash(accounts, hash, 3);
                   })
                   .then((result) => {
@@ -794,7 +798,6 @@ module.exports = {
                   });
               }, 500);
             } else {
-              loadingHide();
               tips(self.chEnTextHtml[self.lang].balanceInsufficient)
             }
           });
