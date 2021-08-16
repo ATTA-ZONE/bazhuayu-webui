@@ -52,7 +52,7 @@ function getArtworkList(current,pageSize,name,typeId){
 					 
 					$.each(records,function(i,v){
 						var timeStatus;
-						var geshi = v.secondPic.substr(v.secondPic.lastIndexOf('.')+1);
+						var geshi = v.primaryPic.substr(v.primaryPic.lastIndexOf('.')+1);
 						
 						
 						// 徐冬冬数据特殊处理
@@ -77,15 +77,14 @@ function getArtworkList(current,pageSize,name,typeId){
 						html += 
 						`<li>
 							<a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
-						
 						if(geshi=='mp4'){
-							
-						  html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
-							
+							if(v.secondPic){
+								html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
+							}else{
+								html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
+							}
 						}else{
-							
-						  html+=`<img class="bzy-e-list-img" src="`+v.primaryPic+`" >`;
-						  
+						  html+=`<img class="bzy-e-list-img" src="`+(v.secondPic?v.secondPic:v.primaryPic)+`" >`;
 						}
 						
 									
