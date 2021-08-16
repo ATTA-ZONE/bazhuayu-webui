@@ -239,7 +239,7 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video webkit-playsinline="true" src="http://47.118.74.48:8081/upload/other/one_draw.mp4" autoplay muted></video>
+          <video webkit-playsinline="true" src="/upload/other/one_draw.mp4" autoplay muted></video>
         </div>
       </div>
     </div>
@@ -324,7 +324,7 @@
               <div class="pay-button">
                 <button
                   class="jumpzcbtn"
-                  onClick="window.location.href = './myassets.html'"
+                  onClick="window.setCookie('selectedTab',1);window.location.href = './myassets.html'"
                 >
                   {{ chEnTextHtml[lang].asset }} >
                 </button>
