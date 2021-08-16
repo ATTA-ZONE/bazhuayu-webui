@@ -148,7 +148,7 @@ function initialization() {
 			auctionContractInstance.methods._auctions(tokenTypeId).call()
 				.then(function (res) {
 					var tokenTopBid = web3.utils.fromWei(res.tokenTopBid, 'ether');
-					$('.bid-right-status-current span:nth-child(2)').text('BUSD 2,200');
+					$('.bid-right-status-current span:nth-child(2)').text('BUSD 22,000');
 
 					var currentTime = Date.now(); //当前时间  ms
 					var startTime = parseInt(res.startTime) * 1000; //拍卖开始时间  ms
