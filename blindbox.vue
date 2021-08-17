@@ -766,7 +766,7 @@ module.exports = {
       
     },
     jumppage() {
-      window.open("https://www.atta.zone/loading");
+      window.open("https://www.atta.zone/esports");
     },
     tktips(type) {
       let dom = document.querySelector(".modify");
