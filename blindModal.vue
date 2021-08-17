@@ -507,6 +507,7 @@ module.exports = {
       chainId: "",
       activityId: 1,
       success_status: -1,
+      targetChainId: 0
     };
   },
 
@@ -602,11 +603,10 @@ module.exports = {
 
     initAddress() {
       let self = this;
-      var targetChainId = "";
       if (window.location.href.indexOf("bazhuayu.io") == -1) {
-        targetChainId = 97;
+        self.targetChainId = 97;
       } else {
-        targetChainId = 56;
+        self.targetChainId = 56;
       }
       var web3 = new Web3(CHAIN.WALLET.provider());
       CHAIN.WALLET.accounts().then(function (accounts) {
@@ -616,7 +616,7 @@ module.exports = {
         let id = "";
         self.chainId = web3.utils.hexToNumber(res);
         id = web3.utils.hexToNumber(res);
-        if (id == targetChainId) {
+        if (id == self.targetChainId) {
           self.auctionAddress = contractSetting["vending_machine"][id].address; //网络切换
         }
         var auctionABI = contractSetting["vending_machine"]["abi"];
@@ -754,7 +754,13 @@ module.exports = {
       if (accounts.length < 1) {
         return false;
       }
-      var cwallet = "0xccbc6228c6030C605973468F6F5cbD16819A1D8B"; //收款钱包 地址
+      var cwallet = ""; //收款钱包 地址
+      
+      if (self.targetChainId == 97) {
+        cwallet = '0x4Df679A3407E5ab8d547cb22b7f0C98994667558'
+      } else {
+        cwallet = '0xC6F6fCce3026f08C668cA09bc5dFB58e596520f4'
+      }
       var web3 = new Web3(CHAIN.WALLET.provider());
 
       var chainId = "";
