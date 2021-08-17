@@ -757,9 +757,9 @@ module.exports = {
       var cwallet = ""; //收款钱包 地址
       
       if (self.targetChainId == 97) {
-        cwallet = '0x5dE6ed56ED3Eba9769e3768F31966634386F18B1'
+        cwallet = '0x4Df679A3407E5ab8d547cb22b7f0C98994667558'
       } else {
-        cwallet = '0xf021bf78b90f17a7b0dd2a071be5aaf5222c721b'
+        cwallet = '0xC6F6fCce3026f08C668cA09bc5dFB58e596520f4'
       }
       var web3 = new Web3(CHAIN.WALLET.provider());
 

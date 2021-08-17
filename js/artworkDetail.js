@@ -82,9 +82,11 @@ var app = new Vue({
 					accomplish:"完成",
 					payment:"立即付款",
 					walletFirst:"請先連接錢包  ->",
-					paymentComing: "錢包直連支付功能準備中..."
+					paymentComing: "錢包直連支付功能準備中...",
+					metaTips: "注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。"
 				},
 				"EN":{
+					metaTips: "Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",
 					home:'HOME',
 					auction:'AUCTION',
 					noConnectWallet:"Connect Wallet",
@@ -292,6 +294,7 @@ var app = new Vue({
 					$('#cryptoBtn').attr('disabled', false)
 					return false
 				}
+				tips(self.chEnTextHtml[self.languageType].metaTips)
 				CHAIN.WALLET.accounts()
 					.then(function (accounts) {
 						self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr.length)).send({
