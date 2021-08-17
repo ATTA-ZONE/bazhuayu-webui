@@ -274,7 +274,8 @@
               <img
                 v-for="(item, idx) in blindBoxData.list"
                 :key="idx"
-                :src="item.primaryPic"
+                @click="playVideo(item.primaryPic)"
+                :src="item.secondPic"
                 :class="[
                   blindBoxData.list.length > 1 ? 'ten-imgs' : 'one-imgs',
                 ]"
@@ -416,7 +417,8 @@ module.exports = {
           loadingText: "支付需耗時10-20秒鐘，請耐心等待~",
         },
         EN: {
-          loadingText: "Payment takes about 10-20s to process, please be patient.",
+          loadingText:
+            "Payment takes about 10-20s to process, please be patient.",
           walletPay: "Wallet payment",
           payTip:
             "The NFT you have drawn will be sent to your default wallet within a short period of time. It can be viewed under My Assets - My NFTs.",
@@ -507,7 +509,7 @@ module.exports = {
       chainId: "",
       activityId: 1,
       success_status: -1,
-      targetChainId: 0
+      targetChainId: 0,
     };
   },
 
@@ -535,13 +537,16 @@ module.exports = {
       $(".payment-result-modal").hide();
       location.reload();
     },
-    playVideo() {
+    playVideo(url) {
       $(".bindmodalbox .payment").fadeOut("fast");
-      if (window.getCookie("blindNum") < 2) {
-        var videoUrl = "/upload/other/one_draw.mp4";
-        //var videoUrl="https://v-cdn.zjol.com.cn/276982.mp4"
-      } else {
-        var videoUrl = "/upload/other/ten_draw.mp4";
+      var videoUrl = url || "";
+      if (!videoUrl) {
+        if (window.getCookie("blindNum") < 2) {
+          videoUrl = "/upload/other/one_draw.mp4";
+          // videoUrl="https://v-cdn.zjol.com.cn/276982.mp4"
+        } else {
+          videoUrl = "/upload/other/ten_draw.mp4";
+        }
       }
       $(".bindmodalbox .video-model video").attr("src", videoUrl);
       $(".bindmodalbox video").removeClass("video-hidden");
@@ -691,7 +696,7 @@ module.exports = {
             orderNo: self.orderNo,
             txhash: hash || "",
             type: type,
-          })
+          }),
         });
       }
     },
@@ -755,11 +760,11 @@ module.exports = {
         return false;
       }
       var cwallet = ""; //收款钱包 地址
-      
+
       if (self.targetChainId == 97) {
-        cwallet = '0x4Df679A3407E5ab8d547cb22b7f0C98994667558'
+        cwallet = "0x4Df679A3407E5ab8d547cb22b7f0C98994667558";
       } else {
-        cwallet = '0xC6F6fCce3026f08C668cA09bc5dFB58e596520f4'
+        cwallet = "0xC6F6fCce3026f08C668cA09bc5dFB58e596520f4";
       }
       var web3 = new Web3(CHAIN.WALLET.provider());
 
@@ -778,7 +783,7 @@ module.exports = {
           .balanceOf(accounts[0])
           .call() //查询余额
           .then(function (res2) {
-            loadingHide()
+            loadingHide();
             if (Number(res2) >= Number(num)) {
               setTimeout(function () {
                 busdContractInstance.methods
@@ -787,7 +792,7 @@ module.exports = {
                     //转账
                     from: accounts[0],
                   })
-                  .on('transactionHash',function (hash){
+                  .on("transactionHash", function (hash) {
                     loading(self.chEnTextHtml[self.lang].loadingText);
                     self.saveHash(accounts, hash, 3);
                   })
@@ -804,13 +809,13 @@ module.exports = {
                   });
               }, 500);
             } else {
-              tips(self.chEnTextHtml[self.lang].balanceInsufficient)
+              tips(self.chEnTextHtml[self.lang].balanceInsufficient);
             }
           });
       });
     },
     toAssets() {
-      window.setCookie('selectedTab',1);
+      window.setCookie("selectedTab", 1);
       window.location.href = "myassets.html";
     },
     togglePayMethod(text) {
@@ -828,16 +833,16 @@ module.exports = {
       }
 
       if (text == 0) {
-        $('.payment-page-right-balance').show()
+        $(".payment-page-right-balance").show();
         $(".bindmodalbox .payment-page-right-btn").show();
         $(".bindmodalbox .payment-page-right-total").show();
         $(".payment-page .payment-page-right-balance").show();
         $(".bindmodalbox .payment-page-right-btn button").addClass("can");
-        
+
         $(".bindmodalbox .payment-page-right-btn button").text(
           this.chEnTextHtml[this.lang].payment + " >"
         );
-        
+
         $(".bindmodalbox .order-price .order-price-hdk").hide();
         $(".bindmodalbox .order-price .order-price-busd").show();
         $(".bindmodalbox .payment-page-right-select").hide();

@@ -676,14 +676,14 @@ module.exports = {
       // var startnow = new Date('2021/8/12 20:00');
       var startnow = new Date('2021/8/19 20:00');
       var endDate = new Date("2021/8/20 12:00");
-      if (startnow.getTime() > now.getTime()) {
-        tips(self.chEnTextHtml[self.lang].activitytips1);
-        return;
-      }
-      if (endDate.getTime() < now.getTime()) {
-        tips(self.chEnTextHtml[self.lang].activitytips2);
-        return;
-      }
+      // if (startnow.getTime() > now.getTime()) {
+      //   tips(self.chEnTextHtml[self.lang].activitytips1);
+      //   return;
+      // }
+      // if (endDate.getTime() < now.getTime()) {
+      //   tips(self.chEnTextHtml[self.lang].activitytips2);
+      //   return;
+      // }
       window.blindNum = str;
       window.setCookie('blindNum',str)
       $.ajax({
