@@ -81,6 +81,11 @@
 			top: 104px;
 			right: 0;
 		}
+		.payment-tips{
+			border-bottom : none !important;
+			padding: 0 !important;
+			color: #FF1313;
+		}
 
 		[v-cloak] {
 			display: none;
@@ -320,6 +325,9 @@
 								<button id="balanceBtn" @click="payBalance" disabled=""
 									type="button">{{chEnTextHtml[languageType].payment}} ></button>
 							</div>
+							<div class="payment-tips none">
+								{{chEnTextHtml[languageType].paymenttips}}
+							</div>
 							<div class="payment-page-right-crypto none">
 								<button id="cryptoBtn" @click="payCrypto" disabled=""
 									type="button">{{chEnTextHtml[languageType].payment}} ></button>
@@ -381,13 +389,13 @@
 <script>
 	let html = "",
 		html_mobile = "";
-	html += `<a href=${'/mobile'+document.referrer.split('mobile')[1]}>EN</a>
-			<span style="margin: 0 16px;">|</span>
-			<a href=${'/mobile'+document.referrer.split('mobile')[1]}>繁</a>`;
-	$(".switchlanguagebox").html(html);
-	html_mobile += `<a href=${'/mobile'+document.referrer.split('mobile')[1]}>EN</a>
+	html += `<a class="language-change-en">EN</a>
 					<span style="margin: 0 16px;">|</span>
-					<a href=${'/mobile'+document.referrer.split('mobile')[1]}>繁</a>`;
+					<a class="language-change-ch">繁</a>`;
+	$(".switchlanguagebox").html(html);
+	html_mobile += `<a class="language-change-en">EN</a>
+					<span style="margin: 0 16px;">|</span>
+					<a class="language-change-ch">繁</a>`;
 	$(".switchlanguage_mobile").html(html_mobile);
 </script>
 

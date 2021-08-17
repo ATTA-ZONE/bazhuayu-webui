@@ -140,13 +140,28 @@ var contractSetting = {
             },
         
     },
+    'blindbox_ERC721': {
+        'proxy': '',
+        'abi': d_ERC721_abi,
+        56:
+            {
+                'owner_id': 17,
+                'address': ''
+            },
+        97:
+            {
+                'owner_id': 1,
+                'address': '0x56789a8d8f2735f94989a09d1ade68ad79a674de'
+            },
+        
+    },
     'vending_machine': {
         'proxy': '',
         'abi': c_vendingMachine_abi,
         56:
             {
                 'owner_id': '',
-                'address': ''
+                'address': '0xf021bf78b90f17a7b0dd2a071be5aaf5222c721b'
             },
         97:
             {

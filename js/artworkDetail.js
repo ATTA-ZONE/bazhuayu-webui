@@ -14,7 +14,7 @@ var app = new Vue({
 			curUserOwned: 0,
 			oneUserCountLimit: 0,
 			onceCountLimit: 0,
-			payTabs: ['信用卡', '餘額支付', '錢包支付'],
+			payTabs: ['錢包支付', '信用卡'],
 			selectedPayMethod: 0,
 			basicId: 0,
 			visiable: [],
@@ -55,6 +55,7 @@ var app = new Vue({
 					currentUsing:"正在使用",
 					balance:"餘額",
 					notStore:"我們不會儲存您的錢包密鑰，未經您的授權，也無法使用您電子錢包中的貨幣。",
+					paymenttips:"注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。",
 					regSuc:"注册成功",
 					operationFailed:"操作失败",
 					// js部分
@@ -82,9 +83,11 @@ var app = new Vue({
 					accomplish:"完成",
 					payment:"立即付款",
 					walletFirst:"請先連接錢包  ->",
-					paymentComing: "錢包直連支付功能準備中..."
+					paymentComing: "錢包直連支付功能準備中...",
+					metaTips: "注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。"
 				},
 				"EN":{
+					metaTips: "Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",
 					home:'HOME',
 					auction:'AUCTION',
 					noConnectWallet:"Connect Wallet",
@@ -113,6 +116,7 @@ var app = new Vue({
 					payment:"Pay now",
 					balance:"Balance",
 					notStore:"We will not store your wallet key, nor can we use the currency in your wallet without your authorization.",
+					paymenttips:"Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",
 					regSuc:"registration success",
 					operationFailed:"operation failed",
 					// js部分
@@ -150,10 +154,10 @@ var app = new Vue({
 		this.languageType = getCookie("lang")?getCookie("lang"):'TC';
 		if(this.languageType == "TC"){
 			document.title = "明星藏品詳情";
-			this.payTabs = ['信用卡', '餘額支付', '錢包支付'];
+			this.payTabs = ['錢包支付', '信用卡'];
 		}else{
 			document.title = "collection detail";
-			this.payTabs = ['Credit card', 'Balance', 'Crypto wallet'];
+			this.payTabs = ['Crypto wallet', 'Credit card'];
 		}
 		self.initMediaCss()
 		var params = window.location.search.substr(1).split('&')
@@ -189,6 +193,9 @@ var app = new Vue({
 		$('.payment-page-right-balance').hide()
 		self.getComditInfo()
 		self.initAddress()
+	},
+	mounted(){
+		this.togglePayMethod(0)
 	},
 	methods: {
 		payCrypto() {
@@ -289,14 +296,15 @@ var app = new Vue({
 					$('#cryptoBtn').attr('disabled', false)
 					return false
 				}
+				tips(self.chEnTextHtml[self.languageType].metaTips)
 				CHAIN.WALLET.accounts()
 					.then(function (accounts) {
 						self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr.length)).send({
 							from: accounts[0]
 						}).on('transactionHash', function (hash) {
-							success(this.chEnTextHtml[this.languageType].purchaseSuc, 1800);
+							success(self.chEnTextHtml[self.languageType].purchaseSuc, 1800);
 							setTimeout(function () {
-								tips(this.chEnTextHtml[this.languageType].seconds);
+								tips(self.chEnTextHtml[self.languageType].seconds);
 								$('#cryptoBtn').attr('disabled', false)
 								setTimeout(function () {
 									window.location.reload();
@@ -422,7 +430,7 @@ var app = new Vue({
 						$('.busd-ye').text('BUSD ' + result.data.usdtRest);
 						self.accountBalance = result.data.usdtRest
 						if (res.data.price > result.data.usdtRest) {
-							$('.busd-tip').text(this.chEnTextHtml[this.languageType].balanceInsufficient);
+							$('.busd-tip').text(self.chEnTextHtml[self.languageType].balanceInsufficient);
 						} else {
 							$('.busd-tip').text('-' + res.data.price);
 						}
@@ -534,11 +542,11 @@ var app = new Vue({
 			return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 		},
 		toPay() {
+			let self = this;
 			if (($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance')|| this.accountBalance < this.busdPrice * this.selectarr.length) {
 				$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
 				$('#balanceBtn').attr('disabled', false)
 			}
-			let self = this;
 			$.ajax({
 				url: base_url + '/v2/user/account',
 				success: function (res) {
@@ -626,7 +634,7 @@ var app = new Vue({
 		},
 		togglePayMethod(text) {
 			this.selectedPayMethod = text
-			if (text == 0) {
+			if (text == 1) {
 				$('.payment-page-right-btn').hide();
 				$('.order-price .order-price-hdk').show();
 				$('.order-price .order-price-busd').hide();
@@ -635,12 +643,14 @@ var app = new Vue({
 				$('.payment-page-right-balance').hide()
 				$('.payment-page-right-btn').hide();
 				$('.wallet-payment-desc').hide();
+				$('.payment-tips').hide();
 				$('.payment-page-right-crypto').hide();
 				$('.payment-page-right-total').show();
 			};
 
-			if (text == 1) {
+			if (text == 2) {
 				$('.payment-page-right-btn').show();
+				$('.payment-tips').hide();
 				$('.payment-page-right-crypto').hide();
 				$('.payment-page-right-total').show();
 				$('.payment-page-right-balance').show()
@@ -657,9 +667,10 @@ var app = new Vue({
 				$('.payment-page-right-busd').show();
 				$('.wallet-payment-desc').hide();
 			}
-			if (text == 2) {
+			if (text == 0) {
 				$('.payment-page-right-btn').hide();
-				//$('.payment-page-right-crypto').show();
+				$('.payment-tips').show();
+				$('.payment-page-right-crypto').show();
 				if (getCookie('isConnect') != 'true') {
 					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
 					$('#cryptoBtn').attr('disabled', false)
@@ -675,15 +686,14 @@ var app = new Vue({
 					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
 				}
 
-				$('.payment-page-right-total').hide();
-				$('.payment-page-right-total .order-price').hide()
+				// $('.payment-page-right-total').hide();
+				// $('.payment-page-right-total .order-price').hide()
 				$('.order-price .order-price-hdk').hide();
 				$('.order-price .order-price-busd').show();
 				$('.payment-page-right-select').hide();
 				$('.payment-page-right-busd').hide();
-				$('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
-				$('.wallet-payment-desc').show();
-				$('#cryptoBtn').attr('disabled', true)
+				// $('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
+				// $('.wallet-payment-desc').show();
 			}
 		}
 	}

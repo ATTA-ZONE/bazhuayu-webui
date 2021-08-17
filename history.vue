@@ -49,7 +49,7 @@
             >
               <div>
                 {{chEnTextHtml[lang].startmint}}
-                <a @click="cancelNft(item.mintFlow)" class="recoverRequest">{{chEnTextHtml[lang].nomint}}</a>
+                <!-- <a @click="cancelNft(item.mintFlow)" class="recoverRequest">{{chEnTextHtml[lang].nomint}}</a> -->
               </div>
             </div>
             <div
@@ -112,7 +112,7 @@ module.exports = {
 				"TC":{
 						title : "全部",
 						ban : "版",
-						startmint : "開始鑄造",
+						startmint : "鑄造中",
 						nomint : "[撤回鑄造申請]",
 						tips1 : "鑄造完畢，請在“我的NFT”頁面查看",
             jsaddress : "接收地址由：",
@@ -128,7 +128,7 @@ module.exports = {
 					"EN":{
 						title : "All",
             ban : "Edition",
-						startmint : "Start casting",
+						startmint : "Minting now",
             nomint : "[Withdrawal of casting application]",
             tips1 : 'After casting, please check on the "My NFT" page',
             jsaddress : "The receiving address is from：",

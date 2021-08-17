@@ -39,9 +39,9 @@
 				<div class="tablistbox" v-if="item.mintList && item.mintList.length">
 					<p class="titlebox flex between">
 						<span>{{chEnTextHtml[lang].currentlyholds}}({{item.mintList.length}}):</span>
-						<img src="./images/arrow.png" alt="" :class="item.ishide ? 'ishide' : ''" @click="changeishide(item.ishide,idx)">
+						<img src="./images/arrow.png" alt="" :class="item.ishide ? '' : 'ishide'" @click="changeishide(item.ishide,idx)">
 					</p>
-					<div class="listbox" v-if="!item.ishide">
+					<div class="listbox" v-if="item.ishide">
 						<div class="everydatabox" v-for="(json,index) in item.mintList" :key="index">
 							<p class="tit">
 								<span>Token ID :  {{json.edition}}  of {{item.endEdition}}</span>
@@ -50,8 +50,8 @@
 							<div class="inputbox flex between">
 								<div class="srkbox">
 									<input type="text" readonly :value="json.status == 1 ? chEnTextHtml[lang].jsaddress+ (json.receiver ? json.receiver : chEnTextHtml[lang].jsaddress2) : chEnTextHtml[lang].inwallet +walletId">
-									<button v-if="json.status == 1" :data-json="JSON.stringify(json)" onclick="editnftaddress(event)">{{chEnTextHtml[lang].edit}}</button>
-									<span v-if="json.status == 1" :data-json="JSON.stringify(json)" class="clickedit" onclick="editnftaddress(event)">{{chEnTextHtml[lang].clickedit}}</span>
+									<button v-if="json.status == 1" :data-json="JSON.stringify(json)" onclick="editnftaddress(event,walletId)">{{chEnTextHtml[lang].edit}}</button>
+									<span v-if="json.status == 1" :data-json="JSON.stringify(json)" class="clickedit" onclick="editnftaddress(event,walletId)">{{chEnTextHtml[lang].clickedit}}</span>
 								</div>
 								<button class="ntfbtn kxbor" v-if="json.status == 1">{{chEnTextHtml[lang].mint}}</button>
 								<button class="ntfbtn" v-if="json.status == 2" :data-endedition="item.endEdition" :data-json="JSON.stringify(json)" onclick="zhuanyiaddress(event)">{{chEnTextHtml[lang].transfer}}</button>
@@ -67,12 +67,15 @@
 				<div>{{chEnTextHtml[lang].norecord}}</div>
 			</li>
 		</ul>
-		<div class="bzy-e-more" v-if="assetsList.total > 9">
-			<div class="flex assets-list-load" @click="getMoreList">
+		<div class="bzy-e-more" v-if="assetsList.total > 10">
+			<div class="fenyebox flex">
+				<span v-for="(item,index) in assetsList.pages" :key="index" @click="getMoreList(item)" :class="item == current ? 'hightliang' : ''">{{item}}</span>
+			</div>
+			<!-- <div class="flex assets-list-load" @click="getMoreList">
 				<span class="language-tc">{{chEnTextHtml[lang].more}}</span>
 				<img src="./images/next.png">
 				<img src="./images/xiala2.png">
-			</div>
+			</div> -->
 		</div>
 
 		<!-- modify -->
@@ -98,9 +101,6 @@
 		</div>
 		<!-- foot -->
 		<div class="footerpage"></div>
-
-		<!-- <div class="tips"></div> -->
-		
   </div>
 </template>
 
@@ -113,7 +113,7 @@ module.exports = {
 			assetsList: {},
 			isConnect: false,
 			current: 1,
-			pageSize: 9,
+			pageSize: 10,
 			showMoreInfo: -1,
 			selectedNftName:'',
 			selectedNft: null,
@@ -238,39 +238,47 @@ module.exports = {
 				scansite_base_url = 'https://api.bscscan.com'
 			}
 			auctionAddress = contractSetting['atta_ERC721'][targetChainId].address;
+			auctionAddress2 = contractSetting['blindbox_ERC721'][targetChainId].address;
 			$.ajax({
-				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + this.walletId + '&sort=desc',
+				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + self.walletId + '&sort=desc',
 				success: function(res) {
 					let nftData = res.result;
-					let obj = {},arr = [],tokenarr = [];
-					for (let i = 0; i < nftData.length; i++) {
-						if (!obj[nftData[i].tokenID]) {
-							obj[nftData[i].tokenID] = true;
-							arr.push({tokenID : nftData[i].tokenID,listdata :  [nftData[i]],tojia : 0,fromjian : 0});
-						}else{
+					$.ajax({
+						url : scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress2 + '&address=' + self.walletId + '&sort=desc',
+						success : function(res2){
+							nftData = nftData.concat(res2.result);
+							console.log(nftData);
+							let obj = {},arr = [],tokenarr = [];
+							for (let i = 0; i < nftData.length; i++) {
+								if (!obj[nftData[i].tokenID]) {
+									obj[nftData[i].tokenID] = true;
+									arr.push({tokenID : nftData[i].tokenID,listdata :  [nftData[i]],tojia : 0,fromjian : 0});
+								}else{
+									arr.forEach(item => {
+										if (item.tokenID == nftData[i].tokenID) {
+											item.listdata.push(nftData[i]);
+										}
+									});
+								}
+							}
 							arr.forEach(item => {
-								if (item.tokenID == nftData[i].tokenID) {
-									item.listdata.push(nftData[i]);
+								item.listdata.forEach(json => {
+									if (json.to.toUpperCase() == window.walletId.toUpperCase()) {
+										item.tojia += 1 ;
+									}
+									if (json.from.toUpperCase() == window.walletId.toUpperCase()) {
+										item.fromjian -= 1 ;
+									}
+								});
+								item.jsnum = item.tojia + item.fromjian;
+								if (item.jsnum == 1) {
+									tokenarr.push(item.tokenID)
 								}
 							});
+							self.tokenarr = tokenarr;
+							self.getAssetsList(tokenarr);
 						}
-					}
-					arr.forEach(item => {
-						item.listdata.forEach(json => {
-							if (json.to.toUpperCase() == window.walletId.toUpperCase()) {
-								item.tojia += 1 ;
-							}
-							if (json.from.toUpperCase() == window.walletId.toUpperCase()) {
-								item.fromjian -= 1 ;
-							}
-						});
-						item.jsnum = item.tojia + item.fromjian;
-						if (item.jsnum == 1) {
-							tokenarr.push(item.tokenID)
-						}
-					});
-					self.tokenarr = tokenarr;
-					self.getAssetsList(tokenarr);
+					})
 				}
 			})
 		},
@@ -299,10 +307,11 @@ module.exports = {
 				this.showMoreInfo = idx
 			}
 		},
-		getMoreList() {
-			this.current += 1
+		getMoreList(num) {
+			let dom = document.body;
+			this.current = num;
 			this.getAssetsList(this.tokenarr);
-			
+			dom.scrollIntoView(true);
 		},
 		getCookie(cookieName) {
 			const strCookie = document.cookie
@@ -383,7 +392,7 @@ module.exports = {
 				}),
 				success: function (res) {
 					if (res.code == 0) {
-						tips(this.chEnTextHtml[this.lang].tipsjs3);
+						tips(self.chEnTextHtml[self.lang].tipsjs3);
 						setTimeout(function(){
 							cancelMobile();
 							self.geteveryqkl();
@@ -404,21 +413,21 @@ module.exports = {
 						CHAIN.WALLET.switchRPCSettings(targetChainId);
 					}
 					// var netVer = netVers[0];
-					ERC721Address = contractSetting['atta_ERC721'][chainId].address; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
+					ERC721Address = obj.contract; // 监听 网络切换 会 让 用户 处于 正确的网络，这里 只负责 配置 当前网络下正确的 合约地址
 					var ERC721ABI = contractSetting['atta_ERC721']['abi'];
 					
 					ERC721ContractInstance = new web3.eth.Contract(ERC721ABI, ERC721Address);        
 					// busdAddress 供外界使用
 					
-					ERC721ContractInstance.methods.safeTransferFrom(this.walletId,newaddress,obj.tokenId).send({ 
-						from: this.walletId
+					ERC721ContractInstance.methods.safeTransferFrom(self.walletId,newaddress,obj.tokenId).send({ 
+						from: self.walletId
 					})
 					.then(function (res) {
-						tips(this.chEnTextHtml[this.lang].tipsjs4);
+						tips(self.chEnTextHtml[self.lang].tipsjs4);
 						self.geteveryqkl();
 					});
 					setTimeout(() => {
-						tips(this.chEnTextHtml[this.lang].tipsjs5);
+						tips(self.chEnTextHtml[self.lang].tipsjs5);
 						setTimeout(function(){
 							cancelMobile();
 						},1800);
@@ -519,6 +528,7 @@ module.exports = {
 }
 .modify-tips-content{
 	color: rgba(255, 255, 255, 0.7);
+	word-wrap: break-word;
 }
 .dqaddress{
 	font-size: 16px;
@@ -552,6 +562,25 @@ module.exports = {
 }
 .ishide{
 	transform: rotate(180deg);
+}
+.bzy-e-more{
+	margin: 10px 0 50px;
+}
+.bzy-e-more div span{
+	border: 1px solid rgba(255,255,255,0.7);
+    padding: 5px 15px;
+	margin: 10px;
+}
+.bzy-e-more div:hover span {
+	color: #fff;
+}
+.bzy-e-more div span:hover {
+	color: #9567FF;
+	border-color: #9567FF;
+}
+.hightliang {
+	color: #9567FF !important;
+	border-color: #9567FF !important;
 }
 @media only screen and (max-width: 992px){
 	.mobilflex{

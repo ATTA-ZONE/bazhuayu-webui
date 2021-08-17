@@ -375,7 +375,7 @@
 	.faqs{
 		margin-top:90px;
 	}
-	.payment{
+	.payment, .paymeny-result-modal{
 		z-index:100;
 		top:auto;
 		bottom:-100%;
@@ -977,6 +977,7 @@
 		height:auto;
 		padding:20px;
 		margin-bottom:20px;
+		min-height: auto;
 	}
 	.my-wallet-tit{
 		margin-top:0;
@@ -1009,8 +1010,8 @@
 		font-size:12px;
 	}
 	.my-wallet-tip{
-		margin-bottom:20px;
-		padding-bottom:20px;
+		/* margin-bottom:20px; */
+		padding-bottom:0px;
 	}
 	.my-wallet-connect a{
 		height:38px;
