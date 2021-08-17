@@ -294,9 +294,9 @@ var app = new Vue({
 						self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr.length)).send({
 							from: accounts[0]
 						}).on('transactionHash', function (hash) {
-							success(this.chEnTextHtml[this.languageType].purchaseSuc, 1800);
+							success(self.chEnTextHtml[self.languageType].purchaseSuc, 1800);
 							setTimeout(function () {
-								tips(this.chEnTextHtml[this.languageType].seconds);
+								tips(self.chEnTextHtml[self.languageType].seconds);
 								$('#cryptoBtn').attr('disabled', false)
 								setTimeout(function () {
 									window.location.reload();
