@@ -20,7 +20,7 @@
       <div class="luckdraw_right">
         <img src="./images/Asset3.png" />
         <h3>{{ activityTitle }}</h3>
-        <p>{{ activityDetail }}</p>
+        <p v-html="activityDetail"></p>
         <div class="luckdraw_btns">
           <button
             class="cjbtn"
@@ -883,8 +883,6 @@ module.exports = {
 
 .luckdrawintroduce .luckdraw_right {
   width: 43%;
-  margin-left: 30px;
-  min-height: 550px;
 }
 
 .luckdrawintroduce .luckdraw_right img {
@@ -909,8 +907,7 @@ module.exports = {
 }
 
 .luckdrawintroduce .luckdraw_right .luckdraw_btns {
-  position: absolute;
-  bottom: 0;
+  margin-top: 20px;
 }
 
 .luckdrawintroduce .luckdraw_right .luckdraw_btns button {
@@ -1077,15 +1074,6 @@ module.exports = {
 .modify {
   background:rgba(0, 0, 0, 0.7);
 }
-@media only screen and (max-width: 1260px) {
-  .luckdrawintroduce .luckdraw_right {
-    min-height: 585px;
-  }
-  .luckdrawintroduce .luckdraw_right h3{
-    margin: 30px 0;
-    font-size: 35px;
-  }
-}
 @media only screen and (max-width: 992px) {
   .modify .modify-form .modify-tit {
     justify-content: space-between;
@@ -1131,7 +1119,6 @@ module.exports = {
   .luckdrawintroduce .luckdraw_left,
   .luckdrawintroduce .luckdraw_right {
     width: 100%;
-    min-height: auto;
   }
   .luckdrawintroduce .luckdraw_right img {
     width: 27px;
