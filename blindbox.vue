@@ -274,7 +274,7 @@
               <img
                 v-for="(item, idx) in blindBoxData.list"
                 :key="idx"
-                :src="item.primaryPic"
+                :src="item.secondPic"
               />
             </div>
           </div>
