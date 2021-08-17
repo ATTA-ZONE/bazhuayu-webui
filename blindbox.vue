@@ -673,8 +673,8 @@ module.exports = {
     toPay(str) {
       var self = this;
       var now = new Date();
-      var startnow = new Date('2021/8/12 20:00');
-      // var startnow = new Date('2021/8/19 20:00');
+      // var startnow = new Date('2021/8/12 20:00');
+      var startnow = new Date('2021/8/19 20:00');
       var endDate = new Date("2021/8/20 12:00");
       if (startnow.getTime() > now.getTime()) {
         tips(self.chEnTextHtml[self.lang].activitytips1);
@@ -712,8 +712,8 @@ module.exports = {
     playVideo(type, val,num) {
       let self = this;
       var now = new Date();
-      var startnow = new Date('2021/8/12 20:00');
-      // var startnow = new Date('2021/8/19 20:00');
+      // var startnow = new Date('2021/8/12 20:00');
+      var startnow = new Date('2021/8/19 20:00');
       var endDate = new Date("2021/8/20 12:00");
       if (!self.isshowclick) {
         return ;
