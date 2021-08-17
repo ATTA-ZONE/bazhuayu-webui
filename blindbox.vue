@@ -668,14 +668,14 @@ module.exports = {
       var now = new Date();
       var startnow = new Date(self.startnow);
       var endDate = new Date(self.endnow);
-      // if (startnow.getTime() > now.getTime()) {
-      //   tips(self.chEnTextHtml[self.lang].activitytips1);
-      //   return;
-      // }
-      // if (endDate.getTime() < now.getTime()) {
-      //   tips(self.chEnTextHtml[self.lang].activitytips2);
-      //   return;
-      // }
+      if (startnow.getTime() > now.getTime()) {
+        tips(self.chEnTextHtml[self.lang].activitytips1);
+        return;
+      }
+      if (endDate.getTime() < now.getTime()) {
+        tips(self.chEnTextHtml[self.lang].activitytips2);
+        return;
+      }
       window.blindNum = str;
       window.setCookie('blindNum',str)
       $.ajax({
