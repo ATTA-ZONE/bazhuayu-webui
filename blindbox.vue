@@ -350,14 +350,8 @@ module.exports = {
         TC: {
           btn1 : "使用NFT投票",
           btn2 : "預測比賽勝負",
-          luckdrawintroduce_con:
-            "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
           luckdrawintroduce_btn1: "單抽",
           luckdrawintroduce_btn2: "十連抽",
-          probability: "本张卡概率：",
-          gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
-          gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
-          gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
           noimgword: "敬請期待",
           purchase1: "盲盒剩餘：",
           purchase2: "白名單用戶每購買4個盲盒，可獲贈1次抽取機會（最多可獲贈4次）",
@@ -428,7 +422,7 @@ module.exports = {
           confirm: "確認",
           cancel: "知道了",
           recharge: "充值",
-          noLog: "未登錄，請登入",
+          noLog: "未登入，請登入",
           number: "訂單號 #：",
           balancePayment: "餘額支付",
           accomplish: "完成",
@@ -455,13 +449,8 @@ module.exports = {
           payTip: 'The NFT you have drawn will be sent to your wallet within 24 hours after the purchasing is closed. It can be viewed under My Assets - My NFTs.',
           orderTit: "ATTA x LOL Streamer NFT Collection",
           orderInfo: " - Rita series S card",
-          luckdrawintroduce_con: "",
           luckdrawintroduce_btn1: "Single Draw",
           luckdrawintroduce_btn2: " 10 Consecutive Draws",
-          probability: "本张卡概率：",
-          gathertogether1: "集齊RIta系列NFT即可能獲得開黑機會~",
-          gathertogether2: "集齊爱萝莉系列NFT即可能獲得開黑機會~",
-          gathertogether3: "集齊瞳夕系列NFT即可能獲得開黑機會~",
           noimgword: "Coming soon",
           purchase1: "Mystery Box remaining: ",
           purchase2:
@@ -544,11 +533,11 @@ module.exports = {
         },
       },
       lang: "",
-      bannerurl: "./images/Banner.png",
+      bannerurl: "",
       acDescription: "火爆來襲，更有LPL季後賽賽事staking大獎，等你來拿~",
       acName: "LPL明星解說系列盲盒",
       activityTitle: "明星解说盲盒介绍",
-      activityImg: "./images/tv4.png",
+      activityImg: "",
       activityDetail:
         "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
       drawPrice: 50,
@@ -588,6 +577,8 @@ module.exports = {
       istkshow: 1,
       blindBoxData : {},
       isshowclick : true,
+      startnow : "2021/8/12 20:00",
+      endnow : "2021/8/20 12:00",
     };
   },
 
@@ -645,6 +636,8 @@ module.exports = {
             self.leftAmount = res.data.leftAmount;
             self.storge = res.data.storge;
             self.stakingPool = res.data.stakingPool ? res.data.stakingPool : 0;
+            self.startnow = res.data.onLineTime;
+            self.endnow = res.data.downLineTime;
             self.series = res.data.series;
             self.cards1 = res.data.series[0].commodities;
             self.cards2 = res.data.series[1].commodities;
@@ -673,9 +666,8 @@ module.exports = {
     toPay(str) {
       var self = this;
       var now = new Date();
-      // var startnow = new Date('2021/8/12 20:00');
-      var startnow = new Date('2021/8/19 20:00');
-      var endDate = new Date("2021/8/20 12:00");
+      var startnow = new Date(self.startnow);
+      var endDate = new Date(self.endnow);
       // if (startnow.getTime() > now.getTime()) {
       //   tips(self.chEnTextHtml[self.lang].activitytips1);
       //   return;
@@ -712,9 +704,8 @@ module.exports = {
     playVideo(type, val,num) {
       let self = this;
       var now = new Date();
-      // var startnow = new Date('2021/8/12 20:00');
-      var startnow = new Date('2021/8/19 20:00');
-      var endDate = new Date("2021/8/20 12:00");
+      var startnow = new Date(self.startnow);
+      var endDate = new Date(self.endnow);
       if (!self.isshowclick) {
         return ;
       }
@@ -777,7 +768,7 @@ module.exports = {
       
     },
     jumppage() {
-      window.open("https://www.atta.zone/loading");
+      window.open("https://www.atta.zone/esports");
     },
     tktips(type) {
       let dom = document.querySelector(".modify");
