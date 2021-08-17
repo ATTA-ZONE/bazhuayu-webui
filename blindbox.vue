@@ -441,11 +441,11 @@ module.exports = {
           payTip: '您抽中的NFT將在盲盒活动结束后24小时内發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
           free: '免費',
           frequency : "您當前沒有免費抽取機會。",
-          activitytips1 : "活動未開始",
+          activitytips1 : "盲盒將於8月19日20:00（北京時間）開始銷售，敬請期待！",
           activitytips2 : "活動已結束",
         },
         EN: {
-          activitytips1 : "Activity not started",
+          activitytips1 : "Mystery box sales will open on Aug 19th 20:00 (Beijing)~",
           activitytips2 : "Activity ended",
           btn1 : "Vote with NFT",
           btn2 : "Predict Match Result",
@@ -700,8 +700,8 @@ module.exports = {
     playVideo(type, val,num) {
       let self = this;
       var now = new Date();
-      var startnow = new Date('2021/8/12 20:00');
-      // var startnow = new Date('2021/8/19 20:00');
+      // var startnow = new Date('2021/8/12 20:00');
+      var startnow = new Date('2021/8/19 20:00');
       var endDate = new Date("2021/8/20 12:00");
       if (!self.isshowclick) {
         return ;

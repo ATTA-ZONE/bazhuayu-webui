@@ -31,8 +31,7 @@ function getArtworkList(current,pageSize,name,typeId){
 				let records = res.data.pageResult.records;
 				let html = '';
 				var systemTime = res.data.systemTime;
-				
-				if(res.data.pageResult.total>9 && data.length==9){
+				if(res.data.pageResult.total>9){
 					$('.bzy-e-more').show();
 				}else{
 					$('.bzy-e-more').hide();
