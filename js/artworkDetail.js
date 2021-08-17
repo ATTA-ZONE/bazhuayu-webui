@@ -14,7 +14,7 @@ var app = new Vue({
 			curUserOwned: 0,
 			oneUserCountLimit: 0,
 			onceCountLimit: 0,
-			payTabs: ['信用卡', '餘額支付', '錢包支付'],
+			payTabs: ['錢包支付', '信用卡'],
 			selectedPayMethod: 0,
 			basicId: 0,
 			visiable: [],
@@ -150,10 +150,10 @@ var app = new Vue({
 		this.languageType = getCookie("lang")?getCookie("lang"):'TC';
 		if(this.languageType == "TC"){
 			document.title = "明星藏品詳情";
-			this.payTabs = ['信用卡', '餘額支付', '錢包支付'];
+			this.payTabs = ['錢包支付', '信用卡'];
 		}else{
 			document.title = "collection detail";
-			this.payTabs = ['Credit card', 'Balance', 'Crypto wallet'];
+			this.payTabs = ['Crypto wallet', 'Credit card'];
 		}
 		self.initMediaCss()
 		var params = window.location.search.substr(1).split('&')
@@ -189,6 +189,9 @@ var app = new Vue({
 		$('.payment-page-right-balance').hide()
 		self.getComditInfo()
 		self.initAddress()
+	},
+	mounted(){
+		this.togglePayMethod(0)
 	},
 	methods: {
 		payCrypto() {
@@ -626,7 +629,7 @@ var app = new Vue({
 		},
 		togglePayMethod(text) {
 			this.selectedPayMethod = text
-			if (text == 0) {
+			if (text == 1) {
 				$('.payment-page-right-btn').hide();
 				$('.order-price .order-price-hdk').show();
 				$('.order-price .order-price-busd').hide();
@@ -639,7 +642,7 @@ var app = new Vue({
 				$('.payment-page-right-total').show();
 			};
 
-			if (text == 1) {
+			if (text == 2) {
 				$('.payment-page-right-btn').show();
 				$('.payment-page-right-crypto').hide();
 				$('.payment-page-right-total').show();
@@ -657,7 +660,7 @@ var app = new Vue({
 				$('.payment-page-right-busd').show();
 				$('.wallet-payment-desc').hide();
 			}
-			if (text == 2) {
+			if (text == 0) {
 				$('.payment-page-right-btn').hide();
 				$('.payment-page-right-crypto').show();
 				if (getCookie('isConnect') != 'true') {

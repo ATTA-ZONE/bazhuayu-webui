@@ -516,7 +516,7 @@ module.exports = {
     if (this.lang == "TC") {
       this.payTabs = ["錢包支付", "信用卡"];
     } else {
-      this.payTabs = ["Wallet payment", "Credit card"];
+      this.payTabs = ["Crypto wallet", "Credit card"];
     }
   },
 
