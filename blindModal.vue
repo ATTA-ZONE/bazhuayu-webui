@@ -239,6 +239,13 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
+          <div
+            class="payment-page-close payment-close-pc"
+            onclick="$('.bindmodalbox .video-mask').fadeOut('fast');
+          $('.bindmodalbox .video-model').fadeOut('fast');"
+          >
+            <img src="./images/Close.png" />
+          </div>
           <video webkit-playsinline="true" src="" autoplay muted></video>
         </div>
       </div>
