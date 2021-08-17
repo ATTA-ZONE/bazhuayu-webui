@@ -577,6 +577,8 @@ module.exports = {
       istkshow: 1,
       blindBoxData : {},
       isshowclick : true,
+      startnow : "2021/8/12 20:00",
+      endnow : "2021/8/20 12:00",
     };
   },
 
@@ -634,6 +636,8 @@ module.exports = {
             self.leftAmount = res.data.leftAmount;
             self.storge = res.data.storge;
             self.stakingPool = res.data.stakingPool ? res.data.stakingPool : 0;
+            self.startnow = res.data.onLineTime;
+            self.endnow = res.data.downLineTime;
             self.series = res.data.series;
             self.cards1 = res.data.series[0].commodities;
             self.cards2 = res.data.series[1].commodities;
@@ -662,9 +666,8 @@ module.exports = {
     toPay(str) {
       var self = this;
       var now = new Date();
-      // var startnow = new Date('2021/8/12 20:00');
-      var startnow = new Date('2021/8/19 20:00');
-      var endDate = new Date("2021/8/20 12:00");
+      var startnow = new Date(self.startnow);
+      var endDate = new Date(self.endnow);
       if (startnow.getTime() > now.getTime()) {
         tips(self.chEnTextHtml[self.lang].activitytips1);
         return;
@@ -701,9 +704,8 @@ module.exports = {
     playVideo(type, val,num) {
       let self = this;
       var now = new Date();
-      // var startnow = new Date('2021/8/12 20:00');
-      var startnow = new Date('2021/8/19 20:00');
-      var endDate = new Date("2021/8/20 12:00");
+      var startnow = new Date(self.startnow);
+      var endDate = new Date(self.endnow);
       if (!self.isshowclick) {
         return ;
       }
