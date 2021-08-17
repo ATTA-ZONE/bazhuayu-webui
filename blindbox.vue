@@ -20,7 +20,7 @@
       <div class="luckdraw_right">
         <img src="./images/Asset3.png" />
         <h3>{{ activityTitle }}</h3>
-        <p>{{ activityDetail }}</p>
+        <p v-html="activityDetail"></p>
         <div class="luckdraw_btns">
           <button
             class="cjbtn"
@@ -441,11 +441,11 @@ module.exports = {
           payTip: '您抽中的NFT將在盲盒活动结束后24小时内發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
           free: '免費',
           frequency : "您當前沒有免費抽取機會。",
-          activitytips1 : "活動未開始",
+          activitytips1 : "盲盒將於8月19日20:00（北京時間）開始銷售，敬請期待！",
           activitytips2 : "活動已結束",
         },
         EN: {
-          activitytips1 : "Activity not started",
+          activitytips1 : "Mystery box sales will open on Aug 19th 20:00 (Beijing)~",
           activitytips2 : "Activity ended",
           btn1 : "Vote with NFT",
           btn2 : "Predict Match Result",
@@ -672,6 +672,18 @@ module.exports = {
     },
     toPay(str) {
       var self = this;
+      var now = new Date();
+      // var startnow = new Date('2021/8/12 20:00');
+      var startnow = new Date('2021/8/19 20:00');
+      var endDate = new Date("2021/8/20 12:00");
+      if (startnow.getTime() > now.getTime()) {
+        tips(self.chEnTextHtml[self.lang].activitytips1);
+        return;
+      }
+      if (endDate.getTime() < now.getTime()) {
+        tips(self.chEnTextHtml[self.lang].activitytips2);
+        return;
+      }
       window.blindNum = str;
       window.setCookie('blindNum',str)
       $.ajax({
@@ -700,8 +712,8 @@ module.exports = {
     playVideo(type, val,num) {
       let self = this;
       var now = new Date();
-      var startnow = new Date('2021/8/12 20:00');
-      // var startnow = new Date('2021/8/19 20:00');
+      // var startnow = new Date('2021/8/12 20:00');
+      var startnow = new Date('2021/8/19 20:00');
       var endDate = new Date("2021/8/20 12:00");
       if (!self.isshowclick) {
         return ;
@@ -871,8 +883,6 @@ module.exports = {
 
 .luckdrawintroduce .luckdraw_right {
   width: 43%;
-  margin-left: 30px;
-  min-height: 550px;
 }
 
 .luckdrawintroduce .luckdraw_right img {
@@ -897,8 +907,7 @@ module.exports = {
 }
 
 .luckdrawintroduce .luckdraw_right .luckdraw_btns {
-  position: absolute;
-  bottom: 0;
+  margin-top: 20px;
 }
 
 .luckdrawintroduce .luckdraw_right .luckdraw_btns button {
@@ -1065,15 +1074,6 @@ module.exports = {
 .modify {
   background:rgba(0, 0, 0, 0.7);
 }
-@media only screen and (max-width: 1260px) {
-  .luckdrawintroduce .luckdraw_right {
-    min-height: 585px;
-  }
-  .luckdrawintroduce .luckdraw_right h3{
-    margin: 30px 0;
-    font-size: 35px;
-  }
-}
 @media only screen and (max-width: 992px) {
   .modify .modify-form .modify-tit {
     justify-content: space-between;
@@ -1119,7 +1119,6 @@ module.exports = {
   .luckdrawintroduce .luckdraw_left,
   .luckdrawintroduce .luckdraw_right {
     width: 100%;
-    min-height: auto;
   }
   .luckdrawintroduce .luckdraw_right img {
     width: 27px;

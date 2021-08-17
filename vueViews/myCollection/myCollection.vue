@@ -61,7 +61,7 @@
         <div>{{chEnTextHtml[lang].norecord}}</div>
       </li>
     </ul>
-    <div class="bzy-e-more" v-if="assetsList.total > assetsList.length">
+    <div class="bzy-e-more" v-if="assetsList.total > 9">
       <div class="flex assets-list-load" @click="getMoreList">
         <span class="language-tc">{{chEnTextHtml[lang].more}}</span>
         <img src="./images/next.png" />

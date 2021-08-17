@@ -235,18 +235,18 @@ $(function(){
 			if (res.code==0) {
 				let data = res.data.types;
 				let html = `<li class="${url == 'index' ? 'current' : ''}"><a class="language-tc" href="index.html">${commonText.home}</a></li>`;
+				html += `<li class="${url == 'blindbox' ? 'current' : ''}"><a class="language-tc" href="blindbox.html">${commonText.blindbox}</a></li>`;
 				data.forEach(item => {
 					html += `<li class="${window.location.search == '?id='+item.id ? 'current' : ''}"><a class="language-tc" href="artwork.html?id=`+item.id+`">${item.name}</a></li>`
 				});
 				html += `<li class="${url == 'auction' ? 'current' : ''}"><a class="language-tc" href="auctionDetails.html?id=5">${commonText.auction}</a></li>`;
-				html += `<li class="${url == 'blindbox' ? 'current' : ''}"><a class="language-tc" href="blindbox.html">${commonText.blindbox}</a></li>`;
 				$('.nav-header').html(html);
 				
 				let html_h5 = `<li><a class="language-tc" href="index.html">${commonText.home}</a></li>`;
+				html_h5 += `<li><a class="language-tc" href="blindbox.html">${commonText.blindbox}</a></li>`;
 				data.forEach(item => {
 					html_h5 += `<li><a class="language-tc" href="artwork.html?id=`+item.id+`">${item.name}</a></li>`;
 				});
-				html_h5 += `<li><a class="language-tc" href="blindbox.html">${commonText.blindbox}</a></li>`;
 				html_h5 += `<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">${commonText.noConnectWallet}</a></li>
 							<li class="switchlanguage_mobile">
 								<a class="language-change-en">EN</a>
@@ -268,38 +268,43 @@ function updateWalletStatus() {
 	$('.mobile-connect-wallet').show();
 
 	//查看钱包是否链接
-	$.ajax({
-		url:base_url+'/v2/user/wallet/info',
-		success:function(res){
-			if(res.code==0){
-				walletId = res.data.address;
-				CHAIN.WALLET.accounts()
-					.then(function(account){
-						setCookie('isConnect', false);
-						if (walletId && account.length) {
-							if (walletId == account[0]) {
-								displayWalletStatus(0, account);
-							} else {
+	if (islogin) {
+		$('.header-right-wallet').show();
+		$.ajax({
+			url:base_url+'/v2/user/wallet/info',
+			success:function(res){
+				if(res.code==0){
+					walletId = res.data.address;
+					CHAIN.WALLET.accounts()
+						.then(function(account){
+							setCookie('isConnect', false);
+							if (walletId && account.length) {
+								if (walletId == account[0]) {
+									displayWalletStatus(0, account);
+								} else {
+									displayWalletStatus(1, account);
+								}
+							} else if (walletId) {
+								displayWalletStatus(2, account);
+							} else if (account.length) {
 								displayWalletStatus(1, account);
+							} else {
+								displayWalletStatus(2, account);
 							}
-						} else if (walletId) {
-							displayWalletStatus(2, account);
-						} else if (account.length) {
-							displayWalletStatus(1, account);
-						} else {
-							displayWalletStatus(2, account);
-						}
-					})
-			} else if (res.code==1002 && islogin) {
-				setCookie('islogin',false);
-				window.location.href = 'index.html';
-			}else{
-				$('.header-right-wallet').hide();
-				$('.mobile-connect-wallet').hide();
-				setCookie('isConnect',false);
+						})
+				} else if (res.code==1002 && islogin) {
+					setCookie('islogin',false);
+					window.location.href = 'index.html';
+				}else{
+					$('.header-right-wallet').hide();
+					$('.mobile-connect-wallet').hide();
+					setCookie('isConnect',false);
+				}
 			}
-		}
-	})
+		})
+	}else{
+		$('.header-right-wallet').hide();
+	}
 }
 CHAIN.WALLET.accountsChangedAssign(updateWalletStatus);
 CHAIN.WALLET.networkChangedAssign(RPCSwitchHint);
