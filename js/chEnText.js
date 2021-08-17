@@ -178,7 +178,7 @@ var chEnText = {
       "hintMessage0202":" \n賬戶綁定地址: ",
       "bindSuc":"綁定成功！",
       "bindErr":"綁定失敗！",
-      "noLogin":"您尚未登錄，無法綁定錢包，但基於區塊鏈的獨立性，您仍然可以參與競拍\n當前錢包地址: ",
+      "noLogin":"您尚未登入，無法綁定錢包，但基於區塊鏈的獨立性，您仍然可以參與競拍\n當前錢包地址: ",
       "priceSuc":"競價成功",
       "priceErr":"競價失敗！",
       "accomplish":"完成",
@@ -344,7 +344,7 @@ var chEnText = {
       "repeatPassword":"重複新密碼",
       "repeatPasswordErr":"重複密碼不正確",
       "noConnectWallet":"未連接錢包",
-      "noLog":"未登錄，請登入"
+      "noLog":"未登入，請登入"
     },
     "EN":{
       "passWord":"At least 8 digits, must contain one upper case letter and one lower case letter",
