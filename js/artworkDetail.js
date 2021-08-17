@@ -55,6 +55,7 @@ var app = new Vue({
 					currentUsing:"正在使用",
 					balance:"餘額",
 					notStore:"我們不會儲存您的錢包密鑰，未經您的授權，也無法使用您電子錢包中的貨幣。",
+					paymenttips:"注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。",
 					regSuc:"注册成功",
 					operationFailed:"操作失败",
 					// js部分
@@ -113,6 +114,7 @@ var app = new Vue({
 					payment:"Pay now",
 					balance:"Balance",
 					notStore:"We will not store your wallet key, nor can we use the currency in your wallet without your authorization.",
+					paymenttips:"Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",
 					regSuc:"registration success",
 					operationFailed:"operation failed",
 					// js部分
@@ -638,12 +640,14 @@ var app = new Vue({
 				$('.payment-page-right-balance').hide()
 				$('.payment-page-right-btn').hide();
 				$('.wallet-payment-desc').hide();
+				$('.payment-tips').hide();
 				$('.payment-page-right-crypto').hide();
 				$('.payment-page-right-total').show();
 			};
 
 			if (text == 2) {
 				$('.payment-page-right-btn').show();
+				$('.payment-tips').hide();
 				$('.payment-page-right-crypto').hide();
 				$('.payment-page-right-total').show();
 				$('.payment-page-right-balance').show()
@@ -662,6 +666,7 @@ var app = new Vue({
 			}
 			if (text == 0) {
 				$('.payment-page-right-btn').hide();
+				$('.payment-tips').show();
 				$('.payment-page-right-crypto').show();
 				if (getCookie('isConnect') != 'true') {
 					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
