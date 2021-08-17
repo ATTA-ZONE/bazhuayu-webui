@@ -428,7 +428,7 @@ module.exports = {
           confirm: "確認",
           cancel: "知道了",
           recharge: "充值",
-          noLog: "未登錄，請登入",
+          noLog: "未登入，請登入",
           number: "訂單號 #：",
           balancePayment: "餘額支付",
           accomplish: "完成",
