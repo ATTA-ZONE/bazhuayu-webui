@@ -544,11 +544,11 @@ module.exports = {
         },
       },
       lang: "",
-      bannerurl: "./images/Banner.png",
+      bannerurl: "",
       acDescription: "火爆來襲，更有LPL季後賽賽事staking大獎，等你來拿~",
       acName: "LPL明星解說系列盲盒",
       activityTitle: "明星解说盲盒介绍",
-      activityImg: "./images/tv4.png",
+      activityImg: "",
       activityDetail:
         "这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。这张曦小姐姐是根据色拉芬妮的原型来创作的，采用了她粉色头发和服饰上的许多元素，包括海克斯的配色参考。腰上的花同样采用了海克斯科技的概念，金属的玫瑰加上镶嵌的蓝色的宝石，配上华丽丽的服饰凸显高贵。",
       drawPrice: 50,
