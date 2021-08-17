@@ -268,38 +268,43 @@ function updateWalletStatus() {
 	$('.mobile-connect-wallet').show();
 
 	//查看钱包是否链接
-	$.ajax({
-		url:base_url+'/v2/user/wallet/info',
-		success:function(res){
-			if(res.code==0){
-				walletId = res.data.address;
-				CHAIN.WALLET.accounts()
-					.then(function(account){
-						setCookie('isConnect', false);
-						if (walletId && account.length) {
-							if (walletId == account[0]) {
-								displayWalletStatus(0, account);
-							} else {
+	if (islogin) {
+		$('.header-right-wallet').show();
+		$.ajax({
+			url:base_url+'/v2/user/wallet/info',
+			success:function(res){
+				if(res.code==0){
+					walletId = res.data.address;
+					CHAIN.WALLET.accounts()
+						.then(function(account){
+							setCookie('isConnect', false);
+							if (walletId && account.length) {
+								if (walletId == account[0]) {
+									displayWalletStatus(0, account);
+								} else {
+									displayWalletStatus(1, account);
+								}
+							} else if (walletId) {
+								displayWalletStatus(2, account);
+							} else if (account.length) {
 								displayWalletStatus(1, account);
+							} else {
+								displayWalletStatus(2, account);
 							}
-						} else if (walletId) {
-							displayWalletStatus(2, account);
-						} else if (account.length) {
-							displayWalletStatus(1, account);
-						} else {
-							displayWalletStatus(2, account);
-						}
-					})
-			} else if (res.code==1002 && islogin) {
-				setCookie('islogin',false);
-				window.location.href = 'index.html';
-			}else{
-				$('.header-right-wallet').hide();
-				$('.mobile-connect-wallet').hide();
-				setCookie('isConnect',false);
+						})
+				} else if (res.code==1002 && islogin) {
+					setCookie('islogin',false);
+					window.location.href = 'index.html';
+				}else{
+					$('.header-right-wallet').hide();
+					$('.mobile-connect-wallet').hide();
+					setCookie('isConnect',false);
+				}
 			}
-		}
-	})
+		})
+	}else{
+		$('.header-right-wallet').hide();
+	}
 }
 CHAIN.WALLET.accountsChangedAssign(updateWalletStatus);
 CHAIN.WALLET.networkChangedAssign(RPCSwitchHint);
