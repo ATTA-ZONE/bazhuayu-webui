@@ -942,8 +942,9 @@ module.exports = {
   text-align: center;
   margin-top: 8px;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 18px;
   color: #ffffff;
+  font-weight: 300;
 }
 
 .cardsbox .cardslist .cardsevery {
@@ -992,7 +993,7 @@ module.exports = {
 .cardsbox .cardslist .cardsevery .mask p {
   font-size: 16px;
   line-height: 150%;
-  text-align: justify;
+  /* text-align: justify; */
 }
 
 .cardsbox .cardslist .cardsevery .mask p:nth-child(2) {
