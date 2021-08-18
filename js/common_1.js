@@ -275,6 +275,9 @@ function updateWalletStatus() {
 			success:function(res){
 				if(res.code==0){
 					walletId = res.data.address;
+					if (!window.ethereum) {
+						return false
+					}
 					CHAIN.WALLET.accounts()
 						.then(function(account){
 							setCookie('isConnect', false);
