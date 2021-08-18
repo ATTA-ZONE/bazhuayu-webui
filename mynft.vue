@@ -240,11 +240,11 @@ module.exports = {
 			auctionAddress = contractSetting['atta_ERC721'][targetChainId].address;
 			auctionAddress2 = contractSetting['blindbox_ERC721'][targetChainId].address;
 			$.ajax({
-				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + self.walletId + '&sort=desc',
+				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + self.walletId + '&sort=desc&apikey=9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27',
 				success: function(res) {
 					let nftData = res.result;
 					$.ajax({
-						url : scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress2 + '&address=' + self.walletId + '&sort=desc',
+						url : scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress2 + '&address=' + self.walletId + '&sort=desc&apikey=9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27',
 						success : function(res2){
 							nftData = nftData.concat(res2.result);
 							console.log(nftData);
