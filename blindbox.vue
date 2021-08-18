@@ -603,10 +603,14 @@ module.exports = {
     getAssetsList() {
       var self = this;
       if (getCookie("islogin") != "false") {
-        CHAIN.WALLET.accounts().then(function (accounts) {
-          self.account_address = accounts.length > 0 ? accounts[0] : "";
+        if (window.ethereum) {
+          CHAIN.WALLET.accounts().then(function (accounts) {
+            self.account_address = accounts.length > 0 ? accounts[0] : "";
+            self.getdata();
+          });
+        }else{
           self.getdata();
-        });
+        }
       } else {
         self.getdata();
       }
