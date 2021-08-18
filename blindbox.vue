@@ -432,7 +432,7 @@ module.exports = {
           orderTit: "ATTA x 英雄联盟主播系列NFT盲盒",
           orderInfo: " - Rita系列S卡",
           walletPay: '錢包支付',
-          payTip: '您抽中的NFT將在盲盒活动结束后24小时内發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
+          payTip: '您抽中的NFT將在盲盒活動結束後24小時內發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
           free: '免費',
           frequency : "您當前沒有免費抽取機會。",
           activitytips1 : "盲盒將於8月19日20:00（北京時間）開始銷售，敬請期待！",
@@ -603,10 +603,14 @@ module.exports = {
     getAssetsList() {
       var self = this;
       if (getCookie("islogin") != "false") {
-        CHAIN.WALLET.accounts().then(function (accounts) {
-          self.account_address = accounts.length > 0 ? accounts[0] : "";
+        if (window.ethereum) {
+          CHAIN.WALLET.accounts().then(function (accounts) {
+            self.account_address = accounts.length > 0 ? accounts[0] : "";
+            self.getdata();
+          });
+        }else{
           self.getdata();
-        });
+        }
       } else {
         self.getdata();
       }
@@ -665,6 +669,10 @@ module.exports = {
     },
     toPay(str) {
       var self = this;
+      if (!self.account_address) {
+        window.location.href = "./connectWallet.html";
+        return;
+      }
       var now = new Date();
       var startnow = new Date(self.startnow);
       var endDate = new Date(self.endnow);
