@@ -669,6 +669,10 @@ module.exports = {
     },
     toPay(str) {
       var self = this;
+      if (!self.account_address) {
+        window.location.href = "./connectWallet.html";
+        return;
+      }
       var now = new Date();
       var startnow = new Date(self.startnow);
       var endDate = new Date(self.endnow);
