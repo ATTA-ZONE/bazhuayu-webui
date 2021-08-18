@@ -14,7 +14,7 @@ ul,li{ list-style-type: none;}
 .hsycms-model.hsycms-model-success,.hsycms-model.hsycms-model-error{  padding:20px 12px; width:140px; }
 .hsycms-model.hsycms-model-tips{ padding:8px 12px; max-width:150px; background:rgba(0,0,0,0.6); }
 .hsycms-model.hsycms-model-tips .hsycms-model-text{ padding:0; color:#fff; }
-.hsycms-model.hsycms-model-loading{  padding:20px 12px; width:100px; background:rgba(0,0,0,0.6); }
+.hsycms-model.hsycms-model-loading{  padding:20px 12px; width:200px; background:rgba(0,0,0,0.6); }
 .hsycms-model.hsycms-model-loading .hsycms-model-text{ padding:0; color:#fff; }
 .hsycms-model .hsycms-model-load{ display: flex; align-items: center; padding-top:10px; margin-bottom:15px; justify-content:center;}
 .hsycms-model .hsycms-model-load span{ width:6px;  animation: hsycms-alert-load 1s ease infinite; transform: translateY(10px); animation-delay:0.1s; margin:0 5px; height:6px; opacity:0; border-radius:6px; background:#fff;}
