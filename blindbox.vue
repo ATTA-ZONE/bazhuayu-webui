@@ -861,11 +861,17 @@ module.exports = {
 }
 
 .anchorintroduction .introducebox .tvbox .wordbox p {
-  font-size: 18px;
+  /* font-size: 18px;
   line-height: 150%;
   letter-spacing: -0.035em;
   text-align: justify;
-  opacity: 0.8;
+  opacity: 0.8; */
+    font-size: 18px;
+    line-height: 150%;
+    font-weight: 300;
+    letter-spacing: -0.035em;
+    color: rgba(255, 255, 255, 1);
+    text-align: justify;
 }
 
 .luckdrawintroduce {
@@ -876,12 +882,12 @@ module.exports = {
 }
 
 .luckdrawintroduce .luckdraw_left {
-  /* width: 50.48%; */
+  width: 50.48%;
   border-radius: 7px;
 }
 
 .luckdrawintroduce .luckdraw_right {
-  width: 43%;
+  width: 45%;
 }
 
 .luckdrawintroduce .luckdraw_right img {
@@ -890,7 +896,7 @@ module.exports = {
 }
 
 .luckdrawintroduce .luckdraw_right h3 {
-  margin: 48px 0;
+  margin: 30px 0;
   font-size: 48px;
   line-height: 110%;
   color: #ffffff;
@@ -1072,6 +1078,16 @@ module.exports = {
 }
 .modify {
   background:rgba(0, 0, 0, 0.7);
+}
+@media only screen and (max-width: 1440px){
+  .luckdrawintroduce .luckdraw_right h3{
+    font-size: 40px;
+  }
+}
+@media only screen and (max-width: 1280px){
+  .luckdrawintroduce .luckdraw_right h3{
+    font-size: 35px;
+  }
 }
 @media only screen and (max-width: 992px) {
   .modify .modify-form .modify-tit {
