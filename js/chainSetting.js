@@ -146,7 +146,7 @@ var contractSetting = {
         56:
             {
                 'owner_id': 17,
-                'address': ''
+                'address': '0x18Cdf431F8D0c232d0535443a01385C7deE01A26'
             },
         97:
             {
