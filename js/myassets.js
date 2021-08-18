@@ -30,10 +30,12 @@ var app = new Vue({
 		if (getCookie('selectedTab') && getCookie('selectedTab') != 'null') {
 			this.selectedTab = getCookie('selectedTab');
 		}
+		window.onclick=function(){
+			window.setCookie('selectedTab',null);
+		}
 	},
 	methods: {
 		toggleTab(item,idx) {
-			window.setCookie('selectedTab',null);
 			this.selectedTab = idx;
 		}
 	},
