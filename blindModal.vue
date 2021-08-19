@@ -724,7 +724,7 @@ module.exports = {
           }),
           success: function (resu) {
             self.blindBoxData = resu.data;
-            if (resu.data.list.length == 1) {
+            if (resu.data.list && resu.data.list.length == 1) {
               $(".bindmodalbox .success-titl").text(resu.data.list[0].name);
             }
             if (type == 2) {
@@ -747,12 +747,8 @@ module.exports = {
       });
     },
     //支付
-    async payBalance() {
+    payBalance() {
       let self = this;
-      let res = await self.preSku();
-      if (!res) {
-        return false;
-      }
       if (self.selectedPayMethod == 0) {
         CHAIN.WALLET.accounts().then(function (accounts) {
           self.safeCharge(accounts);
@@ -792,6 +788,7 @@ module.exports = {
           .then(function (res2) {
             loadingHide();
             if (Number(res2) >= Number(num)) {
+              self.preSku()
               setTimeout(function () {
                 busdContractInstance.methods
                   .transfer(cwallet, num)
@@ -804,6 +801,7 @@ module.exports = {
                     self.saveHash(accounts, hash, 3);
                   })
                   .then((result) => {
+                    console.log(self.orderNo);
                     self.drawSku(accounts, result.transactionHash, 3);
                     $(".bindmodalbox .payment").fadeOut();
                     self.playVideo();
