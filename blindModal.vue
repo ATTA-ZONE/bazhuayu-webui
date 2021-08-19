@@ -422,8 +422,10 @@ module.exports = {
             "您抽中的NFT將在盲盒活動結束後24小時內發送至您的默認錢包。可在我的資產-我的NFT下可查看。",
           walletPay: "錢包支付",
           loadingText: "支付需耗時10-20秒鐘，請耐心等待~",
+          orderNoErr: "當前處理繁忙，請再次嘗試。"
         },
         EN: {
+          orderNoErr: "Server is busy, please try again.",
           loadingText:
             "Payment takes about 10-20s to process, please be patient.",
           walletPay: "Wallet payment",
@@ -799,14 +801,14 @@ module.exports = {
                   .on("transactionHash", function (hash) {
                     loading(self.chEnTextHtml[self.lang].loadingText);
                     if (!self.orderNo) {
-                      tips(self.chEnTextHtml[self.lang].operationFailed)
+                      tips(self.chEnTextHtml[self.lang].orderNoErr)
                       return false
                     }
                     self.saveHash(accounts, hash, 3);
                   })
                   .then((result) => {
                     if (!self.orderNo) {
-                      tips(self.chEnTextHtml[self.lang].operationFailed)
+                      tips(self.chEnTextHtml[self.lang].orderNoErr)
                       return false
                     }
                     self.drawSku(accounts, result.transactionHash, 3);
