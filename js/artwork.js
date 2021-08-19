@@ -52,9 +52,7 @@ function getArtworkList(current,pageSize,name,typeId){
 					$.each(records,function(i,v){
 						var timeStatus;
 						var geshi = v.primaryPic.substr(v.primaryPic.lastIndexOf('.')+1);
-						
-						
-						// 徐冬冬数据特殊处理
+						// 徐冬冬特殊处理
 						// if(v.name==artworkText.xdd){
 						// 	v.edition = 200;
 						// }
