@@ -18,6 +18,9 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	if (!getCookie('_wallet_')) {
 		setCookie('_wallet_','MetaMask')
 	};
+	if (getCookie('islogin') == 'false' || getCookie('islogin') == false) {
+		return;
+	};
 	W.CHAIN={
 		VERSION:'20210406',
 		WALLET:{
