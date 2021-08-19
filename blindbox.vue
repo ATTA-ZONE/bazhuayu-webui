@@ -79,9 +79,9 @@
       <div class="line"></div>
       <div class="purchasebox">
         <div class="between flex">
-          <!-- <span>{{
+          <span>{{
             chEnTextHtml[lang].purchase1 + leftAmount + " / " + storge
-          }}</span> -->
+          }}</span>
           <p class="between flex">
             <span>{{
               chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2
