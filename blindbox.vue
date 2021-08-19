@@ -100,7 +100,8 @@
           </p>
         </div>
         <div class="between flex">
-          <span>{{ chEnTextHtml[lang].purchase3 + stakingPool }}</span>
+          <!-- <span>{{ chEnTextHtml[lang].purchase3 + stakingPool }}</span> -->
+          <span></span>
           <p class="between flex">
             <span>{{
               chEnTextHtml[lang].purchase4 + leftFreeCount.leftFreeCount1
