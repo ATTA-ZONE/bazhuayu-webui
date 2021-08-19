@@ -669,6 +669,13 @@ module.exports = {
     },
     toPay(str) {
       var self = this;
+      if (getCookie("islogin") == "false" || getCookie("islogin") == false) {
+        window.tips(self.chEnTextHtml[self.lang].noLog);
+        setTimeout(() => {
+          window.location.href = "./login.html";
+        }, 700);
+        return;
+      }
       if (!self.account_address) {
         window.location.href = "./connectWallet.html";
         return;
@@ -907,7 +914,7 @@ module.exports = {
   line-height: 150%;
   font-weight: 300;
   letter-spacing: -0.035em;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255);
   text-align: justify;
 }
 
