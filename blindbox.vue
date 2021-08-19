@@ -79,9 +79,9 @@
       <div class="line"></div>
       <div class="purchasebox">
         <div class="between flex">
-          <span>{{
+          <!-- <span>{{
             chEnTextHtml[lang].purchase1 + leftAmount + " / " + storge
-          }}</span>
+          }}</span> -->
           <p class="between flex">
             <span>{{
               chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2
@@ -175,12 +175,12 @@
           {{ chEnTextHtml[lang].luckdrawintroduce_btn2 }}
         </button>
       </div>
-      <div class="bottombtn">
+      <!-- <div class="bottombtn">
         <button @click="jumppage()">
           <p>{{ chEnTextHtml[lang].btn1 }}</p>
           <p>{{ chEnTextHtml[lang].btn2 }}</p>
         </button>
-      </div>
+      </div> -->
     </div>
     <!-- modify -->
     <div class="modify none">
