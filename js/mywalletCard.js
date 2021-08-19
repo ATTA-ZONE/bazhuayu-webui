@@ -1,7 +1,7 @@
 /* global Frames */
 var payButton = document.getElementById("pay-button");
 var form = document.getElementById("payment-form");
-var mywalletCardText = chEnText.mymywalletCardaccount[lang];
+var mywalletCardText = chEnText.mywalletCard[lang];
 // Frames.init("pk_test_8ac41c0d-fbcc-4ae3-a771-31ea533a2beb");
 Frames.init({
 	publicKey:'pk_a154d2a3-6b40-4401-a12c-dba288e68957',
