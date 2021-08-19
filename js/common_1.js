@@ -240,7 +240,7 @@ $(function(){
 				data.forEach(item => {
 					html += `<li class="${window.location.search == '?id='+item.id ? 'current' : ''}"><a class="language-tc" href="artwork.html?id=`+item.id+`">${item.name}</a></li>`
 				});
-				html += `<li class="${url == 'auction' ? 'current' : ''}"><a class="language-tc" href="auctionDetails.html?id=5">${commonText.auction}</a></li>`;
+				html += `<li class="${url == 'auctionDetails' ? 'current' : ''}"><a class="language-tc" href="auctionDetails.html?id=5">${commonText.auction}</a></li>`;
 				$('.nav-header').html(html);
 				
 				let html_h5 = `<li><a class="language-tc" href="index.html">${commonText.home}</a></li>`;
