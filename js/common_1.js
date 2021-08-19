@@ -161,11 +161,12 @@ $(function(){
 
 	$('body').append('<div class="bsc-tips" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:9999;color:#fff;background: #9567FF;border-radius: 10px;white-space: nowrap;padding:10px 20px;"><span class="rpcname">'+commonText.tips01+commonText.tips02+'</span><a onclick="changenetwork()" class="target-rpcname">'+commonText.tips02+'</a><img onclick="closeBsc()" style="width: 20px;vertical-align: bottom;" src="./images/Close.png" /></div>')
 	$('.bsc-tips').hide()
-
-	CHAIN.WALLET.chainId()
-		.then(function (res) {
-			RPCSwitchHint(res)
-		})
+	if (islogin) {
+		CHAIN.WALLET.chainId()
+			.then(function (res) {
+				RPCSwitchHint(res)
+			})
+	}
 	
 	
 	// 用户信息
@@ -309,8 +310,10 @@ function updateWalletStatus() {
 		$('.header-right-wallet').hide();
 	}
 }
-CHAIN.WALLET.accountsChangedAssign(updateWalletStatus);
-CHAIN.WALLET.networkChangedAssign(RPCSwitchHint);
+if (islogin) {
+	CHAIN.WALLET.accountsChangedAssign(updateWalletStatus);
+	CHAIN.WALLET.networkChangedAssign(RPCSwitchHint);
+}
 
 function showwalletaddress(e){
 	if ($('.header-right-wallet .modify-tc-pc').text() == commonText.noConnectWallet || $('.mobile-connect-wallet .modify-tc-pc').text() == commonText.noConnectWallet) {
