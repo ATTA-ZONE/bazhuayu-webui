@@ -26,7 +26,8 @@
             class="cjbtn"
             onClick="window.scrollTo(0,document.body.clientHeight); "
           >
-            Coming soon
+            <!-- Coming soon  -->
+            {{chEnTextHtml[lang].drawnow}}
           </button>
         </div>
       </div>
@@ -438,8 +439,10 @@ module.exports = {
           frequency : "您當前沒有免費抽取機會。",
           activitytips1 : "盲盒將於8月19日20:00（北京時間）開始銷售，敬請期待！",
           activitytips2 : "活動已結束",
+          drawnow : "即刻抽取",
         },
         EN: {
+          drawnow : "Draw now",
           activitytips1 : "Mystery box sales will open on Aug 19th 20:00 (Beijing)~",
           activitytips2 : "Activity ended",
           btn1 : "Vote with NFT",
