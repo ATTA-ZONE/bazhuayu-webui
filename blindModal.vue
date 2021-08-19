@@ -799,12 +799,14 @@ module.exports = {
                   .on("transactionHash", function (hash) {
                     loading(self.chEnTextHtml[self.lang].loadingText);
                     if (!self.orderNo) {
+                      tips(self.chEnTextHtml[self.lang].operationFailed)
                       return false
                     }
                     self.saveHash(accounts, hash, 3);
                   })
                   .then((result) => {
                     if (!self.orderNo) {
+                      tips(self.chEnTextHtml[self.lang].operationFailed)
                       return false
                     }
                     self.drawSku(accounts, result.transactionHash, 3);
