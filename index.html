@@ -272,8 +272,120 @@
 	</div>
 	
 </body>
-<script src="./js/homepage.js" type="text/javascript" charset="utf-8"></script>
-<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	var app = new Vue({
+	el: '#index',
+	data: function () {
+		return {
+			chEnTextHtml: {
+				"TC":{
+					home : "首頁",
+					anction :"拍賣",
+					connectwallet : "未連接錢包",
+					login : "登入/註冊",
+					account : "我的帳戶",
+					orders : "我的訂單",
+					assets : "我的資產",
+					wallet : "我的錢包",
+					logout : "登出",
+					title : "ATTA x LOL主播系列NFT盲盒",
+					tips1 :	"LPL明星主播",
+					tips2 :	"立即購買  ->",
+					words1 : "盲盒介紹",
+					words2 : `ATTA x 英雄聯盟主播系列NFT盲盒，首批發售包括Rita小雨桑，瞳夕UnU，愛蘿莉三位英雄聯盟賽事官方主播的NFT産品，結合他們鮮明特征以及爲人熟知的元素等，以遊戲原畫爲藍本進行概念設定，將三位解說代入了英雄聯盟的世界中，創作了壹系列有趣的插畫形象故事卡牌。卡牌形象融合了解说服装元素，英雄形象元素以及主播时装元素进行设计。`,
+					words201:"收集本次NFT可參與瓜分最高達35萬U的ATTA賽事獎池，集齊單個主播的全部不同款NFT可兌換與主播直播開黑的獨家權益（限量）。",
+					words202:"",
+					words203:"",
+					words204:"",
+					words3 : "即將上線",
+					words4 : "Web3.0時代的文化娛樂NFT內容平台與粉絲社區",
+					words5 : "歡迎來到WEB3.0的新世界！",
+					words6 : '八爪娛是一個專注于文化，創意，藝術，娛樂的NFT內容發布平台。',
+					words7 : 'NFT是一種越來越流行的區塊鏈技術，我們相信，內容行業是其最好的應用場景之一。',
+					words8 : '在八爪娛，我們會邀請在web3.0新世界的各大NFT廠牌，影視明星，歌手，獨立創作人入駐，爲用戶帶來個性化的NFT內容體驗，爲粉絲們鑄造一個全新社區。',
+					words9 : '我們相信破圈才是王道，而破圈的前提是好的內容和更廣大的受衆，與其在舊世界苦苦掙紮，倒不如在3.0世界創造全新的內容形式，共同擁抱新時代！',
+					words10 : '什么是NFT?',
+					words11 : `NFT英文全稱為Non-Fungible Token，是不可互換的令牌。它是一種基於區塊鏈智能合約技術生成的，具備不可分割和獨一無二這兩大特性的數字通證，可用於代表有形和無形的物品。NFT應用場景多種多樣，可以是遊戲道具、數字藝術品、門票，唱片等等。 由於數字文件可以被無線地、完美地復製，所以很難判斷擁有權，而NTF令牌
+					通過區塊鏈證明一個數字文件是一個唯一的“原始文件”從而解決這一問題。`,
+					words12 : '通過購買NFT ，您真正意義上的擁有了該數字內容包括不可篡改的所有權，訪問權限等各種權益，最重要的， 您將可以隨時隨地的通過區塊鏈轉讓內容的所有權並實現潛在的增值可能。作為內容創作者，則可以通過智能合約在這些NFT的交易中自動獲得版稅，無需再完全通過一個中心化的機構來實現清結算和版權保護。',
+					words13 : '專屬芯片認證',
+					words14 : '若在八爪娛平台發布的NFT産品與實體相關聯，我們會要求入駐廠牌將專屬芯片與以太鏈和幣安智能鏈的不可替代令牌（NFT）相關聯，用作認證每件物品的唯一身份。用八爪娛APP專屬認證芯片，即可讀取與芯片關聯的NFT，與產品的唯一認證信息相對應。完成認證後，NFT將會保存在您的錢包中。',
+					words15 : '找到專屬芯片',
+					words16 : '看包裝中的信息卡，找到實物作品上的專屬芯片位置',
+					words17 : '掃描專屬芯片',
+					words18 : '打開八爪娛APP的芯片認證功能，手機靠近芯片，停留3~5秒',
+					words19 : '唯一密鑰獲取',
+					words20 : '芯片掃描成功后，將會有一條密鑰發送到您的手機上，在APP頁面中輸入正確的密鑰，芯片認證成功',
+					words21 : 'NFT憑證鑄造',
+					words22 : '芯片認證成功後，APP彈出實物產品信息卡，展示實物作品的詳細信息，用戶可進行NFT鑄造',
+					words23 : 'NFT憑證保存',
+					words24 : 'NFT鑄造可能需要額外的時間，一旦鑄造完畢，NFT將會儲存到用戶綁定的錢包里',
+				},
+				"EN":{
+					home : "HOME",
+					anction :"AUCTION",
+					connectwallet : "Connect Wallet",
+					login : "Login/Sign up",
+					account : "My Account",
+					orders : "My Orders",
+					assets : "My Assets",
+					wallet : "My Wallet",
+					logout : "Log out",
+					title : "ATTA x LOL Streamers Mystery Box NFT Collection",
+					tips1 :	"LPL Official Comentator",
+					tips2 :	"Purchase now ->",
+					words1 : "Mystery Box Collection Introduction",
+					words2 : `The first batch of "ATTA X LOL Streamer NFT Mystery Box Collection" contains the NFT assets of three renowned streamers, including Rita, Fireloli, and Tong Xi. Combined with their distinctive features and well-known elements, etc., we used the original game as a blueprint for the concept, bringing the three commentators into the world of League of Legends, to create a collection of interesting figure cards. The card images were designed by integrating elements of game comentary outfit, of LOL Champion figure，and of Streamer fashion outfit. By collecting NFT cards, users can not only participate in the ATTA tournament reward pool of up to $350,000 , but also redeem for LIVE gaming opportunities with a streamer if they collect the streamer's entire NFT collection(limited). `,
+					words201:" ",
+					words202:"",
+					words203:"",
+					words204:"",
+					words3 : 'Coming soon',
+					words4 : "NFT content platform and fan community of entertainment in the Web 3.0 Era.",
+					words5 : "",
+					words6 : `Welcome to the new world of WEB3.0! BAZHUAYU is an NFT (Non-fungible token) asset publishing platform focusing on culture, creativity, art, and entertainment.
+
+NFT is an increasingly popular blockchain technology, and we believe that the content industry is one of the best places for it to be used. 
+
+On BAZHUAYU’s platform, we will invite major NFT brands, film and television stars, singers, and independent creators in the new world of web 3.0, bringing a personalized NFT content experience to users and creating a brand new community for fans.
+
+We believe that attracting both real world and crypto communities is the key. The premise of doing so is having quality content and a wider audience; rather than struggling in the old crypto world, it is better to create a new form of content in the 3.0 world, embracing the new era! `,
+					words7 : '',
+					words8 : '',
+					words9 : '',
+					words10 : 'What is NFT?',
+					words11 : `The full name of NFT in English is Non-Fungible Token, which means it is not interchangeable. It is a digital token that is generated based on blockchain smart contract technology and has the two characteristics of indivisibility and uniqueness. It can be used to represent tangible and intangible items. NFT applications are diverse, such as game props, digital artwork, tickets, records, etc. Since digital files can be duplicated wirelessly, it is difficult to determine the ownership. NFT tokens can solve this problem by proving that a digital file is a unique "original file" through the blockchain.`,
+					words12 : 'By purchasing the NFT, you own the digital content, including non-tamperable ownership, access rights, and other rights and interests. Most importantly, you will be able to transfer the ownership of the content through the blockchain anytime and anywhere and realize potential value-added possibilities. As a content creator, you can automatically obtain royalties from these NFT transactions through smart contracts. You no longer need to implement the settlement and copyright protection through a centralized institution.	',
+					words13 : 'Proprietary Chip Authentication',
+					words14 : `Suppose an NFT product released on the BAZHUAYU platform is associated with a physical entity. In that case, we will require the content creator to associate a proprietary chip with the irreplaceable token (NFT) on the Ethereum/Binance Smart Chain, authenticating the unique identity of each item. The NFT associated with the chip can be read with the BAZHUAYU App, which corresponds to the individual authentication information of the product. Once the authentication is completed, the NFT will be stored in the users' wallets. `,
+					words15 : 'Find the Unique Chip',
+					words16 : 'Information card can be found in the package to find the unique chip on the physical piece.',
+					words17 : 'Scan the Unique Chip',
+					words18 : 'Open the chip authentication function of the BAZHUAYU App, hold your phone close to the chip for 3~5 seconds.',
+					words19 : 'Obtain the Unique Key',
+					words20 : 'After the chip is successfully scanned, a key will be sent to your phone. Enter the correct key on the APP page, and the chip authentication will be successful.',
+					words21 : 'NFT Minting',
+					words22 : 'After successful chip authentication, the APP will pop up the physical product information card to show the detailed information of the physical work. The user can proceed with NFT minting.',
+					words23 : 'NFT Preservation',
+					words24 : `NFT minting may take time. Once the minting is finished, the NFT will be stored in the user's connected wallet.`,
+				}
+			},
+			lang:''
+		}
+	},
+	created() {
+		let self = this;
+		this.lang = getCookie("lang")?getCookie("lang"):'TC';
+		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
+		if(this.languageType == 'TC'){
+			document.title = '八爪娛-文化娛樂NFT內容平臺';
+		}else{
+			document.title = 'BAZHUAYU is an NFT content platform focusing on cultural and entertainment.';
+		}
+	}
+})
+</script>
 <script>
 	var swiper = new Swiper('.swiper-container', {
 		slidesPerView: 1,
@@ -409,119 +521,6 @@
 		}
 	})
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script>
-	var app = new Vue({
-	el: '#index',
-	data: function () {
-		return {
-			chEnTextHtml: {
-				"TC":{
-					home : "首頁",
-					anction :"拍賣",
-					connectwallet : "未連接錢包",
-					login : "登入/註冊",
-					account : "我的帳戶",
-					orders : "我的訂單",
-					assets : "我的資產",
-					wallet : "我的錢包",
-					logout : "登出",
-					title : "ATTA x LOL主播系列NFT盲盒",
-					tips1 :	"LPL明星主播",
-					tips2 :	"立即購買  ->",
-					words1 : "盲盒介紹",
-					words2 : `ATTA x 英雄聯盟主播系列NFT盲盒，首批發售包括Rita小雨桑，瞳夕UnU，愛蘿莉三位英雄聯盟賽事官方主播的NFT産品，結合他們鮮明特征以及爲人熟知的元素等，以遊戲原畫爲藍本進行概念設定，將三位解說代入了英雄聯盟的世界中，創作了壹系列有趣的插畫形象故事卡牌。卡牌形象融合了解说服装元素，英雄形象元素以及主播时装元素进行设计。`,
-					words201:"收集本次NFT可參與瓜分最高達35萬U的ATTA賽事獎池，集齊單個主播的全部不同款NFT可兌換與主播直播開黑的獨家權益（限量）。",
-					words202:"",
-					words203:"",
-					words204:"",
-					words3 : "即將上線",
-					words4 : "Web3.0時代的文化娛樂NFT內容平台與粉絲社區",
-					words5 : "歡迎來到WEB3.0的新世界！",
-					words6 : '八爪娛是一個專注于文化，創意，藝術，娛樂的NFT內容發布平台。',
-					words7 : 'NFT是一種越來越流行的區塊鏈技術，我們相信，內容行業是其最好的應用場景之一。',
-					words8 : '在八爪娛，我們會邀請在web3.0新世界的各大NFT廠牌，影視明星，歌手，獨立創作人入駐，爲用戶帶來個性化的NFT內容體驗，爲粉絲們鑄造一個全新社區。',
-					words9 : '我們相信破圈才是王道，而破圈的前提是好的內容和更廣大的受衆，與其在舊世界苦苦掙紮，倒不如在3.0世界創造全新的內容形式，共同擁抱新時代！',
-					words10 : '什么是NFT?',
-					words11 : `NFT英文全稱為Non-Fungible Token，是不可互換的令牌。它是一種基於區塊鏈智能合約技術生成的，具備不可分割和獨一無二這兩大特性的數字通證，可用於代表有形和無形的物品。NFT應用場景多種多樣，可以是遊戲道具、數字藝術品、門票，唱片等等。 由於數字文件可以被無線地、完美地復製，所以很難判斷擁有權，而NTF令牌
-					通過區塊鏈證明一個數字文件是一個唯一的“原始文件”從而解決這一問題。`,
-					words12 : '通過購買NFT ，您真正意義上的擁有了該數字內容包括不可篡改的所有權，訪問權限等各種權益，最重要的， 您將可以隨時隨地的通過區塊鏈轉讓內容的所有權並實現潛在的增值可能。作為內容創作者，則可以通過智能合約在這些NFT的交易中自動獲得版稅，無需再完全通過一個中心化的機構來實現清結算和版權保護。',
-					words13 : '專屬芯片認證',
-					words14 : '若在八爪娛平台發布的NFT産品與實體相關聯，我們會要求入駐廠牌將專屬芯片與以太鏈和幣安智能鏈的不可替代令牌（NFT）相關聯，用作認證每件物品的唯一身份。用八爪娛APP專屬認證芯片，即可讀取與芯片關聯的NFT，與產品的唯一認證信息相對應。完成認證後，NFT將會保存在您的錢包中。',
-					words15 : '找到專屬芯片',
-					words16 : '看包裝中的信息卡，找到實物作品上的專屬芯片位置',
-					words17 : '掃描專屬芯片',
-					words18 : '打開八爪娛APP的芯片認證功能，手機靠近芯片，停留3~5秒',
-					words19 : '唯一密鑰獲取',
-					words20 : '芯片掃描成功后，將會有一條密鑰發送到您的手機上，在APP頁面中輸入正確的密鑰，芯片認證成功',
-					words21 : 'NFT憑證鑄造',
-					words22 : '芯片認證成功後，APP彈出實物產品信息卡，展示實物作品的詳細信息，用戶可進行NFT鑄造',
-					words23 : 'NFT憑證保存',
-					words24 : 'NFT鑄造可能需要額外的時間，一旦鑄造完畢，NFT將會儲存到用戶綁定的錢包里',
-				},
-				"EN":{
-					home : "HOME",
-					anction :"AUCTION",
-					connectwallet : "Connect Wallet",
-					login : "Login/Sign up",
-					account : "My Account",
-					orders : "My Orders",
-					assets : "My Assets",
-					wallet : "My Wallet",
-					logout : "Log out",
-					title : "ATTA x LOL Streamers Mystery Box NFT Collection",
-					tips1 :	"LPL Official Comentator",
-					tips2 :	"Purchase now ->",
-					words1 : "Mystery Box Collection Introduction",
-					words2 : `The first batch of "ATTA X LOL Streamer NFT Mystery Box Collection" contains the NFT assets of three renowned streamers, including Rita, Fireloli, and Tong Xi. Combined with their distinctive features and well-known elements, etc., we used the original game as a blueprint for the concept, bringing the three commentators into the world of League of Legends, to create a collection of interesting figure cards. The card images were designed by integrating elements of game comentary outfit, of LOL Champion figure，and of Streamer fashion outfit. By collecting NFT cards, users can not only participate in the ATTA tournament reward pool of up to $350,000 , but also redeem for LIVE gaming opportunities with a streamer if they collect the streamer's entire NFT collection(limited). `,
-					words201:" ",
-					words202:"",
-					words203:"",
-					words204:"",
-					words3 : 'Coming soon',
-					words4 : "NFT content platform and fan community of entertainment in the Web 3.0 Era.",
-					words5 : "",
-					words6 : `Welcome to the new world of WEB3.0! BAZHUAYU is an NFT (Non-fungible token) asset publishing platform focusing on culture, creativity, art, and entertainment.
-
-NFT is an increasingly popular blockchain technology, and we believe that the content industry is one of the best places for it to be used. 
-
-On BAZHUAYU’s platform, we will invite major NFT brands, film and television stars, singers, and independent creators in the new world of web 3.0, bringing a personalized NFT content experience to users and creating a brand new community for fans.
-
-We believe that attracting both real world and crypto communities is the key. The premise of doing so is having quality content and a wider audience; rather than struggling in the old crypto world, it is better to create a new form of content in the 3.0 world, embracing the new era! `,
-					words7 : '',
-					words8 : '',
-					words9 : '',
-					words10 : 'What is NFT?',
-					words11 : `The full name of NFT in English is Non-Fungible Token, which means it is not interchangeable. It is a digital token that is generated based on blockchain smart contract technology and has the two characteristics of indivisibility and uniqueness. It can be used to represent tangible and intangible items. NFT applications are diverse, such as game props, digital artwork, tickets, records, etc. Since digital files can be duplicated wirelessly, it is difficult to determine the ownership. NFT tokens can solve this problem by proving that a digital file is a unique "original file" through the blockchain.`,
-					words12 : 'By purchasing the NFT, you own the digital content, including non-tamperable ownership, access rights, and other rights and interests. Most importantly, you will be able to transfer the ownership of the content through the blockchain anytime and anywhere and realize potential value-added possibilities. As a content creator, you can automatically obtain royalties from these NFT transactions through smart contracts. You no longer need to implement the settlement and copyright protection through a centralized institution.	',
-					words13 : 'Proprietary Chip Authentication',
-					words14 : `Suppose an NFT product released on the BAZHUAYU platform is associated with a physical entity. In that case, we will require the content creator to associate a proprietary chip with the irreplaceable token (NFT) on the Ethereum/Binance Smart Chain, authenticating the unique identity of each item. The NFT associated with the chip can be read with the BAZHUAYU App, which corresponds to the individual authentication information of the product. Once the authentication is completed, the NFT will be stored in the users' wallets. `,
-					words15 : 'Find the Unique Chip',
-					words16 : 'Information card can be found in the package to find the unique chip on the physical piece.',
-					words17 : 'Scan the Unique Chip',
-					words18 : 'Open the chip authentication function of the BAZHUAYU App, hold your phone close to the chip for 3~5 seconds.',
-					words19 : 'Obtain the Unique Key',
-					words20 : 'After the chip is successfully scanned, a key will be sent to your phone. Enter the correct key on the APP page, and the chip authentication will be successful.',
-					words21 : 'NFT Minting',
-					words22 : 'After successful chip authentication, the APP will pop up the physical product information card to show the detailed information of the physical work. The user can proceed with NFT minting.',
-					words23 : 'NFT Preservation',
-					words24 : `NFT minting may take time. Once the minting is finished, the NFT will be stored in the user's connected wallet.`,
-				}
-			},
-			lang:''
-		}
-	},
-	created() {
-		let self = this;
-		this.lang = getCookie("lang")?getCookie("lang"):'TC';
-		this.languageType = getCookie("lang")?getCookie("lang"):'TC';	
-		if(this.languageType == 'TC'){
-			document.title = '八爪娛-文化娛樂NFT內容平臺';
-		}else{
-			document.title = 'BAZHUAYU is an NFT content platform focusing on cultural and entertainment.';
-		}
-	}
-})
-</script>
+<script src="./js/homepage.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/connectWallet.js" type="text/javascript" charset="utf-8"></script>
 </html>
