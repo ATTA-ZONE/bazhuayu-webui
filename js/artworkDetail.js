@@ -593,7 +593,7 @@ var app = new Vue({
 			var value = $('#balanceBtn').text().trim();
 			var busd = $('.order-price .order-price-busd').text().trim();
 			if (self.selectedPayMethod == 1) {
-				if (value == '立即付款 >') {
+				if (value == '立即付款 >' || value == 'Pay now >') {
 					$.ajax({
 						url: base_url + '/v2/order/order/pay/usdt',
 						type: 'POST',
