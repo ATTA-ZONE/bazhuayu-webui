@@ -798,10 +798,15 @@ module.exports = {
                   })
                   .on("transactionHash", function (hash) {
                     loading(self.chEnTextHtml[self.lang].loadingText);
+                    if (!self.orderNo) {
+                      return false
+                    }
                     self.saveHash(accounts, hash, 3);
                   })
                   .then((result) => {
-                    console.log(self.orderNo);
+                    if (!self.orderNo) {
+                      return false
+                    }
                     self.drawSku(accounts, result.transactionHash, 3);
                     $(".bindmodalbox .payment").fadeOut();
                     self.playVideo();
@@ -812,7 +817,7 @@ module.exports = {
                     self.cancelSku();
                     loadingHide();
                   });
-              }, 500);
+              }, 1000);
             } else {
               tips(self.chEnTextHtml[self.lang].balanceInsufficient);
             }
