@@ -238,16 +238,7 @@
     <div class="video-mask none"></div>
     <div class="video-model none">
       <div class="video-model-container flex">
-        <div>
-          <div
-            class="payment-page-close payment-close-pc"
-            onclick="$('.bindmodalbox .video-mask').fadeOut('fast');
-          $('.bindmodalbox .video-model').fadeOut('fast');"
-          >
-            <img src="./images/Close.png" />
-          </div>
-          <video webkit-playsinline="true" src="" autoplay muted></video>
-        </div>
+          <video webkit-playsinline="true" src="http://47.118.74.48:8081/upload/other/one_draw.mp4" autoplay muted></video>
       </div>
     </div>
     <div class="payment-result-modal none">
