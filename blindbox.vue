@@ -106,8 +106,8 @@
             <button
               class="cjbtn"
               @click="playVideo(2, leftFreeCount.leftFreeCount2,leftAmount)"
-              style="background: rgba(255,255,255,0.3);"
-              disabled
+              :style="{background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : ''}"
+              :disabled = "!isshowdisabled ? true : false"
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -128,8 +128,8 @@
             <button
               class="cjbtn"
               @click="playVideo(1, leftFreeCount.leftFreeCount1,leftAmount)"
-              style="background: rgba(255,255,255,0.3);"
-              disabled
+              :style="{background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : ''}"
+              :disabled = "!isshowdisabled ? true : false"
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -153,8 +153,8 @@
           <button
             class="cjbtn"
             @click="playVideo(2, leftFreeCount.leftFreeCount2,leftAmount)"
-            style="background: rgba(255,255,255,0.3);"
-            disabled
+            :style="{background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : ''}"
+            :disabled = "!isshowdisabled ? true : false"
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
@@ -171,8 +171,8 @@
           <button
             class="cjbtn"
             @click="playVideo(1, leftFreeCount.leftFreeCount1,leftAmount)"
-            style="background: rgba(255,255,255,0.3);"
-            disabled
+            :style="{background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : ''}"
+            :disabled = "!isshowdisabled ? true : false"
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
@@ -607,7 +607,10 @@ module.exports = {
       blindBoxData : {},
       isshowclick : true,
       startnow : "2021/8/12 20:00",
+      startnow2 : "2021/8/12 20:00",
       endnow : "2021/8/20 12:00",
+      endnow2 : "2021/8/20 12:00",
+      isshowdisabled : false,
     };
   },
 
@@ -647,7 +650,8 @@ module.exports = {
     getdata() {
       var self = this;
       $.ajax({
-        url: base_url + "/v2/activity/activity_detail",
+        url: 'http://47.118.74.48:8081' + "/v2/activity/activity_detail",
+        // url: base_url + "/v2/activity/activity_detail",
         type: "POST",
         contentType: "application/json",
         dataType: "json",
@@ -670,11 +674,16 @@ module.exports = {
             self.storge = res.data.storge;
             self.stakingPool = res.data.stakingPool ? res.data.stakingPool : 0;
             self.startnow = res.data.onLineTime;
+            self.startnow2 = res.data.onLineTime2;
             self.endnow = res.data.downLineTime;
+            self.endnow2 = res.data.downLineTime2;
             self.series = res.data.series;
             self.cards1 = res.data.series[0].commodities;
             self.cards2 = res.data.series[1].commodities;
             self.cards3 = res.data.series[2].commodities;
+            if ((new Date(self.startnow2)).getTime() < (new Date()).getTime() && (new Date(self.endnow2)).getTime() > (new Date()).getTime()) {
+              self.isshowdisabled = true; 
+            }
             if (res.data.rewardCount.length) {
               res.data.rewardCount.forEach((item) => {
                 if (item.type == 1) {
@@ -748,8 +757,8 @@ module.exports = {
     playVideo(type, val,num) {
       let self = this;
       var now = new Date();
-      var startnow = new Date(self.startnow);
-      var endDate = new Date(self.endnow);
+      var startnow = new Date(self.startnow2);
+      var endDate = new Date(self.endnow2);
       if (!self.isshowclick) {
         return ;
       }
