@@ -30,6 +30,16 @@
             {{chEnTextHtml[lang].drawnow}}
           </button>
         </div>
+        <h3>{{chEnTextHtml[lang].nftqy}}</h3>
+        <p>{{chEnTextHtml[lang].nftqydetails}}</p>
+        <div class="luckdraw_btns">
+          <button
+            class="cjbtn"
+            @click="jumppage()"
+          >
+            {{chEnTextHtml[lang].nftqybtn}}
+          </button>
+        </div>
       </div>
     </div>
     <div class="cardsbox">
@@ -123,7 +133,6 @@
         </div>
         <div class="dbcqword">
           <p class="cq">
-          <!-- + leftAmount + " / " -->
             {{ chEnTextHtml[lang].purchase1  + storge }}
           </p>
           <!-- <p class="cq">{{ chEnTextHtml[lang].purchase3 + stakingPool }}</p> -->
@@ -442,8 +451,14 @@ module.exports = {
           activitytips1 : "盲盒將於8月19日20:00（北京時間）開始銷售，敬請期待！",
           activitytips2 : "活動已結束",
           drawnow : "即刻抽取",
+          nftqy : "NFT權益",
+          nftqydetails : "所有ATTA x英雄聯盟主播系列NFT，均包含多種長期權益。當前可對LPL季後賽進行投票，並獲取多種獎勵。後續將會有更多玩法，敬請期待。",
+          nftqybtn : "查看權益",
         },
         EN: {
+          nftqybtn : "View utilities",
+          nftqy : "NFT Utilities",
+          nftqydetails : 'All NFTs purchased from the "ATTA X LOL Streamer NFT Collection" include a variety of long-term utilities. Voting for "LPL 2021 Summer Playoffs" is currently available and a variety of rewards can be earned. More gamplays will be announced, please stay tuned.',
           drawnow : "Draw now",
           activitytips1 : "Mystery box sales will open on Aug 19th 20:00 (Beijing)~",
           activitytips2 : "Activity ended",
