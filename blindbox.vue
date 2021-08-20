@@ -106,6 +106,8 @@
             <button
               class="cjbtn"
               @click="playVideo(2, leftFreeCount.leftFreeCount2,leftAmount)"
+              style="background: rgba(255,255,255,0.3);"
+              disabled
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -126,6 +128,8 @@
             <button
               class="cjbtn"
               @click="playVideo(1, leftFreeCount.leftFreeCount1,leftAmount)"
+              style="background: rgba(255,255,255,0.3);"
+              disabled
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -149,6 +153,8 @@
           <button
             class="cjbtn"
             @click="playVideo(2, leftFreeCount.leftFreeCount2,leftAmount)"
+            style="background: rgba(255,255,255,0.3);"
+            disabled
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
@@ -165,6 +171,8 @@
           <button
             class="cjbtn"
             @click="playVideo(1, leftFreeCount.leftFreeCount1,leftAmount)"
+            style="background: rgba(255,255,255,0.3);"
+            disabled
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
