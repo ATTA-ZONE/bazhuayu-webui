@@ -80,8 +80,9 @@
       <div class="line"></div>
       <div class="purchasebox">
         <div class="between flex">
+         <!-- + leftAmount + " / " + storge -->
           <span>{{
-            chEnTextHtml[lang].purchase1 + leftAmount + " / " + storge
+            chEnTextHtml[lang].purchase1 + storge
           }}</span>
           <p class="between flex">
             <span>{{
@@ -122,9 +123,10 @@
         </div>
         <div class="dbcqword">
           <p class="cq">
-            {{ chEnTextHtml[lang].purchase1 + leftAmount + " / " + storge }}
+          <!-- + leftAmount + " / " -->
+            {{ chEnTextHtml[lang].purchase1  + storge }}
           </p>
-          <p class="cq">{{ chEnTextHtml[lang].purchase3 + stakingPool }}</p>
+          <!-- <p class="cq">{{ chEnTextHtml[lang].purchase3 + stakingPool }}</p> -->
           <p class="flex numbox">
             <span>{{
               chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2
@@ -355,7 +357,7 @@ module.exports = {
           luckdrawintroduce_btn1: "單抽",
           luckdrawintroduce_btn2: "十連抽",
           noimgword: "敬請期待",
-          purchase1: "盲盒剩餘：",
+          purchase1: "盲盒總計：",
           purchase2: "白名單用戶每購買4個盲盒，可獲贈1次抽取機會（最多可獲贈4次）",
           purchase3: "當前投票獎勵池： BUSD ",
           purchase4: "我的白名單獲贈抽取機會 ：",
@@ -456,7 +458,7 @@ module.exports = {
           luckdrawintroduce_btn1: "Single Draw",
           luckdrawintroduce_btn2: " 10 Consecutive Draws",
           noimgword: "Coming soon",
-          purchase1: "Mystery Box remaining: ",
+          purchase1: "Total Mystery Box: ",
           purchase2:
             "Whitelisted users can get 1 free draw for every 4 Mystery Boxes purchased (maximum 4 free drawing chances)",
           purchase3: "Current voting reward pool: BUSD ",
