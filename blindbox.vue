@@ -650,8 +650,7 @@ module.exports = {
     getdata() {
       var self = this;
       $.ajax({
-        url: 'http://47.118.74.48:8081' + "/v2/activity/activity_detail",
-        // url: base_url + "/v2/activity/activity_detail",
+        url: base_url + "/v2/activity/activity_detail",
         type: "POST",
         contentType: "application/json",
         dataType: "json",
