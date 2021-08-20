@@ -1,5 +1,6 @@
 <template>
   <div>
+	  <div class="bootomtips">{{chEnTextHtml[lang].bootomtips}}</div>
     <ul v-if="assetsList.records && assetsList.records.length > 0">
 			<li v-for="(item,idx) in assetsList.records" :key="idx">
 				<div class="flex between mobilflex">
@@ -77,7 +78,6 @@
 				<img src="./images/xiala2.png">
 			</div> -->
 		</div>
-
 		<!-- modify -->
 		<div class="modify none">
 			<div class="modify-container flex">
@@ -158,8 +158,10 @@ module.exports = {
 						clickedit:"點擊修改地址",
 						transfer:"轉移",
 						cancel:"取消",
+						bootomtips : 'NFT鑄造將在每個工作日中午12點進行，鑄造前一天所銷售的所有NFT。',
 					},
 					"EN":{
+						bootomtips : 'NFT minting will be done by 11:59 am on every workday for all the NFT sold before this time.',
 						common : "Total editions ",
 						ban : "",
 						ban2 : "Edition",
@@ -447,6 +449,16 @@ module.exports = {
 	justify-content: space-between;
 	align-items: flex-start;
 }
+.bootomtips{
+	padding: 12px 0;
+	text-align: center;
+	width: 100%;
+	border: 1px solid #9567FF;
+	box-sizing: border-box;
+	border-radius: 4px;
+	font-size: 22px;
+	margin-bottom: 35px;
+}
 .titlebox{
 	font-weight: bold;
 	font-size: 24px;
@@ -583,6 +595,10 @@ module.exports = {
 	border-color: #9567FF !important;
 }
 @media only screen and (max-width: 992px){
+	.bootomtips{
+		font-size: 16px;
+		padding: 12px 10px;
+	}
 	.mobilflex{
 		flex-direction: column;
 		margin-bottom: 50px;
