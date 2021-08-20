@@ -90,6 +90,7 @@
       <div class="line"></div>
       <div class="purchasebox">
         <div class="between flex">
+         <!-- + leftAmount + " / " + storge -->
           <span>{{
             chEnTextHtml[lang].purchase1 + storge
           }}</span>
@@ -136,7 +137,7 @@
         </div>
         <div class="dbcqword">
           <p class="cq">
-            {{ chEnTextHtml[lang].purchase1 + storge }}
+            {{ chEnTextHtml[lang].purchase1  + storge }}
           </p>
           <!-- <p class="cq">{{ chEnTextHtml[lang].purchase3 + stakingPool }}</p> -->
           <p class="flex numbox">

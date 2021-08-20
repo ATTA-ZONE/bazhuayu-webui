@@ -238,16 +238,7 @@
     <div class="video-mask none"></div>
     <div class="video-model none">
       <div class="video-model-container flex">
-        <div>
-          <div
-            class="payment-page-close payment-close-pc"
-            onclick="$('.bindmodalbox .video-mask').fadeOut('fast');
-          $('.bindmodalbox .video-model').fadeOut('fast');"
-          >
-            <img src="./images/Close.png" />
-          </div>
-          <video webkit-playsinline="true" src="" autoplay muted></video>
-        </div>
+          <video webkit-playsinline="true" src="http://47.118.74.48:8081/upload/other/one_draw.mp4" autoplay muted></video>
       </div>
     </div>
     <div class="payment-result-modal none">
@@ -422,8 +413,10 @@ module.exports = {
             "您抽中的NFT將在盲盒活動結束後24小時內發送至您的默認錢包。可在我的資產-我的NFT下可查看。",
           walletPay: "錢包支付",
           loadingText: "支付需耗時10-20秒鐘，請耐心等待~",
+          orderNoErr: "當前處理繁忙，請再次嘗試。"
         },
         EN: {
+          orderNoErr: "Server is busy, please try again.",
           loadingText:
             "Payment takes about 10-20s to process, please be patient.",
           walletPay: "Wallet payment",
@@ -798,10 +791,17 @@ module.exports = {
                   })
                   .on("transactionHash", function (hash) {
                     loading(self.chEnTextHtml[self.lang].loadingText);
+                    if (!self.orderNo) {
+                      tips(self.chEnTextHtml[self.lang].orderNoErr)
+                      return false
+                    }
                     self.saveHash(accounts, hash, 3);
                   })
                   .then((result) => {
-                    console.log(self.orderNo);
+                    if (!self.orderNo) {
+                      tips(self.chEnTextHtml[self.lang].orderNoErr)
+                      return false
+                    }
                     self.drawSku(accounts, result.transactionHash, 3);
                     $(".bindmodalbox .payment").fadeOut();
                     self.playVideo();
@@ -812,7 +812,7 @@ module.exports = {
                     self.cancelSku();
                     loadingHide();
                   });
-              }, 500);
+              }, 1000);
             } else {
               tips(self.chEnTextHtml[self.lang].balanceInsufficient);
             }
