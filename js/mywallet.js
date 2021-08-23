@@ -6,7 +6,7 @@ function safeCharge(res, accounts) {
 		if (window.confirm(hintMessage)) {
 			var data = {
 				address: accounts[0],
-				walletType: 'METAMASK'
+				walletType: 'MetaMask'
 			}
 
 			$.ajax({
