@@ -383,7 +383,7 @@ $.ajax({
 							// 	dataType: 'json',
 							// 	data: JSON.stringify({
 							// 		address: userAddress,
-							// 		walletType: 'TOKEN POCKET'
+							// 		walletType: 'WalletConnect'
 							// 	}),
 							// 	success: function (res) {
 							// 		if (res.code == 0) {

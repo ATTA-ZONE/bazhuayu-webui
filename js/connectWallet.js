@@ -30,7 +30,7 @@ function connectInit(walletname) {
 				};
 				var data = {
 					address: accounts[0],
-					walletType: 'METAMASK'
+					walletType: walletname
 				}
 		
 				$.ajax({

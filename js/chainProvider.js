@@ -126,7 +126,7 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 				var t=arguments[0];
 				var th=W.CHAIN.WALLET;
 				var wallet=th[t];
-				window.debug&&console.log('connect', t, wallet);
+				console.log(th, t);
 				if (wallet) {
 					var res = await wallet.__connectInit();
 					setCookie(th.__wallet__, wallet.name);

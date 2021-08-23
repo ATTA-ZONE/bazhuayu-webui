@@ -42,7 +42,7 @@ var app = new Vue({
 				success:function(res){
 					if(res.code==0){
 						that.walletIdvue = res.data.address;
-						if(res.data.walletType=="TOKEN POCKET"){
+						if(res.data.walletType=="WalletConnect"){
 							that.isshowicon = true;
 						}else if (res.data.walletType=="METAMASK") {
 							that.isshowicon = false;

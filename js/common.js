@@ -257,7 +257,7 @@ $(function(){
 		async:false,
 		success:function(res){
 			if(res.code==0){
-				if(res.data.walletType=="TOKEN POCKET"){
+				if(res.data.walletType=="WalletConnect"){
 					CHAIN.WALLET.WalletConnect.events();
 					var t = setInterval(function(){
 						var walletconnect = localStorage.getItem('walletconnect');
