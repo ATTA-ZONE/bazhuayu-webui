@@ -1,6 +1,7 @@
 <template>
   <div class="blindbox_box" v-cloak>
-    <img class="bannerbox" :src="bannerurl" />
+    <img class="bannerbox bannerbox1" :src="bannerurl" />
+    <img class="bannerbox bannerbox2" :src="bannerurl2" />
     <div class="anchorintroduction">
       <h1 class="title">{{ acName }}</h1>
       <p class="subtitle">{{ acDescription }}</p>
@@ -563,6 +564,7 @@ module.exports = {
       },
       lang: "",
       bannerurl: "",
+      bannerurl2: "",
       acDescription: "火爆來襲，更有LPL季後賽賽事staking大獎，等你來拿~",
       acName: "LPL明星解說系列盲盒",
       activityTitle: "明星解说盲盒介绍",
@@ -662,6 +664,7 @@ module.exports = {
         success: function (res) {
           if (res.code == 0) {
             self.bannerurl = res.data.acBanner;
+            self.bannerurl2 = res.data.webBanner;
             self.acDescription = res.data.acDescription;
             self.acName = res.data.acName;
             self.activityDetail = res.data.activityDetail;
@@ -832,6 +835,12 @@ module.exports = {
 </script>
 
 <style>
+.bannerbox{
+  display: none;
+}
+.bannerbox1{
+  display: block;
+}
 .blindbox_box *{
   font-family: "Inter" !important;
 }
@@ -1135,6 +1144,9 @@ module.exports = {
   }
 }
 @media only screen and (max-width: 992px) {
+  .bannerbox2{
+    display: block;
+  }
   .modify .modify-form .modify-tit {
     justify-content: space-between;
     align-items: center;
@@ -1152,6 +1164,7 @@ module.exports = {
   }
   .anchorintroduction .title {
     font-size: 22px;
+    font-weight: 600;
   }
   .anchorintroduction .subtitle {
     margin: 5px 0 21px 0;
