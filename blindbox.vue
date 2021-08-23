@@ -1144,6 +1144,9 @@ module.exports = {
   }
 }
 @media only screen and (max-width: 992px) {
+  .bannerbox{
+    display: none;
+  }
   .bannerbox2{
     display: block;
   }
