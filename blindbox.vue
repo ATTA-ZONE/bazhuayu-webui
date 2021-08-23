@@ -374,7 +374,7 @@ module.exports = {
           luckdrawintroduce_btn1: "單抽",
           luckdrawintroduce_btn2: "十連抽",
           noimgword: "敬請期待",
-          purchase1: "盲盒總計：",
+          purchase1: "盲盒總數：",
           purchase2: "白名單用戶每購買4個盲盒，可獲贈1次抽取機會（最多可獲贈4次）",
           purchase3: "當前投票獎勵池： BUSD ",
           purchase4: "我的白名單獲贈抽取機會 ：",
@@ -481,7 +481,7 @@ module.exports = {
           luckdrawintroduce_btn1: "Single Draw",
           luckdrawintroduce_btn2: " 10 Consecutive Draws",
           noimgword: "Coming soon",
-          purchase1: "Total Mystery Box: ",
+          purchase1: "Mystery Boxes In Total: ",
           purchase2:
             "Whitelisted users can get 1 free draw for every 4 Mystery Boxes purchased (maximum 4 free drawing chances)",
           purchase3: "Current voting reward pool: BUSD ",
