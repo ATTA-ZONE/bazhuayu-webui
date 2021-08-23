@@ -310,6 +310,10 @@ var app = new Vue({
 									window.location.reload();
 								}, 1500)
 							}, 1800);
+						}).then(itm => {
+							console.log(itm, '------');
+						}).catch(err => {
+							console.log(err, '============');
 						})
 					})
 			})
