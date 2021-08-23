@@ -41,6 +41,7 @@ var app = new Vue({
 				async:false,
 				success:function(res){
 					if(res.code==0){
+						setCookie('_wallet_', res.data.walletType);
 						that.walletIdvue = res.data.address;
 						if(res.data.walletType=="WalletConnect"){
 							that.isshowicon = true;
