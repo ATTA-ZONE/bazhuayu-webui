@@ -432,6 +432,7 @@ var app = new Vue({
 				url: base_url + '/v2/user/wallet/info',
 				success: function (result) {
 					if (result.code == 0) {
+						setCookie('_wallet_', res.data.walletType)
 						$('.busd-ye').text('BUSD ' + result.data.usdtRest);
 						self.accountBalance = result.data.usdtRest
 						if (res.data.price > result.data.usdtRest) {

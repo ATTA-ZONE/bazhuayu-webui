@@ -12,6 +12,7 @@ function bindWallet(targetAddress) {
 		async: false,
 		success: function (res) {
 			if (res.code == 0) {
+				setCookie('_wallet_', res.data.walletType)
 				var hintMessage = '';
 				if (res.data.address != targetAddress) {
 					if (res.data.address == null || res.data.address == '') {
@@ -23,7 +24,7 @@ function bindWallet(targetAddress) {
 					if (window.confirm(hintMessage)) {
 						var data = {
 							address: targetAddress,
-							walletType: 'METAMASK'
+							walletType: res.data.walletType
 						};
 
 						$.ajax({

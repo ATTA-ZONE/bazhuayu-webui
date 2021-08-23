@@ -275,6 +275,7 @@ function updateWalletStatus() {
 			url:base_url+'/v2/user/wallet/info',
 			success:function(res){
 				if(res.code==0){
+					setCookie('_wallet_', res.data.walletType)
 					walletId = res.data.address;
 					if (!window.ethereum) {
 						return false

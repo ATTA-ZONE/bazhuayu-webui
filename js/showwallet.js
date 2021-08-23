@@ -44,11 +44,10 @@ var app = new Vue({
 						that.walletIdvue = res.data.address;
 						if(res.data.walletType=="WalletConnect"){
 							that.isshowicon = true;
-						}else if (res.data.walletType=="METAMASK") {
+						}else if (res.data.walletType=="MetaMask") {
 							that.isshowicon = false;
 						}
 					}
-					
 				}
 			})
 		},
