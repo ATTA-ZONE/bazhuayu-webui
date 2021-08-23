@@ -255,7 +255,7 @@ function payNow(obj){
 		url:base_url+'/v2/user/wallet/info',
 		success:function(result){
 			if(result.code==0){
-				setCookie('_wallet_', res.data.walletType)
+				setCookie('_wallet_', result.data.walletType)
 				$('.busd-ye').text('BUSD '+moneyFormat(result.data.usdtRest));
 				if(Number(payPriceUsdt) > Number(result.data.usdtRest)){
 					$('.busd-tip').text(myordersText.balanceInsufficient);
