@@ -1184,6 +1184,10 @@ module.exports = {
   }
   .anchorintroduction .introducebox .tvbox {
     width: 100%;
+    text-align: center;
+  }
+  .anchorintroduction .introducebox .tvbox img {
+    width: 65.5%;
   }
   .luckdrawintroduce {
     flex-direction: column;
