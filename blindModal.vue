@@ -29,7 +29,7 @@
                 <span>@ATTA</span>
               </div>
               <div class="payment-page-left-img order-img">
-                <img src="./images/paymentImg.png" />
+                <img src="/upload/v2data/2021-08-19/a410d1ae-890a-41b5-ab2f-205ec88b00d0.jpg" />
               </div>
             </div>
 
