@@ -261,7 +261,7 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video webkit-playsinline="true" src="/upload/other/one_draw.mp4" autoplay muted></video>
+          <video id="clickbtnvideo" webkit-playsinline="true" src="" muted></video>
         </div>
       </div>
     </div>
@@ -758,6 +758,8 @@ module.exports = {
     },
     playVideo(type, val,num) {
       let self = this;
+      let videoUrl = "/upload/other/one_draw.mp4";
+      $(".blindbox_box .video-model #clickbtnvideo").attr("src", videoUrl);
       var now = new Date();
       var startnow = new Date(self.startnow2);
       var endDate = new Date(self.endnow2);
@@ -801,7 +803,7 @@ module.exports = {
           if (res.code == 0) {
             self.blindBoxData = res.data;
              self.isshowclick = false;
-            $(".video-model video")[0].play();
+            $(".blindbox_box .video-model video")[0].play();
             $(".blindbox_box .video-mask").fadeIn("fast");
             $(".blindbox_box .video-model").fadeIn("fast");
             $(".blindbox_box .video-model video")[0].addEventListener(
