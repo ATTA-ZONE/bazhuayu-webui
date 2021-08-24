@@ -4,8 +4,8 @@ var form = document.getElementById("payment-form");
 var framesText = chEnText.frames[lang];
 // Frames.init("pk_test_8ac41c0d-fbcc-4ae3-a771-31ea533a2beb");
 Frames.init({
-	 publicKey:'pk_test_7cabb2f1-609e-4581-918f-0f2c304989be',
-	//publicKey:'pk_a154d2a3-6b40-4401-a12c-dba288e68957',
+	//publicKey:'pk_test_7cabb2f1-609e-4581-918f-0f2c304989be',
+	publicKey:'pk_a154d2a3-6b40-4401-a12c-dba288e68957',
 	localization: {
 	    cardNumberPlaceholder: framesText.number,
 	    expiryMonthPlaceholder: "MM",
