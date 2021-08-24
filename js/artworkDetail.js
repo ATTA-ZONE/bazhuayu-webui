@@ -302,7 +302,6 @@ var app = new Vue({
 						self.auctionContractInstance.methods.safeBatchBuyToken(self.visiable.slice(0, self.selectarr.length)).send({
 							from: accounts[0]
 						}).on('transactionHash', function (hash) {
-							console.log(hash, '000000000');
 							success(self.chEnTextHtml[self.languageType].purchaseSuc, 1800);
 							setTimeout(function () {
 								tips(self.chEnTextHtml[self.languageType].seconds);
@@ -311,10 +310,6 @@ var app = new Vue({
 									window.location.reload();
 								}, 1500)
 							}, 1800);
-						}).then(itm => {
-							console.log(itm, '------');
-						}).catch(err => {
-							console.log(err, '============');
 						})
 					})
 			})
@@ -432,7 +427,6 @@ var app = new Vue({
 				url: base_url + '/v2/user/wallet/info',
 				success: function (result) {
 					if (result.code == 0) {
-						setCookie('_wallet_', result.data.walletType)
 						$('.busd-ye').text('BUSD ' + result.data.usdtRest);
 						self.accountBalance = result.data.usdtRest
 						if (res.data.price > result.data.usdtRest) {

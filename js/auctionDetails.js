@@ -369,10 +369,6 @@ $.ajax({
 	async: false,
 	success: function (res) {
 		var userAddress = '';
-		if (res.data.code != 0) {
-			return;
-		}
-		setCookie('_wallet_', res.data.walletType);
 		CHAIN.WALLET.accounts()
 			.then(function (accounts) {
 				if (accounts.length > 0) {
@@ -387,7 +383,7 @@ $.ajax({
 							// 	dataType: 'json',
 							// 	data: JSON.stringify({
 							// 		address: userAddress,
-							// 		walletType: 'WalletConnect'
+							// 		walletType: 'TOKEN POCKET'
 							// 	}),
 							// 	success: function (res) {
 							// 		if (res.code == 0) {

@@ -41,14 +41,14 @@ var app = new Vue({
 				async:false,
 				success:function(res){
 					if(res.code==0){
-						setCookie('_wallet_', res.data.walletType);
 						that.walletIdvue = res.data.address;
-						if(res.data.walletType=="WalletConnect"){
+						if(res.data.walletType=="TOKEN POCKET"){
 							that.isshowicon = true;
-						}else if (res.data.walletType=="MetaMask") {
+						}else if (res.data.walletType=="METAMASK") {
 							that.isshowicon = false;
 						}
 					}
+					
 				}
 			})
 		},

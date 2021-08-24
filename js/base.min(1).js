@@ -71,7 +71,7 @@
 						dataType:'json',
 						data:JSON.stringify({
 							address:addr,
-							walletType:'WalletConnect'
+							walletType:'TOKEN POCKET'
 						}),
 						success:function(res){
 							if(res.code==0){
