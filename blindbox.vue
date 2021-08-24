@@ -758,12 +758,7 @@ module.exports = {
     },
     playVideo(type, val,num) {
       let self = this;
-      let videoUrl = "";
-      if (window.getCookie("blindNum") < 2) {
-        videoUrl = "/upload/other/one_draw.mp4";
-      } else {
-        videoUrl = "/upload/other/ten_draw.mp4";
-      }
+      let videoUrl = "/upload/other/one_draw.mp4";
       $(".blindbox_box .video-model #clickbtnvideo").attr("src", videoUrl);
       var now = new Date();
       var startnow = new Date(self.startnow2);
