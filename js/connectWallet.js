@@ -27,11 +27,10 @@ function connectInit(walletname) {
 					// document.cookie = "isConnect=true";
 					setCookie('isConnect',true);
 					setCookie(CHAIN.WALLET.__wallet__, walletname);
-					localStorage.removeItem('walletconnect');
 				};
 				var data = {
 					address: accounts[0],
-					walletType: walletname
+					walletType: 'METAMASK'
 				}
 		
 				$.ajax({

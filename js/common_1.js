@@ -275,32 +275,27 @@ function updateWalletStatus() {
 			url:base_url+'/v2/user/wallet/info',
 			success:function(res){
 				if(res.code==0){
-					setCookie('_wallet_', res.data.walletType ? res.data.walletType : 'MetaMask')
 					walletId = res.data.address;
 					if (!window.ethereum) {
 						return false
 					}
-					if (res.data.walletType == 'WalletConnect') {
-						displayWalletStatus(0, [walletId]);
-					} else {
-						CHAIN.WALLET.accounts()
-							.then(function(account){
-								setCookie('isConnect', false);
-								if (walletId && account.length) {
-									if (walletId == account[0]) {
-										displayWalletStatus(0, account);
-									} else {
-										displayWalletStatus(1, account);
-									}
-								} else if (walletId) {
-									displayWalletStatus(2, account);
-								} else if (account.length) {
-									displayWalletStatus(1, account);
+					CHAIN.WALLET.accounts()
+						.then(function(account){
+							setCookie('isConnect', false);
+							if (walletId && account.length) {
+								if (walletId == account[0]) {
+									displayWalletStatus(0, account);
 								} else {
-									displayWalletStatus(2, account);
+									displayWalletStatus(1, account);
 								}
-							})
-					}
+							} else if (walletId) {
+								displayWalletStatus(2, account);
+							} else if (account.length) {
+								displayWalletStatus(1, account);
+							} else {
+								displayWalletStatus(2, account);
+							}
+						})
 				} else if (res.code==1002 && islogin) {
 					setCookie('islogin',false);
 					window.location.href = 'index.html';
