@@ -796,6 +796,12 @@ module.exports = {
                       return false
                     }
                     self.saveHash(accounts, hash, 3);
+                    if (getCookie('_wallet_') == 'WalletConnect') {
+                      self.drawSku(accounts, hash, 3);
+                      $(".bindmodalbox .payment").fadeOut();
+                      self.playVideo();
+                      loadingHide();
+                    }
                   })
                   .then((result) => {
                     if (!self.orderNo) {
