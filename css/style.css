@@ -1094,8 +1094,18 @@ html {
 }
 .artwork-mask  video{
 	z-index: 1000;
+	position: relative;
 }
-
+.artwork-mask .video-play::after{
+	content: "";
+	background:url(../images/videoPlay.png) no-repeat;
+	background-size:100%;
+	width:30px;
+	height:30px;
+	position:absolute;
+	top:-40px;
+	right: 10px;
+}
 
 .artwork-mask-wrap {
 	position: absolute;
