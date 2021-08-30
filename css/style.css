@@ -1089,8 +1089,13 @@ html {
 }
 
 .artwork-mask {
+	z-index: 1;
 	position: relative;
 }
+.artwork-mask  video{
+	z-index: 1000;
+}
+
 
 .artwork-mask-wrap {
 	position: absolute;

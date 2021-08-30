@@ -349,7 +349,7 @@ function playVideo(e){
 	//播放视频
 	e.play();
 }
-function posterVideo(e){
+function pauseVideo(e){
 	console.log(e);
 	//停止播放
 	e.pause();
