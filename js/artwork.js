@@ -71,22 +71,23 @@ function getArtworkList(current,pageSize,name,typeId){
 							timeStatus = 0;    //没有库存
 						}
 						
-						html += 
-						`<li>
-							<a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 						if(geshi=='mp4'){
 							if(v.secondPic){
-								html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" ><div class="bzy-e-list-info">`;
+								html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
+								html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
 							}else{
-								html+=`<video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" poster="`+v.secondPic+`" src="`+v.primaryPic+`" muted="muted"></video><div class="bzy-e-list-info video-play">`;
+								html +=  `<li><a class="artwork-mask videoPlay" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
+								html+=`<video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" poster="`+v.secondPic+`" src="`+v.primaryPic+`" muted="muted"></video>`;
 							}
 						}else{
-						  html+=`<img class="bzy-e-list-img" src="`+(v.secondPic?v.secondPic:v.primaryPic)+`" ><div class="bzy-e-list-info">`;
+							html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
+						  html+=`<img class="bzy-e-list-img" src="`+(v.secondPic?v.secondPic:v.primaryPic)+`" >`;
 						}
 						
 									
 						if(timeStatus==0){
-						html +=	`<div class="bzy-e-list-info-tit">`+v.name+`</div>
+						html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 										<span>BUSD `+moneyFormat(v.price)+` </span>
@@ -108,7 +109,8 @@ function getArtworkList(current,pageSize,name,typeId){
 							
 						}else if(timeStatus==1){
 						
-						html +=	`<div class="bzy-e-list-info-tit">`+v.name+`</div>
+						html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 										<span>BUSD `+moneyFormat(v.price)+` </span>
@@ -132,7 +134,8 @@ function getArtworkList(current,pageSize,name,typeId){
 						// html += `</a></li>`;
 						
 						}else if(timeStatus==2){
-						html +=	`<div class="bzy-e-list-info-tit">`+v.name+`</div>
+						html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 										<span>BUSD `+moneyFormat(v.price)+` </span>
@@ -151,7 +154,8 @@ function getArtworkList(current,pageSize,name,typeId){
 							html += `</div></div></a></li>`;
 						}else if(timeStatus==3){
 							if(v.releaseType == 2){
-								html +=	`<div class="bzy-e-list-info-tit">`+v.name+`</div>
+								html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>BUSD `+(v.id==5?moneyFormat(22000):moneyFormat(v.price))+` </span>
 									</div>`;
@@ -169,7 +173,8 @@ function getArtworkList(current,pageSize,name,typeId){
 										}
 										html += `</div></div></a></li>`;
 							}else{
-								html +=	`<div class="bzy-e-list-info-tit">`+v.name+`</div>
+								html +=	`<div class="bzy-e-list-info">
+									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
 										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 										<span>BUSD `+moneyFormat(v.price)+` </span>

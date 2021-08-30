@@ -1096,15 +1096,16 @@ html {
 	z-index: 1000;
 	position: relative;
 }
-.artwork-mask .video-play::after{
+a.videoPlay::after{
 	content: "";
 	background:url(../images/videoPlay.png) no-repeat;
 	background-size:100%;
 	width:30px;
 	height:30px;
 	position:absolute;
-	top:-40px;
-	right: 10px;
+	top:15px;
+	right: 15px;
+	z-index: 1000;
 }
 
 .artwork-mask-wrap {
