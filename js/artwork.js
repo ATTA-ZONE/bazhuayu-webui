@@ -341,6 +341,7 @@ $(function(){
 })
 
 function playVideo(e){
+	console.log(e);
 	 //给视频标签添加缓存播放---video标签属性。
 	 e.setAttribute("autoplay","autoplay")
 	//给视频标签添加循环播放---video标签属性。
@@ -349,6 +350,7 @@ function playVideo(e){
 	e.play();
 }
 function posterVideo(e){
+	console.log(e);
 	//停止播放
 	e.pause();
 }
