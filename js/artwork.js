@@ -70,18 +70,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						}else{
 							timeStatus = 0;    //没有库存
 						}
-						
-						html += 
-						`<li>
-							<a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 						if(geshi=='mp4'){
-<<<<<<< HEAD
-							if(v.secondPic){
-								html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
-							}else{
-								html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
-							}
-=======
 							// if(v.secondPic){
 							// 	html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 							// 	html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
@@ -92,8 +81,8 @@ function getArtworkList(current,pageSize,name,typeId){
 								html+=`<img class="bzy-e-list-img" src="http://47.118.74.48:8081/`+v.secondPic+`" >`;
 								// html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" poster="`+v.secondPic+`" src="`+v.primaryPic+`" muted="muted"></video>`;
 							// }
->>>>>>> wl
 						}else{
+							html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 						  html+=`<img class="bzy-e-list-img" src="`+(v.secondPic?v.secondPic:v.primaryPic)+`" >`;
 						}
 						
