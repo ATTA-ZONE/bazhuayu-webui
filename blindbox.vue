@@ -460,7 +460,7 @@ module.exports = {
           nftqy : "NFT權益",
           nftqydetails : "所有ATTA x英雄聯盟主播系列NFT，均包含多種長期權益。當前可對LPL季後賽進行投票，並獲取多種獎勵。後續將會有更多玩法，敬請期待。",
           nftqybtn : "查看權益",
-          Salesended: "销售结束"
+          Salesended: "已售罄"
         },
         EN: {
           Salesended: "Sales ended",

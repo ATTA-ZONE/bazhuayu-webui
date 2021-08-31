@@ -71,16 +71,16 @@ function getArtworkList(current,pageSize,name,typeId){
 							timeStatus = 0;    //没有库存
 						}
 						
-						html += 
-						`<li>
-							<a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 						if(geshi=='mp4'){
 							if(v.secondPic){
+								html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 								html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
 							}else{
-								html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
+								html +=  `<li><a class="artwork-mask videoPlay" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
+								html+=`<video onmouseover="playVideo(this)" onmouseout="pauseVideo(this)" x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" poster="`+v.secondPic+`" src="`+v.primaryPic+`" muted="muted"></video>`;
 							}
 						}else{
+							html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 						  html+=`<img class="bzy-e-list-img" src="`+(v.secondPic?v.secondPic:v.primaryPic)+`" >`;
 						}
 						
@@ -338,9 +338,19 @@ $(function(){
 		
 	};
 	
-	
-	
-	
-	
-	
 })
+
+function playVideo(e){
+	console.log(e);
+	 //给视频标签添加缓存播放---video标签属性。
+	 e.setAttribute("autoplay","autoplay")
+	//给视频标签添加循环播放---video标签属性。
+	e.setAttribute("loop","loop")
+	//播放视频
+	e.play();
+}
+function pauseVideo(e){
+	console.log(e);
+	//停止播放
+	e.pause();
+}

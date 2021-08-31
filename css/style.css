@@ -1089,7 +1089,23 @@ html {
 }
 
 .artwork-mask {
+	z-index: 1;
 	position: relative;
+}
+.artwork-mask  video{
+	z-index: 1000;
+	position: relative;
+}
+a.videoPlay::after{
+	content: "";
+	background:url(../images/videoPlay.png) no-repeat;
+	background-size:100%;
+	width:30px;
+	height:30px;
+	position:absolute;
+	top:15px;
+	right: 15px;
+	z-index: 1000;
 }
 
 .artwork-mask-wrap {
