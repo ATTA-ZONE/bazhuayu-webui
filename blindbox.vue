@@ -23,13 +23,12 @@
         <h3>{{ activityTitle }}</h3>
         <p v-html="activityDetail"></p>
         <div class="luckdraw_btns">
-          <button
+          <!-- <button
             class="cjbtn"
             onClick="window.scrollTo(0,document.body.clientHeight); "
           >
-            <!-- Coming soon  -->
             {{chEnTextHtml[lang].drawnow}}
-          </button>
+          </button> -->
         </div>
         <h3>{{chEnTextHtml[lang].nftqy}}</h3>
         <p>{{chEnTextHtml[lang].nftqydetails}}</p>
