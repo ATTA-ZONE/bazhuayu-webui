@@ -355,9 +355,9 @@ var app = new Vue({
 						$('.order-title').text(res.data.name);
 						$('.order-price-hdk').text('HK$ ' + moneyFormat(res.data.hkdPrice));
 						$('.order-price-busd').text('BUSD ' + moneyFormat(res.data.price));
-						if (res.data.name == '徐冬冬 牛N.X潮玩 NFT限量版' || res.data.name == 'Xu Dongdong_Nu N.X Trendy Play _Limited') {
-							res.data.edition = 200;
-						}
+						// if (res.data.name == '徐冬冬 牛N.X潮玩 NFT限量版' || res.data.name == 'Xu Dongdong_Nu N.X Trendy Play _Limited') {
+						// 	res.data.edition = 200;
+						// }
 						$('.details-right-creator-edition').text('Edition ' + maxeditionnum + ' of ' + res.data.endEdition);
 						$('.selectarrnum').text(maxeditionnum);
 						if(self.languageType == "TC"){
