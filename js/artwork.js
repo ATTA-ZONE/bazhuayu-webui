@@ -392,7 +392,7 @@ function resizehandler(){
 			let nowImgVideo = $(nowData).children()[i];//获取当前a标签
 			let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 			$(imgVideo[1]).height($(nowData[i]).width());
-			console.log(imgVideo[i]);
+			console.log(imgVideo[1]);
 		}
 	}
 }
