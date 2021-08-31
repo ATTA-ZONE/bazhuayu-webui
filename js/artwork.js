@@ -49,7 +49,6 @@ function getArtworkList(current,pageSize,name,typeId){
 					<div>暫無搜索結果</div></li>`;
 					$('.bzy-e-list').css('padding-top','100px');
 				}else{
-					 
 					$.each(records,function(i,v){
 						var timeStatus;
 						var geshi = v.primaryPic.substr(v.primaryPic.lastIndexOf('.')+1);
@@ -80,12 +79,12 @@ function getArtworkList(current,pageSize,name,typeId){
 								html +=  '<li><i onclick="openVideo(' + i + ')"></i>';
 								html +=  `<a class="artwork-mask videoPlay" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 								
-								html+=`<img class="bzy-e-list-img" src="http://47.118.74.48:8081/`+v.secondPic+`" >`;
+								html+=`<img class="bzy-e-list-img" src="http://47.118.74.48:8081`+v.secondPic+`" >`;
 								// html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" poster="`+v.secondPic+`" src="`+v.primaryPic+`" muted="muted"></video>`;
 							// }
 						}else{
 							html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
-						  html+=`<img class="bzy-e-list-img" src="`+(v.secondPic?v.secondPic:v.primaryPic)+`" >`;
+						  html+=`<img class="bzy-e-list-img" src="http://47.118.74.48:8081`+(v.secondPic?v.secondPic:v.primaryPic)+`" >`;
 						}
 						
 									
@@ -207,6 +206,8 @@ function getArtworkList(current,pageSize,name,typeId){
 				
 			} else {
 			}
+			
+		throttle(resizehandler,window);
 		},
 		error: function (err) {
 		}
@@ -342,7 +343,6 @@ $(function(){
 		
 	};
 
-	throttle(resizehandler,window);
 	$(window).resize(function(){
 		throttle(resizehandler,window);
  	});
@@ -358,12 +358,12 @@ function openVideo(e){
 		$($(nowData).children()[0]).addClass('unplay');
 		$(nowData).addClass('openVideo');//添加类名，标识此节点视频是否打开
 		imgVideo[1].remove();//删除img标签
-		$(imgVideo[0]).after(`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" autoPlay="autoplay" poster="`+ajaxList[e].secondPic+`" src="`+ajaxList[e].primaryPic+`" muted="muted"></video>`);//插入节点
+		$(imgVideo[0]).after(`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" autoPlay="autoplay" poster="`+ajaxList[e].secondPic+`" src="http://47.118.74.48:8081`+ajaxList[e].primaryPic+`" muted="muted"></video>`);//插入节点
 	}else{
 		$($(nowData).children()[0]).removeClass('unplay');
 		$(nowData).removeClass('openVideo');//添加类名，标识此节点视频是否打开
 		imgVideo[1].remove();//删除video标签
-		$(imgVideo[0]).after(`<img class="bzy-e-list-img" src="`+ajaxList[e].secondPic+`" >`)
+		$(imgVideo[0]).after(`<img class="bzy-e-list-img" src="http://47.118.74.48:8081`+ajaxList[e].secondPic+`" >`)
 		$(imgVideo[1]).height($(nowData).width());
 	}
 	setTimeout(function(){
@@ -392,7 +392,8 @@ function resizehandler(){
 			let nowImgVideo = $(nowData).children()[i];//获取当前a标签
 			let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 			$(imgVideo[1]).height($(nowData[i]).width());
-			console.log(imgVideo[1]);
+			$(imgVideo[1]).addClass('aaaaa')
+			console.log(imgVideo);
 		}
 	}
 }
