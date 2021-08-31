@@ -1087,7 +1087,17 @@ html {
 	column-count: 3;
 	column-gap: 48px;
 }
-
+.bzy-e-list li >i{
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background:url(../images/videoPlay.png) no-repeat;
+	background-size:100%;
+	position:absolute;
+	top:15px;
+	right: 15px;
+	z-index: 1000;
+}
 .artwork-mask {
 	z-index: 1;
 	position: relative;
@@ -1095,17 +1105,6 @@ html {
 .artwork-mask  video{
 	z-index: 1000;
 	position: relative;
-}
-a.videoPlay::after{
-	content: "";
-	background:url(../images/videoPlay.png) no-repeat;
-	background-size:100%;
-	width:30px;
-	height:30px;
-	position:absolute;
-	top:15px;
-	right: 15px;
-	z-index: 1000;
 }
 
 .artwork-mask-wrap {
