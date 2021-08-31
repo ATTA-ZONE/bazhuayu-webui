@@ -75,11 +75,24 @@ function getArtworkList(current,pageSize,name,typeId){
 						`<li>
 							<a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 						if(geshi=='mp4'){
+<<<<<<< HEAD
 							if(v.secondPic){
 								html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
 							}else{
 								html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" autoplay="autoplay" loop="loop" src="`+v.primaryPic+`" muted="muted"></video>`;
 							}
+=======
+							// if(v.secondPic){
+							// 	html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
+							// 	html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
+							// }else{
+								html +=  '<li><i onclick="openVideo(' + i + ')"></i>';
+								html +=  `<a class="artwork-mask videoPlay" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
+								
+								html+=`<img class="bzy-e-list-img" src="http://47.118.74.48:8081/`+v.secondPic+`" >`;
+								// html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" poster="`+v.secondPic+`" src="`+v.primaryPic+`" muted="muted"></video>`;
+							// }
+>>>>>>> wl
 						}else{
 						  html+=`<img class="bzy-e-list-img" src="`+(v.secondPic?v.secondPic:v.primaryPic)+`" >`;
 						}
@@ -337,10 +350,57 @@ $(function(){
 		})
 		
 	};
-	
-	
-	
-	
-	
-	
+
+	throttle(resizehandler,window);
+	$(window).resize(function(){
+		throttle(resizehandler,window);
+ 	});
 })
+
+// 当前点击的第几个数据
+function openVideo(e){
+	let nowData = $('.bzy-e-list').children()[e];//获取当前的li标签
+	let nowImgVideo = $(nowData).children()[1];//获取当前a标签
+	let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
+	if(!nowData.className){//当前节点未打开视频
+		$($(nowData).children()[0]).addClass('unplay');
+		$(nowData).addClass('openVideo');//添加类名，标识此节点视频是否打开
+		imgVideo[1].remove();//删除img标签
+		$(imgVideo[0]).after(`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" autoPlay="autoplay" poster="`+ajaxList[e].secondPic+`" src="`+ajaxList[e].primaryPic+`" muted="muted"></video>`);//插入节点
+	}else{
+		$($(nowData).children()[0]).removeClass('unplay');
+		$(nowData).removeClass('openVideo');//添加类名，标识此节点视频是否打开
+		imgVideo[1].remove();//删除video标签
+		$(imgVideo[0]).after(`<img class="bzy-e-list-img" src="`+ajaxList[e].secondPic+`" >`)
+		$(imgVideo[1]).height($(nowData).width());
+	}
+	setTimeout(function(){
+		
+		nowData = $('.bzy-e-list').children()[e];//获取当前的li标签
+		nowImgVideo = $(nowData).children()[1];//获取当前a标签
+		imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
+		$(imgVideo[1]).height($(nowData).width());
+		console.log(imgVideo);
+	})
+}
+// 函数节流
+function throttle(method,context){
+	clearTimeout(method.tId);
+	method.tId=setTimeout(function(){
+			method.call(context);
+	},500);
+}
+
+// 图片尺寸变为正方形
+function resizehandler(){
+	let nowData = $('.bzy-e-list').children();//获取当前的li标签
+	console.log(nowData.length);
+	if(nowData.length > 0){//首次加载dom节点可能未加载
+		for(let i=0;i<nowData.length;i++){
+			let nowImgVideo = $(nowData).children()[i];//获取当前a标签
+			let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
+			$(imgVideo[1]).height($(nowData[i]).width());
+			console.log(imgVideo[i]);
+		}
+	}
+}
