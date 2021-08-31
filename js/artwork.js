@@ -355,15 +355,15 @@ function openVideo(e){
 	let nowImgVideo = $(nowData).children()[1];//获取当前a标签
 	let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 	if(!nowData.className){//当前节点未打开视频
+		$($(nowData).children()[0]).addClass('unplay');
 		$(nowData).addClass('openVideo');//添加类名，标识此节点视频是否打开
 		imgVideo[1].remove();//删除img标签
-		$(imgVideo[0]).after(`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" autoPlay="autoplay" poster="http://47.118.74.48:8081/`+ajaxList[e].secondPic+`" src="http://47.118.74.48:8081/`+ajaxList[e].primaryPic+`" muted="muted"></video>`);//插入节点
-		
-		
+		$(imgVideo[0]).after(`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" autoPlay="autoplay" poster="`+ajaxList[e].secondPic+`" src="`+ajaxList[e].primaryPic+`" muted="muted"></video>`);//插入节点
 	}else{
+		$($(nowData).children()[0]).removeClass('unplay');
 		$(nowData).removeClass('openVideo');//添加类名，标识此节点视频是否打开
 		imgVideo[1].remove();//删除video标签
-		$(imgVideo[0]).after(`<img class="bzy-e-list-img" src="http://47.118.74.48:8081/`+ajaxList[e].secondPic+`" >`)
+		$(imgVideo[0]).after(`<img class="bzy-e-list-img" src="`+ajaxList[e].secondPic+`" >`)
 		$(imgVideo[1]).height($(nowData).width());
 	}
 	setTimeout(function(){

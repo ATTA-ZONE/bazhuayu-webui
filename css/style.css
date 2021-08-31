@@ -1087,6 +1087,10 @@ html {
 	column-count: 3;
 	column-gap: 48px;
 }
+.bzy-e-list li >i.unplay{
+	background:url(../images/videoEnd.png) no-repeat;
+	background-size:100%;
+}
 .bzy-e-list li >i{
 	display: inline-block;
 	width: 30px;
@@ -1094,9 +1098,11 @@ html {
 	background:url(../images/videoPlay.png) no-repeat;
 	background-size:100%;
 	position:absolute;
-	top:15px;
+	top:0;
 	right: 15px;
 	z-index: 1000;
+	margin-top: calc(100% - 50px);
+	cursor: pointer;
 }
 .artwork-mask {
 	z-index: 1;
@@ -1105,6 +1111,7 @@ html {
 .artwork-mask  video{
 	z-index: 1000;
 	position: relative;
+	background-color: #000;
 }
 
 .artwork-mask-wrap {
