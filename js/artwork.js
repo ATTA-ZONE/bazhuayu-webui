@@ -12,7 +12,7 @@ function formatDuring(mss) {
 		return days + "days " + hours + ":" + minutes + ":" + seconds
 	}
 }
-
+var ajaxList;
 function getArtworkList(current,pageSize,name,typeId){
 	var data = {
 		current,
@@ -29,6 +29,7 @@ function getArtworkList(current,pageSize,name,typeId){
 		success: function (res) {
 			if (res.code == 0) {
 				let records = res.data.pageResult.records;
+				ajaxList = res.data.pageResult.records;
 				let html = '';
 				var systemTime = res.data.systemTime;
 				if(res.data.pageResult.total>9 && res.data.pageResult.pages > current){
@@ -70,6 +71,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						}else{
 							timeStatus = 0;    //没有库存
 						}
+						
 						if(geshi=='mp4'){
 							// if(v.secondPic){
 							// 	html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
@@ -344,6 +346,7 @@ $(function(){
 	$(window).resize(function(){
 		throttle(resizehandler,window);
  	});
+	
 })
 
 // 当前点击的第几个数据
