@@ -352,7 +352,7 @@ $(function(){
 // 当前点击的第几个数据
 function openVideo(e){
 	let nowData = $('.bzy-e-list').children()[e];//获取当前的li标签
-	let nowImgVideo = $(nowData).children('a')[1];//获取当前a标签
+	let nowImgVideo = $(nowData).children()[1];//获取当前a标签
 	let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 	if(!nowData.className){//当前节点未打开视频
 		$($(nowData).children()[0]).addClass('unplay');
@@ -368,7 +368,7 @@ function openVideo(e){
 	}
 	setTimeout(function(){
 		nowData = $('.bzy-e-list').children()[e];//获取当前的li标签
-		nowImgVideo = $(nowData).children('a')[1];//获取当前a标签
+		nowImgVideo = $(nowData).children()[1];//获取当前a标签
 		imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 		$(imgVideo[1]).height($(nowData).width());
 		console.log(imgVideo);
@@ -388,7 +388,7 @@ function resizehandler(){
 	if(nowData.length > 0){//首次加载dom节点可能未加载
 		for(let i=0;i<nowData.length;i++){
 			let nowImgVideo = $(nowData).children('a')[i];//获取当前a标签
-			let imgVideo = $(nowImgVideo).children('a');//获取a标签下所有子节点
+			let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 			$(imgVideo[1]).height($(nowData[i]).width());
 			console.log($(nowData).children('a')[i]);
 		}
