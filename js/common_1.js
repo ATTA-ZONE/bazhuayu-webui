@@ -260,6 +260,12 @@ $(function(){
 		}
 	})
 	updateWalletStatus();
+
+	// 百度统计代码
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?9bd005a002797de8867dca5fca16ee90";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
 })
 
 function updateWalletStatus() {
