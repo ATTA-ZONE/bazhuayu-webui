@@ -371,7 +371,6 @@ function openVideo(e){
 		nowImgVideo = $(nowData).children()[1];//获取当前a标签
 		imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 		$(imgVideo[1]).height($(nowData).width());
-		console.log(imgVideo);
 	})
 }
 // 函数节流
@@ -390,7 +389,6 @@ function resizehandler(){
 			let nowImgVideo = $(nowData).children('a')[i];//获取当前a标签
 			let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 			$(imgVideo[1]).height($(nowData[i]).width());
-			console.log($(nowData).children('a')[i]);
 		}
 	}
 }
