@@ -76,8 +76,9 @@ function getArtworkList(current,pageSize,name,typeId){
 							// 	html +=  `<li><a class="artwork-mask" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
 							// 	html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
 							// }else{
-								html +=  '<li><i onclick="openVideo(' + i + ')"></i>';
-								html +=  `<a class="artwork-mask videoPlay" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
+								// html +=  '<li><i onclick="openVideo(' + i + ')"></i>';
+								// href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"
+								html +=  `<a onclick="openVideo(' + i + ')" class="artwork-mask videoPlay" ><div class="artwork-mask-wrap"></div>`;
 								
 								html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
 								// html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" poster="`+v.secondPic+`" src="`+v.primaryPic+`" muted="muted"></video>`;
@@ -387,10 +388,10 @@ function resizehandler(){
 	let nowData = $('.bzy-e-list').children();//获取当前的li标签
 	if(nowData.length > 0){//首次加载dom节点可能未加载
 		for(let i=0;i<nowData.length;i++){
-			let nowImgVideo = $($('.bzy-e-list').children()).children()[i];//获取当前a标签
+			let nowImgVideo = $(nowData).children()[i];//获取当前a标签
+			console.log(nowImgVideo);
 			let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 			$(imgVideo[1]).height($(nowData[i]).width());
-			console.log(imgVideo);
 		}
 	}
 }
