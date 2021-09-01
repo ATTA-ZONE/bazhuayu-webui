@@ -367,7 +367,6 @@ function openVideo(e){
 		$(imgVideo[1]).height($(nowData).width());
 	}
 	setTimeout(function(){
-		
 		nowData = $('.bzy-e-list').children()[e];//获取当前的li标签
 		nowImgVideo = $(nowData).children()[1];//获取当前a标签
 		imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
@@ -386,13 +385,11 @@ function throttle(method,context){
 // 图片尺寸变为正方形
 function resizehandler(){
 	let nowData = $('.bzy-e-list').children();//获取当前的li标签
-	console.log(nowData.length);
 	if(nowData.length > 0){//首次加载dom节点可能未加载
 		for(let i=0;i<nowData.length;i++){
-			let nowImgVideo = $(nowData).children()[i];//获取当前a标签
+			let nowImgVideo = $($('.bzy-e-list').children()).children()[i];//获取当前a标签
 			let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 			$(imgVideo[1]).height($(nowData[i]).width());
-			$(imgVideo[1]).addClass('aaaaa')
 			console.log(imgVideo);
 		}
 	}
