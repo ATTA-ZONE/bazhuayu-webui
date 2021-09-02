@@ -39,6 +39,7 @@ function confirm(vtoken) {
 
 // 邮箱注册
 function emailRegister(data) {
+	console.log(data);
 	$.ajax({
 		url: base_url + '/v2/user/reg/email',
 		type: 'POST',
@@ -172,7 +173,8 @@ $(function () {
 							email,
 							name,
 							password,
-							platform
+							platform,
+							code
 						};
 					}
 					if (password != password2) {
