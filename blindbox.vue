@@ -223,11 +223,16 @@
       <div class="zscjbox between flex">
         <span>{{
           chEnTextHtml[lang].purchase6 +
+          "BUSD " +
+          drawPrice
+        }}</span>
+        <!-- <span>{{
+          chEnTextHtml[lang].purchase6 +
           "HK$ " +
           hdkDrawPrice +
           " / BUSD " +
           drawPrice
-        }}</span>
+        }}</span> -->
         <button @click="toPay(1)" disabled class="cjbtn">
           {{ chEnTextHtml[lang].Salesended }}
         </button>

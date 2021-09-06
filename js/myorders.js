@@ -166,20 +166,21 @@ function getOrderList(current,pageSize){
 								</div>
 								<p class="purchaseprice">${myordersText.purchasePrice}BUSD `+moneyFormat(v.payPriceUsdt)+` </p>`
 						}
+						// <span class="cur order-price-hdk">HK$`+moneyFormat(v.unitPriceHkd)+` </span>
 						if (v.payMethod == 2) {
 							html +=`<div class="paymenttypebox">${myordersText.paymentMethod}<span>${myordersText.bankCard}</span></div>
 									<div class="countmoneybox">
 									<p class="moneryridebox">
 									${myordersText.price}
-										<span class="cur order-price-hdk">HK$`+moneyFormat(v.unitPriceHkd)+` </span>
+										
 									</p>
 									<p class="countetcbox">
 										<img src="./images/multiply.png" alt="">
 										<span class="purchase_num">`+(v.edition.split(',')).length+`</span>
 										=
 									</p>
-								</div>
-								<p class="purchaseprice">${myordersText.purchasePrice}HK$ `+moneyFormat(v.payPriceHkd)+`  </p>`
+								</div>`
+								// <p class="purchaseprice">${myordersText.purchasePrice}HK$ `+moneyFormat(v.payPriceHkd)+`  </p>
 						}
 						
 											
@@ -246,7 +247,7 @@ function payNow(obj){
 	$('.order-title').text(name);
 	$('.order-img').html(img);
 	$('.details-right-creator-edition').text('Edition '+edition+' of '+storage);
-	$('.order-price-hdk').text('HK$ '+moneyFormat(payPriceHkd)+' ');
+	// $('.order-price-hdk').text('HK$ '+moneyFormat(payPriceHkd)+' ');
 	$('.order-price-busd').text('BUSD '+moneyFormat(payPriceUsdt));
 	$('.order-number span').text(orderNo.split(' ')[2]);
 	$('.payment-page-right-order-je span').text('BUSD '+moneyFormat(payPriceUsdt));

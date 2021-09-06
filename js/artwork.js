@@ -88,11 +88,12 @@ function getArtworkList(current,pageSize,name,typeId){
 						}
 						
 									
+						// <span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 						if(timeStatus==0){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+
 										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 							
@@ -115,7 +116,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										
 										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
@@ -140,7 +141,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										
 										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 									
@@ -179,7 +180,7 @@ function getArtworkList(current,pageSize,name,typeId){
 								html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										
 										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">

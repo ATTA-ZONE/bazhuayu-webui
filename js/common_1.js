@@ -86,7 +86,9 @@ function RPCSwitchHint(res) {
 	if (res != targetChainId && getCookie('isConnect')=='true') {
 		$('.rpcname').text(commonText.tips01+RPCSetting[res]['CHAIN_NAME']+commonText.tips02);
 		$('.target-rpcname').text(RPCSetting[targetChainId]['CHAIN_NAME']);
-		$('.bsc-tips').show()
+		if (getCookie('_wallet_')=='MetaMask') {
+			$('.bsc-tips').show()
+		}
 	} else {
 		$('.bsc-tips').hide()
 	}

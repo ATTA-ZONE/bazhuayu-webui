@@ -381,7 +381,7 @@ var app = new Vue({
 						}
 						// $('.order-img img').attr('src',res.data.primaryPic);
 						$('.order-title').text(res.data.name);
-						$('.order-price-hdk').text('HK$ ' + moneyFormat(res.data.hkdPrice));
+						// $('.order-price-hdk').text('HK$ ' + moneyFormat(res.data.hkdPrice));
 						$('.order-price-busd').text('BUSD ' + moneyFormat(res.data.price));
 						// if (res.data.name == '徐冬冬 牛N.X潮玩 NFT限量版' || res.data.name == 'Xu Dongdong_Nu N.X Trendy Play _Limited') {
 						// 	res.data.edition = 200;
@@ -525,7 +525,7 @@ var app = new Vue({
 				}
 				str += item;
 			})
-			$('.hkdPrice').text('HK$ ' + moneyFormat(self.hkdPrice * self.selectarr.length));
+			// $('.hkdPrice').text('HK$ ' + moneyFormat(self.hkdPrice * self.selectarr.length));
 			$('.busdPrice').text('BUSD ' + moneyFormat(self.busdPrice * self.selectarr.length));
 			$(".purchase_num").text(self.selectarr.length);
 			$('.selectarrnum').text(str);
