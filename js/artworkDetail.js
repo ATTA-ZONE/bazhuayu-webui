@@ -198,7 +198,32 @@ var app = new Vue({
 		self.initAddress()
 	},
 	mounted(){
-		this.togglePayMethod(0)
+		$('.payment-page-right-btn').hide();
+				$('.payment-tips').show();
+				$('.payment-page-right-crypto').show();
+				if (getCookie('isConnect') != 'true') {
+					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
+					$('#cryptoBtn').attr('disabled', false)
+				} else {
+					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].payment+'  ->')
+					$('#cryptoBtn').attr('disabled', false)
+				}
+				$('.payment-page-right-balance').hide()
+				$('.payment-page-right-crypto button').addClass('can');
+				if ($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') {
+					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
+				} else {
+					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
+				}
+
+				// $('.payment-page-right-total').hide();
+				// $('.payment-page-right-total .order-price').hide()
+				$('.order-price .order-price-hdk').hide();
+				$('.order-price .order-price-busd').show();
+				$('.payment-page-right-select').hide();
+				$('.payment-page-right-busd').hide();
+				// $('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
+				// $('.wallet-payment-desc').show();
 	},
 	methods: {
 		payCrypto() {
