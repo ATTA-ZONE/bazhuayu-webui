@@ -498,7 +498,8 @@ module.exports = {
       curUserOwned: 0,
       oneUserCountLimit: 0,
       onceCountLimit: 0,
-      payTabs: ["錢包支付", "信用卡"],
+      payTabs: ["錢包支付"],
+      // payTabs: ["錢包支付", "信用卡"],
       selectedPayMethod: 0,
       basicId: 0,
       visiable: [],
@@ -517,9 +518,11 @@ module.exports = {
     this.isConnect = getCookie("isConnect") == "false" ? false : true;
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
-      this.payTabs = ["錢包支付", "信用卡"];
+      this.payTabs = ["錢包支付"];
+      // this.payTabs = ["錢包支付", "信用卡"];
     } else {
-      this.payTabs = ["Crypto wallet", "Credit card"];
+      this.payTabs = ["Crypto wallet"];
+      // this.payTabs = ["Crypto wallet", "Credit card"];
     }
   },
 

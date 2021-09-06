@@ -14,7 +14,8 @@ var app = new Vue({
 			curUserOwned: 0,
 			oneUserCountLimit: 0,
 			onceCountLimit: 0,
-			payTabs: ['錢包支付', '信用卡'],
+			payTabs: ['錢包支付'],
+			// payTabs: ['錢包支付', '信用卡'],
 			selectedPayMethod: 0,
 			basicId: 0,
 			visiable: [],
@@ -154,10 +155,12 @@ var app = new Vue({
 		this.languageType = getCookie("lang")?getCookie("lang"):'TC';
 		if(this.languageType == "TC"){
 			document.title = "明星藏品詳情";
-			this.payTabs = ['錢包支付', '信用卡'];
+			this.payTabs = ['錢包支付'];
+			// this.payTabs = ['錢包支付', '信用卡'];
 		}else{
 			document.title = "collection detail";
-			this.payTabs = ['Crypto wallet', 'Credit card'];
+			this.payTabs = ['Crypto wallet'];
+			// this.payTabs = ['Crypto wallet', 'Credit card'];
 		}
 		self.initMediaCss()
 		var params = window.location.search.substr(1).split('&')
