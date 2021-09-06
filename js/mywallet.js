@@ -130,20 +130,20 @@ $(function () {
 						$('.connect-wallet-nothing').hide();
 						$('.walletconnect-wallet').addClass('wallet-li');
 						$('.metamask-wallet').removeClass('wallet-li');
-						$('.walletconnect-wallet .wallet-address').text(mywalletText.walletAddress+res.data.address)
+						$('.walletconnect-wallet .wallet-address').html(`<span>${mywalletText.walletAddress}</span>`+res.data.address)
 					} else {
 						$('.walletconnect-wallet').hide();
 						$('.metamask-wallet').show();
 						$('.connect-wallet-nothing').hide();
 						$('.walletconnect-wallet').removeClass('wallet-li');
 						$('.metamask-wallet').addClass('wallet-li');
-						$('.metamask-wallet .wallet-address').text(mywalletText.walletAddress+res.data.address)
+						$('.metamask-wallet .wallet-address').html(`<span>${mywalletText.walletAddress}</span>`+res.data.address)
 					};							
 				} else {
 					$('.walletconnect-wallet').hide();
 					$('.metamask-wallet').hide();
 					$('.connect-wallet-nothing').show();
-					$('.walletconnect-wallet .wallet-address').text('---');
+					$('.walletconnect-wallet .wallet-address').html('---');
 					$(".nowallet-wallet").show();
 				}
 			} else {
