@@ -23,13 +23,12 @@
         <h3>{{ activityTitle }}</h3>
         <p v-html="activityDetail"></p>
         <div class="luckdraw_btns">
-          <button
+          <!-- <button
             class="cjbtn"
             onClick="window.scrollTo(0,document.body.clientHeight); "
           >
-            <!-- Coming soon  -->
             {{chEnTextHtml[lang].drawnow}}
-          </button>
+          </button> -->
         </div>
         <h3>{{chEnTextHtml[lang].nftqy}}</h3>
         <p>{{chEnTextHtml[lang].nftqydetails}}</p>
@@ -190,11 +189,8 @@
           " / BUSD " +
           drawPrice
         }}</span>
-        <button @click="toPay(1)" class="cjbtn">
-          {{ chEnTextHtml[lang].luckdrawintroduce_btn1 }}
-        </button>
-        <button @click="toPay(10)" class="cjbtn">
-          {{ chEnTextHtml[lang].luckdrawintroduce_btn2 }}
+        <button @click="toPay(1)" disabled class="cjbtn">
+          {{ chEnTextHtml[lang].Salesended }}
         </button>
       </div>
       <!-- <div class="bottombtn">
@@ -463,8 +459,10 @@ module.exports = {
           nftqy : "NFT權益",
           nftqydetails : "所有ATTA x英雄聯盟主播系列NFT，均包含多種長期權益。當前可對LPL季後賽進行投票，並獲取多種獎勵。後續將會有更多玩法，敬請期待。",
           nftqybtn : "查看權益",
+          Salesended: "已售罄"
         },
         EN: {
+          Salesended: "Sales ended",
           nftqybtn : "View utilities",
           nftqy : "NFT Utilities",
           nftqydetails : 'All NFTs purchased from the "ATTA X LOL Streamer NFT Collection" include a variety of long-term utilities. Voting for "LPL 2021 Summer Playoffs" is currently available and a variety of rewards can be earned. More gamplays will be announced, please stay tuned.',
@@ -758,8 +756,8 @@ module.exports = {
     },
     playVideo(type, val,num) {
       let self = this;
-      let videoUrl = "/upload/other/one_draw.mp4";
-      $(".blindbox_box .video-model #clickbtnvideo").attr("src", videoUrl);
+      let videoUrl = "/upload/other/one_draw.mp4";
+      $(".blindbox_box .video-model #clickbtnvideo").attr("src", videoUrl);
       var now = new Date();
       var startnow = new Date(self.startnow2);
       var endDate = new Date(self.endnow2);
@@ -802,8 +800,8 @@ module.exports = {
         success: function (res) {
           if (res.code == 0) {
             self.blindBoxData = res.data;
-            self.isshowclick = false;
-            $(".blindbox_box .video-model video")[0].play();
+             self.isshowclick = false;
+            $(".blindbox_box .video-model video")[0].play();
             $(".blindbox_box .video-mask").fadeIn("fast");
             $(".blindbox_box .video-model").fadeIn("fast");
             $(".blindbox_box .video-model video")[0].addEventListener(

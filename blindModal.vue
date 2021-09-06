@@ -535,7 +535,7 @@ module.exports = {
   methods: {
     paymentResultClose() {
       $(".payment-result-modal").hide();
-      location.reload();
+      location.search=''
     },
     playVideo(url) {
       $(".bindmodalbox .payment").fadeOut("fast");

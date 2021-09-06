@@ -39,6 +39,7 @@ function confirm(vtoken) {
 
 // 邮箱注册
 function emailRegister(data) {
+	console.log(data);
 	$.ajax({
 		url: base_url + '/v2/user/reg/email',
 		type: 'POST',
@@ -120,7 +121,12 @@ function toggleLoginStatus() {
 		$('.sign-btn .sign-btn-register button').data('click', 0);
 	}
 }
-
+// 获取地址栏参数
+function GetQueryString(name){
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
 $(function () {
 	$("#agree").click(function () {
 		toggleLoginStatus()
@@ -138,7 +144,8 @@ $(function () {
 			var name = $('#nickname').val().trim(); //昵称
 			var password = $('#pwd').val().trim(); //密码
 			var password2 = $('#pwd2').val().trim(); //密码
-			var code = $('#regType').val().trim(); //邀請碼
+			// var code = $('#regType').val().trim(); //邀請碼
+			var code = GetQueryString('code')?GetQueryString('code'):'';
 			var platform = 0;
 
 			// var data = {
@@ -166,7 +173,8 @@ $(function () {
 							email,
 							name,
 							password,
-							platform
+							platform,
+							code
 						};
 					}
 					if (password != password2) {

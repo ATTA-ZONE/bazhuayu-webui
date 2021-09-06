@@ -216,7 +216,6 @@ function widthDraw(){
 			url:base_url+'/v2/user/wallet/info',
 			success:function(res){
 				if(res.code==0){
-					setCookie('_wallet_', res.data.walletType)
 					var html = ``;
 					html += `<div class="modify-ipt-add">
 								<div class="modify-ipt-tit">`+(res.data.address==null?'請連接錢包':'To '+res.data.address)+`</div>
