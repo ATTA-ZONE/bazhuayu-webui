@@ -1,4 +1,6 @@
 var mywalletText = chEnText.mywallet[lang];
+var walletType = getCookie(CHAIN.WALLET.__wallet__);
+
 function safeCharge(res, accounts) {
 	loading();
 	if (res.data.address != accounts[0]) {
@@ -6,7 +8,7 @@ function safeCharge(res, accounts) {
 		if (window.confirm(hintMessage)) {
 			var data = {
 				address: accounts[0],
-				walletType: 'METAMASK'
+				walletType: walletType
 			}
 
 			$.ajax({

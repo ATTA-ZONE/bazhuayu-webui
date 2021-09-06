@@ -428,19 +428,14 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					// }
 
 					if (getCookie(th.__wallet__)){
-						console.log('__connectInit2', th1.__provider);
 						var oldWallet = th[getCookie(th.__wallet__)];
 						await oldWallet.__disconnect();
 					}
 
-					await th1.__disconnect();
-
-					console.log('__connectInit2.5', th1.__provider);
-					
+					await th1.__disconnect();					
 
 					var res = await th1.__enable();
 					th1.__initListener();
-					console.log('__connectInit3', th1.__provider);
 
 					return res;
 				},
@@ -451,30 +446,29 @@ if (window.location.href.indexOf('bazhuayu.io') == -1) {
 					var th1=W.CHAIN.WALLET.WalletConnect;
 
 					th1.provider().chainId=targetChainId;
-					console.log('__enable', th1.__provider);
 					var res = await th1.provider().enable();
 					return res;
 				},
 
 				// switchRPCSettings: CHAIN.WALLET._errorHandleWrapper(CHAIN.WALLET.MetaMask.__switchRPCSettings),
 				__switchRPCSettings: async function() {
-					// var th1=W.CHAIN.WALLET.WalletConnect;
-					// var chainId = arguments[0];
-					// params_dict = {
-					// 	chainId: RPCSetting[chainId]['CHAIN_ID_HEX'],
-					// 	chainName: RPCSetting[chainId]['CHAIN_NAME'],
-					// 	nativeCurrency:{
-					// 		name: RPCSetting[chainId]['symbol'],
-					// 		symbol: RPCSetting[chainId]['symbol'],
-					// 		decimals: 18},
-					// 		rpcUrls: [RPCSetting[chainId]['RPC_URL']],
-					// 		blockExplorerUrls:[RPCSetting[chainId]['ETHERSCAN_URL']]
-					// }; 
-					// var res = await th1.provider().request({
-					// 	method:'wallet_addEthereumChain',
-					// 	params:params_dict
-					// });
-					// return res;
+					var th1=W.CHAIN.WALLET.WalletConnect;
+					var chainId = arguments[0];
+					params_dict = {
+						chainId: RPCSetting[chainId]['CHAIN_ID_HEX'],
+						chainName: RPCSetting[chainId]['CHAIN_NAME'],
+						nativeCurrency:{
+							name: RPCSetting[chainId]['symbol'],
+							symbol: RPCSetting[chainId]['symbol'],
+							decimals: 18},
+							rpcUrls: [RPCSetting[chainId]['RPC_URL']],
+							blockExplorerUrls:[RPCSetting[chainId]['ETHERSCAN_URL']]
+					}; 
+					var res = await th1.provider().request({
+						method:'wallet_addEthereumChain',
+						params:params_dict
+					});
+					return res;
 				},
 
 				// wallet_watchAsset: CHAIN.WALLET._errorHandleWrapper(CHAIN.WALLET.MetaMask.__wallet_watchAsset),

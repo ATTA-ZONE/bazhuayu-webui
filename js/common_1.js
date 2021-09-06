@@ -9,6 +9,7 @@ var base_url = '';
 var islogin;
 var walletId = '';
 var targetChainId = 56;
+var walletType = getCookie(CHAIN.WALLET.__wallet__)
 
 if (getCookie('islogin') != 'false') {
 	islogin = true;
@@ -282,7 +283,7 @@ function updateWalletStatus() {
 			success:function(res){
 				if(res.code==0){
 					walletId = res.data.address;
-					if (!window.ethereum) {
+					if (!walletType) {
 						return false
 					}
 					CHAIN.WALLET.accounts()
