@@ -83,11 +83,13 @@ var app = new Vue({
 					balancePayment:"餘額支付",
 					accomplish:"完成",
 					payment:"立即付款",
+					switchNet: "請先切換網絡",
 					walletFirst:"請先連接錢包  ->",
 					paymentComing: "錢包直連支付功能準備中...",
 					metaTips: "注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。"
 				},
 				"EN":{
+					switchNet: "Please switch network first",
 					metaTips: "Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",
 					home:'HOME',
 					auction:'AUCTION',
@@ -246,7 +248,11 @@ var app = new Vue({
 						loading();
 						$('#cryptoBtn').attr('disabled', true)
 						self.tokenLimits = res.data.tokenLimit
-						self.authUser()
+						if (getCookie('_wallet_') == 'MetaMask') {
+							self.authUser()
+						} else {
+							self.getOnSellToken()
+						}
 					}
 				})
 			}
@@ -301,6 +307,8 @@ var app = new Vue({
 					id = web3.utils.hexToNumber(res);
 					if (id == targetChainId) {
 						self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
+					} else {
+						tips(self.chEnTextHtml[self.languageType].switchNet)
 					}
 					var auctionABI = contractSetting['vending_machine']['abi'];
 					self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
