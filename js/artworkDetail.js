@@ -346,6 +346,9 @@ var app = new Vue({
 									window.location.reload();
 								}, 1500)
 							}, 1800);
+						}).catch(error =>{
+							loadingHide()
+							tips(JSON.stringify(error));
 						})
 					})
 			})
