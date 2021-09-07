@@ -14,7 +14,8 @@ var app = new Vue({
 			curUserOwned: 0,
 			oneUserCountLimit: 0,
 			onceCountLimit: 0,
-			payTabs: ['錢包支付', '信用卡'],
+			payTabs: ['錢包支付'],
+			// payTabs: ['錢包支付', '信用卡'],
 			selectedPayMethod: 0,
 			basicId: 0,
 			visiable: [],
@@ -82,11 +83,13 @@ var app = new Vue({
 					balancePayment:"餘額支付",
 					accomplish:"完成",
 					payment:"立即付款",
+					switchNet: "請先切換網絡",
 					walletFirst:"請先連接錢包  ->",
 					paymentComing: "錢包直連支付功能準備中...",
 					metaTips: "注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。"
 				},
 				"EN":{
+					switchNet: "Please switch network first",
 					metaTips: "Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",
 					home:'HOME',
 					auction:'AUCTION',
@@ -154,10 +157,12 @@ var app = new Vue({
 		this.languageType = getCookie("lang")?getCookie("lang"):'TC';
 		if(this.languageType == "TC"){
 			document.title = "明星藏品詳情";
-			this.payTabs = ['錢包支付', '信用卡'];
+			this.payTabs = ['錢包支付'];
+			// this.payTabs = ['錢包支付', '信用卡'];
 		}else{
 			document.title = "collection detail";
-			this.payTabs = ['Crypto wallet', 'Credit card'];
+			this.payTabs = ['Crypto wallet'];
+			// this.payTabs = ['Crypto wallet', 'Credit card'];
 		}
 		self.initMediaCss()
 		var params = window.location.search.substr(1).split('&')
@@ -195,7 +200,32 @@ var app = new Vue({
 		self.initAddress()
 	},
 	mounted(){
-		this.togglePayMethod(0)
+		$('.payment-page-right-btn').hide();
+				$('.payment-tips').show();
+				$('.payment-page-right-crypto').show();
+				if (getCookie('isConnect') != 'true') {
+					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].walletFirst)
+					$('#cryptoBtn').attr('disabled', false)
+				} else {
+					$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].payment+'  ->')
+					$('#cryptoBtn').attr('disabled', false)
+				}
+				$('.payment-page-right-balance').hide()
+				$('.payment-page-right-crypto button').addClass('can');
+				if ($('.busd-tip').text() == '餘額不足' || $('.busd-tip').text() == 'Insufficient balance') {
+					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].recharge);
+				} else {
+					$('.payment-page-right-btn button').text(this.chEnTextHtml[this.languageType].payment+' >');
+				}
+
+				// $('.payment-page-right-total').hide();
+				// $('.payment-page-right-total .order-price').hide()
+				$('.order-price .order-price-hdk').hide();
+				$('.order-price .order-price-busd').show();
+				$('.payment-page-right-select').hide();
+				$('.payment-page-right-busd').hide();
+				// $('.wallet-payment-desc').text(this.chEnTextHtml[this.languageType].paymentComing);
+				// $('.wallet-payment-desc').show();
 	},
 	methods: {
 		payCrypto() {
@@ -218,7 +248,11 @@ var app = new Vue({
 						loading();
 						$('#cryptoBtn').attr('disabled', true)
 						self.tokenLimits = res.data.tokenLimit
-						self.authUser()
+						if (getCookie('_wallet_') == 'MetaMask') {
+							self.authUser()
+						} else {
+							self.getOnSellToken()
+						}
 					}
 				})
 			}
@@ -273,6 +307,8 @@ var app = new Vue({
 					id = web3.utils.hexToNumber(res);
 					if (id == targetChainId) {
 						self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
+					} else {
+						tips(self.chEnTextHtml[self.languageType].switchNet)
 					}
 					var auctionABI = contractSetting['vending_machine']['abi'];
 					self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
@@ -304,12 +340,16 @@ var app = new Vue({
 						}).on('transactionHash', function (hash) {
 							success(self.chEnTextHtml[self.languageType].purchaseSuc, 1800);
 							setTimeout(function () {
+								loadingHide()
 								tips(self.chEnTextHtml[self.languageType].seconds);
 								$('#cryptoBtn').attr('disabled', false)
 								setTimeout(function () {
 									window.location.reload();
 								}, 1500)
 							}, 1800);
+						}).catch(error =>{
+							loadingHide()
+							tips(JSON.stringify(error));
 						})
 					})
 			})
@@ -353,7 +393,7 @@ var app = new Vue({
 						}
 						// $('.order-img img').attr('src',res.data.primaryPic);
 						$('.order-title').text(res.data.name);
-						$('.order-price-hdk').text('HK$ ' + moneyFormat(res.data.hkdPrice));
+						// $('.order-price-hdk').text('HK$ ' + moneyFormat(res.data.hkdPrice));
 						$('.order-price-busd').text('BUSD ' + moneyFormat(res.data.price));
 						// if (res.data.name == '徐冬冬 牛N.X潮玩 NFT限量版' || res.data.name == 'Xu Dongdong_Nu N.X Trendy Play _Limited') {
 						// 	res.data.edition = 200;
@@ -497,7 +537,7 @@ var app = new Vue({
 				}
 				str += item;
 			})
-			$('.hkdPrice').text('HK$ ' + moneyFormat(self.hkdPrice * self.selectarr.length));
+			// $('.hkdPrice').text('HK$ ' + moneyFormat(self.hkdPrice * self.selectarr.length));
 			$('.busdPrice').text('BUSD ' + moneyFormat(self.busdPrice * self.selectarr.length));
 			$(".purchase_num").text(self.selectarr.length);
 			$('.selectarrnum').text(str);

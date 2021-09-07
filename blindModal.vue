@@ -29,7 +29,9 @@
                 <span>@ATTA</span>
               </div>
               <div class="payment-page-left-img order-img">
-                <img src="/upload/v2data/2021-08-19/a410d1ae-890a-41b5-ab2f-205ec88b00d0.jpg" />
+                <img
+                  src="/upload/v2data/2021-08-19/a410d1ae-890a-41b5-ab2f-205ec88b00d0.jpg"
+                />
               </div>
             </div>
 
@@ -238,7 +240,12 @@
     <div class="video-mask none"></div>
     <div class="video-model none">
       <div class="video-model-container flex">
-          <video webkit-playsinline="true" src="http://47.118.74.48:8081/upload/other/one_draw.mp4" autoplay muted></video>
+        <video
+          webkit-playsinline="true"
+          src="http://47.118.74.48:8081/upload/other/one_draw.mp4"
+          autoplay
+          muted
+        ></video>
       </div>
     </div>
     <div class="payment-result-modal none">
@@ -413,9 +420,11 @@ module.exports = {
             "您抽中的NFT將在盲盒活動結束後24小時內發送至您的默認錢包。可在我的資產-我的NFT下可查看。",
           walletPay: "錢包支付",
           loadingText: "支付需耗時10-20秒鐘，請耐心等待~",
-          orderNoErr: "當前處理繁忙，請再次嘗試。"
+          orderNoErr: "當前處理繁忙，請再次嘗試。",
+          switchNet: "請先切換網絡",
         },
         EN: {
+          switchNet: "Please switch network first",
           orderNoErr: "Server is busy, please try again.",
           loadingText:
             "Payment takes about 10-20s to process, please be patient.",
@@ -498,7 +507,8 @@ module.exports = {
       curUserOwned: 0,
       oneUserCountLimit: 0,
       onceCountLimit: 0,
-      payTabs: ["錢包支付", "信用卡"],
+      payTabs: ["錢包支付"],
+      // payTabs: ["錢包支付", "信用卡"],
       selectedPayMethod: 0,
       basicId: 0,
       visiable: [],
@@ -517,9 +527,11 @@ module.exports = {
     this.isConnect = getCookie("isConnect") == "false" ? false : true;
     this.lang = getCookie("lang") ? getCookie("lang") : "TC";
     if (this.lang == "TC") {
-      this.payTabs = ["錢包支付", "信用卡"];
+      this.payTabs = ["錢包支付"];
+      // this.payTabs = ["錢包支付", "信用卡"];
     } else {
-      this.payTabs = ["Crypto wallet", "Credit card"];
+      this.payTabs = ["Crypto wallet"];
+      // this.payTabs = ["Crypto wallet", "Credit card"];
     }
   },
 
@@ -535,7 +547,7 @@ module.exports = {
   methods: {
     paymentResultClose() {
       $(".payment-result-modal").hide();
-      location.search=''
+      location.search = "";
     },
     playVideo(url) {
       $(".bindmodalbox .payment").fadeOut("fast");
@@ -623,6 +635,8 @@ module.exports = {
         id = web3.utils.hexToNumber(res);
         if (id == self.targetChainId) {
           self.auctionAddress = contractSetting["vending_machine"][id].address; //网络切换
+        } else {
+          tips(self.chEnTextHtml[self.lang].switchNet);
         }
         var auctionABI = contractSetting["vending_machine"]["abi"];
         self.auctionContractInstance = new web3.eth.Contract(
@@ -781,7 +795,7 @@ module.exports = {
           .then(function (res2) {
             loadingHide();
             if (Number(res2) >= Number(num)) {
-              self.preSku()
+              self.preSku();
               setTimeout(function () {
                 busdContractInstance.methods
                   .transfer(cwallet, num)
@@ -792,15 +806,21 @@ module.exports = {
                   .on("transactionHash", function (hash) {
                     loading(self.chEnTextHtml[self.lang].loadingText);
                     if (!self.orderNo) {
-                      tips(self.chEnTextHtml[self.lang].orderNoErr)
-                      return false
+                      tips(self.chEnTextHtml[self.lang].orderNoErr);
+                      return false;
                     }
                     self.saveHash(accounts, hash, 3);
+                    if (getCookie("_wallet_") == "WalletConnect") {
+                      self.drawSku(accounts, hash, 3);
+                      $(".bindmodalbox .payment").fadeOut();
+                      self.playVideo();
+                      loadingHide();
+                    }
                   })
                   .then((result) => {
                     if (!self.orderNo) {
-                      tips(self.chEnTextHtml[self.lang].orderNoErr)
-                      return false
+                      tips(self.chEnTextHtml[self.lang].orderNoErr);
+                      return false;
                     }
                     self.drawSku(accounts, result.transactionHash, 3);
                     $(".bindmodalbox .payment").fadeOut();

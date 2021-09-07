@@ -77,7 +77,7 @@ function getArtworkList(current,pageSize,name,typeId){
 							// 	html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
 							// }else{
 								html +=  '<li><i onclick="openVideo(' + i + ')"></i>';
-								html +=  `<a class="artwork-mask videoPlay" href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}"><div class="artwork-mask-wrap"></div>`;
+								html +=  `<a href="${v.releaseType == 2 ? 'auctionDetails.html?id='+v.id : 'artworkDetails.html?id='+v.id}" class="artwork-mask videoPlay" ><div class="artwork-mask-wrap"></div>`;
 								
 								html+=`<img class="bzy-e-list-img" src="`+v.secondPic+`" >`;
 								// html+=`<video x5-video-player-type="h5" x5-video-player-fullscreen="true" x-webkit-airplay="true" webkit-playsinline="true" playsinline="true" style="width:100%;z-index=10" loop="loop" poster="`+v.secondPic+`" src="`+v.primaryPic+`" muted="muted"></video>`;
@@ -88,11 +88,12 @@ function getArtworkList(current,pageSize,name,typeId){
 						}
 						
 									
+						// <span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
 						if(timeStatus==0){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+
 										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 							
@@ -115,7 +116,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										
 										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
@@ -140,7 +141,7 @@ function getArtworkList(current,pageSize,name,typeId){
 						html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										
 										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 									
@@ -179,7 +180,7 @@ function getArtworkList(current,pageSize,name,typeId){
 								html +=	`<div class="bzy-e-list-info">
 									<div class="bzy-e-list-info-tit">`+v.name+`</div>
 									<div class="bzy-e-list-info-price flex">
-										<span>HK$ `+moneyFormat(v.hkdPrice)+` </span>
+										
 										<span>BUSD `+moneyFormat(v.price)+` </span>
 									</div>`;
 							html +=`<div class="bzy-e-list-info-sale flex">
@@ -367,12 +368,10 @@ function openVideo(e){
 		$(imgVideo[1]).height($(nowData).width());
 	}
 	setTimeout(function(){
-		
 		nowData = $('.bzy-e-list').children()[e];//获取当前的li标签
 		nowImgVideo = $(nowData).children()[1];//获取当前a标签
 		imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 		$(imgVideo[1]).height($(nowData).width());
-		console.log(imgVideo);
 	})
 }
 // 函数节流
@@ -386,14 +385,11 @@ function throttle(method,context){
 // 图片尺寸变为正方形
 function resizehandler(){
 	let nowData = $('.bzy-e-list').children();//获取当前的li标签
-	console.log(nowData.length);
 	if(nowData.length > 0){//首次加载dom节点可能未加载
 		for(let i=0;i<nowData.length;i++){
-			let nowImgVideo = $(nowData).children()[i];//获取当前a标签
+			let nowImgVideo = $(nowData).children('a')[i];//获取当前a标签
 			let imgVideo = $(nowImgVideo).children();//获取a标签下所有子节点
 			$(imgVideo[1]).height($(nowData[i]).width());
-			$(imgVideo[1]).addClass('aaaaa')
-			console.log(imgVideo);
 		}
 	}
 }

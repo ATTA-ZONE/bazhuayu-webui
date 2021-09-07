@@ -9,6 +9,7 @@ var base_url = '';
 var islogin;
 var walletId = '';
 var targetChainId = 56;
+var walletType = getCookie(CHAIN.WALLET.__wallet__)
 
 if (getCookie('islogin') != 'false') {
 	islogin = true;
@@ -82,10 +83,12 @@ function closeBsc() {
 }
 
 function RPCSwitchHint(res) {
-	if (res != targetChainId && getCookie('isConnect')=='true') {
+	if (res && res != targetChainId && getCookie('isConnect')=='true') {
 		$('.rpcname').text(commonText.tips01+RPCSetting[res]['CHAIN_NAME']+commonText.tips02);
 		$('.target-rpcname').text(RPCSetting[targetChainId]['CHAIN_NAME']);
-		$('.bsc-tips').show()
+		if (getCookie('_wallet_')=='MetaMask' && getCookie('islogin')=='true') {
+			$('.bsc-tips').show()
+		}
 	} else {
 		$('.bsc-tips').hide()
 	}
@@ -282,7 +285,7 @@ function updateWalletStatus() {
 			success:function(res){
 				if(res.code==0){
 					walletId = res.data.address;
-					if (!window.ethereum) {
+					if (!walletType) {
 						return false
 					}
 					CHAIN.WALLET.accounts()

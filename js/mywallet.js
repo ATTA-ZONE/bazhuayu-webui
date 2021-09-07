@@ -1,4 +1,6 @@
 var mywalletText = chEnText.mywallet[lang];
+var walletType = getCookie(CHAIN.WALLET.__wallet__);
+
 function safeCharge(res, accounts) {
 	loading();
 	if (res.data.address != accounts[0]) {
@@ -6,7 +8,7 @@ function safeCharge(res, accounts) {
 		if (window.confirm(hintMessage)) {
 			var data = {
 				address: accounts[0],
-				walletType: 'METAMASK'
+				walletType: walletType
 			}
 
 			$.ajax({
@@ -111,6 +113,7 @@ $(function () {
 		url: base_url + '/v2/user/wallet/info',
 		success: function (res) {
 			if (res.code == 0) {
+				setCookie('_wallet_', res.data.walletType)
 				$('.usdt-rest').text('BUSD '+res.data.usdtRest);
 				if (res.data.cardNo == null || res.data.cardNo == '') {
 					$('.cardNo').text('---');
@@ -128,20 +131,20 @@ $(function () {
 						$('.connect-wallet-nothing').hide();
 						$('.walletconnect-wallet').addClass('wallet-li');
 						$('.metamask-wallet').removeClass('wallet-li');
-						$('.walletconnect-wallet .wallet-address').text(mywalletText.walletAddress+res.data.address)
+						$('.walletconnect-wallet .wallet-address').html(`<span>${mywalletText.walletAddress}</span>`+res.data.address)
 					} else {
 						$('.walletconnect-wallet').hide();
 						$('.metamask-wallet').show();
 						$('.connect-wallet-nothing').hide();
 						$('.walletconnect-wallet').removeClass('wallet-li');
 						$('.metamask-wallet').addClass('wallet-li');
-						$('.metamask-wallet .wallet-address').text(mywalletText.walletAddress+res.data.address)
+						$('.metamask-wallet .wallet-address').html(`<span>${mywalletText.walletAddress}</span>`+res.data.address)
 					};							
 				} else {
 					$('.walletconnect-wallet').hide();
 					$('.metamask-wallet').hide();
 					$('.connect-wallet-nothing').show();
-					$('.walletconnect-wallet .wallet-address').text('---');
+					$('.walletconnect-wallet .wallet-address').html('---');
 					$(".nowallet-wallet").show();
 				}
 			} else {

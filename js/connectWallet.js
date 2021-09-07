@@ -19,6 +19,7 @@ function linksuccessful(walletId) {
 
 
 function connectInit(walletname) {
+	localStorage.removeItem('walletconnect');
 	CHAIN.WALLET.connect(walletname)
 		.then(function (accounts) {
 			if (accounts) {
@@ -30,7 +31,7 @@ function connectInit(walletname) {
 				};
 				var data = {
 					address: accounts[0],
-					walletType: 'METAMASK'
+					walletType: walletname
 				}
 		
 				$.ajax({

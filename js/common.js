@@ -2,6 +2,7 @@
 var url = window.location.pathname;
 url = url.substring(url.lastIndexOf('/')+1);
 url = url.substring(0,url.indexOf('.'));
+var walletType = getCookie(CHAIN.WALLET.__wallet__);
 
 //var base_url = 'http://47.118.74.48:8081';
 // var base_url = 'http://58.212.110.92:8866';
@@ -218,7 +219,7 @@ $(function(){
 		}
 	})
 
-	if (window.ethereum) {
+	if (walletType) {
 		window.ethereum.request({ method: 'eth_accounts'}).then(function(res){
 			if (walletId == res[0]) {
 				setTimeout(() => {
@@ -257,7 +258,7 @@ $(function(){
 		async:false,
 		success:function(res){
 			if(res.code==0){
-				if(res.data.walletType=="TOKEN POCKET"){
+				if(res.data.walletType=="WalletConnect"){
 					CHAIN.WALLET.WalletConnect.events();
 					var t = setInterval(function(){
 						var walletconnect = localStorage.getItem('walletconnect');

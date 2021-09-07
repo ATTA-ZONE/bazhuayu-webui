@@ -3,6 +3,7 @@ var urlauctionPayment = window.location.search.split('=');
 var userPrice = urlauctionPayment[1].split("&id")[0];
 var urlid = urlauctionPayment[2].split("&tokenTypeId")[0];
 var tokenTypeId = urlauctionPayment[urlauctionPayment.length - 1];
+var walletType = getCookie(CHAIN.WALLET.__wallet__);
 function backAuction() {
 	window.location.href = 'auctionDetails.html?id=5';
 }
@@ -23,7 +24,7 @@ function bindWallet(targetAddress) {
 					if (window.confirm(hintMessage)) {
 						var data = {
 							address: targetAddress,
-							walletType: 'METAMASK'
+							walletType: walletType
 						};
 
 						$.ajax({
@@ -140,10 +141,6 @@ function userBidInfo() {
 			}
 		});
 }
-
-
-
-var walletType = getCookie(CHAIN.WALLET.__wallet__);
 
 //是否连接钱包
 if (walletType || window.ethereum) {

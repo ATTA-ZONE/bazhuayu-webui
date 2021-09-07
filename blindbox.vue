@@ -30,14 +30,11 @@
             {{chEnTextHtml[lang].drawnow}}
           </button> -->
         </div>
-        <h3>{{chEnTextHtml[lang].nftqy}}</h3>
-        <p>{{chEnTextHtml[lang].nftqydetails}}</p>
+        <h3>{{ chEnTextHtml[lang].nftqy }}</h3>
+        <p>{{ chEnTextHtml[lang].nftqydetails }}</p>
         <div class="luckdraw_btns">
-          <button
-            class="cjbtn"
-            @click="jumppage()"
-          >
-            {{chEnTextHtml[lang].nftqybtn}}
+          <button class="cjbtn" @click="jumppage()">
+            {{ chEnTextHtml[lang].nftqybtn }}
           </button>
         </div>
       </div>
@@ -49,8 +46,20 @@
           v-for="(item, index) in cards1"
           :key="index + Math.random()"
         >
-          <img :src="item.secondPic ? item.secondPic : './images/tv6_'+(index + 1) +'.png'" />
-          <div class="mask" v-if="item.secondPic" :style="'backgroundImage: url(./images/tv6_'+(index+1)+'.png);'">
+          <img
+            :src="
+              item.secondPic
+                ? item.secondPic
+                : './images/tv6_' + (index + 1) + '.png'
+            "
+          />
+          <div
+            class="mask"
+            v-if="item.secondPic"
+            :style="
+              'backgroundImage: url(./images/tv6_' + (index + 1) + '.png);'
+            "
+          >
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
@@ -63,8 +72,20 @@
           v-for="(item, index) in cards2"
           :key="index + Math.random()"
         >
-          <img :src="item.secondPic ? item.secondPic : './images/tv6_'+(index + 1) +'.png'" />
-          <div class="mask" v-if="item.secondPic" :style="'backgroundImage: url(./images/tv6_'+(index+1)+'.png);'">
+          <img
+            :src="
+              item.secondPic
+                ? item.secondPic
+                : './images/tv6_' + (index + 1) + '.png'
+            "
+          />
+          <div
+            class="mask"
+            v-if="item.secondPic"
+            :style="
+              'backgroundImage: url(./images/tv6_' + (index + 1) + '.png);'
+            "
+          >
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
@@ -77,8 +98,20 @@
           v-for="(item, index) in cards3"
           :key="index + Math.random()"
         >
-          <img :src="item.secondPic ? item.secondPic : './images/tv6_'+(index + 1 )+'.png'" />
-          <div class="mask" v-if="item.secondPic" :style="'backgroundImage: url(./images/tv6_'+(index+1)+'.png);'">
+          <img
+            :src="
+              item.secondPic
+                ? item.secondPic
+                : './images/tv6_' + (index + 1) + '.png'
+            "
+          />
+          <div
+            class="mask"
+            v-if="item.secondPic"
+            :style="
+              'backgroundImage: url(./images/tv6_' + (index + 1) + '.png);'
+            "
+          >
             <p v-html="item.introduce"></p>
           </div>
           <div class="noimgword" v-else>
@@ -90,10 +123,8 @@
       <div class="line"></div>
       <div class="purchasebox">
         <div class="between flex">
-         <!-- + leftAmount + " / " + storge -->
-          <span>{{
-            chEnTextHtml[lang].purchase1 + storge
-          }}</span>
+          <!-- + leftAmount + " / " + storge -->
+          <span>{{ chEnTextHtml[lang].purchase1 + storge }}</span>
           <p class="between flex">
             <span>{{
               chEnTextHtml[lang].purchase7 + leftFreeCount.leftFreeCount2
@@ -105,9 +136,11 @@
             />
             <button
               class="cjbtn"
-              @click="playVideo(2, leftFreeCount.leftFreeCount2,leftAmount)"
-              :style="{background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : ''}"
-              :disabled = "!isshowdisabled ? true : false"
+              @click="playVideo(2, leftFreeCount.leftFreeCount2, leftAmount)"
+              :style="{
+                background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : '',
+              }"
+              :disabled="!isshowdisabled ? true : false"
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -127,9 +160,11 @@
             />
             <button
               class="cjbtn"
-              @click="playVideo(1, leftFreeCount.leftFreeCount1,leftAmount)"
-              :style="{background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : ''}"
-              :disabled = "!isshowdisabled ? true : false"
+              @click="playVideo(1, leftFreeCount.leftFreeCount1, leftAmount)"
+              :style="{
+                background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : '',
+              }"
+              :disabled="!isshowdisabled ? true : false"
             >
               {{ chEnTextHtml[lang].purchase5 }}
             </button>
@@ -137,7 +172,7 @@
         </div>
         <div class="dbcqword">
           <p class="cq">
-            {{ chEnTextHtml[lang].purchase1  + storge }}
+            {{ chEnTextHtml[lang].purchase1 + storge }}
           </p>
           <!-- <p class="cq">{{ chEnTextHtml[lang].purchase3 + stakingPool }}</p> -->
           <p class="flex numbox">
@@ -152,9 +187,11 @@
           </p>
           <button
             class="cjbtn"
-            @click="playVideo(2, leftFreeCount.leftFreeCount2,leftAmount)"
-            :style="{background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : ''}"
-            :disabled = "!isshowdisabled ? true : false"
+            @click="playVideo(2, leftFreeCount.leftFreeCount2, leftAmount)"
+            :style="{
+              background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : '',
+            }"
+            :disabled="!isshowdisabled ? true : false"
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
@@ -170,9 +207,11 @@
           </p>
           <button
             class="cjbtn"
-            @click="playVideo(1, leftFreeCount.leftFreeCount1,leftAmount)"
-            :style="{background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : ''}"
-            :disabled = "!isshowdisabled ? true : false"
+            @click="playVideo(1, leftFreeCount.leftFreeCount1, leftAmount)"
+            :style="{
+              background: !isshowdisabled ? 'rgba(255,255,255,0.3)' : '',
+            }"
+            :disabled="!isshowdisabled ? true : false"
           >
             {{ chEnTextHtml[lang].purchase5 }}
           </button>
@@ -184,11 +223,16 @@
       <div class="zscjbox between flex">
         <span>{{
           chEnTextHtml[lang].purchase6 +
+          "BUSD " +
+          drawPrice
+        }}</span>
+        <!-- <span>{{
+          chEnTextHtml[lang].purchase6 +
           "HK$ " +
           hdkDrawPrice +
           " / BUSD " +
           drawPrice
-        }}</span>
+        }}</span> -->
         <button @click="toPay(1)" disabled class="cjbtn">
           {{ chEnTextHtml[lang].Salesended }}
         </button>
@@ -257,7 +301,12 @@
     <div class="video-model none">
       <div class="video-model-container flex">
         <div>
-          <video id="clickbtnvideo" webkit-playsinline="true" src="" muted></video>
+          <video
+            id="clickbtnvideo"
+            webkit-playsinline="true"
+            src=""
+            muted
+          ></video>
         </div>
       </div>
     </div>
@@ -280,7 +329,11 @@
           </div>
           <div class="payment-page-left">
             <div class="payment-page-left-tit order-title success-titl">
-              {{ blindBoxData.list && blindBoxData.list.length > 0 ? blindBoxData.list[0].name : chEnTextHtml[lang].orderTit}}
+              {{
+                blindBoxData.list && blindBoxData.list.length > 0
+                  ? blindBoxData.list[0].name
+                  : chEnTextHtml[lang].orderTit
+              }}
             </div>
             <div class="payment-page-left-creator flex">
               <div class="details-right-creator-img">
@@ -309,7 +362,11 @@
                 order-title
               "
             >
-              {{ blindBoxData.list && blindBoxData.list.length > 0 ? blindBoxData.list[0].name : chEnTextHtml[lang].orderTit}}
+              {{
+                blindBoxData.list && blindBoxData.list.length > 0
+                  ? blindBoxData.list[0].name
+                  : chEnTextHtml[lang].orderTit
+              }}
             </div>
             <div
               class="
@@ -325,16 +382,24 @@
               <span>@ATTA</span>
             </div>
             <div class="payment-page-right-total">
-              <p class="ordernum">{{chEnTextHtml[lang].idno + blindBoxData.orderNo}}</p>
+              <p class="ordernum">
+                {{ chEnTextHtml[lang].idno + blindBoxData.orderNo }}
+              </p>
               <h3>{{ chEnTextHtml[lang].paid }}</h3>
               <h3>
-                <span class="order-price-hdk hkdPrice">{{chEnTextHtml[lang].free}}</span
-                ><span class="order-price-busd none busdPrice">{{chEnTextHtml[lang].free}}</span>
+                <span class="order-price-hdk hkdPrice">{{
+                  chEnTextHtml[lang].free
+                }}</span
+                ><span class="order-price-busd none busdPrice">{{
+                  chEnTextHtml[lang].free
+                }}</span>
               </h3>
               <h4 class="info-desc">
-                {{ chEnTextHtml[lang].payTip}}
+                {{ chEnTextHtml[lang].payTip }}
               </h4>
-              <h4 class="user-address user-address-title">{{chEnTextHtml[lang].walletPay}}</h4>
+              <h4 class="user-address user-address-title">
+                {{ chEnTextHtml[lang].walletPay }}
+              </h4>
               <h4 class="user-address">{{ blindBoxData.address }}</h4>
             </div>
 
@@ -366,13 +431,14 @@ module.exports = {
       cards3: [],
       chEnTextHtml: {
         TC: {
-          btn1 : "使用NFT投票",
-          btn2 : "預測比賽勝負",
+          btn1: "使用NFT投票",
+          btn2: "預測比賽勝負",
           luckdrawintroduce_btn1: "單抽",
           luckdrawintroduce_btn2: "十連抽",
           noimgword: "敬請期待",
           purchase1: "盲盒總數：",
-          purchase2: "白名單用戶每購買4個盲盒，可獲贈1次抽取機會（最多可獲贈4次）",
+          purchase2:
+            "白名單用戶每購買4個盲盒，可獲贈1次抽取機會（最多可獲贈4次）",
           purchase3: "當前投票獎勵池： BUSD ",
           purchase4: "我的白名單獲贈抽取機會 ：",
           purchase5: "現在使用",
@@ -449,32 +515,37 @@ module.exports = {
           paymentComing: "錢包直連支付功能準備中...",
           orderTit: "ATTA x 英雄联盟主播系列NFT盲盒",
           orderInfo: " - Rita系列S卡",
-          walletPay: '錢包支付',
-          payTip: '您抽中的NFT將在盲盒活動結束後24小時內發送至您的默認錢包。可在我的資產-我的NFT下可查看。',
-          free: '免費',
-          frequency : "您當前沒有免費抽取機會。",
-          activitytips1 : "盲盒將於8月19日20:00（北京時間）開始銷售，敬請期待！",
-          activitytips2 : "活動已結束",
-          drawnow : "即刻抽取",
-          nftqy : "NFT權益",
-          nftqydetails : "所有ATTA x英雄聯盟主播系列NFT，均包含多種長期權益。當前可對LPL季後賽進行投票，並獲取多種獎勵。後續將會有更多玩法，敬請期待。",
-          nftqybtn : "查看權益",
-          Salesended: "已售罄"
+          walletPay: "錢包支付",
+          payTip:
+            "您抽中的NFT將在盲盒活動結束後24小時內發送至您的默認錢包。可在我的資產-我的NFT下可查看。",
+          free: "免費",
+          frequency: "您當前沒有免費抽取機會。",
+          activitytips1: "盲盒將於8月19日20:00（北京時間）開始銷售，敬請期待！",
+          activitytips2: "活動已結束",
+          drawnow: "即刻抽取",
+          nftqy: "NFT權益",
+          nftqydetails:
+            "所有ATTA x英雄聯盟主播系列NFT，均包含多種長期權益。當前可對LPL季後賽進行投票，並獲取多種獎勵。後續將會有更多玩法，敬請期待。",
+          nftqybtn: "查看權益",
+          Salesended: "已售罄",
         },
         EN: {
           Salesended: "Sales ended",
-          nftqybtn : "View utilities",
-          nftqy : "NFT Utilities",
-          nftqydetails : 'All NFTs purchased from the "ATTA X LOL Streamer NFT Collection" include a variety of long-term utilities. Voting for "LPL 2021 Summer Playoffs" is currently available and a variety of rewards can be earned. More gamplays will be announced, please stay tuned.',
-          drawnow : "Draw now",
-          activitytips1 : "Mystery box sales will open on Aug 19th 20:00 (Beijing)~",
-          activitytips2 : "Activity ended",
-          btn1 : "Vote with NFT",
-          btn2 : "Predict Match Result",
-          frequency : "Currently, you don't have any free draws.",
-          free: 'free',
-          walletPay: 'Wallet payment',
-          payTip: 'The NFT you have drawn will be sent to your wallet within 24 hours after the purchasing is closed. It can be viewed under My Assets - My NFTs.',
+          nftqybtn: "View utilities",
+          nftqy: "NFT Utilities",
+          nftqydetails:
+            'All NFTs purchased from the "ATTA X LOL Streamer NFT Collection" include a variety of long-term utilities. Voting for "LPL 2021 Summer Playoffs" is currently available and a variety of rewards can be earned. More gamplays will be announced, please stay tuned.',
+          drawnow: "Draw now",
+          activitytips1:
+            "Mystery box sales will open on Aug 19th 20:00 (Beijing)~",
+          activitytips2: "Activity ended",
+          btn1: "Vote with NFT",
+          btn2: "Predict Match Result",
+          frequency: "Currently, you don't have any free draws.",
+          free: "free",
+          walletPay: "Wallet payment",
+          payTip:
+            "The NFT you have drawn will be sent to your wallet within 24 hours after the purchasing is closed. It can be viewed under My Assets - My NFTs.",
           orderTit: "ATTA x LOL Streamer NFT Collection",
           orderInfo: " - Rita series S card",
           luckdrawintroduce_btn1: "Single Draw",
@@ -491,10 +562,13 @@ module.exports = {
           tips0: "Rules for Mystery Box Draw (Airdrop)",
           tips01: "Rules for Mystery Box Draw (Whitelist)",
           tips1: "For users who are eligible to receive the Mystery Box airdop",
-          tips5: 'For users who are whitelisted and can enjoy the "Buy 4 Get 1 Free" discount',
-          tips2: "Draw Time: August 19th, 20:00PM ~ August 20th 12:00PM (UTC+8)",
+          tips5:
+            'For users who are whitelisted and can enjoy the "Buy 4 Get 1 Free" discount',
+          tips2:
+            "Draw Time: August 19th, 20:00PM ~ August 20th 12:00PM (UTC+8)",
           tips3: "After the deadline, drawing of Mystery Box will be closed",
-          tips4: "*For more information, please contact ATTA customer service at Telegram: https://t.me/attaofficialeng1",
+          tips4:
+            "*For more information, please contact ATTA customer service at Telegram: https://t.me/attaofficialeng1",
           edit: "Edit",
           clickedit: "Click to edit",
           transfer: "Transfer",
@@ -604,13 +678,13 @@ module.exports = {
       activityId: 1,
       stakingPool: 0,
       istkshow: 1,
-      blindBoxData : {},
-      isshowclick : true,
-      startnow : "2021/8/12 20:00",
-      startnow2 : "2021/8/12 20:00",
-      endnow : "2021/8/20 12:00",
-      endnow2 : "2021/8/20 12:00",
-      isshowdisabled : false,
+      blindBoxData: {},
+      isshowclick: true,
+      startnow: "2021/8/12 20:00",
+      startnow2: "2021/8/12 20:00",
+      endnow: "2021/8/20 12:00",
+      endnow2: "2021/8/20 12:00",
+      isshowdisabled: false,
     };
   },
 
@@ -629,20 +703,19 @@ module.exports = {
   },
 
   methods: {
-    paymentClose(){
-      $('.blindbox_box .payment-result-modal').hide();
+    paymentClose() {
+      $(".blindbox_box .payment-result-modal").hide();
     },
     getAssetsList() {
       var self = this;
-      if (getCookie("islogin") != "false") {
-        if (window.ethereum) {
-          CHAIN.WALLET.accounts().then(function (accounts) {
-            self.account_address = accounts.length > 0 ? accounts[0] : "";
-            self.getdata();
-          });
-        }else{
+      if (
+        getCookie("islogin") != "false" &&
+        getCookie(CHAIN.WALLET.__wallet__)
+      ) {
+        CHAIN.WALLET.accounts().then(function (accounts) {
+          self.account_address = accounts.length > 0 ? accounts[0] : "";
           self.getdata();
-        }
+        });
       } else {
         self.getdata();
       }
@@ -681,8 +754,11 @@ module.exports = {
             self.cards1 = res.data.series[0].commodities;
             self.cards2 = res.data.series[1].commodities;
             self.cards3 = res.data.series[2].commodities;
-            if ((new Date(self.startnow2)).getTime() < (new Date()).getTime() && (new Date(self.endnow2)).getTime() > (new Date()).getTime()) {
-              self.isshowdisabled = true; 
+            if (
+              new Date(self.startnow2).getTime() < new Date().getTime() &&
+              new Date(self.endnow2).getTime() > new Date().getTime()
+            ) {
+              self.isshowdisabled = true;
             }
             if (res.data.rewardCount.length) {
               res.data.rewardCount.forEach((item) => {
@@ -730,20 +806,26 @@ module.exports = {
         return;
       }
       window.blindNum = str;
-      window.setCookie('blindNum',str)
+      window.setCookie("blindNum", str);
       $.ajax({
         url: base_url + "/v2/user/account",
         success: function (res) {
           if (res.code == 0) {
-            $(".bindmodalbox .order-price-hdk").text("HK$ " + self.hdkDrawPrice * str);
-            $(".bindmodalbox .order-price-busd").text("BUSD " + self.drawPrice * str);
+            $(".bindmodalbox .order-price-hdk").text(
+              "HK$ " + self.hdkDrawPrice * str
+            );
+            $(".bindmodalbox .order-price-busd").text(
+              "BUSD " + self.drawPrice * str
+            );
             if (Number(str) == 10) {
               $(".success-titl").text(self.chEnTextHtml[self.lang].orderTit);
             }
             $(".bindmodalbox .payment").fadeIn();
             $(".bindmodalbox .payment").addClass("payment-active");
             $(".bindmodalbox video").addClass("video-hidden");
-            $(".bindmodalbox .payment-page-left-img video").removeClass("video-hidden");
+            $(".bindmodalbox .payment-page-left-img video").removeClass(
+              "video-hidden"
+            );
           } else {
             window.tips(self.chEnTextHtml[self.lang].noLog);
             setTimeout(() => {
@@ -754,15 +836,15 @@ module.exports = {
         },
       });
     },
-    playVideo(type, val,num) {
+    playVideo(type, val, num) {
       let self = this;
-      let videoUrl = "/upload/other/one_draw.mp4";
-      $(".blindbox_box .video-model #clickbtnvideo").attr("src", videoUrl);
+      let videoUrl = "/upload/other/one_draw.mp4";
+      $(".blindbox_box .video-model #clickbtnvideo").attr("src", videoUrl);
       var now = new Date();
       var startnow = new Date(self.startnow2);
       var endDate = new Date(self.endnow2);
       if (!self.isshowclick) {
-        return ;
+        return;
       }
       if (getCookie("islogin") == "false" || getCookie("islogin") == false) {
         window.tips(self.chEnTextHtml[self.lang].noLog);
@@ -800,13 +882,13 @@ module.exports = {
         success: function (res) {
           if (res.code == 0) {
             self.blindBoxData = res.data;
-             self.isshowclick = false;
+            self.isshowclick = false;
             $(".blindbox_box .video-model video")[0].play();
             $(".blindbox_box .video-mask").fadeIn("fast");
             $(".blindbox_box .video-model").fadeIn("fast");
             $(".blindbox_box .video-model video")[0].addEventListener(
               "ended",
-              function(){
+              function () {
                 $(".blindbox_box .video-mask").fadeOut("fast");
                 $(".blindbox_box .video-model").fadeOut("fast");
                 $(".blindbox_box .payment-result-modal").fadeIn("fast");
@@ -815,12 +897,11 @@ module.exports = {
               },
               false
             );
-          }else{
+          } else {
             tips(res.message);
           }
         },
       });
-      
     },
     jumppage() {
       window.open("https://www.atta.zone/esports");
@@ -829,19 +910,19 @@ module.exports = {
       let dom = document.querySelector(".modify");
       dom.style.display = "block";
       this.istkshow = type;
-    }
+    },
   },
 };
 </script>
 
 <style>
-.bannerbox{
+.bannerbox {
   display: none;
 }
-.bannerbox1{
+.bannerbox1 {
   display: block;
 }
-.blindbox_box *{
+.blindbox_box * {
   font-family: "Inter" !important;
 }
 .modify {
@@ -919,12 +1000,12 @@ module.exports = {
   letter-spacing: -0.035em;
   text-align: justify;
   opacity: 0.8; */
-    font-size: 18px;
-    line-height: 150%;
-    font-weight: 300;
-    letter-spacing: -0.035em;
-    color: rgba(255, 255, 255, 1);
-    text-align: justify;
+  font-size: 18px;
+  line-height: 150%;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  color: rgba(255, 255, 255, 1);
+  text-align: justify;
 }
 
 .luckdrawintroduce {
@@ -1115,39 +1196,39 @@ module.exports = {
 .cardsbox .purchasebox .dbcqword {
   display: none;
 }
-.ordernum{
+.ordernum {
   font-size: 14px !important;
   opacity: 0.4 !important;
 }
-.jumpzcbtn{
+.jumpzcbtn {
   border: none;
   border-radius: 2px;
   color: #fff;
   font-weight: bold;
   height: 48px;
   width: 100%;
-  background-color: #9567FF;
+  background-color: #9567ff;
   /* box-shadow: 0 1px 3px 0 rgb(19 57 94 / 40%); */
   font-size: 14px;
 }
 .modify {
-  background:rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.7);
 }
-@media only screen and (max-width: 1440px){
-  .luckdrawintroduce .luckdraw_right h3{
+@media only screen and (max-width: 1440px) {
+  .luckdrawintroduce .luckdraw_right h3 {
     font-size: 40px;
   }
 }
-@media only screen and (max-width: 1280px){
-  .luckdrawintroduce .luckdraw_right h3{
+@media only screen and (max-width: 1280px) {
+  .luckdrawintroduce .luckdraw_right h3 {
     font-size: 35px;
   }
 }
 @media only screen and (max-width: 992px) {
-  .bannerbox{
+  .bannerbox {
     display: none;
   }
-  .bannerbox2{
+  .bannerbox2 {
     display: block;
   }
   .modify .modify-form .modify-tit {

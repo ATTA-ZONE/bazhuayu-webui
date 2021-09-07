@@ -25,11 +25,11 @@
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
-	<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
 		html {
 			padding: 0;
@@ -175,8 +175,8 @@
 					<div class="countmoneybox">
 						<p class="moneryridebox">
 							{{chEnTextHtml[languageType].price}}
-							<span class="cur order-price-hdk">HK$0 </span>
-							<span>/</span>
+							<!-- <span class="cur order-price-hdk">HK$0 </span> -->
+							<!-- <span>/</span> -->
 							<span class="order-price-busd">BUSD 0 </span>
 						</p>
 						<p class="countetcbox">
@@ -185,8 +185,10 @@
 							=
 						</p>
 					</div>
-					<div class="details-right-price flex"><span class="cur order-price-hdk hkdPrice">HK$0 </span> <span
-							style="margin-right: 20px;">/</span> <span class="order-price-busd busdPrice" style="opacity: 1;">BUSD 0
+					<div class="details-right-price flex">
+						<!-- <span class="cur order-price-hdk hkdPrice">HK$0 </span>  -->
+						<!-- <span style="margin-right: 20px;">/</span>  -->
+						<span class="order-price-busd busdPrice" style="opacity: 1;">BUSD 0
 						</span></div>
 					<div class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay">
 						{{chEnTextHtml[languageType].purchaseNow}}</div>
@@ -242,8 +244,9 @@
 							</div>
 							<div class="payment-page-right-total">
 								<p>{{chEnTextHtml[languageType].pendingPayment}}</p>
-								<p class="order-price"><span class="order-price-hdk hkdPrice">HK$0 </span><span
-										class="order-price-busd none busdPrice">BUSD 0 </span></p>
+								<p class="order-price">
+									<!-- <span class="order-price-hdk hkdPrice">HK$0 </span> -->
+									<span class="order-price-busd none busdPrice">BUSD 0 </span></p>
 							</div>
 
 							<div class="payment-page-right-select modify-ipt-fream">
