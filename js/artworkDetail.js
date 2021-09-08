@@ -475,7 +475,8 @@ var app = new Vue({
 							$('.busd-tip').text('-' + res.data.price);
 						}
 						$('.busd-tip').show();
-						self.walletType = result.data.walletType
+						self.walletType = result.data.walletType || 'MetaMask'
+						setCookie('_wallet_',self.walletType);
 					}
 				}
 			})
