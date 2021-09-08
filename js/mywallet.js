@@ -175,7 +175,7 @@ $(function () {
 					}
 				},
 				error: function (res) {
-					window.alert(mywalletText.httpError);
+					window.alert(mywalletText.windowErr);
 				}
 			})	
 		} else if (tit == 'dwallet') {
@@ -185,7 +185,7 @@ $(function () {
 				dataType: 'json',
 				success: function (res) {
 					if (res.code == 0) {
-						success(mywalletText.httpError, 1800);
+						success(mywalletText.deleteSuc, 1800);
 						// document.cookie = "isConnect=false";
 						setCookie("isConnect",false);
 						setTimeout(function () {
