@@ -86,9 +86,7 @@ function RPCSwitchHint(res) {
 	if (res && res != targetChainId && getCookie('isConnect')=='true') {
 		$('.rpcname').text(commonText.tips01+RPCSetting[res]['CHAIN_NAME']+commonText.tips02);
 		$('.target-rpcname').text(RPCSetting[targetChainId]['CHAIN_NAME']);
-		if (getCookie('_wallet_')=='MetaMask' && getCookie('islogin')=='true') {
-			$('.bsc-tips').show()
-		}
+		$('.bsc-tips').show()
 	} else {
 		$('.bsc-tips').hide()
 	}
@@ -285,9 +283,8 @@ function updateWalletStatus() {
 			success:function(res){
 				if(res.code==0){
 					walletId = res.data.address;
-					if (!walletType) {
-						return false
-					}
+					walletType = res.data.walletType || 'MetaMask'
+					setCookie('_wallet_',walletType);
 					CHAIN.WALLET.accounts()
 						.then(function(account){
 							setCookie('isConnect', false);
