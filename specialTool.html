@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap-datetimepicker.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css" />
+	<link rel="stylesheet" type="text/css" href="./css/swiper.css" />
+	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css" />
+	<link rel="stylesheet" type="text/css" href="./css/frames-base.css" />
+	<link rel="stylesheet" type="text/css" href="./css/frames.css" />
+	<link rel="stylesheet" type="text/css" href="./css/style.css" />
+	<link rel="stylesheet" type="text/css" href="./css/media.css" />
+	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3-provider.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="./js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common_1.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		html {
+			padding: 0;
+		}
+
+		.pre-mask {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 999;
+		}
+
+		.detail-mask {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: transparent;
+			width: 100%;
+			height: 100%;
+			z-index: 6;
+		}
+
+		.wallet-payment-desc {
+			color: #fff;
+		}
+
+
+		.modify-ipt-fream {
+			position: relative;
+		}
+
+		.modify-ipt-fream .error-message {
+			position: absolute;
+		}
+
+		.error-message__card-number {
+			top: 40px;
+			right: 0;
+		}
+
+		.error-message__expiry-date {
+			top: 104px;
+			right: 226;
+		}
+
+		.error-message__cvv {
+			top: 104px;
+			right: 0;
+		}
+		.payment-tips{
+			border-bottom : none !important;
+			padding: 0 !important;
+			color: #FF1313;
+		}
+
+		[v-cloak] {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="specialTool" v-cloak>
+		<!-- head -->
+		<header class="header center-85 flex header-fixed">
+			<div class="header-left flex">
+				<a class="header-left-logo" href="index.html"><img src="images/Brand.png"></a>
+				<ul class="nav-header flex">
+					<li><a class="language-tc" href="index.html">{{chEnTextHtml[languageType].home}}</a></li>
+					<li><a class="language-tc" href="auctionDetails.html?id=5">{{chEnTextHtml[languageType].auction}}</a></li>
+					<li><a class="language-tc" href="specialTool.html">{{chEnTextHtml[languageType].auction}}</a></li>
+				</ul>
+			</div>
+			<div class="header-right flex">
+				<div class="header-dl flex"></div>
+				<a class="header-right-wallet" href="javascript:void(0);"
+					onclick="connectWallet()">{{chEnTextHtml[languageType].noConnectWallet}}</a>
+				<p class="switchlanguagebox"></p>
+			</div>
+			<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png"></div>
+			<div class="mobile-menu none" onclick="menuShow()"><img src="./images/menu.png"></div>
+		</header>
+
+		<div class="menu-list menu-list1 none">
+			<div class="menu-list-con">
+				<div class="menu-list-con-tit flex">
+					<img class="logo" src="./images/Brand.png">
+					<img class="menu-close" src="./images/Close.png" onclick="menuHide()">
+				</div>
+				<ul class="moblic_h5_navbox">
+					<li><a class="language-tc" href="index.html">{{chEnTextHtml[languageType].home}}</a></li>
+					<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()"
+							href="javascript:void(0);">{{chEnTextHtml[languageType].noConnectWallet}}</a></li>
+					<li class="switchlanguage_mobile"></li>
+				</ul>
+				<div class="menu-list-con-tit-btn mobile-login"><a class="flex"
+						href="login.html">{{chEnTextHtml[languageType].login}}</a></div>
+			</div>
+		</div>
+
+		<div class="menu-list menu-list2 none">
+			<div class="menu-list-con">
+				<div class="menu-list-con-tit flex">
+					<img class="logo" src="./images/Brand.png">
+					<img class="menu-close" src="./images/Close.png" onclick="headIconHide()">
+				</div>
+				<div class="menu-list-con-meail"></div>
+				<ul>
+					<li><a class="language-tc" href="myaccount.html">{{chEnTextHtml[languageType].myaccount}}</a></li>
+					<li><a class="language-tc" href="myorders.html">{{chEnTextHtml[languageType].myorders}}</a></li>
+					<li><a class="language-tc" href="myassets.html">{{chEnTextHtml[languageType].myassets}}</a></li>
+					<li><a class="language-tc" href="mywallet.html">{{chEnTextHtml[languageType].mywallet}}</a></li>
+				</ul>
+				<div class="menu-list-con-tit-btn mobile-logout" onclick="logoutConfirm()"><a class="flex"
+						href="javascript:void(0);"><span class="language-tc">{{chEnTextHtml[languageType].logOut}}</span></a></div>
+			</div>
+		</div>
+		<div>
+
+			<div class="details center-80 flex" v-for="(item, idx) in maskLists" :key="item.id">
+				<div class="details-left order-img">
+					<img class="bzy-e-list-img" :src="item.primaryPic" >
+					<img class="bzy-e-list-img mohu" :src="item.primaryPic" >
+				</div>
+				<div class="details-right">
+					<div class="details-right-tit order-title">{{item.name}}</div>
+					<div class="details-right-creator flex">
+						<div class="details-right-creator-img"><img src="./images/t8.png"></div>
+						<span>@ATTA</span>
+						<div class="details-right-creator-edition">Total Edition: 500</div>
+					</div>
+					<div class="checknumbox">
+						<div class="purchasenumbox">
+							<button @click="changenum(1)"><img src="./images/jian.png" /></button>
+							<span class="purchase_num">{{selectarr.length}}</span>
+							<button @click="changenum(2)"><img src="./images/jia.png" /></button>
+						</div>
+						<p class="selectnumbox">{{chEnTextHtml[languageType].select}} <span class="selectarrnum">{{chEnTextHtml[languageType].selectText}} {{selectarr.length}}</span><b v-if="item.id == 70">,{{chEnTextHtml[languageType].versionTxt}}</b>
+						</p>
+					</div>
+					<div class="countmoneybox">
+						<p class="moneryridebox">
+							{{chEnTextHtml[languageType].price}}
+							<span class="order-price-busd">BUSD {{item.price}}</span> </span>
+						</p>
+						<p class="countetcbox">
+							<img src="./images/multiply.png" />
+							<span class="purchase_num">{{selectarr.length}}</span>
+							=
+						</p>
+					</div>
+					<div class="details-right-price flex">
+						<span class="order-price-busd busdPrice" style="opacity: 1;">BUSD {{(item.price * selectarr.length).toFixed(2)}}
+						</span></div>
+					<div class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay(item)">
+						{{chEnTextHtml[languageType].purchaseNow}}</div>
+					<div class="details-right-des order-introduce" v-html="item.introduce">
+					</div>
+					<div class="details-right-additional">
+						<p class="details-right-additional-more none order-content"></p>
+					</div>
+				</div>
+			</div>
+			<div class="payment none">
+				<div class="payment-container flex">
+					<div class="payment-page flex">
+						<div class="payment-page-close payment-close-pc" onclick="paymentClose()"><img src="./images/Close.png">
+						</div>
+						<div class="payment-page-top none flex">
+							<div class="payment-page-right-tit">{{chEnTextHtml[languageType].pay}}</div>
+							<div class="payment-close-mobile"><img src="./images/Close.png"></div>
+						</div>
+						<div class="payment-page-left">
+							<div class="payment-page-left-tit order-title">{{saleItem.name}}</div>
+							<div class="payment-page-left-creator flex">
+								<div class="details-right-creator-img"><img src="./images/t8.png"></div>
+								<span>@ATTA</span>
+								<div class="details-right-creator-edition">Total Edition: 500</div>
+							</div>
+							<div class="payment-page-left-img order-img"><img :src="saleItem.primaryPic"></div>
+						</div>
+
+						<div class="payment-page-right">
+							<div class="payment-page-right-tit">{{chEnTextHtml[languageType].pay}}</div>
+							<div class="payment-page-left-tit none payment-page-left-tit-mobile order-title">{{saleItem.price}}</div>
+							<div class="payment-page-left-creator none payment-page-left-creator-mobile flex">
+								<div class="details-right-creator-img"><img src="./images/t8.png"></div>
+								<span>@ATTA</span>
+								<div class="details-right-creator-edition">Total Edition: 500</div>
+							</div>
+
+							<div class="payment-page-right-order none">
+								<p class="order-number">Order #：<span>----</span></p>
+								<p class="payment-page-right-order-tit">{{chEnTextHtml[languageType].paid}}</p>
+								<p class="payment-page-right-order-je"><span>----</span></p>
+								<p class="payment-page-right-order-by"><span>{{chEnTextHtml[languageType].byCreditCard}}</span></p>
+								<p class="payment-page-right-order-card none">----</p>
+							</div>
+							<div class="payment-page-right-pay flex">
+								<span v-for="(item, index) in payTabs" :key="index" :class="selectedPayMethod == index? 'cur':''"
+									>{{item}}</span>
+							</div>
+							<div class="payment-page-right-total">
+								<p>{{chEnTextHtml[languageType].pendingPayment}}</p>
+								<p class="order-price">
+									<span class="order-price-busd none busdPrice">BUSD {{(saleItem.price * selectarr.length).toFixed(2)}}</span> </span></p>
+							</div>
+
+							<div class="payment-page-right-crypto none">
+								<button id="cryptoBtn" @click="payCrypto" disabled=""
+									type="button">{{chEnTextHtml[languageType].payment}} ></button>
+								<p></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="pre-mask none"></div>
+		</div>
+		<!-- 播放视频 -->
+		<div class="video-mask none"></div>
+		<div class="video-model none" onclick="closeVideo()">
+			<div class="video-model-container flex">
+				<div>
+					<img onclick="closeVideo()" class="video-close" src="./images/Close.png">
+					<video autoplay="autoplay" loop="loop" src="" controls="controls"></video>
+				</div>
+			</div>
+		</div>
+		<!--提交成功-->
+		<div class="hsycms-model-mask" id="mask-success"></div>
+		<div class="hsycms-model hsycms-model-success" id="success">
+			<div class="hsycms-model-icon">
+				<svg width="50" height="50">
+					<circle class="hsycms-alert-svgcircle" cx="25" cy="25" r="24" fill="none" stroke="#ffffff" stroke-width="2">
+					</circle>
+					<polyline class="hsycms-alert-svggou" fill="none" stroke="#ffffff" stroke-width="2.5"
+						points="14,25 23,34 36,18" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</div>
+			<div class="hsycms-model-text">{{chEnTextHtml[languageType].regSuc}}</div>
+		</div>
+		<!--提交失败-->
+		<div class="hsycms-model-mask" id="mask-error"></div>
+		<div class="hsycms-model hsycms-model-error" id="error">
+			<div class="hsycms-model-icon">
+				<svg width="50" height="50">
+					<circle class="hsycms-alert-svgcircle" cx="25" cy="25" r="24" fill="none" stroke="#f54655" stroke-width="2">
+					</circle>
+					<polyline class="hsycms-alert-svgca1" fill="none" stroke="#f54655" stroke-width="2.5" points="18,17 32,35"
+						stroke-linecap="round" stroke-linejoin="round" />
+					<polyline class="hsycms-alert-svgca2" fill="none" stroke="#f54655" stroke-width="2.5" points="18,35 32,17"
+						stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</div>
+			<div class="hsycms-model-text">{{chEnTextHtml[languageType].operationFailed}}</div>
+		</div>
+		<!-- foot -->
+		<div class="footerpage"></div>
+		<div class="tips"></div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./js/specialTool.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	let html = "",
+		html_mobile = "";
+	html += `<a class="language-change-en">EN</a>
+					<span style="margin: 0 16px;">|</span>
+					<a class="language-change-ch">繁</a>`;
+	$(".switchlanguagebox").html(html);
+	html_mobile += `<a class="language-change-en">EN</a>
+					<span style="margin: 0 16px;">|</span>
+					<a class="language-change-ch">繁</a>`;
+	$(".switchlanguage_mobile").html(html_mobile);
+</script>
+
+</html>
