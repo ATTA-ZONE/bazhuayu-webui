@@ -87,7 +87,7 @@ function getOrderList(current,pageSize){
 							html+=`<img src="`+v.primaryPic+`" >
 									<img class="mohu" src="`+v.primaryPic+`" >`;
 						}
-						
+						const edt = v.edition? v.edition.split(',').join('、') : ''
 						html+=	`</div>
 								<div class="my-orders-right">
 									<div class="my-orders-time flex"><span>${myordersText.buyDate}</span><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
@@ -99,7 +99,7 @@ function getOrderList(current,pageSize){
 									<div class="flex" style="flex-wrap: wrap;color:#fff;align-items: center;padding-bottom: 15px;">
 										<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
 										<span style="margin-right:10px;">@ATTA</span>
-										<p class="details-right-creator-edition" style="margin:0px;">${myordersText.purchased}<span style="color: #9567FF;">`+(v.edition.split(',')).join('、')+`</span>${myordersText.version01}<span>`+v.endEdition+`</span>${myordersText.version02}</p>
+										<p class="details-right-creator-edition" style="margin:0px;">${myordersText.purchased}<span style="color: #9567FF;">`+ edt +`</span>${myordersText.version01}<span>`+v.endEdition+`</span>${myordersText.version02}</p>
 									</div>
 									<div class="my-orders-status">
 									`;

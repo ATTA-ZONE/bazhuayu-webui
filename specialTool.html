@@ -238,51 +238,12 @@
 							<div class="payment-page-right-total">
 								<p>{{chEnTextHtml[languageType].pendingPayment}}</p>
 								<p class="order-price">
-									<span class="order-price-busd none busdPrice">BUSD {{saleItem.price * selectarr.length}} </span></p>
+									<span class="order-price-busd none busdPrice">BUSD {{(saleItem.price * selectarr.length).toFixed(2)}}</span> </span></p>
 							</div>
 
 							<div class="payment-page-right-select modify-ipt-fream">
 								<form id="payment-form" method="POST" action="https://merchant.com/charge-card">
-									<div class="payment-form-ipt">
-										<div class="input-container card-number" style="margin-bottom: 20px !important;">
-											<div class="icon-container">
-												<img id="icon-card-number" src="images/card-icons/card.svg" alt="PAN" />
-											</div>
-											<div class="card-number-frame"></div>
-											<div class="icon-container payment-method">
-												<img id="logo-payment-method" />
-											</div>
-											<div class="icon-container">
-												<img id="icon-card-number-error" src="images/card-icons/error.svg" />
-											</div>
-										</div>
 
-										<div class="date-and-code">
-											<div>
-												<div class="input-container expiry-date">
-													<div class="icon-container">
-														<img id="icon-expiry-date" src="images/card-icons/exp-date.svg" alt="Expiry date" />
-													</div>
-													<div class="expiry-date-frame"></div>
-													<div class="icon-container">
-														<img id="icon-expiry-date-error" src="images/card-icons/error.svg" />
-													</div>
-												</div>
-											</div>
-
-											<div>
-												<div class="input-container cvv">
-													<div class="icon-container">
-														<img id="icon-cvv" src="images/card-icons/cvv.svg" alt="CVV" />
-													</div>
-													<div class="cvv-frame"></div>
-													<div class="icon-container">
-														<img id="icon-cvv-error" src="images/card-icons/error.svg" />
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
 									<p class="flex pay-save"><input id="save" type="checkbox" /><label
 											for="save">{{chEnTextHtml[languageType].saveFor}}</label></p>
 									<div style="color: #FF1313;
@@ -367,8 +328,6 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="./js/specialTool.js" type="text/javascript" charset="utf-8"></script>
-<script src="./js/framesv2.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="./js/frames.js" type="text/javascript" charset="utf-8"></script>
 <script>
 	let html = "",
 		html_mobile = "";
