@@ -66,9 +66,11 @@ var chEnText = {
       "walletImpower":"您的錢包將立即得到授權",
       "accomplis":"完成",
       "toAssets":"去我的資產核對",
-      "balancePayment":"餘額支付"
+      "balancePayment":"餘額支付",
+      "buyCount": "購買數量"
     },
     "EN":{
+      "buyCount": "Purchase quantity",
       "myWallt":"Check my assets",
       "confirm":"Confirm",
       "cancel":"Cancel",

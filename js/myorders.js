@@ -87,7 +87,8 @@ function getOrderList(current,pageSize){
 							html+=`<img src="`+v.primaryPic+`" >
 									<img class="mohu" src="`+v.primaryPic+`" >`;
 						}
-						const edt = v.edition? v.edition.split(',').join('、') : ''
+						const editionDesc =v.edition ? `<p class="details-right-creator-edition" style="margin:0px;">${myordersText.purchased}<span style="color: #9567FF;">`+ v.edition.split(',').join('、') +`</span>${myordersText.version01}<span>`+v.endEdition+`</span>${myordersText.version02}</p>` : `<p class="details-right-creator-edition" style="margin:0px;">${myordersText.buyCount}<span style="color: #9567FF;">`+ v.buyCount +`</span></p>`
+
 						html+=	`</div>
 								<div class="my-orders-right">
 									<div class="my-orders-time flex"><span>${myordersText.buyDate}</span><span>`+v.orderTime.split(' ')[0]+`</span><span>`+v.orderTime.split(' ')[1]+`</span></div>
@@ -98,59 +99,11 @@ function getOrderList(current,pageSize){
 									<div class="my-orders-tit-mb newstyle-name">`+v.name+`</div>
 									<div class="flex" style="flex-wrap: wrap;color:#fff;align-items: center;padding-bottom: 15px;">
 										<div class="details-right-creator-img"><img src="./images/t8.png" ></div>
-										<span style="margin-right:10px;">@ATTA</span>
-										<p class="details-right-creator-edition" style="margin:0px;">${myordersText.purchased}<span style="color: #9567FF;">`+ edt +`</span>${myordersText.version01}<span>`+v.endEdition+`</span>${myordersText.version02}</p>
+										<span style="margin-right:10px;">@ATTA</span>`+ editionDesc+`
 									</div>
 									<div class="my-orders-status">
 									`;
 										
-						if(v.status==1){
-							
-							// html += `		<div class="status-des">待支付</div>
-							// 				<div class="status-due">截至 `+v.expireTime.split(' ')[1]+`</div>
-							// 			</div>
-							// 			<div class="my-orders-status-payment">
-							// 				<div class="payment-tit">付款金額</div>
-							// 				<div class="payment-price"><span data-price="`+v.payPriceHkd+`">HK$ `+moneyFormat(v.payPriceHkd)+` </span><span data-price="`+v.payPriceUsdt+`">`+' BUSD'+moneyFormat(v.payPriceUsdt)+` </span></div>
-							// 			</div>
-							// 		</div>
-							// 		<div class="my-orders-btn flex">
-							// 			<a class="flex my-orders-btn-paynow payment-btn-pc" onclick="payNow(this)" href="javascript:void(0);">立即付款</a>
-							// 			<div class="my-orders-btn-time flex">
-							// 				<img src="./images/image13.png" >
-							// 				<span>`+time+`</span>
-							// 			</div>
-							// 		</div>`;
-						}else if(v.status==2){
-							// html += `		<div class="status-des">支付成功</div>
-							// 			</div>`
-										
-							if(v.payMethod==1){
-										
-								// html +=	`<div class="my-orders-status-payment">
-								// 			<div class="payment-tit">付款金額</div>
-								// 			<div class="payment-price">`+' BUSD'+moneyFormat(v.payPriceUsdt)`</div>
-								// 		</div>
-								// 	</div>`;
-							}else{
-								// html +=	`<div class="my-orders-status-card">
-								// 			<div class="card-tit">信用卡賬號</div>
-								// 			<div class="card-number">`+v.cardNo+`</div>
-								// 		</div>
-								// 		<div class="my-orders-status-payment">
-								// 			<div class="payment-tit">付款金額</div>
-								// 			<div class="payment-price">HK$ `+moneyFormat(v.payPriceHkd)+` </div>
-								// 		</div>
-								// 	</div>`;
-							};
-							
-							
-							
-						}else{
-							// html += `		<div class="status-des">已關閉</div>
-							// 			</div>
-							// 		</div>`;
-						}
 						if (v.payMethod == 1) {
 							html +=`<div class="paymenttypebox">${myordersText.paymentMethod}<span>${myordersText.cryptocurrencies}</span></div>
 									<div class="countmoneybox">
