@@ -205,9 +205,14 @@ var app = new Vue({
 			});
 		},
 		getDrawResult(hash) {
+			let self = this
 			$.ajax({
 				url: base_url + "/v2/activity/getDrawResult",
-				data: {txhash: hash || ""}
+				data: {txhash: hash || ""},
+				success: function(res) {
+					console.log(res);
+					self.imglist = res.data
+				}
 			});
 		},
 		getOnSellToken(accounts) {
@@ -256,9 +261,7 @@ var app = new Vue({
 				})
 				.then((result) => {
 					loadingHide();
-					self.getDrawResult(result.transactionHash).then(imgData=>{
-						self.imglist = imgData.data
-					})
+					self.getDrawResult(result.transactionHash)
 					tips(self.chEnTextHtml[self.languageType].purchaseSuc)
 					$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
 					$('#specialTool .payment-page-right-tit').html(self.chEnTextHtml[self.languageType].purchaseSuc)
