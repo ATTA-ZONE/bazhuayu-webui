@@ -255,7 +255,7 @@ var app = new Vue({
 				})
 				.then((result) => {
 					loadingHide();
-					self.getDrawResult(result.blockHash)
+					self.getDrawResult(result.transactionHash)
 					tips(self.chEnTextHtml[self.languageType].purchaseSuc)
 					$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
 					loadingHide();
