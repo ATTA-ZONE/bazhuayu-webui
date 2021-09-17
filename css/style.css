@@ -1500,6 +1500,7 @@ html {
 	transition: all 0.3s;
 	cursor: pointer;
 	margin-bottom: 30px;
+	background-color: transparent;
 }
 
 .details-right-btn:hover {
