@@ -18,6 +18,7 @@ var app = new Vue({
 			auctionContractInstance: null,
 			userAddress: '',
 			chainId: 0,
+			imglist:[],
 			// 中英文切换
 			languageType: "",
 			chEnTextHtml: {
@@ -249,15 +250,18 @@ var app = new Vue({
 					from: accounts[0],
 					value: num
 				})
-				.on("transactionHash", function (hash) {
+				.on("transactionHash", function () {
 					tips(self.chEnTextHtml[self.languageType].seconds)
 					loading()
 				})
 				.then((result) => {
 					loadingHide();
-					self.getDrawResult(result.transactionHash)
+					self.getDrawResult(result.transactionHash).then(imgData=>{
+						self.imglist = imgData.data
+					})
 					tips(self.chEnTextHtml[self.languageType].purchaseSuc)
 					$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
+					$('#specialTool .payment-page-right-tit').html(self.chEnTextHtml[self.languageType].purchaseSuc)
 					loadingHide();
 					self.selectarr = [1]
 				})

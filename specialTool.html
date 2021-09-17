@@ -80,8 +80,9 @@
 			top: 104px;
 			right: 0;
 		}
-		.payment-tips{
-			border-bottom : none !important;
+
+		.payment-tips {
+			border-bottom: none !important;
 			padding: 0 !important;
 			color: #FF1313;
 		}
@@ -152,8 +153,8 @@
 
 			<div class="details center-80 flex" v-for="(item, idx) in maskLists" :key="item.id">
 				<div class="details-left order-img">
-					<img class="bzy-e-list-img" :src="item.primaryPic" >
-					<img class="bzy-e-list-img mohu" :src="item.primaryPic" >
+					<img class="bzy-e-list-img" :src="item.primaryPic">
+					<img class="bzy-e-list-img mohu" :src="item.primaryPic">
 				</div>
 				<div class="details-right">
 					<div class="details-right-tit order-title">{{item.name}}</div>
@@ -168,7 +169,9 @@
 							<span class="purchase_num">{{selectarr.length}}</span>
 							<button @click="changenum(2)"><img src="./images/jia.png" /></button>
 						</div>
-						<p class="selectnumbox">{{chEnTextHtml[languageType].select}} <span class="selectarrnum">{{chEnTextHtml[languageType].selectText}} {{selectarr.length}}</span><b v-if="item.id == 70">,{{chEnTextHtml[languageType].versionTxt}}</b>
+						<p class="selectnumbox">{{chEnTextHtml[languageType].select}} <span
+								class="selectarrnum">{{chEnTextHtml[languageType].selectText}} {{selectarr.length}}</span><b
+								v-if="item.id == 70">,{{chEnTextHtml[languageType].versionTxt}}</b>
 						</p>
 					</div>
 					<div class="countmoneybox">
@@ -185,7 +188,8 @@
 					<div class="details-right-price flex">
 						<span class="order-price-busd busdPrice" style="opacity: 1;">{{item.id == 70 ? 'ETH':'BUSD'}} {{(item.price * selectarr.length).toFixed(2)}}
 						</span></div>
-					<button :disabled="!saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis)" class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay(item)">
+					<button :disabled="!saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis)"
+						class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay(item)">
 						{{saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis) ? chEnTextHtml[languageType].purchaseNow:chEnTextHtml[languageType].comSoon}}</button>
 					<div class="details-right-des order-introduce" v-html="item.introduce">
 					</div>
@@ -210,7 +214,10 @@
 								<span>@ATTA</span>
 								<div class="details-right-creator-edition">Total Edition: 500</div>
 							</div>
-							<div class="payment-page-left-img order-img"><img :src="saleItem.primaryPic"></div>
+							<div class="payment-page-left-img order-img">
+								<img v-if="imglist.length < 1" :src="saleItem.primaryPic"/>
+								<img class="special-payment-imgs" v-if="imlist.length > 0" v-for="(img, index) in imglist" :src="img.imageUrl" :key="img.tokenId" />
+							</div>
 						</div>
 
 						<div class="payment-page-right">
@@ -223,8 +230,8 @@
 							</div>
 
 							<div class="payment-page-right-pay flex">
-								<span v-for="(item, index) in payTabs" :key="index" :class="selectedPayMethod == index? 'cur':''"
-									>{{item}}</span>
+								<span v-for="(item, index) in payTabs" :key="index"
+									:class="selectedPayMethod == index? 'cur':''">{{item}}</span>
 							</div>
 							<div class="payment-page-right-total">
 								<p>{{chEnTextHtml[languageType].pendingPayment}}</p>
@@ -253,7 +260,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!--提交成功-->
 		<div class="hsycms-model-mask" id="mask-success"></div>
 		<div class="hsycms-model hsycms-model-success" id="success">
