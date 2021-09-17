@@ -185,8 +185,8 @@
 					<div class="details-right-price flex">
 						<span class="order-price-busd busdPrice" style="opacity: 1;">{{item.id == 70 ? 'ETH':'BUSD'}} {{(item.price * selectarr.length).toFixed(2)}}
 						</span></div>
-					<button :disabled="saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis)" class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay(item)">
-						{{saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis) ? chEnTextHtml[languageType].comSoon:chEnTextHtml[languageType].purchaseNow}}</button>
+					<button :disabled="!saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis)" class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay(item)">
+						{{saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis) ? chEnTextHtml[languageType].purchaseNow:chEnTextHtml[languageType].comSoon}}</button>
 					<div class="details-right-des order-introduce" v-html="item.introduce">
 					</div>
 					<div class="details-right-additional">
@@ -253,6 +253,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<!--提交成功-->
 		<div class="hsycms-model-mask" id="mask-success"></div>
 		<div class="hsycms-model hsycms-model-success" id="success">

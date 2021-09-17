@@ -252,7 +252,6 @@ var app = new Vue({
 				.on("transactionHash", function (hash) {
 					tips(self.chEnTextHtml[self.languageType].seconds)
 					loading()
-					//self.saveHash(self.saleItem.id, hash);
 				})
 				.then((result) => {
 					loadingHide();
@@ -263,8 +262,8 @@ var app = new Vue({
 					self.selectarr = [1]
 				})
 				.catch((err) => {
-					console.log(err);
 					loadingHide();
+					tips(self.chEnTextHtml[self.languageType].payErr)
 					self.selectarr = [1]
 				});
 		},
