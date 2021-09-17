@@ -341,20 +341,6 @@ var app = new Vue({
 			})
 		},
 
-		timeFormat(str) {
-			var date = new Date(str);
-			Y = date.getFullYear() + "-";
-			M =
-				(date.getMonth() + 1 < 10 ?
-					"0" + (date.getMonth() + 1) :
-					date.getMonth() + 1) + "-";
-			D = date.getDate() + " ";
-			h = date.getHours() + ":";
-			m = date.getMinutes() + ":";
-			s = date.getSeconds();
-			return Y + M + D + h + m + s;
-		},
-
 		toggleVideo() {
 			var voiceStatus = document.getElementsByTagName('video')[0].muted
 			document.getElementsByTagName('video')[0].muted = !voiceStatus
@@ -398,30 +384,7 @@ var app = new Vue({
 				}
 			}
 		},
-		//询问弹窗
-		saveconfirm() {
-			let self = this;
-			hsycms.confirm('confirm', this.chEnTextHtml[this.languageType].asset,
-				function (res) {
-					hsycms.success('success', self.chEnTextHtml[self.languageType].confirm);
-					setTimeout(function () {
-						window.location.href = 'myassets.html';
-					}, 1500)
-				},
-				function (res) {
-					hsycms.error('error', self.chEnTextHtml[self.languageType].cancel);
-				},
-			)
-		},
 
-		//格式化时间
-		formatDuring(mss) {
-			var days = parseInt(mss / (1000 * 60 * 60 * 24));
-			var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-			var seconds = parseInt((mss % (1000 * 60)) / 1000);
-			return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-		},
 		toPay(item) {
 			let self = this;
 			self.saleItem = item;
@@ -449,20 +412,6 @@ var app = new Vue({
 					$('.payment').removeClass('payment-active');
 					$('video').removeClass('video-hidden');
 				})
-			}
-		},
-		//Additional Infomation 
-		showDetailInfo() {
-			var ele = $('.details-right-additional-show')
-			var status = ele.data('status');
-			if (status == 0) {
-				$('.details-right-additional-more').slideDown('fast');
-				ele.children('span').text('-');
-				ele.data('status', '1');
-			} else if (status == 1) {
-				$('.details-right-additional-more').slideUp('fast');
-				ele.children('span').text('+');
-				ele.data('status', '0');
 			}
 		}
 	}
