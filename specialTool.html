@@ -13,8 +13,6 @@
 	<link rel="stylesheet" type="text/css" href="./css/stackedCards.css" />
 	<link rel="stylesheet" type="text/css" href="./css/swiper.css" />
 	<link rel="stylesheet" type="text/css" href="./css/hsycmsAlert.css" />
-	<link rel="stylesheet" type="text/css" href="./css/frames-base.css" />
-	<link rel="stylesheet" type="text/css" href="./css/frames.css" />
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 	<link rel="stylesheet" type="text/css" href="./css/media.css" />
 	<script src="./js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -26,6 +24,7 @@
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/EthContractAbi.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainProvider.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chEnText.js" type="text/javascript" charset="utf-8"></script>
@@ -175,7 +174,7 @@
 					<div class="countmoneybox">
 						<p class="moneryridebox">
 							{{chEnTextHtml[languageType].price}}
-							<span class="order-price-busd">BUSD {{item.price}}</span> </span>
+							<span class="order-price-busd">{{item.id == 70 ? 'ETH':'BUSD'}} {{item.price}}</span> </span>
 						</p>
 						<p class="countetcbox">
 							<img src="./images/multiply.png" />
@@ -184,10 +183,10 @@
 						</p>
 					</div>
 					<div class="details-right-price flex">
-						<span class="order-price-busd busdPrice" style="opacity: 1;">BUSD {{(item.price * selectarr.length).toFixed(2)}}
+						<span class="order-price-busd busdPrice" style="opacity: 1;">{{item.id == 70 ? 'ETH':'BUSD'}} {{(item.price * selectarr.length).toFixed(2)}}
 						</span></div>
-					<div class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay(item)">
-						{{chEnTextHtml[languageType].purchaseNow}}</div>
+					<button :disabled="saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis)" class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay(item)">
+						{{saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis) ? chEnTextHtml[languageType].comSoon:chEnTextHtml[languageType].purchaseNow}}</button>
 					<div class="details-right-des order-introduce" v-html="item.introduce">
 					</div>
 					<div class="details-right-additional">
@@ -223,13 +222,6 @@
 								<div class="details-right-creator-edition">Total Edition: 500</div>
 							</div>
 
-							<div class="payment-page-right-order none">
-								<p class="order-number">Order #：<span>----</span></p>
-								<p class="payment-page-right-order-tit">{{chEnTextHtml[languageType].paid}}</p>
-								<p class="payment-page-right-order-je"><span>----</span></p>
-								<p class="payment-page-right-order-by"><span>{{chEnTextHtml[languageType].byCreditCard}}</span></p>
-								<p class="payment-page-right-order-card none">----</p>
-							</div>
 							<div class="payment-page-right-pay flex">
 								<span v-for="(item, index) in payTabs" :key="index" :class="selectedPayMethod == index? 'cur':''"
 									>{{item}}</span>
@@ -237,7 +229,7 @@
 							<div class="payment-page-right-total">
 								<p>{{chEnTextHtml[languageType].pendingPayment}}</p>
 								<p class="order-price">
-									<span class="order-price-busd none busdPrice">BUSD {{(saleItem.price * selectarr.length).toFixed(2)}}</span> </span></p>
+									<span class="order-price-busd none busdPrice">{{saleItem.id == 70 ? 'ETH':'BUSD'}} {{(saleItem.price * selectarr.length).toFixed(2)}}</span> </span></p>
 							</div>
 
 							<div class="payment-page-right-crypto none">

@@ -17,7 +17,7 @@ var app = new Vue({
 			auctionAddress: '',
 			auctionContractInstance: null,
 			userAddress: '',
-			chainId: '',
+			chainId: 0,
 			// 中英文切换
 			languageType: "",
 			chEnTextHtml: {
@@ -138,6 +138,7 @@ var app = new Vue({
 		self.getComditInfo()
 		self.initAddress()
 	},
+
 	mounted() {
 		$('.payment-page-right-crypto').show();
 		if (getCookie('isConnect') != 'true') {
@@ -151,6 +152,9 @@ var app = new Vue({
 		$('.order-price .order-price-busd').show();
 	},
 	methods: {
+		saleStatus(startTime, endTime) {
+			return startTime < Date.now() && endTime > Date.now()
+		},
 		payCrypto() {
 			let self = this
 			if ($('#cryptoBtn').text() == '去我的資產核對' || $('#cryptoBtn').text() == 'Go to my asset to check') {
@@ -164,7 +168,6 @@ var app = new Vue({
 			if ($('#cryptoBtn').text() == '立即付款  ->' || $('#cryptoBtn').text() == 'Pay now  ->') {
 				CHAIN.WALLET.accounts().then(function (accounts) {
 					self.getOnSellToken(accounts);
-					loading();
 				});
 			}
 		},
@@ -183,16 +186,7 @@ var app = new Vue({
 				})
 			CHAIN.WALLET.chainId()
 				.then(function (res) {
-					let id = ''
 					self.chainId = web3.utils.hexToNumber(res);
-					id = web3.utils.hexToNumber(res);
-					if (id == self.targetChainId) {
-						self.auctionAddress = contractSetting['vending_machine'][id].address; //网络切换
-					} else {
-						tips(self.chEnTextHtml[self.languageType].switchNet)
-					}
-					var auctionABI = contractSetting['vending_machine']['abi'];
-					self.auctionContractInstance = new web3.eth.Contract(auctionABI, self.auctionAddress);
 				})
 		},
 		saveHash(id, hash) {
@@ -209,64 +203,124 @@ var app = new Vue({
 				}),
 			});
 		},
+		getDrawResult(hash) {
+			$.ajax({
+				url: base_url + "/v2/activity/getDrawResult",
+				data: {txhash: hash || ""}
+			});
+		},
 		getOnSellToken(accounts) {
-			let self = this;
 			if (accounts.length < 1) {
 				return false;
 			}
 			var cwallet = ""; //收款钱包 地址
 
-			if (self.targetChainId == 97) {
+			if (this.targetChainId == 97) {
 				cwallet = "0x5ea57A85e0f3C9085e13597a35BFd6a82Bbf7127";
 			} else {
 				cwallet = "0xC6F6fCce3026f08C668cA09bc5dFB58e596520f4";
 			}
-			var web3 = new Web3(CHAIN.WALLET.provider());
+			if (this.saleItem.id == 70) {
+				this.buyEth(accounts)
+			} else {
+				this.buyBusd(cwallet, accounts)
+			}
 
-			var chainId = "";
-			CHAIN.WALLET.chainId().then(function (res) {
-				chainId = web3.utils.hexToNumber(res);
-				// busdAddress 供外界使用
-				var busdAddress = contractSetting["busd_ERC20"][chainId].address;
-				var busdABI = contractSetting["busd_ERC20"]["abi"];
-				busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
-				var amount = $("#specialTool .payment .busdPrice")
-					.text()
-					.split("BUSD ")[1];
-				var num = web3.utils.toWei(amount, "ether");
-				busdContractInstance.methods
-					.balanceOf(accounts[0])
-					.call() //查询余额
-					.then(function (res2) {
-						if (Number(res2) >= Number(num)) {
-							setTimeout(function () {
-								busdContractInstance.methods
-									.transfer(cwallet, num)
-									.send({
-										//转账
-										from: accounts[0],
-									})
-									.on("transactionHash", function (hash) {
-										self.saveHash(self.saleItem.id, hash);
-									})
-									.then(() => {
-										loading(self.chEnTextHtml[self.languageType].purchaseSuc)
-										$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
-										loadingHide();
-										self.selectarr = [1]
-									})
-									.catch((err) => {
-										console.log(err);
-										loadingHide();
-										self.selectarr = [1]
-									});
-							}, 1000);
-						} else {
-							tips(self.chEnTextHtml[self.languageType].balanceInsufficient);
-						}
-					});
-			});
 		},
+		buyEth(accounts) {
+			let self = this;
+			if (self.chainId != 1 && self.chainId != 4) {
+				tips(self.chEnTextHtml[self.languageType].switchNet)
+				return false
+			}
+			loading();
+			var web3 = new Web3(CHAIN.WALLET.provider());
+			var busdAddress = contractSetting["eth_ERC20"][self.chainId].address;
+			var busdABI = contractSetting["eth_ERC20"]["abi"];
+			busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
+			var amount = $("#specialTool .payment .busdPrice")
+				.text()
+				.split("ETH ")[1];
+			var num = web3.utils.toWei(amount, "ether");
+			busdContractInstance.methods
+				.draw(self.selectarr.length)
+				.send({
+					//转账
+					from: accounts[0],
+					value: num
+				})
+				.on("transactionHash", function (hash) {
+					tips(self.chEnTextHtml[self.languageType].seconds)
+					loading()
+					//self.saveHash(self.saleItem.id, hash);
+				})
+				.then((result) => {
+					loadingHide();
+					self.getDrawResult(result.blockHash)
+					tips(self.chEnTextHtml[self.languageType].purchaseSuc)
+					$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
+					loadingHide();
+					self.selectarr = [1]
+				})
+				.catch((err) => {
+					console.log(err);
+					loadingHide();
+					self.selectarr = [1]
+				});
+		},
+
+		buyBusd(cwallet, accounts) {
+			let self = this;
+			if (self.chainId != 56 && self.chainId != 97) {
+				tips(self.chEnTextHtml[self.languageType].switchNet)
+				return false
+			}
+			loading();
+			var web3 = new Web3(CHAIN.WALLET.provider());
+			var busdAddress = contractSetting["busd_ERC20"][self.chainId].address;
+			var busdABI = contractSetting["busd_ERC20"]["abi"];
+			busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
+			var amount = $("#specialTool .payment .busdPrice")
+				.text()
+				.split("BUSD ")[1];
+			var num = web3.utils.toWei(amount, "ether");
+			busdContractInstance.methods
+				.balanceOf(accounts[0])
+				.call() //查询余额
+				.then(function (res2) {
+					if (Number(res2) >= Number(num)) {
+						loadingHide();
+						setTimeout(function () {
+							busdContractInstance.methods
+								.transfer(cwallet, num)
+								.send({
+									//转账
+									from: accounts[0],
+								})
+								.on("transactionHash", function (hash) {
+									tips(self.chEnTextHtml[self.languageType].seconds)
+									loading()
+									self.saveHash(self.saleItem.id, hash);
+								})
+								.then(() => {
+									loadingHide();
+									tips(self.chEnTextHtml[self.languageType].purchaseSuc)
+									$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
+									loadingHide();
+									self.selectarr = [1]
+								})
+								.catch((err) => {
+									console.log(err);
+									loadingHide();
+									self.selectarr = [1]
+								});
+						}, 1000);
+					} else {
+						tips(self.chEnTextHtml[self.languageType].balanceInsufficient);
+					}
+				});
+		},
+
 		getComditInfo() {
 			//商品详情业加载
 			let self = this
@@ -285,6 +339,20 @@ var app = new Vue({
 					}
 				}
 			})
+		},
+
+		timeFormat(str) {
+			var date = new Date(str);
+			Y = date.getFullYear() + "-";
+			M =
+				(date.getMonth() + 1 < 10 ?
+					"0" + (date.getMonth() + 1) :
+					date.getMonth() + 1) + "-";
+			D = date.getDate() + " ";
+			h = date.getHours() + ":";
+			m = date.getMinutes() + ":";
+			s = date.getSeconds();
+			return Y + M + D + h + m + s;
 		},
 
 		toggleVideo() {
