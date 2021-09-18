@@ -89,7 +89,7 @@ function RPCSwitchHint(res) {
 	if (res && res != targetChainId && getCookie('isConnect') == 'true') {
 		$('.rpcname').text(commonText.tips01 + RPCSetting[res]['CHAIN_NAME'] + commonText.tips02);
 		$('.target-rpcname').text(RPCSetting[targetChainId]['CHAIN_NAME']);
-		if (location.pathname != '/mobile/tc/specialTool.html') {
+		if (location.pathname != '/mobile/tc/specialitem.html') {
 			$('.bsc-tips').show()
 		}
 	} else {
@@ -236,7 +236,7 @@ $(function () {
 					html += `<li class="${window.location.search == '?id='+item.id ? 'current' : ''}"><a class="language-tc" href="artwork.html?id=` + item.id + `">${item.name}</a></li>`
 				});
 				html += `<li class="${url == 'auctionDetails' ? 'current' : ''}"><a class="language-tc" href="auctionDetails.html?id=5">${commonText.auction}</a></li>`;
-				html += `<li class="${url == 'specialTool' ? 'current' : ''}"><a class="language-tc" href="specialTool.html">${commonText.specialTool}</a></li>`;
+				html += `<li class="${url == 'specialitem' ? 'current' : ''}"><a class="language-tc" href="specialitem.html">${commonText.specialTool}</a></li>`;
 				$('.nav-header').html(html);
 
 				let html_h5 = `<li><a class="language-tc" href="index.html">${commonText.home}</a></li>`;
