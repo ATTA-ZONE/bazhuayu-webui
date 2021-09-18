@@ -148,7 +148,15 @@ module.exports = {
   created() {
     let self = this;
     self.getHistory();
-    self.getNftHistory();
+    CHAIN.WALLET.chainId()
+      .then(function (res) {
+        if (res == 1 || res ==4) {
+          self.getETHHistory();
+        } else {
+          self.getNftHistory();
+        }
+      })
+    
     self.resizeWindow();
     window.onresize = function() {
       self.resizeWindow();
@@ -269,6 +277,48 @@ module.exports = {
       m = date.getMinutes() + ":";
       s = date.getSeconds();
       return Y + M + D + h + m + s;
+    },
+    getETHHistory(){
+      let self = this;
+      var targetChainId = "";
+      var scansite_base_url = "";
+
+      if (window.location.href.indexOf("bazhuayu.io") == -1) {
+        targetChainId = 4;
+        scansite_base_url = "https://api-rinkeby.etherscan.io";
+      } else {
+        targetChainId = 1;
+        scansite_base_url = "https://api.eth.com";
+      }
+      auctionAddress = ethContractSetting["eth_NFT"][targetChainId].address;
+      $.ajax({
+        url:
+          scansite_base_url +
+          "/api?module=account&action=tokennfttx&contractaddress=" +
+          auctionAddress +
+          "&address=" +
+          window.walletId +
+          "&sort=desc&apikey=B6E489JHYYK4T1AHTGPI3HHRCSD2VX18X4",
+        success: function(res) {
+          if (res.status == "1") {
+            for (let i = 0; i < res.result.length; i++) {
+              res.result[i].timeStamp *= 1000;
+              $.ajax({
+                url: base_url + "/v2/commodity/edition_basic_id",
+                data: { tokenTypeId: res.result[i].tokenID },
+                success: function(itm) {
+                  self.$set(res.result[i], "name", itm.data.name);
+                  self.$set(res.result[i], "edition", itm.data.edition);
+                },
+              });
+            }
+            self.dataList.push(...res.result);
+            self.dataList.sort(function(a, b) {
+              return b.timeStamp - a.timeStamp;
+            });
+          }
+        },
+      });
     },
     getNftHistory() {
       let self = this;
