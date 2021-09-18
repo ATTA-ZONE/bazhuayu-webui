@@ -197,7 +197,7 @@
 						<div class="purchasenumbox">
 							<button @click="changenum(1)"><img src="./images/jian.png" /></button>
 							<span class="purchase_num">{{selectarr.length}}</span>
-							<button @click="changenum(2)"><img src="./images/jia.png" /></button>
+							<button @click="changenum(2, item.id)"><img src="./images/jia.png" /></button>
 						</div>
 						<p class="selectnumbox">{{chEnTextHtml[languageType].select}} <span
 								class="selectarrnum">{{chEnTextHtml[languageType].selectText}} {{selectarr.length}}</span><b

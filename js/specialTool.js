@@ -369,7 +369,7 @@ var app = new Vue({
 				ele.webkitRequestFullScreen();
 			}
 		},
-		changenum(type) {
+		changenum(type,id) {
 			let self = this
 			if (type == 1) {
 				if (self.selectarr.length < 2) {
@@ -379,14 +379,14 @@ var app = new Vue({
 				}
 			}
 			if (type == 2) {
-				if (self.selectarr[self.selectarr.length - 1] < self.maxbannum) {
-					self.selectarr.push(self.selectarr[self.selectarr.length - 1] + 1);
-				} else {
-					if (self.selectarr.length == 1) {
-						tips(this.chEnTextHtml[this.languageType].moment);
+				if (id && id == 70) {
+					if (self.selectarr[self.selectarr.length - 1] < self.maxbannum) {
+						self.selectarr.push(self.selectarr[self.selectarr.length - 1] + 1);
 					} else {
 						tips(this.chEnTextHtml[this.languageType].quantity);
 					}
+				} else {
+					self.selectarr.push(self.selectarr[self.selectarr.length - 1] + 1);
 				}
 			}
 		},
