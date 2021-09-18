@@ -252,7 +252,7 @@ module.exports = {
 				targetChainId = 1;
 				scansite_base_url = 'https://api-eth.etherscan.io'
 			}
-			auctionAddress2 = ethContractSetting['eth_NFT'][targetChainId].address;
+			const auctionAddress2 = ethContractSetting['eth_NFT'][targetChainId].address;
 			
 			$.ajax({
 						url : scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress2 + '&address=' + self.walletId + '&sort=desc&apikey=B6E489JHYYK4T1AHTGPI3HHRCSD2VX18X4',
@@ -302,8 +302,8 @@ module.exports = {
 				targetChainId = 56;
 				scansite_base_url = 'https://api.bscscan.com'
 			}
-			auctionAddress = contractSetting['atta_ERC721'][targetChainId].address;
-			auctionAddress2 = contractSetting['blindbox_ERC721'][targetChainId].address;
+			const auctionAddress = contractSetting['atta_ERC721'][targetChainId].address;
+			const auctionAddress2 = contractSetting['blindbox_ERC721'][targetChainId].address;
 			$.ajax({
 				url: scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress + '&address=' + self.walletId + '&sort=desc&apikey=9GRF9Q9HT18PBCHQQD84N7U2MGC6I1NE27',
 				success: function(res) {
