@@ -4,7 +4,7 @@ var app = new Vue({
 		return {
 			id: '',
 			maskLists: [],
-			saleItem: {},
+			saleItem: {selectarr:[1]},
 			walletType: '',
 			maxbannum: 5,
 			selectarr: [1],
@@ -190,7 +190,7 @@ var app = new Vue({
 					self.chainId = web3.utils.hexToNumber(res);
 				})
 		},
-		saveHash(id, hash) {
+		saveHash(item, hash) {
 			let self = this
 			$.ajax({
 				url: base_url + "/v2/activity/createOrder",
@@ -198,8 +198,8 @@ var app = new Vue({
 				contentType: "application/json",
 				dataType: "json",
 				data: JSON.stringify({
-					buyCount: self.selectarr.length,
-					id: id,
+					buyCount: item.selectarr.length,
+					id: item.id,
 					txhash: hash || ""
 				}),
 			});
@@ -249,7 +249,7 @@ var app = new Vue({
 				.split("ETH ")[1];
 			var num = web3.utils.toWei(amount, "ether");
 			busdContractInstance.methods
-				.draw(self.selectarr.length)
+				.draw(self.saleItem.selectarr.length)
 				.send({
 					//转账
 					from: accounts[0],
@@ -266,12 +266,12 @@ var app = new Vue({
 					$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
 					$('#specialTool .payment-page-right-tit').html(self.chEnTextHtml[self.languageType].purchaseSuc)
 					loadingHide();
-					self.selectarr = [1]
+					self.saleItem.selectarr = [1]
 				})
 				.catch((err) => {
 					loadingHide();
 					tips(self.chEnTextHtml[self.languageType].payErr)
-					self.selectarr = [1]
+					self.saleItem.selectarr = [1]
 				});
 		},
 
@@ -306,22 +306,23 @@ var app = new Vue({
 								.on("transactionHash", function (hash) {
 									tips(self.chEnTextHtml[self.languageType].seconds)
 									loading()
-									self.saveHash(self.saleItem.id, hash);
+									self.saveHash(self.saleItem, hash);
 								})
 								.then(() => {
 									loadingHide();
 									tips(self.chEnTextHtml[self.languageType].purchaseSuc)
 									$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
 									loadingHide();
-									self.selectarr = [1]
+									self.saleItem.selectarr = [1]
 								})
 								.catch((err) => {
 									console.log(err);
 									loadingHide();
-									self.selectarr = [1]
+									self.saleItem.selectarr = [1]
 								});
 						}, 1000);
 					} else {
+						loadingHide();
 						tips(self.chEnTextHtml[self.languageType].balanceInsufficient);
 					}
 				});
@@ -342,6 +343,9 @@ var app = new Vue({
 				success: function (res) {
 					if (res.code == 0) {
 						self.maskLists = res.data.pageResult.records
+						for (var i = 0; i < self.maskLists.length; i++) {
+							self.maskLists[i].selectarr = [1]
+						}
 					}
 				}
 			})
@@ -369,26 +373,27 @@ var app = new Vue({
 				ele.webkitRequestFullScreen();
 			}
 		},
-		changenum(type,id) {
+		changenum(type,item) {
 			let self = this
 			if (type == 1) {
-				if (self.selectarr.length < 2) {
+				if (item.selectarr.length < 2) {
 					tips(this.chEnTextHtml[this.languageType].least);
 				} else {
-					self.selectarr.pop();
+					item.selectarr.pop();
 				}
 			}
 			if (type == 2) {
-				if (id && id == 70) {
-					if (self.selectarr[self.selectarr.length - 1] < self.maxbannum) {
-						self.selectarr.push(self.selectarr[self.selectarr.length - 1] + 1);
+				if (item && item.id == 70) {
+					if (item.selectarr[item.selectarr.length - 1] < self.maxbannum) {
+						item.selectarr.push(item.selectarr[item.selectarr.length - 1] + 1);
 					} else {
 						tips(this.chEnTextHtml[this.languageType].quantity);
 					}
 				} else {
-					self.selectarr.push(self.selectarr[self.selectarr.length - 1] + 1);
+					item.selectarr.push(item.selectarr[item.selectarr.length - 1] + 1);
 				}
 			}
+			this.$forceUpdate();
 		},
 
 		toPay(item) {
@@ -400,6 +405,7 @@ var app = new Vue({
 					if (res.code == 0) {
 						$('.payment').fadeIn();
 						$('#specialTool .payment-page-right-tit').html(self.chEnTextHtml[self.languageType].pay)
+						$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].payment + '  ->')
 						self.imglist = []
 						$('.payment').addClass('payment-active')
 						$('video').addClass('video-hidden');
