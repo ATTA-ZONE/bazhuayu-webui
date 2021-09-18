@@ -399,6 +399,8 @@ var app = new Vue({
 				success: function (res) {
 					if (res.code == 0) {
 						$('.payment').fadeIn();
+						$('#specialTool .payment-page-right-tit').html(self.chEnTextHtml[self.languageType].pay)
+						self.imglist = []
 						$('.payment').addClass('payment-active')
 						$('video').addClass('video-hidden');
 						$('.payment-page-left-img video').removeClass('video-hidden')
