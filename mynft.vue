@@ -119,6 +119,7 @@ module.exports = {
 			selectedNft: null,
 			walletId: '',
 			tokenarr : [],
+			chainType: 'BSC',
 			chEnTextHtml: {
 				"TC":{
 						common : "共",
@@ -211,23 +212,85 @@ module.exports = {
 	},
 	mounted() {
 		this.getAccount()
-		// this.geteveryqkl();
 	},
 	
 	methods: {
+		getNftLists(){
+			let self = this
+			CHAIN.WALLET.chainId().then((res) => {
+        if (res) {
+          if (res == 1 || res == 4) {
+						self.chainType = 'ETH'
+            self.getEthList()
+          } else {
+						self.chainType = 'BSC'
+						self.getBusdList()
+					}
+        }
+      });
+		},
 		getAccount(){
 			let self = this;
 			CHAIN.WALLET.enable()
 			.then(res=>{
 				if (res && res.length) {
 					self.walletId = res[0];
-					self.geteveryqkl();
+					self.getNftLists();
 				}else{
 					self.getAssetsList([]);
 				}
 			})
 		},
-		geteveryqkl(){
+		getEthList(){
+			let self = this
+			var targetChainId = '';
+			var scansite_base_url = '';
+			if (window.location.href.indexOf('bazhuayu.io') == -1) {
+				targetChainId = 4;
+				scansite_base_url = 'https://api-rinkeby.etherscan.io'
+			} else {
+				targetChainId = 1;
+				scansite_base_url = 'https://api-eth.etherscan.io'
+			}
+			auctionAddress2 = ethContractSetting['eth_NFT'][targetChainId].address;
+			
+			$.ajax({
+						url : scansite_base_url + '/api?module=account&action=tokennfttx&contractaddress=' + auctionAddress2 + '&address=' + self.walletId + '&sort=desc&apikey=B6E489JHYYK4T1AHTGPI3HHRCSD2VX18X4',
+						success : function(res2){
+							let nftData = res2.result;
+							let obj = {},arr = [],tokenarr = [];
+							for (let i = 0; i < nftData.length; i++) {
+								if (!obj[nftData[i].tokenID]) {
+									obj[nftData[i].tokenID] = true;
+									arr.push({tokenID : nftData[i].tokenID,listdata :  [nftData[i]],tojia : 0,fromjian : 0});
+								}else{
+									arr.forEach(item => {
+										if (item.tokenID == nftData[i].tokenID) {
+											item.listdata.push(nftData[i]);
+										}
+									});
+								}
+							}
+							arr.forEach(item => {
+								item.listdata.forEach(json => {
+									if (json.to.toUpperCase() == window.walletId.toUpperCase()) {
+										item.tojia += 1 ;
+									}
+									if (json.from.toUpperCase() == window.walletId.toUpperCase()) {
+										item.fromjian -= 1 ;
+									}
+								});
+								item.jsnum = item.tojia + item.fromjian;
+								if (item.jsnum == 1) {
+									tokenarr.push(item.tokenID)
+								}
+							});
+							self.tokenarr = tokenarr;
+							self.getAssetsList(tokenarr);
+						}
+					})
+		},
+		getBusdList(){
 			let self = this
 			var targetChainId = '';
 			var scansite_base_url = '';
@@ -296,10 +359,11 @@ module.exports = {
 			return arr
 		},
 		getIntroduce(item,content, str) {
+			console.log(item, content, str);
 			if (content === 'desc') {
-				return item.introduce == '' ? str : item.introduce.replace(/;\|;/g, '<br/>')
+				return item.introduce ? item.introduce.replace(/;\|;/g, '<br/>') : str
 			} else {
-				return item.content == '' ? str : item.content.replace(/;\|;/g, '<br/>')
+				return item.content ? item.content.replace(/;\|;/g, '<br/>') : str
 			}
 		},
 		toggleMoreInfo(idx) {
@@ -341,7 +405,8 @@ module.exports = {
 				data:JSON.stringify({
 					current: self.current,
 					pageSize: self.pageSize,
-					tokenIds : arr
+					tokenIds : arr,
+					chainType: self.chainType,
 				}),
 				success: function (res) {
 					if (res.code == 0) {
@@ -397,7 +462,7 @@ module.exports = {
 						tips(self.chEnTextHtml[self.lang].tipsjs3);
 						setTimeout(function(){
 							cancelMobile();
-							self.geteveryqkl();
+							self.getNftLists();
 						},1800);
 						
 					}
@@ -426,7 +491,7 @@ module.exports = {
 					})
 					.then(function (res) {
 						tips(self.chEnTextHtml[self.lang].tipsjs4);
-						self.geteveryqkl();
+						self.getNftLists();
 					});
 					setTimeout(() => {
 						tips(self.chEnTextHtml[self.lang].tipsjs5);

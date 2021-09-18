@@ -241,8 +241,8 @@ var app = new Vue({
 			}
 			loading();
 			var web3 = new Web3(CHAIN.WALLET.provider());
-			var busdAddress = contractSetting["eth_ERC20"][self.chainId].address;
-			var busdABI = contractSetting["eth_ERC20"]["abi"];
+			var busdAddress = ethContractSetting["eth_ERC20"][self.chainId].address;
+			var busdABI = ethContractSetting["eth_ERC20"]["abi"];
 			busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
 			var amount = $("#specialTool .payment .busdPrice")
 				.text()
