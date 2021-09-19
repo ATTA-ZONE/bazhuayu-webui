@@ -69,9 +69,13 @@ var app = new Vue({
 					switchNet: "請先切換網絡",
 					walletFirst: "請先連接錢包  ->",
 					paymentComing: "錢包直連支付功能準備中...",
-					metaTips: "注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。"
+					metaTips: "注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。",
+					bannerBtn1: '參與投票',
+					bannerBtn2: '了解「面具」'
 				},
 				"EN": {
+					bannerBtn1: 'Vote',
+					bannerBtn2: 'Understand the "mask"',
 					switchNet: "Please switch network first",
 					metaTips: "Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",
 					home: 'HOME',
@@ -128,7 +132,7 @@ var app = new Vue({
 		let self = this;
 		this.languageType = getCookie("lang") ? getCookie("lang") : 'TC';
 		if (this.languageType == "TC") {
-			document.title = "特别道具";
+			document.title = "无限制电竞大会";
 			this.payTabs = ['錢包支付'];
 		} else {
 			document.title = "Special Tool";

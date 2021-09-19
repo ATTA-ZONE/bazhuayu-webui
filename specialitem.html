@@ -177,8 +177,8 @@
 		<div>
 			<div class="special-banner">
 				<div class="special-banner-btns">
-					<a href="https://www.atta.zone/esports/infinity">參與投票</a>
-					<a href="https://www.atta.zone/headset">查看面具介紹</a>
+					<a href="https://www.atta.zone/esports/infinity">{{chEnTextHtml[languageType].bannerBtn1}}</a>
+					<a href="https://www.atta.zone/headset">{{chEnTextHtml[languageType].bannerBtn2}}</a>
 				</div>
 			</div>
 			<div class="details center-80 flex" v-for="(item, idx) in maskLists" :key="item.id">
@@ -191,7 +191,7 @@
 					<div class="details-right-creator flex">
 						<div class="details-right-creator-img"><img src="./images/t8.png"></div>
 						<span>@ATTA</span>
-						<div class="details-right-creator-edition">Total Edition: 500</div>
+						<div class="details-right-creator-edition">{{item.id == 70 ?'Total Edition: 500' : 'Open Edition'}}</div>
 					</div>
 					<div class="checknumbox">
 						<div class="purchasenumbox">
