@@ -288,7 +288,7 @@ module.exports = {
         scansite_base_url = "https://api-rinkeby.etherscan.io";
       } else {
         targetChainId = 1;
-        scansite_base_url = "https://api.eth.com";
+        scansite_base_url = "https://api-cn.etherscan.com";
       }
       auctionAddress = ethContractSetting["eth_NFT"][targetChainId].address;
       $.ajax({

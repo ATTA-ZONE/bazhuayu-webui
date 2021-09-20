@@ -13,7 +13,7 @@ var ethContractSetting = {
         {
             'symbol': 'ETH',
             'decimals': 11,
-            'address': '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+            'address': '0x38a964dcc43e828faed37eff1960197ebe273205',
         }
     },
     'eth_NFT': {
@@ -30,7 +30,7 @@ var ethContractSetting = {
         {
             'symbol': 'ETH',
             'decimals': 11,
-            'address': '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+            'address': '0x102F272aFA9b5f79429f4BAf9AdFB4087D78c1DC',
         }
     }
 }

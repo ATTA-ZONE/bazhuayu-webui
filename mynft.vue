@@ -252,7 +252,7 @@ module.exports = {
 				scansite_base_url = 'https://api-rinkeby.etherscan.io'
 			} else {
 				targetChainId = 1;
-				scansite_base_url = 'https://api-eth.etherscan.io'
+				scansite_base_url = 'https://api-cn.etherscan.com'
 			}
 			const auctionAddress2 = ethContractSetting['eth_NFT'][targetChainId].address;
 			
