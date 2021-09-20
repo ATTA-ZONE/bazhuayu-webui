@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<div class="tablistbox" v-if="item.mintList && item.mintList.length">
-					<p class="titlebox flex between">
+					<p class="titlebox flex between" v-if="chainId == 97 || chainId == 56">
 						<span>{{chEnTextHtml[lang].currentlyholds}}({{item.mintList.length}}):</span>
 						<img src="./images/arrow.png" alt="" :class="item.ishide ? '' : 'ishide'" @click="changeishide(item.ishide,idx)">
 					</p>
@@ -119,6 +119,7 @@ module.exports = {
 			selectedNft: null,
 			walletId: '',
 			tokenarr : [],
+			chainId: 0,
 			chainType: 'BSC',
 			chEnTextHtml: {
 				"TC":{
@@ -219,6 +220,7 @@ module.exports = {
 			let self = this
 			CHAIN.WALLET.chainId().then((res) => {
         if (res) {
+					self.chainId = res
           if (res == 1 || res == 4) {
 						self.chainType = 'ETH'
             self.getEthList()
