@@ -163,6 +163,7 @@ var app = new Vue({
 		payCrypto() {
 			let self = this
 			if ($('#cryptoBtn').text() == '去我的資產核對' || $('#cryptoBtn').text() == 'Go to my asset to check') {
+				setCookie('selectedTab', 1)
 				window.location.href = 'myassets.html';
 				return false
 			}
@@ -189,13 +190,8 @@ var app = new Vue({
 				.then(function (accounts) {
 					self.userAddress = accounts[0]
 				})
-			CHAIN.WALLET.chainId()
-				.then(function (res) {
-					self.chainId = web3.utils.hexToNumber(res);
-				})
 		},
 		saveHash(item, hash) {
-			let self = this
 			$.ajax({
 				url: base_url + "/v2/activity/createOrder",
 				type: "POST",
@@ -237,15 +233,17 @@ var app = new Vue({
 			}
 
 		},
-		buyEth(accounts) {
+		async buyEth(accounts) {
 			let self = this;
-			if (self.chainId != 1 && self.chainId != 4) {
+			let chainId = await CHAIN.WALLET.chainId()
+
+			if (chainId != 1 && chainId != 4) {
 				tips(self.chEnTextHtml[self.languageType].switchNet)
 				return false
 			}
 			loading();
 			var web3 = new Web3(CHAIN.WALLET.provider());
-			var busdAddress = ethContractSetting["eth_ERC20"][self.chainId].address;
+			var busdAddress = ethContractSetting["eth_ERC20"][chainId].address;
 			var busdABI = ethContractSetting["eth_ERC20"]["abi"];
 			busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
 			var amount = $("#specialTool .payment .busdPrice")
@@ -279,15 +277,16 @@ var app = new Vue({
 				});
 		},
 
-		buyBusd(cwallet, accounts) {
+		async buyBusd(cwallet, accounts) {
 			let self = this;
-			if (self.chainId != 56 && self.chainId != 97) {
+			let chainId = await CHAIN.WALLET.chainId()
+			if (chainId != 56 && chainId != 97) {
 				tips(self.chEnTextHtml[self.languageType].switchNet)
 				return false
 			}
 			loading();
 			var web3 = new Web3(CHAIN.WALLET.provider());
-			var busdAddress = contractSetting["busd_ERC20"][self.chainId].address;
+			var busdAddress = contractSetting["busd_ERC20"][chainId].address;
 			var busdABI = contractSetting["busd_ERC20"]["abi"];
 			busdContractInstance = new web3.eth.Contract(busdABI, busdAddress);
 			var amount = $("#specialTool .payment .busdPrice")
@@ -409,7 +408,7 @@ var app = new Vue({
 					if (res.code == 0) {
 						$('.payment').fadeIn();
 						$('#specialTool .payment-page-right-tit').html(self.chEnTextHtml[self.languageType].pay)
-						$('#cryptoBtn').text(this.chEnTextHtml[this.languageType].payment + '  ->')
+						$('#cryptoBtn').text(self.chEnTextHtml[self.languageType].payment + '  ->')
 						self.imglist = []
 						$('.payment').addClass('payment-active')
 						$('video').addClass('video-hidden');

@@ -89,7 +89,7 @@ function RPCSwitchHint(res) {
 	if (res && res != targetChainId && getCookie('isConnect') == 'true') {
 		$('.rpcname').text(commonText.tips01 + RPCSetting[res]['CHAIN_NAME'] + commonText.tips02);
 		$('.target-rpcname').text(RPCSetting[targetChainId]['CHAIN_NAME']);
-		if (location.pathname != '/mobile/tc/specialitem.html') {
+		if (location.pathname != '/mobile/tc/specialitem.html' && location.pathname != '/mobile/tc/myassets.html') {
 			$('.bsc-tips').show()
 		}
 	} else {
