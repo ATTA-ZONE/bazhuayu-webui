@@ -157,6 +157,11 @@ var app = new Vue({
 		$('.order-price .order-price-busd').show();
 	},
 	methods: {
+		closePay(){
+			$('.payment').fadeOut();
+			this.saleItem.selectarr = [1]
+			this.$forceUpdate();
+		},
 		saleStatus(startTime, endTime) {
 			return startTime < Date.now() && endTime > Date.now()
 		},
@@ -185,7 +190,6 @@ var app = new Vue({
 			} else {
 				self.targetChainId = 56;
 			}
-			var web3 = new Web3(CHAIN.WALLET.provider());
 			CHAIN.WALLET.accounts()
 				.then(function (accounts) {
 					self.userAddress = accounts[0]
@@ -268,12 +272,10 @@ var app = new Vue({
 					$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
 					$('#specialTool .payment-page-right-tit').html(self.chEnTextHtml[self.languageType].purchaseSuc)
 					loadingHide();
-					self.saleItem.selectarr = [1]
 				})
 				.catch((err) => {
 					loadingHide();
 					tips(self.chEnTextHtml[self.languageType].payErr)
-					self.saleItem.selectarr = [1]
 				});
 		},
 
@@ -316,12 +318,10 @@ var app = new Vue({
 									tips(self.chEnTextHtml[self.languageType].purchaseSuc)
 									$('#cryptoBtn').html(self.chEnTextHtml[self.languageType].asset)
 									loadingHide();
-									self.saleItem.selectarr = [1]
 								})
 								.catch((err) => {
 									console.log(err);
 									loadingHide();
-									self.saleItem.selectarr = [1]
 								});
 						}, 1000);
 					} else {
