@@ -1,6 +1,6 @@
 <template>
   <div>
-	  <div class="bootomtips">{{chEnTextHtml[lang].bootomtips}}</div>
+	  <div v-if="chainType == 'BSC'" class="bootomtips">{{chEnTextHtml[lang].bootomtips}}</div>
     <ul v-if="assetsList.records && assetsList.records.length > 0">
 			<li v-for="(item,idx) in assetsList.records" :key="idx">
 				<div class="flex between mobilflex">

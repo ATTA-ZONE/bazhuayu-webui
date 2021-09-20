@@ -48,7 +48,7 @@ var app = new Vue({
 					operationFailed: "操作失败",
 					// js部分
 					maximum: "已達到最大購買數量",
-					purchaseSuc: "购买成功",
+					purchaseSuc: "購買成功",
 					seconds: "預計10秒內到賬",
 					comSoon: "即將開售",
 					balanceInsufficient: "餘額不足",
