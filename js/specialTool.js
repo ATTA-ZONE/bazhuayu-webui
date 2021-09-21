@@ -66,7 +66,7 @@ var app = new Vue({
 					balancePayment: "餘額支付",
 					accomplish: "完成",
 					payment: "立即付款",
-					switchNet: "請先切換網絡",
+					switchNet: "請先切換網絡至",
 					walletFirst: "請先連接錢包  ->",
 					paymentComing: "錢包直連支付功能準備中...",
 					metaTips: "注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。",
@@ -242,7 +242,7 @@ var app = new Vue({
 			let chainId = await CHAIN.WALLET.chainId()
 
 			if (chainId != 1 && chainId != 4) {
-				tips(self.chEnTextHtml[self.languageType].switchNet)
+				tips(self.chEnTextHtml[self.languageType].switchNet + ':ETH')
 				return false
 			}
 			loading();
@@ -283,7 +283,7 @@ var app = new Vue({
 			let self = this;
 			let chainId = await CHAIN.WALLET.chainId()
 			if (chainId != 56 && chainId != 97) {
-				tips(self.chEnTextHtml[self.languageType].switchNet)
+				tips(self.chEnTextHtml[self.languageType].switchNet + ':BSC')
 				return false
 			}
 			loading();
