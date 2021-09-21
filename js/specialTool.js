@@ -75,7 +75,7 @@ var app = new Vue({
 				},
 				"EN": {
 					bannerBtn1: 'Vote Archive',
-					bannerBtn2: 'Understand the 「Headset」',
+					bannerBtn2: 'Understand the「Headset」',
 					switchNet: "Please switch network first",
 					metaTips: "Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",
 					home: 'HOME',
