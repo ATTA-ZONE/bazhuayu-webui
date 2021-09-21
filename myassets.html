@@ -22,8 +22,10 @@
 	<script src="./js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/stackedCards.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/contractABI.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/EthContractAbi.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainCommon.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/chainSetting.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/ethSetting.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/hsycmsAlert.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/loadsh.js" type="text/javascript" charset="utf-8"></script>
 	<script src="./js/function.js" type="text/javascript" charset="utf-8"></script>
@@ -46,7 +48,6 @@
 					<div v-if="selectedTab == idx" class="active-tab"></div>
 				</div>
 			</div>
-			<!-- <hello v-if="selectedTab == 0"></hello> -->
 			<my-collection v-if="selectedTab == 0"></my-collection>
 			<mynft v-if="selectedTab == 1"></mynft>
 			<history v-if="selectedTab == 2"></history>

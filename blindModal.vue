@@ -537,8 +537,6 @@ module.exports = {
 
   mounted() {
     let self = this;
-    $.getScript("./js/framesv2.min.js");
-    $.getScript("./js/blindFrame.js");
     this.initAddress();
     this.getCreditInfo();
     this.togglePayMethod(0);
