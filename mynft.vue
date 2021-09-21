@@ -275,10 +275,10 @@ module.exports = {
 							}
 							arr.forEach(item => {
 								item.listdata.forEach(json => {
-									if (json.to.toUpperCase() == window.walletId.toUpperCase()) {
+									if (json.to.toUpperCase() == self.walletId.toUpperCase()) {
 										item.tojia += 1 ;
 									}
-									if (json.from.toUpperCase() == window.walletId.toUpperCase()) {
+									if (json.from.toUpperCase() == self.walletId.toUpperCase()) {
 										item.fromjian -= 1 ;
 									}
 								});
@@ -330,10 +330,10 @@ module.exports = {
 							}
 							arr.forEach(item => {
 								item.listdata.forEach(json => {
-									if (json.to.toUpperCase() == window.walletId.toUpperCase()) {
+									if (json.to.toUpperCase() == self.walletId.toUpperCase()) {
 										item.tojia += 1 ;
 									}
-									if (json.from.toUpperCase() == window.walletId.toUpperCase()) {
+									if (json.from.toUpperCase() == self.walletId.toUpperCase()) {
 										item.fromjian -= 1 ;
 									}
 								});
