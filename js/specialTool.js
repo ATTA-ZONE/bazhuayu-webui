@@ -230,7 +230,7 @@ var app = new Vue({
 			} else {
 				cwallet = "0xC6F6fCce3026f08C668cA09bc5dFB58e596520f4";
 			}
-			if (this.saleItem.id == 70) {
+			if (this.saleItem.id == 70 || this.saleItem.id == 40) {
 				this.buyEth(accounts)
 			} else {
 				this.buyBusd(cwallet, accounts)
@@ -386,7 +386,7 @@ var app = new Vue({
 				}
 			}
 			if (type == 2) {
-				if (item && item.id == 70) {
+				if (item.id == 70 || item.id == 40) {
 					if (item.selectarr[item.selectarr.length - 1] < self.maxbannum) {
 						item.selectarr.push(item.selectarr[item.selectarr.length - 1] + 1);
 					} else {

@@ -208,7 +208,7 @@
 					<div class="details-right-creator flex">
 						<div class="details-right-creator-img"><img src="./images/t8.png"></div>
 						<span>@ATTA</span>
-						<div class="details-right-creator-edition">{{item.id == 70 ?'Total Edition: 500' : 'Open Edition'}}</div>
+						<div class="details-right-creator-edition">{{item.id == 70 || item.id == 46 ?'Total Edition: 500' : 'Open Edition'}}</div>
 					</div>
 					<div class="checknumbox">
 						<div class="purchasenumbox">
@@ -218,13 +218,13 @@
 						</div>
 						<p class="selectnumbox">{{chEnTextHtml[languageType].select}} <span
 								class="selectarrnum">{{chEnTextHtml[languageType].selectText}} {{item.selectarr.length}}</span><b
-								v-if="item.id == 70">, {{chEnTextHtml[languageType].versionTxt}}</b>
+								v-if="item.id == 70 || item.id == 46">, {{chEnTextHtml[languageType].versionTxt}}</b>
 						</p>
 					</div>
 					<div class="countmoneybox">
 						<p class="moneryridebox">
 							{{chEnTextHtml[languageType].price}}
-							<span class="order-price-busd">{{item.id == 70 ? 'ETH':'BUSD'}} {{item.price}}</span> </span>
+							<span class="order-price-busd">{{item.id == 70 || item.id == 46 ? 'ETH':'BUSD'}} {{item.price}}</span> </span>
 						</p>
 						<p class="countetcbox">
 							<img src="./images/multiply.png" />
@@ -233,7 +233,7 @@
 						</p>
 					</div>
 					<div class="details-right-price flex">
-						<span class="order-price-busd busdPrice" style="opacity: 1;">{{item.id == 70 ? 'ETH':'BUSD'}} {{(item.price * item.selectarr.length).toFixed(2)}}
+						<span class="order-price-busd busdPrice" style="opacity: 1;">{{item.id == 70 || item.id == 46 ? 'ETH':'BUSD'}} {{(item.price * item.selectarr.length).toFixed(2)}}
 						</span></div>
 					<button :disabled="!saleStatus(item.saleStartTimeMillis, item.saleEndTimeMillis)"
 						class="details-right-btn flex payment-btn-pc" data-status="0" @click="toPay(item)">
@@ -283,7 +283,7 @@
 							<div class="payment-page-right-total">
 								<p>{{chEnTextHtml[languageType].pendingPayment}}</p>
 								<p class="order-price">
-									<span class="order-price-busd none busdPrice">{{saleItem.id == 70 ? 'ETH':'BUSD'}} {{(saleItem.price * saleItem.selectarr.length).toFixed(2)}}</span> </span></p>
+									<span class="order-price-busd none busdPrice">{{saleItem.id == 70 || saleItem.id == 46 ? 'ETH':'BUSD'}} {{(saleItem.price * saleItem.selectarr.length).toFixed(2)}}</span> </span></p>
 							</div>
 
 							<div class="payment-page-right-crypto none">
