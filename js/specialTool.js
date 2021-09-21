@@ -75,7 +75,7 @@ var app = new Vue({
 				},
 				"EN": {
 					bannerBtn1: 'Vote Archive',
-					bannerBtn2: 'Understand the "mask"',
+					bannerBtn2: 'Understand the 「Headset」',
 					switchNet: "Please switch network first",
 					metaTips: "Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",
 					home: 'HOME',
@@ -132,10 +132,10 @@ var app = new Vue({
 		let self = this;
 		this.languageType = getCookie("lang") ? getCookie("lang") : 'TC';
 		if (this.languageType == "TC") {
-			document.title = "无限制电竞大会";
+			document.title = "無限制電競大會";
 			this.payTabs = ['錢包支付'];
 		} else {
-			document.title = "Infinity Headset Genesis";
+			document.title = "Infinite Esports Tournament";
 			this.payTabs = ['Crypto wallet'];
 		}
 		self.initMediaCss()

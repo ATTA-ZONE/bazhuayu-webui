@@ -222,7 +222,7 @@ var chEnText = {
       "noConnectWallet":"未連接錢包",
       "home":"首頁",
       "auction":"拍賣",
-      "specialTool":"无限制电竞大会",
+      "specialTool":"無限制電競大會",
       "blindbox":"盲盒",
       "wallet":"錢包連接中",
       "unBind":"非默認錢包",
@@ -230,7 +230,7 @@ var chEnText = {
       "tips02":"]，八爪娛平台當前僅支持BSC主網，點擊切換至BSC主網 ",
     },
     "EN":{
-      "specialTool":"Infinity Headset Genesis",
+      "specialTool":"Infinite Esports Tournament",
       "logOutMes":"Are you sure you want to log out",
       "suc":"Succeeded",
       "cancel":"Cancel",
