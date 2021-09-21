@@ -135,7 +135,7 @@ var app = new Vue({
 			document.title = "无限制电竞大会";
 			this.payTabs = ['錢包支付'];
 		} else {
-			document.title = " Infinity Headset Genesis";
+			document.title = "Infinity Headset Genesis";
 			this.payTabs = ['Crypto wallet'];
 		}
 		self.initMediaCss()

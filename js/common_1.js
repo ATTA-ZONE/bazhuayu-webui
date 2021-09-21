@@ -241,6 +241,7 @@ $(function () {
 
 				let html_h5 = `<li><a class="language-tc" href="index.html">${commonText.home}</a></li>`;
 				html_h5 += `<li><a class="language-tc" href="blindbox.html">${commonText.blindbox}</a></li>`;
+				html_h5 += `<li><a class="language-tc" href="specialitem.html">${commonText.specialTool}</a></li>`;
 				data.forEach(item => {
 					html_h5 += `<li><a class="language-tc" href="artwork.html?id=` + item.id + `">${item.name}</a></li>`;
 				});
