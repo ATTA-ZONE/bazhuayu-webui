@@ -87,7 +87,7 @@ var app = new Vue({
 					mywallet: "My Wallet",
 					logOut: "Log out",
 					version: "Edition 1 of 150",
-					selectText: "selected mount",
+					selectText: "Selected quantity",
 					versionTxt: "Limit 5 purchases per address",
 					price: "Price：",
 					purchaseNow: "Purchase Now ->",
@@ -135,7 +135,7 @@ var app = new Vue({
 			document.title = "无限制电竞大会";
 			this.payTabs = ['錢包支付'];
 		} else {
-			document.title = "Special Tool";
+			document.title = " Infinity Headset Genesis";
 			this.payTabs = ['Crypto wallet'];
 		}
 		self.initMediaCss()
