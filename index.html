@@ -43,7 +43,10 @@
 			</div>
 			<div class="header-right flex">
 				<div class="header-dl flex"></div>
-				<a class="header-right-wallet" href="javascript:void(0);" onclick="showwalletaddress(event)"></a>
+				<div style="padding-left:30px;">
+					<a class="header-right-wallet" href="javascript:void(0);" onclick="showwalletaddress(event)"></a>
+					<div class="header-right-net" style="color: #fff;">{{chEnTextHtml[lang].netVer}} <span class="networkVersion">ETH</span></div>
+				</div>
 				<p class="switchlanguagebox">
 					<a class="language-change-en">EN</a>
 					<span style="margin: 0 16px;">|</span>
@@ -264,11 +267,8 @@
 			</div>
 			
 		</div>
-		
 		<!-- foot -->
 		<div class="footerpage"></div>
-	
-		
 		<div class="tips"></div>
 	</div>
 	
@@ -323,8 +323,10 @@
 					words22 : '芯片認證成功後，APP彈出實物產品信息卡，展示實物作品的詳細信息，用戶可進行NFT鑄造',
 					words23 : 'NFT憑證保存',
 					words24 : 'NFT鑄造可能需要額外的時間，一旦鑄造完畢，NFT將會儲存到用戶綁定的錢包里',
+					netVer: '當前主網: '
 				},
 				"EN":{
+					netVer: 'Current network: ',
 					maskSport : "Infinite Esports Tournament",
 					home : "HOME",
 					anction :"AUCTION",
