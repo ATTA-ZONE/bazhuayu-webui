@@ -87,9 +87,11 @@ var app = new Vue({
 					walletFirst:"請先連接錢包  ->",
 					paymentComing: "錢包直連支付功能準備中...",
 					metaTips: "注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。",
-					netVer: '當前主網: '
+					netVer: '當前主網: ',
+      		switchNetVision: "切换"
 				},
 				"EN":{
+					switchNetVision: "Switch",
 					netVer: 'Current network: ',
 					switchNet: "Please switch network first",
 					metaTips: "Please note: Due to the limitation of Metamask, it is normal that the price will show 0 when you are using Metamask to process payment. But actually, you are paying the right price.",

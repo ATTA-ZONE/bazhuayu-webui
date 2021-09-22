@@ -16,6 +16,10 @@ if (getCookie('islogin') != 'false') {
 	islogin = false;
 }
 
+$('.toggleNetWork').on('click', function () {
+	window.confirm()
+})
+
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	base_url = 'http://localhost:8081';
 	if (window.location.href.indexOf('47.118.74.48:') > -1) {
@@ -172,6 +176,8 @@ $(function () {
 			.then(function (res) {
 				RPCSwitchHint(res)
 			})
+	} else {
+		$('.header-right-net').hide()
 	}
 
 
@@ -245,7 +251,7 @@ $(function () {
 				data.forEach(item => {
 					html_h5 += `<li><a class="language-tc" href="artwork.html?id=` + item.id + `">${item.name}</a></li>`;
 				});
-				html_h5 += `<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">${commonText.noConnectWallet}</a></li>
+				html_h5 += `<li class="mobile-connect-wallet"><a class="language-tc" onclick="connectWallet()" href="javascript:void(0);">${commonText.noConnectWallet}</a></li><li><a class="language-tc">${commonText.netVer}<span class="networkVersion"></span><span class="toggleNetWork" style="display: inline-block;margin-left: 6px;padding: 0 10px;border-radius: 4px;cursor: pointer;border: 1px solid #9567FF">${commonText.switchNetVision}</span></a></li>
 							<li class="switchlanguage_mobile">
 								<a class="language-change-en">EN</a>
 								<span style="margin: 0 16px;">|</span>

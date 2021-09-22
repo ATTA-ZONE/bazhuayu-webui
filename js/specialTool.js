@@ -72,9 +72,11 @@ var app = new Vue({
 					metaTips: "注意：喚起錢包支付時，由Metamask的限制，價格顯示為0，但您實際支付的金額與售賣商品價格一致。",
 					bannerBtn1: '參與投票',
 					bannerBtn2: '了解「面具」',
-					netVer: '當前主網: '
+					netVer: '當前主網: ',
+      		switchNetVision: "切换"
 				},
 				"EN": {
+					switchNetVision: "Switch",
 					netVer: 'Current network: ',
 					bannerBtn1: 'Vote Archive',
 					bannerBtn2: 'Understand the「Headset」',
