@@ -230,7 +230,7 @@ var chEnText = {
       "tips02":"]，八爪娛平台當前僅支持BSC主網，點擊切換至BSC主網 ",
     },
     "EN":{
-      "specialTool":"Infinite Esports Tournament",
+      "specialTool":"INFINITE ESPORTS TOURNAMENT",
       "logOutMes":"Are you sure you want to log out",
       "suc":"Succeeded",
       "cancel":"Cancel",
