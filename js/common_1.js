@@ -16,10 +16,6 @@ if (getCookie('islogin') != 'false') {
 	islogin = false;
 }
 
-$('.toggleNetWork').on('click', function () {
-	window.confirm()
-})
-
 if (window.location.href.indexOf('bazhuayu.io') == -1) {
 	base_url = 'http://localhost:8081';
 	if (window.location.href.indexOf('47.118.74.48:') > -1) {
@@ -108,7 +104,6 @@ function changenetwork() {
 }
 
 $(function () {
-
 	// 中英文切换
 	$("body").on("click", ".language-change-en", function () {
 		setCookie('lang', 'EN');
@@ -117,6 +112,35 @@ $(function () {
 	$("body").on("click", ".language-change-ch", function () {
 		setCookie('lang', 'TC');
 		window.location.href = window.location.href;
+	})
+
+	$('.toggleNetWork').on('click', function () {
+		window.CHAIN.WALLET.chainId().then((id) => {
+			var switchToNet = id == 1 || id == 4 ? 'BSC':'ETH'
+			hsycms.confirm(
+				"confirm",
+				commonText.switchNetwork + switchToNet,
+				function(res) {
+					if (id == 1 || id == 4) {
+						CHAIN.WALLET.switchRPCSettings(56)
+					} else {
+						window.ethereum &&
+							window.ethereum
+								.request({
+									method: "wallet_switchEthereumChain",
+									params: [
+										{
+											chainId: "0x1",
+										},
+									],
+								})
+					}
+				},
+				function(res) {
+					hsycms.error("error", 'cancel');
+				}
+			);
+		})
 	})
 
 	if (lang == "TC") {

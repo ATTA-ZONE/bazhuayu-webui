@@ -229,9 +229,11 @@ var chEnText = {
       "tips01":"您的錢包當前連接的主網為：[",
       "tips02":"]，八爪娛平台當前僅支持BSC主網，點擊切換至BSC主網 ",
       "netVer": '當前主網: ',
-      "switchNetVision": "切换"
+      "switchNetVision": "切换",
+      "switchNetwork": "是否切換主網至: "
     },
     "EN":{
+      "switchNetwork": "Whether to switch the main network to: ",
       "switchNetVision": "Switch",
       "netVer": 'Current network: ',
       "specialTool":"INFINITE ESPORTS TOURNAMENT",
