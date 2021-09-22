@@ -81,27 +81,27 @@ function walletaddressdelete() {
 	deleteWallet();
 }
 
-function closeBsc() {
-	$('.bsc-tips').hide()
-}
+// function closeBsc() {
+// 	$('.bsc-tips').hide()
+// }
 
 function RPCSwitchHint(res) {
 	if (res && res != targetChainId && getCookie('isConnect') == 'true') {
 		$('.rpcname').text(commonText.tips01 + RPCSetting[res]['CHAIN_NAME'] + commonText.tips02);
 		$('.target-rpcname').text(RPCSetting[targetChainId]['CHAIN_NAME']);
-		if (location.pathname != '/mobile/tc/specialitem.html' && location.pathname != '/mobile/tc/myassets.html') {
-			$('.bsc-tips').show()
-		}
+		// if (location.pathname != '/mobile/tc/specialitem.html' && location.pathname != '/mobile/tc/myassets.html') {
+		// 	$('.bsc-tips').show()
+		// }
 	} else {
-		$('.bsc-tips').hide()
+		//$('.bsc-tips').hide()
 	}
 }
 
-function changenetwork() {
-	CHAIN.WALLET.switchRPCSettings(targetChainId).then(() => {
-		$('.bsc-tips').hide()
-	})
-}
+// function changenetwork() {
+// 	CHAIN.WALLET.switchRPCSettings(targetChainId).then(() => {
+// 		$('.bsc-tips').hide()
+// 	})
+// }
 
 $(function () {
 	// 中英文切换
@@ -193,8 +193,8 @@ $(function () {
 		})
 	}
 
-	$('body').append('<div class="bsc-tips" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:9999;color:#fff;background: #9567FF;border-radius: 10px;white-space: nowrap;padding:10px 20px;"><span class="rpcname">' + commonText.tips01 + commonText.tips02 + '</span><a onclick="changenetwork()" class="target-rpcname">' + commonText.tips02 + '</a><img onclick="closeBsc()" style="width: 20px;vertical-align: bottom;" src="./images/Close.png" /></div>')
-	$('.bsc-tips').hide()
+	// $('body').append('<div class="bsc-tips" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);z-index:9999;color:#fff;background: #9567FF;border-radius: 10px;white-space: nowrap;padding:10px 20px;"><span class="rpcname">' + commonText.tips01 + commonText.tips02 + '</span><a onclick="changenetwork()" class="target-rpcname">' + commonText.tips02 + '</a><img onclick="closeBsc()" style="width: 20px;vertical-align: bottom;" src="./images/Close.png" /></div>')
+	//$('.bsc-tips').hide()
 	if (islogin) {
 		CHAIN.WALLET.chainId()
 			.then(function (res) {
