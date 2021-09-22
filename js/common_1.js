@@ -258,6 +258,25 @@ $(function () {
 	})
 	updateWalletStatus();
 
+	window.ethereum.on("networkChanged", function(accounts) {
+		location.reload();
+	});
+	window.CHAIN.WALLET.chainId().then((res) => {
+		switch (res) {
+			case 1:
+				$('.networkVersion').html('ETH')
+				break;
+			case 4:
+				$('.networkVersion').html('Rinkeby')
+				break;
+			case 56:
+				$('.networkVersion').html('BSC')
+				break;
+			case 97:
+				$('.networkVersion').html('bsc-test')
+				break;
+		}
+	})
 	// 百度统计代码
 	var hm = document.createElement("script");
 	hm.src = "https://hm.baidu.com/hm.js?9bd005a002797de8867dca5fca16ee90";

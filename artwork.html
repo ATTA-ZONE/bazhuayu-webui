@@ -60,7 +60,10 @@
 			</div>
 			<div class="header-right flex">
 				<div class="header-dl flex"></div>
-				<a class="header-right-wallet" href="javascript:void(0);" onclick="connectWallet()"></a>
+				<div style="padding-left:30px;">
+					<a class="header-right-wallet" href="javascript:void(0);" onclick="showwalletaddress(event)"></a>
+					<div class="header-right-net" style="color: #fff;">{{chEnTextHtml[lang].netVer}} <span class="networkVersion">ETH</span></div>
+				</div>
 				<p class="switchlanguagebox"></p>
 			</div>
 			<div class="mobile-head-icon none" onclick="headIconShow()"><img src="./images/Ellipse 93.png"></div>
